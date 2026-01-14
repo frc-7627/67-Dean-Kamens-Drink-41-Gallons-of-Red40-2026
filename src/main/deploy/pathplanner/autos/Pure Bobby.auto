@@ -1,0 +1,181 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "OptimalStart2 - ReefTopRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoL4ForAuto"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoStow"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ReefTopRight - TopStation"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PartialIntakeCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCoral"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TopStation - ReefTopLeft"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoL4ForAuto"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoStow"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ReefTopLeft - TopStation"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PartialIntakeCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCoral"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TopStation - ReefTopLeft RL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoL4ForAuto"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoStow"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ReefTopLeft RL4 - TopStation"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PartialIntakeCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCoral"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TopStation - ReefLeft"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoL4ForAuto"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoStow"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

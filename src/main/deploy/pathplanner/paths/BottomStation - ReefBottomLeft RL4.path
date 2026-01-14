@@ -1,0 +1,72 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.64,
+        "y": 0.45
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.163667997777679,
+        "y": 0.991347263898108
+      },
+      "isLocked": false,
+      "linkedName": "BottomStation"
+    },
+    {
+      "anchor": {
+        "x": 4.088352272727272,
+        "y": 2.77356534090909
+      },
+      "prevControl": {
+        "x": 3.566202688190311,
+        "y": 2.219112943426834
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReefBottomLeft RL4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "DriveBasePoseAdjustR",
+      "waypointRelativePos": 0.7008506616257059,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "Elevator UP",
+      "waypointRelativePos": 0.75,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ElevatorMoveL4"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.95,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 280.0,
+    "maxAngularAcceleration": 120.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 59.99999999999999
+  },
+  "reversed": false,
+  "folder": "Malace",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 59.99999999999999
+  },
+  "useDefaultConstraints": true
+}

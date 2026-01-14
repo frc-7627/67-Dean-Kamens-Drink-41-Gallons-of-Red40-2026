@@ -1,0 +1,72 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6063524590163931,
+        "y": 7.36357581967213
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.122683118953636,
+        "y": 6.595278913893479
+      },
+      "isLocked": false,
+      "linkedName": "TopStation"
+    },
+    {
+      "anchor": {
+        "x": 3.250738636363636,
+        "y": 4.1995028409090915
+      },
+      "prevControl": {
+        "x": 2.1457991803278684,
+        "y": 4.1748463114754095
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReefLeft"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Elevator UP",
+      "waypointRelativePos": 0.3667917448405255,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ElevatorMoveL4"
+        }
+      }
+    },
+    {
+      "name": "DriveBasePoseAdjustL",
+      "waypointRelativePos": 0.7500000000000006,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.95,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 280.0,
+    "maxAngularAcceleration": 120.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -0.6028010355924953
+  },
+  "reversed": false,
+  "folder": "3 Day Weather Forecast",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -53.4679422761472
+  },
+  "useDefaultConstraints": true
+}

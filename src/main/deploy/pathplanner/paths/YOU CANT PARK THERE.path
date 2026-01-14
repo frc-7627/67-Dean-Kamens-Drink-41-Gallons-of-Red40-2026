@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.019774590163935,
+        "y": 5.481506147540983
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.39935787671233,
+        "y": 5.474978595890411
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.223565573770491,
+        "y": 6.50046106557377
+      },
+      "prevControl": {
+        "x": 8.173972602739726,
+        "y": 5.865646404109588
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "parkend"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.95,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 280.0,
+    "maxAngularAcceleration": 120.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": 179.58482045885518
+  },
+  "reversed": false,
+  "folder": "YOU CANT PARK THERE",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 179.1319485502545
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,59 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.144672131147541,
+        "y": 0.49462090163934364
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.071131962145979,
+        "y": 0.7335598970821591
+      },
+      "isLocked": false,
+      "linkedName": "BottomStart"
+    },
+    {
+      "anchor": {
+        "x": 5.29,
+        "y": 3.05
+      },
+      "prevControl": {
+        "x": 6.6862015188857775,
+        "y": 1.1609852350378371
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReefBottomRight"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8009448818897681,
+      "rotationDegrees": 121.50275255966103
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.95,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 280.0,
+    "maxAngularAcceleration": 120.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "reversed": false,
+  "folder": "Bobby Wanted This",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 179.97660181394386
+  },
+  "useDefaultConstraints": true
+}

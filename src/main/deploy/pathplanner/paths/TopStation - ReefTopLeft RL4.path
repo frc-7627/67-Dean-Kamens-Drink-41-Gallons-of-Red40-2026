@@ -1,0 +1,72 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6063524590163931,
+        "y": 7.36357581967213
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.6822797410792645,
+        "y": 6.179739605871905
+      },
+      "isLocked": false,
+      "linkedName": "TopStation"
+    },
+    {
+      "anchor": {
+        "x": 3.6757500000000003,
+        "y": 5.039
+      },
+      "prevControl": {
+        "x": 3.1428754959744025,
+        "y": 5.635908478885764
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReefTopRight Rl4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Elevator UP",
+      "waypointRelativePos": 0.23170731707316944,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ElevatorMoveL4"
+        }
+      }
+    },
+    {
+      "name": "DriveBasePoseAdjustR",
+      "waypointRelativePos": 0.5307183364839332,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.95,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 280.0,
+    "maxAngularAcceleration": 120.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -59.99999999999999
+  },
+  "reversed": false,
+  "folder": "Pure",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -53.4679422761472
+  },
+  "useDefaultConstraints": true
+}

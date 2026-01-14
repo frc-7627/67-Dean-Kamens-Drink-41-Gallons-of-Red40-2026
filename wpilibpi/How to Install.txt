@@ -1,0 +1,42 @@
+How to calibrate code (do for each change in lighting) [OLD]:
+    !!! wont work on a normal computer unless wpilib python libraries are installed !!!
+
+    Take robot on field (Keep robot off)
+    Connect the robots usb camera to computer
+    
+    Edit camera index value to 1 in main.py (laptops built in camera would be at index 0, making this new camera index 1)
+
+    Run calaibrate_bounds.py
+    Place coral in front of robot
+
+    Edit all values until coral is properly detected
+    Take each value and replace the existing value in the constants of main.py
+
+How to calibrate code (do for each change in lighting) [NEW]:
+    Take robot on field (Keep robot off)
+    Connect the robots usb camera to computer
+
+    Run testing.py
+    Place coral in front of robot
+
+    Edit all constants inside of testing.py until coral is properly detected
+    Stopping and restarting testing.py on each change
+
+
+How to install code:
+    Connect to robot radio
+    Go to http://wpilibpi.local and navigate to the code upload page
+    (alternatively http://10.76.27.3 may work as well)
+
+    Change toggle at the top of the page to allow for writes
+
+    Select Python-file
+    Choose to upload main.py
+
+    Change toggle back to read-only
+
+    Verify that the code can run for more than 5 seconds on console page
+
+
+CTBT
+- B0gos binted

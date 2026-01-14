@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.94,
+        "y": 5.2
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.370388718304446,
+        "y": 5.762499637099924
+      },
+      "isLocked": false,
+      "linkedName": "ReefTopLeft"
+    },
+    {
+      "anchor": {
+        "x": 1.6063524590163931,
+        "y": 7.36357581967213
+      },
+      "prevControl": {
+        "x": 2.4581813056572885,
+        "y": 6.535542948006244
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "TopStation"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.95,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 280.0,
+    "maxAngularAcceleration": 120.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -53.4679422761472
+  },
+  "reversed": false,
+  "folder": "3 Day Weather Forecast",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -59.99999999999999
+  },
+  "useDefaultConstraints": true
+}
