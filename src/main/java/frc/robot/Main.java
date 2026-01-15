@@ -4,10 +4,6 @@
 
 package frc.robot;
 
-//import java.nio.file.Files;
-//import java.nio.file.LinkOption;
-
-//import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 
 /**
@@ -27,9 +23,7 @@ public final class Main
    * <p>If you change your main robot class, change the parameter type.
    */
   public static void main(String... args)
-  {/*if(Files.exists(/home/lvuser/deploy/hidden/WaterGameConfirmed.jpg, LinkOption.NOFOLLOW_LINKS)){
-
-  }*/
+  {
     RobotBase.startRobot(Robot::new);
   }
 }

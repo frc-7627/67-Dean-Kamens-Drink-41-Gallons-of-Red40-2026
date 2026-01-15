@@ -54,43 +54,42 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class SwerveSubsystem extends SubsystemBase
 {
-
   /**
    * Swerve drive object.
    */
-  private final SwerveDrive         swerveDrive;
+  private final SwerveDrive swerveDrive;
+  
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     = true;
+  private final boolean     visionDriveTest = false;
+ 
   /**
    * PhotonVision class to keep an accurate odometry.
    */
-  private Vision vision;
+  private       Vision      vision;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
    * @param directory Directory of swerve drive config files.
    */
-  public SwerveSubsystem(File directory)
-  {
+   public SwerveSubsystem(File directory)
+  { 
+    boolean blueAlliance = false;
+    Pose2d startingPose = blueAlliance ? new Pose2d(new Translation2d(Meter.of(1),
+                                                                      Meter.of(4)),
+                                                    Rotation2d.fromDegrees(0))
+                                       : new Pose2d(new Translation2d(Meter.of(16),
+                                                                      Meter.of(4)),
+                                                    Rotation2d.fromDegrees(180));
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try
     {
-      // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
-      //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
-      //  The encoder resolution per motor revolution is 1 per motor revolution.
-     // double angleConversionFactor =  0.4;
-      // Motor conversion factor is (PI * WHEEL DIAMETER IN METERS) / (GEAR RATIO * ENCODER RESOLUTION).
-      //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
-      //  The gear ratio is 6.75 motor revolutions per wheel rotation.
-      //  The encoder resolution per motor revolution is 1 per motor revolution.
-      //double driveConversionFactor = Math.PI * Units.inchesToMeters(3.98) / (6.12 * 42);
-
-      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED);
-      // ^ Alternative method if you don't want to supply the conversion factor via JSON files.
+      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED, startingPose);
+      // Alternative method if you don't want to supply the conversion factor via JSON files.
+      // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor, driveConversionFactor);
     } catch (Exception e)
     {
       throw new RuntimeException(e);
@@ -102,8 +101,7 @@ public class SwerveSubsystem extends SubsystemBase
                                                0.1); //Correct for skew that gets worse as angular velocity increases. Start with a coefficient of 0.1.
     swerveDrive.setModuleEncoderAutoSynchronize(false,
                                                 1); // Enable if you want to resynchronize your absolute encoders and motor encoders periodically when they are not moving.
-
-//    swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used over the internal encoder and push the offsets onto it. Throws warning if not possible
+    // swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used over the internal encoder and push the offsets onto it. Throws warning if not possible
     if (visionDriveTest)
     {
       setupPhotonVision();
@@ -191,7 +189,7 @@ public class SwerveSubsystem extends SubsystemBase
               // PPHolonomicController is the built in path following controller for holonomic drive trains
               new PIDConstants(5.0, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(6.0, 0.0, 0.0)
+              new PIDConstants(5.0, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,
@@ -269,8 +267,8 @@ public class SwerveSubsystem extends SubsystemBase
   {
 // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
-        3.950/*swerveDrive.getMaximumChassisVelocity()*/, 2.5,
-        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(280));
+        swerveDrive.getMaximumChassisVelocity(), 4.0,
+        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
 
 // Since AutoBuilder is configured, we can use it to build pathfinding commands
     return AutoBuilder.pathfindToPose(
@@ -377,18 +375,17 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   /**
-   * Returns a Command that drives the swerve drive to a specific distance at a given speed.
+   * Returns a Command that tells the robot to drive forward until the command ends.
    *
-   * @param distanceInMeters       the distance to drive in meters
-   * @param speedInMetersPerSecond the speed at which to drive in meters per second
-   * @return a Command that drives the swerve drive to a specific distance at a given speed
+   * @return a Command that tells the robot to drive forward until the command ends
    */
-  public Command driveToDistanceCommand(double distanceInMeters, double speedInMetersPerSecond)
+  public Command driveForward()
   {
-    return run(() -> drive(new ChassisSpeeds(speedInMetersPerSecond, 0, 0)))
-        .until(() -> swerveDrive.getPose().getTranslation().getDistance(new Translation2d(0, 0)) >
-                     distanceInMeters);
+    return run(() -> {
+      swerveDrive.drive(new Translation2d(1, 0), 0, false, false);
+    }).finallyDo(() -> swerveDrive.drive(new Translation2d(0, 0), 0, false, false));
   }
+
 
   /**
    * Replaces the swerve module feedforward with a new SimpleMotorFeedforward object.
@@ -504,7 +501,6 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.drive(velocity);
   }
 
-
   /**
    * Get the swerve drive kinematics object.
    *
@@ -583,7 +579,6 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public void zeroGyroWithAlliance()
   {
-    System.out.println("Gyro Gyroing mega gyro style");
     if (isRedAlliance())
     {
       zeroGyro();
@@ -732,30 +727,4 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return swerveDrive;
   }
-
-  public Vision getVision() {
-    return vision;
-  }
-
-    /**
-    * Similates an issue with the current subsystem
-    * Only works if skibbidi-mode is enabled
-    *
-    * Resets Gyro, and messes up Odometry
-    * 
-    * @return void
-    * @version 1.0
-    */
-    public void simulateFault() {
-      // Check for Coach Mode
-      if(!Constants.skibbidi_mode) {
-        System.out.println("[Endefector] Coach Controller Disabled!");
-        return; // Do not finish running method
-      }
-  
-      // Danger Zone
-      zeroGyro();
-      addFakeVisionReading();
-      System.out.println("[Drivebase] broken");
-    } 
 }
