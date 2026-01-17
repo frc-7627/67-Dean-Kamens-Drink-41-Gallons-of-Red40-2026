@@ -33,8 +33,9 @@
     "drivebase",
     "gamepiece",
     "ironmaple",
-    "RGBW",
     "Neos",
-    "swervedrive"
+    "RGBW",
+    "swervedrive",
+    "Teleop"
   ]
 }

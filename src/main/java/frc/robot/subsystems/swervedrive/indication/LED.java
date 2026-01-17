@@ -21,9 +21,7 @@ public class LED {
      * @see frc.robot.subsystems.swervedrive.Indicator
      * @param alliance our team's alliance during competitions
      */
-    public LED() {
-        this.alliance = alliance;
-    };
+    public LED() {}
 
     /**
      * Set the alliance to the provided alliance.

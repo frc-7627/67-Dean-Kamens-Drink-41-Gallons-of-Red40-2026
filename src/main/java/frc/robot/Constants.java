@@ -19,61 +19,71 @@ import swervelib.math.Matter;
  */
 public final class Constants {
 
-  public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
-  public static final Matter CHASSIS =
-      new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
-  public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
-  public static final double MAX_SPEED = Units.feetToMeters(14.5);
-  // Maximum speed of the robot in meters per second, used to limit acceleration.
+    public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
+    public static final Matter CHASSIS =
+            new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
+    public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
+    public static final double MAX_SPEED = Units.feetToMeters(14.5);
+    // Maximum speed of the robot in meters per second, used to limit acceleration.
 
-  // public static final class AutonConstants
-  // {
-  //
-  // public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0,
-  // 0);
-  // public static final PIDConstants ANGLE_PID = new PIDConstants(0.4, 0, 0.01);
-  // }
+    // public static final class AutonConstants
+    // {
+    //
+    // public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0,
+    // 0);
+    // public static final PIDConstants ANGLE_PID = new PIDConstants(0.4, 0, 0.01);
+    // }
 
-  public static final class DrivebaseConstants {
+    public static final class DrivebaseConstants {
 
-    // Hold time on motor brakes when disabled
-    public static final double WHEEL_LOCK_TIME = 10; // seconds
-  }
+        // Hold time on motor brakes when disabled
+        public static final double WHEEL_LOCK_TIME = 10; // seconds
+    }
 
-  public static class OperatorConstants {
+    public static class OperatorConstants {
 
-    // Joystick Deadband
-    public static final double DEADBAND = 0.1;
-    public static final double LEFT_Y_DEADBAND = 0.1;
-    public static final double RIGHT_X_DEADBAND = 0.1;
-    public static final double TURN_CONSTANT = 6;
-  }
+        // Joystick Deadband
+        public static final double DEADBAND = 0.1;
+        public static final double LEFT_Y_DEADBAND = 0.1;
+        public static final double RIGHT_X_DEADBAND = 0.1;
+        public static final double TURN_CONSTANT = 6;
+    }
 
-  public static class LEDConstants {
+    public static class LEDConstants {
 
-    public static final int[] IDLE_COLOR_RED = {255, 255, 255};
-    public static final int[] IDLE_COLOR_BLUE = {255, 255, 255};
+        /**
+         * All idle colors.
+         * 
+         * Indices are in the following order: alliance, game phase, color channel.
+         */
+        public static final int[][][] IDLE_COLORS = {
+                /* Red alliance. */ {/* Auto */ {255, 255, 255}, /* Transition */ {255, 255, 255},
+                        /* Teleop 1 */ {255, 255, 255}, /* Teleop 2 */ {255, 255, 255},
+                        /* Teleop 3 */ {255, 255, 255}, /* Teleop 4 */{255, 255, 255},
+                        /* Endgame */ {255, 255, 255},},
+                /* Blue alliance. */ {/* Auto */ {255, 255, 255}, /* Transition */ {255, 255, 255},
+                        /* Teleop 1 */ {255, 255, 255}, /* Teleop 2 */ {255, 255, 255},
+                        /* Teleop 3 */ {255, 255, 255}, /* Teleop 4 */{255, 255, 255},
+                        /* Endgame */ {255, 255, 255},},};
 
-    public static final int[] COMPLETION_COLOR_RED = {255, 255, 255};
-    public static final int[] COMPLETION_COLOR_BLUE = {255, 255, 255};
+        public static final int[] COMPLETION_COLOR = {255, 255, 255};
 
-    public static final int[] INTERRUPTION_COLOR_RED = {255, 255, 255};
-    public static final int[] INTERRUPTION_COLOR_BLUE = {255, 255, 255};
+        public static final int[] INTERRUPTION_COLOR = {255, 255, 255};
 
-  }
+    }
 
-  public static class SixtySeven {
-    public static final double SixitySeven = 67.67;
-  }
+    public static class SixtySeven {
+        public static final double SixitySeven = 67.67;
+    }
 
-  public static class CanIDs {
-    public static final int PROTOTYPE_MOTOR_ID = 14;
-  }
+    public static class CanIDs {
+        public static final int PROTOTYPE_MOTOR_ID = 14;
+    }
 
-  public static class IntakeConstants {
-    public static final int AMP_LIMIT = 150;
+    public static class IntakeConstants {
+        public static final int AMP_LIMIT = 150;
 
-    // in range [-1.0, 1.0]
-    public static final double DEFAULT_LOAD_SPEED = 0.8;
-  }
+        // in range [-1.0, 1.0]
+        public static final double DEFAULT_LOAD_SPEED = 0.8;
+    }
 }
