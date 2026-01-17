@@ -7,6 +7,7 @@ import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
 public class LED {
+    // TODO: move alliance enum somewhere else
     public enum Alliance {
         RED, BLUE
     }
@@ -17,10 +18,14 @@ public class LED {
     // TODO: research more about new api for CANdle led and find hardware specifics
     private final SolidColor solid = new SolidColor(0, 0);
 
-    // TODO: document
     /**
      * 
-     * @param alliance
+     * The subsystem implementing led indication. Do not use directly, use
+     * {@code Indicator} for
+     * indicating status.
+     * 
+     * @see frc.robot.subsystems.swervedrive.Indicator
+     * @param alliance our team's alliance during competitions
      */
     public LED(Alliance alliance) {
         this.alliance = alliance;
@@ -29,7 +34,7 @@ public class LED {
     /**
      * Get the idle color, for the appropriate alliance.
      * 
-     * @return
+     * @return SolidColor the color for the LEDs for idle
      */
     SolidColor getIdleColor() {
         switch (alliance) {
@@ -40,7 +45,7 @@ public class LED {
                 return solid.withColor(getColor(Constants.LEDConstants.IDLE_COLOR_BLUE));
             }
             default -> {
-                return null;
+                return null; // this case won't happen
             }
         }
     }
@@ -48,7 +53,7 @@ public class LED {
     /**
      * Get the completion color, for the appropriate alliance.
      * 
-     * @return
+     * @return SolidColor the color for the LEDs for completion
      */
     SolidColor getCompletionColor() {
         switch (alliance) {
@@ -59,7 +64,7 @@ public class LED {
                 return solid.withColor(getColor(Constants.LEDConstants.COMPLETION_COLOR_BLUE));
             }
             default -> {
-                return null;
+                return null; // this case won't happen
             }
         }
     }
@@ -67,7 +72,7 @@ public class LED {
     /**
      * Get the interruption color, for the appropriate alliance.
      * 
-     * @return
+     * @return SolidColor the color for the LEDs during interruption
      */
     SolidColor getInterruptionColor() {
         switch (alliance) {
@@ -83,13 +88,13 @@ public class LED {
         }
     }
 
-    // TODO: make the following three methods have consistent documentation style with Indicator and
+    // TODO: make the following three methods have consistent documentation style
+    // with Indicator and
     // Logging.
     /**
      * Set the LED color to the idle setting.
      */
     public void indicateIdle() {
-        // TODO: should be
         candle.setControl(getIdleColor());
     }
 
@@ -111,7 +116,7 @@ public class LED {
      * Convert the integer RGB values into a RGBWColor object
      * 
      * @param color int[] array containing the 3 RGB values as int
-     * @return
+     * @return RGBWColor the object used as the request for the LEDs
      */
     private RGBWColor getColor(int[] color) {
         return new RGBWColor(color[0], color[1], color[2]);
