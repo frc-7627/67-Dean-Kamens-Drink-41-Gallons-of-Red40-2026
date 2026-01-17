@@ -1,23 +1,26 @@
 package frc.robot.subsystems.swervedrive.util;
 
 /**
- * An alliance color, red or blue.
+ * An alliance: none, red or blue.
  */
 public enum Alliance {
-    RED, BLUE,;
+    NONE, RED, BLUE,;
 
     /**
-     * Get the integer value of the alliance color.
+     * Get the integer value of the alliance.
      * 
-     * @return The integer value of the alliance color.
+     * @return The integer value of the alliance.
      */
     public int toInt() {
         switch (this) {
-            case RED -> {
+            case NONE -> {
                 return 0;
             }
-            case BLUE -> {
+            case RED -> {
                 return 1;
+            }
+            case BLUE -> {
+                return 2;
             }
             default -> {
                 throw new IllegalStateException("Alliance should only be RED or BLUE!");

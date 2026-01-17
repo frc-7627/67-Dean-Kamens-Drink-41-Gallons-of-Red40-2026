@@ -14,7 +14,6 @@ public class LED {
     private final SolidColor solid = new SolidColor(0, 0);
 
     /**
-     * 
      * The subsystem implementing led indication. Do not use directly, use
      * {@code Indicator} for
      * indicating status.
@@ -22,9 +21,18 @@ public class LED {
      * @see frc.robot.subsystems.swervedrive.Indicator
      * @param alliance our team's alliance during competitions
      */
-    public LED(Alliance alliance) {
+    public LED() {
         this.alliance = alliance;
     };
+
+    /**
+     * Set the alliance to the provided alliance.
+     * 
+     * @param alliance The provided alliance.
+     */
+    public void setAlliance(Alliance alliance) {
+        this.alliance = alliance;
+    }
 
     /**
      * Get the idle color, for the appropriate alliance.
