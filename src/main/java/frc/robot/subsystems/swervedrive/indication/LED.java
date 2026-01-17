@@ -1,17 +1,12 @@
-package frc.robot.subsystems.swervedrive;
+package frc.robot.subsystems.swervedrive.indication;
 
 import frc.robot.Constants;
-
+import frc.robot.subsystems.swervedrive.util.Alliance;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
 public class LED {
-    // TODO: move alliance enum somewhere else
-    public enum Alliance {
-        RED, BLUE
-    }
-
     private Alliance alliance;
 
     private CANdle candle = new CANdle(0);
@@ -39,10 +34,10 @@ public class LED {
     SolidColor getIdleColor() {
         switch (alliance) {
             case RED -> {
-                return solid.withColor(getColor(Constants.LEDConstants.IDLE_COLOR_RED));
+                return getColor(Constants.LEDConstants.IDLE_COLOR_RED);
             }
             case BLUE -> {
-                return solid.withColor(getColor(Constants.LEDConstants.IDLE_COLOR_BLUE));
+                return getColor(Constants.LEDConstants.IDLE_COLOR_BLUE);
             }
             default -> {
                 return null; // this case won't happen
@@ -58,10 +53,10 @@ public class LED {
     SolidColor getCompletionColor() {
         switch (alliance) {
             case RED -> {
-                return solid.withColor(getColor(Constants.LEDConstants.COMPLETION_COLOR_RED));
+                return getColor(Constants.LEDConstants.COMPLETION_COLOR_RED);
             }
             case BLUE -> {
-                return solid.withColor(getColor(Constants.LEDConstants.COMPLETION_COLOR_BLUE));
+                return getColor(Constants.LEDConstants.COMPLETION_COLOR_BLUE);
             }
             default -> {
                 return null; // this case won't happen
@@ -77,10 +72,10 @@ public class LED {
     SolidColor getInterruptionColor() {
         switch (alliance) {
             case RED -> {
-                return solid.withColor(getColor(Constants.LEDConstants.INTERRUPTION_COLOR_RED));
+                return getColor(Constants.LEDConstants.INTERRUPTION_COLOR_RED);
             }
             case BLUE -> {
-                return solid.withColor(getColor(Constants.LEDConstants.INTERRUPTION_COLOR_BLUE));
+                return getColor(Constants.LEDConstants.INTERRUPTION_COLOR_BLUE);
             }
             default -> {
                 return null;
@@ -116,10 +111,10 @@ public class LED {
      * Convert the integer RGB values into a RGBWColor object
      * 
      * @param color int[] array containing the 3 RGB values as int
-     * @return RGBWColor the object used as the request for the LEDs
+     * @return SolidColor the object used as the request for the LEDs
      */
-    private RGBWColor getColor(int[] color) {
-        return new RGBWColor(color[0], color[1], color[2]);
+    private SolidColor getColor(int[] color) {
+        return solid.withColor(new RGBWColor(color[0], color[1], color[2]));
     }
 
 }

@@ -1,7 +1,8 @@
-package frc.robot.subsystems.swervedrive;
+package frc.robot.subsystems.swervedrive.indication;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import frc.robot.subsystems.swervedrive.Indicator;
 
 public class Logging {
     private static final Logger LOGGER = Logger.getAnonymousLogger();

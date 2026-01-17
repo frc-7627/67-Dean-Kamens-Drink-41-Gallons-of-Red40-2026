@@ -1,7 +1,7 @@
 package frc.robot.subsystems.swervedrive;
 
-import frc.robot.subsystems.swervedrive.Logging;
-import frc.robot.subsystems.swervedrive.LED;
+import frc.robot.subsystems.swervedrive.indication.LED;
+import frc.robot.subsystems.swervedrive.indication.Logging;
 
 public class Indicator {
     Logging logging;
