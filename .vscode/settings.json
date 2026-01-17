@@ -29,7 +29,11 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
+    "Brushless",
     "drivebase",
-    "ironmaple"
+    "gamepiece",
+    "ironmaple",
+    "Neos",
+    "swervedrive"
   ]
 }

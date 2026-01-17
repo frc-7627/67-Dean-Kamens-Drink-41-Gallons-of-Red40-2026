@@ -53,4 +53,15 @@ public final class Constants {
   public static class SixtySeven {
     public static final double SixitySeven = 67.67;
   }
+
+  public static class CanIDs {
+    public static final int PROTOTYPE_MOTOR_ID = 14;
+  }
+
+  public static class IntakeConstants {
+    public static final int AMP_LIMIT = 150;
+
+    // in range [-1.0, 1.0]
+    public static final double DEFAULT_LOAD_SPEED = 0.8;
+  }
 }
