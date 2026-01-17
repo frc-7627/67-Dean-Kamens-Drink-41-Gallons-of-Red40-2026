@@ -2,50 +2,109 @@ package frc.robot.subsystems.swervedrive;
 
 import frc.robot.Constants;
 
-import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
 public class LED {
+    public enum Alliance {
+        RED, BLUE
+    }
+
+    private Alliance alliance;
 
     private CANdle candle = new CANdle(0);
     // TODO: research more about new api for CANdle led and find hardware specifics
     private final SolidColor solid = new SolidColor(0, 0);
 
-    public LED() {
+    // TODO: document
+    /**
+     * 
+     * @param alliance
+     */
+    public LED(Alliance alliance) {
+        this.alliance = alliance;
     };
 
+    /**
+     * Get the idle color, for the appropriate alliance.
+     * 
+     * @return
+     */
+    SolidColor getIdleColor() {
+        switch (alliance) {
+            case RED -> {
+                return solid.withColor(getColor(Constants.LEDConstants.IDLE_COLOR_RED));
+            }
+            case BLUE -> {
+                return solid.withColor(getColor(Constants.LEDConstants.IDLE_COLOR_BLUE));
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Get the completion color, for the appropriate alliance.
+     * 
+     * @return
+     */
+    SolidColor getCompletionColor() {
+        switch (alliance) {
+            case RED -> {
+                return solid.withColor(getColor(Constants.LEDConstants.COMPLETION_COLOR_RED));
+            }
+            case BLUE -> {
+                return solid.withColor(getColor(Constants.LEDConstants.COMPLETION_COLOR_BLUE));
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Get the interruption color, for the appropriate alliance.
+     * 
+     * @return
+     */
+    SolidColor getInterruptionColor() {
+        switch (alliance) {
+            case RED -> {
+                return solid.withColor(getColor(Constants.LEDConstants.INTERRUPTION_COLOR_RED));
+            }
+            case BLUE -> {
+                return solid.withColor(getColor(Constants.LEDConstants.INTERRUPTION_COLOR_BLUE));
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    // TODO: make the following three methods have consistent documentation style with Indicator and
+    // Logging.
     /**
      * Set the LED color to the idle setting.
      */
     public void indicateIdle() {
-        candle.setControl(solid.withColor(
-                getColor(Constants.LEDConstants.IDLE_COLOR)));
+        // TODO: should be
+        candle.setControl(getIdleColor());
     }
 
     /**
      * Set the LED color to the completion setting
      */
     public void indicateCompletion() {
-        candle.setControl(solid.withColor(
-                getColor(Constants.LEDConstants.COMPLETION_COLOR)));
+        candle.setControl(getCompletionColor());
     }
 
     /**
      * Set the LED color to the interruption setting
      */
     public void indicateInterruption() {
-        candle.setControl(solid.withColor(
-                getColor(Constants.LEDConstants.INTERRUPTION_COLOR)));
-    }
-
-    /**
-     * Set the LED color to the alliance color
-     */
-    public void indicateAlliance() {
-        candle.setControl(solid.withColor(
-                getColor(Constants.LEDConstants.ALLIANCE_IDLE_COLOR)));
+        candle.setControl(getInterruptionColor());
     }
 
     /**

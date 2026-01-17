@@ -1,9 +1,11 @@
 package frc.robot.subsystems.swervedrive;
 
 import frc.robot.subsystems.swervedrive.Logging;
+import frc.robot.subsystems.swervedrive.LED;
 
 public class Indicator {
     Logging logging;
+    LED led;
 
     /**
      * The subsystem for indicating any status.
@@ -11,9 +13,11 @@ public class Indicator {
      * Delegates implementation details to other subsystems(e.g. logging, led, etc.).
      * 
      * @param logging The logging subsystem.
+     * @param led The LED subsystem.
      */
-    public Indicator(Logging logging) {
+    public Indicator(Logging logging, LED led) {
         this.logging = logging;
+        this.led = led;
     }
 
     /**
@@ -31,7 +35,7 @@ public class Indicator {
      * Indicate idle status.
      */
     public void indicateIdle() {
-
+        led.indicateIdle();
     }
 
     /**
@@ -43,6 +47,7 @@ public class Indicator {
      */
     public void indicateCompletion(String completedCommandName) {
         logging.indicateCompletion(completedCommandName);
+        led.indicateCompletion();
     }
 
     /**
@@ -54,5 +59,6 @@ public class Indicator {
      */
     public void indicateInterruption(String interruptedCommandName) {
         logging.indicateInterruption(interruptedCommandName);
+        led.indicateInterruption();
     }
 }
