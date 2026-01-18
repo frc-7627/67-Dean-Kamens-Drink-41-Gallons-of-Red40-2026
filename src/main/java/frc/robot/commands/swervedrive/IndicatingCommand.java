@@ -38,7 +38,7 @@ public class IndicatingCommand extends Command {
     @Override
     public void end(boolean interrupted) {
         if (interrupted) {
-            logger.warning("Interrupted!");
+            logger.info("Interrupted!");
             indicator.indicateInterruption();
         } else {
             logger.info("Completed.");
