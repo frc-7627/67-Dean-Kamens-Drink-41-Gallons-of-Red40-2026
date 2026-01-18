@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
     // Neos
 
     private final SparkMax motor =
-            new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
+            new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 
     private double loadSpeed = Constants.IntakeConstants.DEFAULT_LOAD_SPEED;
 
@@ -29,7 +29,8 @@ public class Intake extends SubsystemBase {
         motor_config.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
 
         // TODO: find way to configure that doesn't use deprecated constants.
-        motor.configure(motor_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor.configure(motor_config, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
 
         // TODO: indicate initialization
     }

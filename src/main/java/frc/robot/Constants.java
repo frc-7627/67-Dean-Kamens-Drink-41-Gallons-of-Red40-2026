@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.controls.SolidColor;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -52,14 +53,17 @@ public final class Constants {
     }
 
     public static class LEDConstants {
-        public static final int CANDLE_CAN_ID = 0;
-
         private static final int ONBOARD_LED_COUNT = 8;
         private static final int LAST_ONBOARD_LED_NUM = ONBOARD_LED_COUNT - 1;
 
-        private static final int ATTACHED_LED_COUNT = 0;
+        public static final int ATTACHED_LED_COUNT = 0;
 
-        public static final int LAST_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
+        public static final int FIRST_ATTACHED_LED_NUM = ONBOARD_LED_COUNT;
+        public static final int LAST_ATTACHED_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
+
+        private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
+
+        public static final SolidColor ALL_LEDS = new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
     }
 
     public static class IndicatorConstants {
@@ -96,7 +100,9 @@ public final class Constants {
     }
 
     public static class CanIDs {
-        public static final int PROTOTYPE_MOTOR_ID = 14;
+        public static final int PROTOTYPE_MOTOR_CAN_ID = 14;
+
+        public static final int CANDLE_CAN_ID = 15;
     }
 
     public static class IntakeConstants {
