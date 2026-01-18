@@ -1,29 +1,30 @@
 package frc.robot.commands.swervedrive.intake;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.swervedrive.IndicatingCommand;
+import frc.robot.subsystems.swervedrive.Indicator;
 import frc.robot.subsystems.swervedrive.Intake;
 
-public class PrototypeIntake extends Command {
+public class PrototypeIntake extends IndicatingCommand {
     private Intake intake;
+    
+    /**
+     * Runs the prototype intake.
+     * 
+     * Loads the intake while running, then stops the intake when done.
+     * 
+     * @param indicator
+     * @param intake
+     */
+    public PrototypeIntake(Indicator indicator, Intake intake) {
+        super(indicator);
 
-    public PrototypeIntake(Intake intake) {
         this.intake = intake;
 
         addRequirements(intake);
     }
 
     /**
-     * Initialize the command.
-     * 
-     * Indicates initialization.
-     */
-    @Override
-    public void initialize() {
-        // TODO: indicate initialization
-    }
-
-    /**
-     * Executes the command.
+     * Called repeatedly while command is running.
      * 
      * Loads the intake.
      */
@@ -33,13 +34,13 @@ public class PrototypeIntake extends Command {
     }
 
     /**
-     * Ends the command.
+     * Called when the command ends.
      * 
      * Stops the intake and indicates command end.
      */
     @Override
     public void end(boolean interrupted) {
+        super.end(interrupted);
         intake.stop();
-        // TODO: indicate end of command.
     }
 }

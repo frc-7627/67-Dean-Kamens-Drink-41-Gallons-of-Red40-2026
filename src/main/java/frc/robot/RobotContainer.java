@@ -176,7 +176,7 @@ public class RobotContainer {
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
 
-      driverXbox.b().whileTrue(new PrototypeIntake(intake));
+      driverXbox.b().whileTrue(new PrototypeIntake(indicator, intake));
     }
 
   }
