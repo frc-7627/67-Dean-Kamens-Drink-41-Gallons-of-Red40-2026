@@ -23,8 +23,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.intake.PrototypeIntake;
+import frc.robot.subsystems.swervedrive.GameInfo;
+import frc.robot.subsystems.swervedrive.Indicator;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.indication.LED;
 import java.io.File;
 import swervelib.SwerveInputStream;
 
@@ -42,6 +45,10 @@ public class RobotContainer {
   private final SwerveSubsystem drivebase =
       new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/neo"));
     
+  private final GameInfo gameInfo = new GameInfo();
+
+  private final Indicator indicator = new Indicator(gameInfo, new LED());
+
   private final Intake intake = new Intake();
 
   // Establish a Sendable Chooser that will be able to be sent to the SmartDashboard, allowing

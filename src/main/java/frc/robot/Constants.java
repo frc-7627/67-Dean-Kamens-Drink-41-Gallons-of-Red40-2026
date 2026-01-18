@@ -52,6 +52,17 @@ public final class Constants {
     }
 
     public static class LEDConstants {
+        public static final int CANDLE_CAN_ID = 0;
+
+        private static final int ONBOARD_LED_COUNT = 8;
+        private static final int LAST_ONBOARD_LED_NUM = ONBOARD_LED_COUNT - 1;
+
+        private static final int ATTACHED_LED_COUNT = 0;
+
+        public static final int LAST_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
+    }
+
+    public static class IndicatorConstants {
         public static class ColorArrays {
             /**
              * All idle colors.
@@ -73,14 +84,6 @@ public final class Constants {
             public static final int[] INTERRUPTION_COLOR_ARRAY = {255, 255, 255};
         }
 
-        public static final int CANDLE_CAN_ID = 0;
-
-        private static final int ONBOARD_LED_COUNT = 8;
-        private static final int LAST_ONBOARD_LED_NUM = ONBOARD_LED_COUNT - 1;
-
-        private static final int ATTACHED_LED_COUNT = 0;
-
-        public static final int LAST_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
     }
 
     public static class SixtySeven {
