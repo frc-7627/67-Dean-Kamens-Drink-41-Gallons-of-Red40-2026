@@ -1,92 +1,55 @@
 package frc.robot.subsystems.swervedrive.indication;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.swervedrive.util.Alliance;
+import frc.robot.subsystems.swervedrive.GameInfo;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
 public class LED {
-    private Alliance alliance;
-
-    private CANdle candle = new CANdle(0);
-    // TODO: research more about new api for CANdle led and find hardware specifics
-    private final SolidColor solid = new SolidColor(0, 0);
+    /**
+     * Get the color from the given array.
+     * 
+     * @param array The given array.
+     * @return The color.
+     */
+    private static RGBWColor getColorFromArray(int[] array) {
+        return new RGBWColor(array[0], array[1], array[2]);
+    }
 
     /**
-     * The subsystem implementing led indication. Do not use directly, use
-     * {@code Indicator} for
+     * Get the completion color.
+     * 
+     * @return The completion color.
+     */
+    private static RGBWColor getCompletionColor() {
+        return getColorFromArray(Constants.LEDConstants.ColorArrays.COMPLETION_COLOR_ARRAY);
+    }
+
+    /**
+     * Get the interruption color.
+     * 
+     * @return The interruption color.
+     */
+    private static RGBWColor getInterruptionColor() {
+        return getColorFromArray(Constants.LEDConstants.ColorArrays.INTERRUPTION_COLOR_ARRAY);
+    }
+
+    private final GameInfo gameInfo;
+
+    private CANdle candle = new CANdle(Constants.LEDConstants.CANDLE_CAN_ID);
+
+    private final SolidColor solidColor = new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
+
+    /**
+     * The subsystem implementing led indication. Do not use directly, use {@code Indicator} for
      * indicating status.
      * 
      * @see frc.robot.subsystems.swervedrive.Indicator
-     * @param alliance our team's alliance during competitions
+     * @param gameInfo The game information subsystem.
      */
-    public LED() {}
-
-    /**
-     * Set the alliance to the provided alliance.
-     * 
-     * @param alliance The provided alliance.
-     */
-    public void setAlliance(Alliance alliance) {
-        this.alliance = alliance;
-    }
-
-    /**
-     * Get the idle color, for the appropriate alliance.
-     * 
-     * @return SolidColor the color for the LEDs for idle
-     */
-    SolidColor getIdleColor() {
-        switch (alliance) {
-            case RED -> {
-                return getColor(Constants.LEDConstants.IDLE_COLOR_RED);
-            }
-            case BLUE -> {
-                return getColor(Constants.LEDConstants.IDLE_COLOR_BLUE);
-            }
-            default -> {
-                return null; // this case won't happen
-            }
-        }
-    }
-
-    /**
-     * Get the completion color, for the appropriate alliance.
-     * 
-     * @return SolidColor the color for the LEDs for completion
-     */
-    SolidColor getCompletionColor() {
-        switch (alliance) {
-            case RED -> {
-                return getColor(Constants.LEDConstants.COMPLETION_COLOR_RED);
-            }
-            case BLUE -> {
-                return getColor(Constants.LEDConstants.COMPLETION_COLOR_BLUE);
-            }
-            default -> {
-                return null; // this case won't happen
-            }
-        }
-    }
-
-    /**
-     * Get the interruption color, for the appropriate alliance.
-     * 
-     * @return SolidColor the color for the LEDs during interruption
-     */
-    SolidColor getInterruptionColor() {
-        switch (alliance) {
-            case RED -> {
-                return getColor(Constants.LEDConstants.INTERRUPTION_COLOR_RED);
-            }
-            case BLUE -> {
-                return getColor(Constants.LEDConstants.INTERRUPTION_COLOR_BLUE);
-            }
-            default -> {
-                return null;
-            }
-        }
+    public LED(GameInfo gameInfo) {
+        this.gameInfo = gameInfo;
     }
 
     // TODO: make the following three methods have consistent documentation style
@@ -96,31 +59,40 @@ public class LED {
      * Set the LED color to the idle setting.
      */
     public void indicateIdle() {
-        candle.setControl(getIdleColor());
+        setSolidColor(getIdleColor());
     }
 
     /**
      * Set the LED color to the completion setting
      */
     public void indicateCompletion() {
-        candle.setControl(getCompletionColor());
+        setSolidColor(getCompletionColor());
     }
 
     /**
      * Set the LED color to the interruption setting
      */
     public void indicateInterruption() {
-        candle.setControl(getInterruptionColor());
+        setSolidColor(getInterruptionColor());
     }
 
     /**
-     * Convert the integer RGB values into a RGBWColor object
+     * Get the idle color for the current alliance and phase.
      * 
-     * @param color int[] array containing the 3 RGB values as int
-     * @return SolidColor the object used as the request for the LEDs
+     * @return The idle color for the current alliance and phase.
      */
-    private SolidColor getColor(int[] color) {
-        return solid.withColor(new RGBWColor(color[0], color[1], color[2]));
+    private RGBWColor getIdleColor() {
+        return getColorFromArray(Constants.LEDConstants.ColorArrays.IDLE_COLOR_ARRAYS[gameInfo
+                .getAllianceNum()][gameInfo.getPhaseNum()]);
+    }
+
+    /**
+     * Set the LEDs to a solid color of choice.
+     * 
+     * @param color The solid color of choice.
+     */
+    private void setSolidColor(RGBWColor color) {
+        candle.setControl(solidColor.withColor(color));
     }
 
 }

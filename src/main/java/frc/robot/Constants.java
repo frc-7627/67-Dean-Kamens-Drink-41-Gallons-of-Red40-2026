@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.subsystems.swervedrive.util.Phase;
 import swervelib.math.Matter;
 
 /**
@@ -50,30 +52,44 @@ public final class Constants {
     }
 
     public static class LEDConstants {
+        public static class ColorArrays {
+            /**
+             * All idle colors.
+             * 
+             * Indices are in the following order: alliance, game phase, color channel.
+             */
+            public static final int[][][] IDLE_COLOR_ARRAYS = {
+                    /* Red alliance. */ {/* Auto */ {255, 255, 255},
+                            /* Transition */ {255, 255, 255}, /* Teleop 1 */ {255, 255, 255},
+                            /* Teleop 2 */ {255, 255, 255}, /* Teleop 3 */ {255, 255, 255},
+                            /* Teleop 4 */{255, 255, 255}, /* Endgame */ {255, 255, 255},},
+                    /* Blue alliance. */ {/* Auto */ {255, 255, 255},
+                            /* Transition */ {255, 255, 255}, /* Teleop 1 */ {255, 255, 255},
+                            /* Teleop 2 */ {255, 255, 255}, /* Teleop 3 */ {255, 255, 255},
+                            /* Teleop 4 */{255, 255, 255}, /* Endgame */ {255, 255, 255},},};
 
-        /**
-         * All idle colors.
-         * 
-         * Indices are in the following order: alliance, game phase, color channel.
-         */
-        public static final int[][][] IDLE_COLORS = {
-                /* Red alliance. */ {/* Auto */ {255, 255, 255}, /* Transition */ {255, 255, 255},
-                        /* Teleop 1 */ {255, 255, 255}, /* Teleop 2 */ {255, 255, 255},
-                        /* Teleop 3 */ {255, 255, 255}, /* Teleop 4 */{255, 255, 255},
-                        /* Endgame */ {255, 255, 255},},
-                /* Blue alliance. */ {/* Auto */ {255, 255, 255}, /* Transition */ {255, 255, 255},
-                        /* Teleop 1 */ {255, 255, 255}, /* Teleop 2 */ {255, 255, 255},
-                        /* Teleop 3 */ {255, 255, 255}, /* Teleop 4 */{255, 255, 255},
-                        /* Endgame */ {255, 255, 255},},};
+            public static final int[] COMPLETION_COLOR_ARRAY = {255, 255, 255};
 
-        public static final int[] COMPLETION_COLOR = {255, 255, 255};
+            public static final int[] INTERRUPTION_COLOR_ARRAY = {255, 255, 255};
+        }
 
-        public static final int[] INTERRUPTION_COLOR = {255, 255, 255};
+        public static final int CANDLE_CAN_ID = 0;
 
+        private static final int ONBOARD_LED_COUNT = 8;
+        private static final int LAST_ONBOARD_LED_NUM = ONBOARD_LED_COUNT - 1;
+
+        private static final int ATTACHED_LED_COUNT = 0;
+
+        public static final int LAST_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
     }
 
     public static class SixtySeven {
         public static final double SixitySeven = 67.67;
+    }
+
+    public static class GameInfoConstants {
+        public static final Phase START_PHASE = Phase.AUTO;
+        public static final Alliance DEFAULT_ALLIANCE = Alliance.Red;
     }
 
     public static class CanIDs {
