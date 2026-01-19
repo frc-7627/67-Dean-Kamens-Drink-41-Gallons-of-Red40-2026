@@ -8,7 +8,7 @@ import com.ctre.phoenix6.controls.SolidColor;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.subsystems.swervedrive.util.Phase;
+import frc.robot.subsystems.swervedrive.GameInfo;
 import swervelib.math.Matter;
 
 /**
@@ -98,7 +98,7 @@ public final class Constants {
     }
 
     public static class GameInfoConstants {
-        public static final Phase START_PHASE = Phase.AUTO;
+        public static final GameInfo.Phase START_PHASE = GameInfo.Phase.AUTO;
         public static final Alliance DEFAULT_ALLIANCE = Alliance.Red;
     }
 

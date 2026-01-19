@@ -5,10 +5,49 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
-import frc.robot.subsystems.swervedrive.util.Phase;
 import frc.robot.Constants;
 
 public class GameInfo extends SubsystemBase {
+    /**
+     * A game phase.
+     */
+    public static enum Phase {
+        AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
+
+        /**
+         * @return The integer value of the phase.
+         */
+        public int toInt() {
+            switch (this) {
+                case AUTO -> {
+                    return 0;
+                }
+                case TRANSITION -> {
+                    return 1;
+                }
+                case TELEOP_1 -> {
+                    return 2;
+                }
+                case TELEOP_2 -> {
+                    return 3;
+                }
+                case TELEOP_3 -> {
+                    return 4;
+                }
+                case TELEOP_4 -> {
+                    return 5;
+                }
+                case ENDGAME -> {
+                    return 6;
+                }
+                default -> {
+                    throw new IllegalStateException(
+                            "Phase should be between AUTO(0) and ENDGAME(6)!");
+                }
+            }
+        }
+    }
+
     private Phase phase;
     private Alliance alliance;
 
