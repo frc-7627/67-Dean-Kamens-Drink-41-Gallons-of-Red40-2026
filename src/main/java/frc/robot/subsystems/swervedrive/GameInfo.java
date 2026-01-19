@@ -58,15 +58,6 @@ public class GameInfo extends SubsystemBase {
     }
 
     /**
-     * Gets whether the phase is currently autonomous.
-     * 
-     * @return Whether the phase is currently autonomous.
-     */
-    public boolean isAuto() {
-        return phase.equals(Phase.AUTO);
-    }
-
-    /**
      * Update the alliance to match the driver station.
      */
     void updateAlliance() {
