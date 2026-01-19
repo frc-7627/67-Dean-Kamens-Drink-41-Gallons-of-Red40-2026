@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.controls.SolidColor;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.subsystems.swervedrive.util.Phase;
 import swervelib.math.Matter;
 
 /**
@@ -19,49 +22,94 @@ import swervelib.math.Matter;
  */
 public final class Constants {
 
-  public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
-  public static final Matter CHASSIS =
-      new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
-  public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
-  public static final double MAX_SPEED = Units.feetToMeters(14.5);
-  // Maximum speed of the robot in meters per second, used to limit acceleration.
+    public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
+    public static final Matter CHASSIS =
+            new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
+    public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
+    public static final double MAX_SPEED = Units.feetToMeters(14.5);
+    // Maximum speed of the robot in meters per second, used to limit acceleration.
 
-  // public static final class AutonConstants
-  // {
-  //
-  // public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
-  // public static final PIDConstants ANGLE_PID = new PIDConstants(0.4, 0, 0.01);
-  // }
+    // public static final class AutonConstants
+    // {
+    //
+    // public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0,
+    // 0);
+    // public static final PIDConstants ANGLE_PID = new PIDConstants(0.4, 0, 0.01);
+    // }
 
-  public static final class DrivebaseConstants {
+    public static final class DrivebaseConstants {
 
-    // Hold time on motor brakes when disabled
-    public static final double WHEEL_LOCK_TIME = 10; // seconds
-  }
+        // Hold time on motor brakes when disabled
+        public static final double WHEEL_LOCK_TIME = 10; // seconds
+    }
 
-  public static class OperatorConstants {
+    public static class OperatorConstants {
 
-    // Joystick Deadband
-    public static final double DEADBAND = 0.1;
-    public static final double LEFT_Y_DEADBAND = 0.1;
-    public static final double RIGHT_X_DEADBAND = 0.1;
-    public static final double TURN_CONSTANT = 6;
-  }
+        // Joystick Deadband
+        public static final double DEADBAND = 0.1;
+        public static final double LEFT_Y_DEADBAND = 0.1;
+        public static final double RIGHT_X_DEADBAND = 0.1;
+        public static final double TURN_CONSTANT = 6;
+    }
 
+    public static class LEDConstants {
+        private static final int ONBOARD_LED_COUNT = 8;
+        private static final int LAST_ONBOARD_LED_NUM = ONBOARD_LED_COUNT - 1;
 
+        public static final int ATTACHED_LED_COUNT = 0;
 
-  public static class SixtySeven {
-    public static final double SixitySeven = 67.67;
-  }
+        public static final int FIRST_ATTACHED_LED_NUM = ONBOARD_LED_COUNT;
+        public static final int LAST_ATTACHED_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
 
-  public static class CanIDs {
-    public static final int PROTOTYPE_MOTOR_ID = 14;
-  }
+        private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
 
-  public static class IntakeConstants {
-    public static final int AMP_LIMIT = 150;
+        public static final SolidColor ALL_LEDS =
+                new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
+    }
 
-    // in range [-1.0, 1.0]
-    public static final double DEFAULT_LOAD_SPEED = 0.8;
-  }
+    public static class IndicatorConstants {
+        public static class ColorArrays {
+            /**
+             * All default colors.
+             * 
+             * Indices are in the following order: alliance, game phase, color channel.
+             */
+            public static final int[][][] DEFAULT_COLOR_ARRAYS = {
+                    /* Red alliance. */ {/* Auto */ {255, 255, 255},
+                            /* Transition */ {255, 255, 255}, /* Teleop 1 */ {255, 255, 255},
+                            /* Teleop 2 */ {255, 255, 255}, /* Teleop 3 */ {255, 255, 255},
+                            /* Teleop 4 */{255, 255, 255}, /* Endgame */ {255, 255, 255},},
+                    /* Blue alliance. */ {/* Auto */ {255, 255, 255},
+                            /* Transition */ {255, 255, 255}, /* Teleop 1 */ {255, 255, 255},
+                            /* Teleop 2 */ {255, 255, 255}, /* Teleop 3 */ {255, 255, 255},
+                            /* Teleop 4 */{255, 255, 255}, /* Endgame */ {255, 255, 255},},};
+
+            public static final int[] COMPLETION_COLOR_ARRAY = {255, 255, 255};
+
+            public static final int[] INTERRUPTION_COLOR_ARRAY = {255, 255, 255};
+        }
+
+    }
+
+    public static class SixtySeven {
+        public static final double SixitySeven = 67.67;
+    }
+
+    public static class GameInfoConstants {
+        public static final Phase START_PHASE = Phase.AUTO;
+        public static final Alliance DEFAULT_ALLIANCE = Alliance.Red;
+    }
+
+    public static class CanIDs {
+        public static final int PROTOTYPE_MOTOR_CAN_ID = 14;
+
+        public static final int CANDLE_CAN_ID = 15;
+    }
+
+    public static class IntakeConstants {
+        public static final int AMP_LIMIT = 150;
+
+        // in range [-1.0, 1.0]
+        public static final double DEFAULT_LOAD_SPEED = 0.8;
+    }
 }
