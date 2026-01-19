@@ -26,14 +26,19 @@ public class LED extends SubsystemBase {
         candle.setControl(Constants.LEDConstants.ALL_LEDS.withColor(color));
     }
 
-    public void setProgress(RGBWColor fgColor, RGBWColor bgColor) {
+    public void setProgress(int stepsProgressed, int totalSteps, RGBWColor fgColor,
+            RGBWColor bgColor) {
         // TODO: compute active LEDs
         int activeLEDS = 0;
 
         int firstInactiveLEDNum = Constants.LEDConstants.FIRST_ATTACHED_LED_NUM + activeLEDS;
         int lastActiveLEDNum = firstInactiveLEDNum - 1;
 
-        candle.setControl(new SolidColor(Constants.LEDConstants.FIRST_ATTACHED_LED_NUM, lastActiveLEDNum).withColor(fgColor));
-        candle.setControl(new SolidColor(firstInactiveLEDNum, Constants.LEDConstants.LAST_ATTACHED_LED_NUM).withColor(bgColor));
+        candle.setControl(
+                new SolidColor(Constants.LEDConstants.FIRST_ATTACHED_LED_NUM, lastActiveLEDNum)
+                        .withColor(fgColor));
+        candle.setControl(
+                new SolidColor(firstInactiveLEDNum, Constants.LEDConstants.LAST_ATTACHED_LED_NUM)
+                        .withColor(bgColor));
     }
 }

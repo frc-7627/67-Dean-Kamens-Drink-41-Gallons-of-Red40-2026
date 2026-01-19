@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  */
 public class IndicatingCommand extends Command {
     protected final Logger logger = Logger.getLogger(getClass().getSimpleName());
-    private final Indicator indicator;
+    protected final Indicator indicator;
 
     /**
      * @param indicator The indication subsystem.

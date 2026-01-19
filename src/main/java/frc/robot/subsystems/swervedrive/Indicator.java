@@ -51,6 +51,10 @@ public class Indicator extends SubsystemBase {
         led.setSolidColor(getInterruptionColor());
     }
 
+    public void indicateProgress(int stepsProgressed, int totalSteps) {
+        led.setProgress(stepsProgressed, totalSteps, getProgressBarColor(), getDefaultColor());
+    }
+
     /**
      * @return The default color for the current alliance and phase.
      */
@@ -72,6 +76,13 @@ public class Indicator extends SubsystemBase {
      */
     private static RGBWColor getInterruptionColor() {
         return getColorFromArray(Constants.IndicatorConstants.ColorArrays.INTERRUPTION_COLOR_ARRAY);
+    }
+
+    /**
+     * @return The progress bar color.
+     */
+    private static RGBWColor getProgressBarColor() {
+        return getColorFromArray(Constants.IndicatorConstants.ColorArrays.PROGRESS_BAR_COLOR_ARRAY);
     }
 
     /**

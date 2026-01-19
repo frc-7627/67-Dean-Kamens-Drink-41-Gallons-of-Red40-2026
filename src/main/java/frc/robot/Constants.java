@@ -87,6 +87,8 @@ public final class Constants {
             public static final int[] COMPLETION_COLOR_ARRAY = {255, 255, 255};
 
             public static final int[] INTERRUPTION_COLOR_ARRAY = {255, 255, 255};
+
+            public static final int[] PROGRESS_BAR_COLOR_ARRAY = {255, 255, 255};
         }
 
     }

@@ -5,11 +5,6 @@ package frc.robot.commands.swervedrive.util;
  */
 public interface Progress {
     /**
-     * Transition to the next step if unfinished.
-     */
-    void transition();
-
-    /**
      * @return The number of steps progressed.
      */
     int getStepsProgressed();
