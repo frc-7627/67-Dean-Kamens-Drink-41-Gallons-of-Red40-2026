@@ -87,7 +87,7 @@ public class Indicator extends SubsystemBase {
     private RGBWColor getDefaultColor() {
         return getColorFromArray(
                 Constants.IndicatorConstants.ColorArrays.DEFAULT_COLOR_ARRAYS[gameInfo
-                        .getAllianceNum()][gameInfo.getPhaseNum()]);
+                        .getAlliance().ordinal()][gameInfo.getPhase().ordinal()]);
     }
 
     /**

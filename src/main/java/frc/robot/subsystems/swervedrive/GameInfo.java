@@ -13,39 +13,6 @@ public class GameInfo extends SubsystemBase {
      */
     public static enum Phase {
         AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
-
-        /**
-         * @return The integer value of the phase.
-         */
-        public int toInt() {
-            switch (this) {
-                case AUTO -> {
-                    return 0;
-                }
-                case TRANSITION -> {
-                    return 1;
-                }
-                case TELEOP_1 -> {
-                    return 2;
-                }
-                case TELEOP_2 -> {
-                    return 3;
-                }
-                case TELEOP_3 -> {
-                    return 4;
-                }
-                case TELEOP_4 -> {
-                    return 5;
-                }
-                case ENDGAME -> {
-                    return 6;
-                }
-                default -> {
-                    throw new IllegalStateException(
-                            "Phase should be between AUTO(0) and ENDGAME(6)!");
-                }
-            }
-        }
     }
 
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
@@ -72,35 +39,6 @@ public class GameInfo extends SubsystemBase {
      */
     public Alliance getAlliance() {
         return alliance;
-    }
-
-    /**
-     * Get the current phase number. This is the integer value of the current phase.
-     * 
-     * @return the current phase number.
-     */
-    public int getPhaseNum() {
-        return phase.toInt();
-    }
-
-    /**
-     * Get the current alliance number.
-     * 
-     * @return 0 if red, 1 if blue.
-     */
-    public int getAllianceNum() {
-        switch (alliance) {
-            case Red -> {
-                return 0;
-            }
-            case Blue -> {
-                return 1;
-            }
-            default -> {
-                // Never happens.
-                throw new IllegalStateException("Alliance should be Red or Blue!");
-            }
-        }
     }
 
     /**
