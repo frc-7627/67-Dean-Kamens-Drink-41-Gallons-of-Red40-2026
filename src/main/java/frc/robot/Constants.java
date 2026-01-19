@@ -63,7 +63,7 @@ public final class Constants {
 
         private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
 
-        public static final SolidColor ALL_LEDS =
+        public static final SolidColor CONTROL_ALL_LEDS =
                 new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
     }
 
