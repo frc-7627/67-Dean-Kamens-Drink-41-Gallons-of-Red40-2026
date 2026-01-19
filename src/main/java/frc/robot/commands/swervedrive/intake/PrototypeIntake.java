@@ -1,12 +1,14 @@
 package frc.robot.commands.swervedrive.intake;
 
+import java.util.logging.Logger;
 import frc.robot.commands.swervedrive.IndicatingCommand;
 import frc.robot.subsystems.swervedrive.Indicator;
 import frc.robot.subsystems.swervedrive.Intake;
 
 public class PrototypeIntake extends IndicatingCommand {
+    private static final Logger LOGGER = Logger.getLogger(PrototypeIntake.class.getSimpleName());
     private Intake intake;
-    
+
     /**
      * Runs the prototype intake.
      * 
@@ -16,7 +18,7 @@ public class PrototypeIntake extends IndicatingCommand {
      * @param intake
      */
     public PrototypeIntake(Indicator indicator, Intake intake) {
-        super(indicator);
+        super(LOGGER, indicator);
 
         this.intake = intake;
 

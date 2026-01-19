@@ -17,11 +17,7 @@ public interface Progress {
     /**
      * @return Whether the progress is finished.
      */
-    default IsFinished isFinished() {
-        if (getStepsProgressed() >= getTotalSteps()) {
-            return IsFinished.YES;
-        } else {
-            return IsFinished.NO;
-        }
+    default boolean isFinished() {
+        return getStepsProgressed() >= getTotalSteps();
     }
 }

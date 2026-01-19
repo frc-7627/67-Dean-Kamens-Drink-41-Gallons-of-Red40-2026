@@ -1,26 +1,53 @@
 package frc.robot.commands.swervedrive;
 
+import java.util.logging.Logger;
 import frc.robot.commands.swervedrive.util.Progress;
 import frc.robot.subsystems.swervedrive.Indicator;
 
+/**
+ * A command that has progress.
+ * 
+ * @param <CommandProgress> an amount of progress.
+ */
 public class ProgressingCommand<CommandProgress extends Progress> extends IndicatingCommand {
-    private CommandProgress commandProgress;
+    private CommandProgress currentProgress;
 
-    protected ProgressingCommand(Indicator indicator, CommandProgress commandProgress) {
-        super(indicator);
+    /**
+     * @param logger the logger to use.
+     * @param indicator the indicator subsystem.
+     * @param initialProgress the initial progress.
+     */
+    protected ProgressingCommand(Logger logger, Indicator indicator,
+            CommandProgress initialProgress) {
+        super(logger, indicator);
 
-        this.commandProgress = commandProgress;
+        this.currentProgress = initialProgress;
     }
 
+    /**
+     * @return the current progress.
+     */
     protected CommandProgress getProgress() {
-        return commandProgress;
+        return currentProgress;
     }
 
-    protected void setProgress(CommandProgress commandProgress) {
-        this.commandProgress = commandProgress;
-        logger.fine(String.format("Now on step: \"{0}\". ({1}/{2})", commandProgress,
-                commandProgress.getStepsProgressed(), commandProgress.getTotalSteps()));
-        indicator.indicateProgress(commandProgress.getStepsProgressed(),
-                commandProgress.getTotalSteps());
+    /**
+     * Sets the current progress to the new progress, and indicates the new progress.
+     * 
+     * @param newProgress the new progress.
+     */
+    protected void setProgress(CommandProgress newProgress) {
+        this.currentProgress = newProgress;
+        indicator.indicateProgress(logger, newProgress);
+    }
+
+    /**
+     * Gets whether the command has finished. This is when the command progress is finished.
+     * 
+     * @return whether the command has finished.
+     */
+    @Override
+    public boolean isFinished() {
+        return currentProgress.isFinished();
     }
 }
