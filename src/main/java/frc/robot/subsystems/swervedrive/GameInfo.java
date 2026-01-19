@@ -48,16 +48,13 @@ public class GameInfo extends SubsystemBase {
         }
     }
 
-    private Phase phase;
-    private Alliance alliance;
+    private Phase phase = Constants.GameInfoConstants.START_PHASE;
+    private Alliance alliance = Constants.GameInfoConstants.DEFAULT_ALLIANCE;
 
     /**
      * Subsystem for getting game info.
      */
-    public GameInfo() {
-        this.phase = Constants.GameInfoConstants.START_PHASE;
-        this.alliance = Constants.GameInfoConstants.DEFAULT_ALLIANCE;
-    }
+    public GameInfo() {}
 
     /**
      * Gets the current phase.
@@ -77,10 +74,20 @@ public class GameInfo extends SubsystemBase {
         return alliance;
     }
 
+    /**
+     * Get the current phase number. This is the integer value of the current phase.
+     * 
+     * @return the current phase number.
+     */
     public int getPhaseNum() {
         return phase.toInt();
     }
 
+    /**
+     * Get the current alliance number.
+     * 
+     * @return 0 if red, 1 if blue.
+     */
     public int getAllianceNum() {
         switch (alliance) {
             case Red -> {
@@ -99,7 +106,7 @@ public class GameInfo extends SubsystemBase {
     /**
      * Update the alliance to match the driver station.
      */
-    void updateAlliance() {
+    private void updateAlliance() {
         Optional<Alliance> alliance_option = DriverStation.getAlliance();
 
         if (alliance_option.isPresent()) {
