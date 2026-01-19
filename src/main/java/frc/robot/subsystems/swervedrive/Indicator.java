@@ -23,15 +23,19 @@ public class Indicator extends SubsystemBase {
     }
 
     /**
-     * Indicate idle status.
+     * Reset status.
+     * 
+     * Sets the LEDs to the default color.
      */
-    public void indicateIdle() {
-        led.setSolidColor(getIdleColor());
+    public void resetStatus() {
+        led.setSolidColor(getDefaultColor());
     }
 
     /**
      * Indicate that a command was completed. This should only be called in a command's {@code end}
      * method.
+     * 
+     * Sets the LEDs to the completion color.
      */
     public void indicateCompletion() {
         led.setSolidColor(getCompletionColor());
@@ -40,24 +44,23 @@ public class Indicator extends SubsystemBase {
     /**
      * Indicate that a command was interrupted. This should only be called in a command's
      * {@code end} method.
+     * 
+     * Sets the LEDs to the interruption color.
      */
     public void indicateInterruption() {
         led.setSolidColor(getInterruptionColor());
     }
 
     /**
-     * Get the idle color for the current alliance and phase.
-     * 
-     * @return The idle color for the current alliance and phase.
+     * @return The default color for the current alliance and phase.
      */
-    private RGBWColor getIdleColor() {
-        return getColorFromArray(Constants.IndicatorConstants.ColorArrays.IDLE_COLOR_ARRAYS[gameInfo
-                .getAllianceNum()][gameInfo.getPhaseNum()]);
+    private RGBWColor getDefaultColor() {
+        return getColorFromArray(
+                Constants.IndicatorConstants.ColorArrays.DEFAULT_COLOR_ARRAYS[gameInfo
+                        .getAllianceNum()][gameInfo.getPhaseNum()]);
     }
 
     /**
-     * Get the completion color.
-     * 
      * @return The completion color.
      */
     private static RGBWColor getCompletionColor() {
@@ -65,8 +68,6 @@ public class Indicator extends SubsystemBase {
     }
 
     /**
-     * Get the interruption color.
-     * 
      * @return The interruption color.
      */
     private static RGBWColor getInterruptionColor() {
@@ -74,8 +75,6 @@ public class Indicator extends SubsystemBase {
     }
 
     /**
-     * Get the color from the given array.
-     * 
      * @param array The given array.
      * @return The color.
      */

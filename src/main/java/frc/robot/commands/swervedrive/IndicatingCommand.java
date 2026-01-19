@@ -5,7 +5,7 @@ import frc.robot.subsystems.swervedrive.Indicator;
 import java.util.logging.Logger;
 
 /**
- * A command that indicates on initialization and completion.
+ * A command that logs and indicates on initialization and completion.
  */
 public class IndicatingCommand extends Command {
     protected final Logger logger = Logger.getLogger(getClass().getSimpleName());
@@ -21,19 +21,20 @@ public class IndicatingCommand extends Command {
     }
 
     /**
-     * Called when the command is scheduled.
+     * Called when the command is scheduled. Indicates command initialization.
      * 
-     * Indicates command initialization.
+     * Logs command initialization and resets status.
      */
     @Override
     public void initialize() {
         logger.info("Initializing.");
+        indicator.resetStatus();
     }
 
     /**
-     * Called when the command ends.
+     * Called when the command ends. Indicates command end.
      * 
-     * Indicates command end.
+     * Logs and indicates interruption or completion depending on how the command ended.
      */
     @Override
     public void end(boolean interrupted) {

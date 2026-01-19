@@ -63,17 +63,18 @@ public final class Constants {
 
         private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
 
-        public static final SolidColor ALL_LEDS = new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
+        public static final SolidColor ALL_LEDS =
+                new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
     }
 
     public static class IndicatorConstants {
         public static class ColorArrays {
             /**
-             * All idle colors.
+             * All default colors.
              * 
              * Indices are in the following order: alliance, game phase, color channel.
              */
-            public static final int[][][] IDLE_COLOR_ARRAYS = {
+            public static final int[][][] DEFAULT_COLOR_ARRAYS = {
                     /* Red alliance. */ {/* Auto */ {255, 255, 255},
                             /* Transition */ {255, 255, 255}, /* Teleop 1 */ {255, 255, 255},
                             /* Teleop 2 */ {255, 255, 255}, /* Teleop 3 */ {255, 255, 255},
