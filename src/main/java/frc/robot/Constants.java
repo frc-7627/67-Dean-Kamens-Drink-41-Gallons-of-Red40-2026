@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
@@ -65,6 +66,9 @@ public final class Constants {
 
         public static final SolidColor CONTROL_ALL_LEDS =
                 new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
+
+        public static final RainbowAnimation RAINBOW_ANIMATION =
+                new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
     }
 
     public static class IndicatorConstants {
