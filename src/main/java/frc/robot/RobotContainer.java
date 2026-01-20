@@ -27,6 +27,7 @@ import frc.robot.subsystems.swervedrive.GameInfo;
 import frc.robot.subsystems.swervedrive.Indicator;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.swervedrive.indication.LED;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -44,7 +45,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase =
       new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/neo"));
-    
+
   private final GameInfo gameInfo = new GameInfo();
 
   private final Indicator indicator = new Indicator(gameInfo, new LED());
