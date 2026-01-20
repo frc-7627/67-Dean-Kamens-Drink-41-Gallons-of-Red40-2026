@@ -27,6 +27,13 @@ public class LED extends SubsystemBase {
     }
 
     /**
+     * Set the LEDs to a rainbow animation.
+     */
+    public void setRainbowAnimation() {
+        candle.setControl(Constants.LEDConstants.RAINBOW_ANIMATION);
+    }
+
+    /**
      * Set the LEDs to be filled to the fraction of steps progressed to total steps with the
      * provided foreground and background color. 
      * 
