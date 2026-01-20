@@ -39,8 +39,6 @@ public class Intake extends SubsystemBase {
         // TODO: find way to configure that doesn't use deprecated constants.
         motor.configure(motor_config, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
-
-        // TODO: indicate initialization
     }
 
     /**
