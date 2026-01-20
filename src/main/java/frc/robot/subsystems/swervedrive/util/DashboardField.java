@@ -13,6 +13,7 @@ public class DashboardField<Subsystem, Value extends DashboardValue<Value>> {
     private final Consumer<Pair<Subsystem, Value>> setter;
     private final Value defaultValue;
     private final boolean hasSetter;
+    private final boolean isConstant;
 
     /**
      * Create a read-only field with the provided getter.
@@ -26,6 +27,7 @@ public class DashboardField<Subsystem, Value extends DashboardValue<Value>> {
         this.setter = null;
         this.defaultValue = null;
         this.hasSetter = false;
+        this.isConstant = true;
     }
 
     /**
@@ -35,24 +37,40 @@ public class DashboardField<Subsystem, Value extends DashboardValue<Value>> {
      * @param getter the provided getter.
      * @param setter the provided setter.
      * @param defaultValue the provided default value.
+     * @param isConstant whether the field can only be set once.
      */
     public DashboardField(String name, Function<Subsystem, Value> getter,
-            Consumer<Pair<Subsystem, Value>> setter, Value defaultValue) {
+            Consumer<Pair<Subsystem, Value>> setter, Value defaultValue, boolean isConstant) {
         this.name = name;
         this.getter = getter;
         this.setter = setter;
         this.defaultValue = defaultValue;
         this.hasSetter = true;
+        this.isConstant = isConstant;
     }
 
     /**
-     * Get the key from the subsystem name.
+     * Get the key for pushing from the subsystem name.
      * 
      * @param subsystemName the subsystem name.
-     * @return the key.
+     * @return the key for pushing.
      */
-    private String getKey(String subsystemName) {
+    private String getPushKey(String subsystemName) {
         return String.format("{0}/{1}", subsystemName, name);
+    }
+
+    /**
+     * Get the key for pulling from the subsystem name.
+     * 
+     * @param subsystemName the subsystem name.
+     * @return the key for pulling.
+     */
+    private String getPullKey(String subsystemName) {
+        if (isConstant) {
+            return String.format("{0}/const/{1}", subsystemName, name);
+        } else {
+            return getPushKey(subsystemName);
+        }
     }
 
     /**
@@ -63,7 +81,7 @@ public class DashboardField<Subsystem, Value extends DashboardValue<Value>> {
      * @param subsystem the subsystem.
      */
     private void push(Subsystem subsystem) {
-        getter.apply(subsystem).send(getKey(subsystem.getClass().getSimpleName()));
+        getter.apply(subsystem).send(getPushKey(subsystem.getClass().getSimpleName()));
     }
 
     /**
@@ -77,7 +95,7 @@ public class DashboardField<Subsystem, Value extends DashboardValue<Value>> {
     private void pull(Subsystem subsystem) {
         if (hasSetter) {
             setter.accept(new Pair<Subsystem, Value>(subsystem,
-                    defaultValue.recv(getKey(subsystem.getClass().getSimpleName()))));
+                    defaultValue.recv(getPullKey(subsystem.getClass().getSimpleName()))));
         }
     }
 

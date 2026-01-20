@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
             List.of(new DashboardField<Intake, DashboardDouble>("Load Speed",
                     (intake) -> new DashboardDouble(intake.loadSpeed), (pair) -> {
                         pair.left().loadSpeed = pair.right().value();
-                    }, new DashboardDouble(Constants.IntakeConstants.DEFAULT_LOAD_SPEED)));
+                    }, new DashboardDouble(Constants.IntakeConstants.DEFAULT_LOAD_SPEED), true));
 
     /**
      * Subsystem for the intake.
