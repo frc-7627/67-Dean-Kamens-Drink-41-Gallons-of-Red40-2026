@@ -3,6 +3,7 @@ package frc.robot.subsystems.swervedrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.RelativeEncoder;
+import java.util.List;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -11,6 +12,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.subsystems.swervedrive.util.DashboardDouble;
+import frc.robot.subsystems.swervedrive.util.DashboardField;
 
 public class Intake extends SubsystemBase {
     // Neos
@@ -19,6 +22,12 @@ public class Intake extends SubsystemBase {
             new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
 
     private double loadSpeed = Constants.IntakeConstants.DEFAULT_LOAD_SPEED;
+
+    private static final List<DashboardField<Intake, ?>> DASHBOARD_FIELDS =
+            List.of(new DashboardField<Intake, DashboardDouble>("Load Speed",
+                    (intake) -> new DashboardDouble(intake.loadSpeed), (pair) -> {
+                        pair.left().loadSpeed = pair.right().value();
+                    }, new DashboardDouble(Constants.IntakeConstants.DEFAULT_LOAD_SPEED)));
 
     /**
      * Subsystem for the intake.
@@ -50,5 +59,10 @@ public class Intake extends SubsystemBase {
      */
     public void stop() {
         motor.stopMotor();
+    }
+
+    @Override
+    public void periodic() {
+        DashboardField.updateAll(DASHBOARD_FIELDS, this);
     }
 }
