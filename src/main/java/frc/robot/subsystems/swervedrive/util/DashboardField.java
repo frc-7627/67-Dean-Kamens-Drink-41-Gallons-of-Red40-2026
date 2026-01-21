@@ -14,9 +14,9 @@ public interface DashboardField<Inner> {
     /**
      * Set the inner value.
      * 
-     * @param inner the inner value.
+     * @param innerValue the inner value.
      */
-    void setInnerValue(Inner inner);
+    void setInnerValue(Inner innerValue);
 
     /**
      * Push the field to the dashboard.

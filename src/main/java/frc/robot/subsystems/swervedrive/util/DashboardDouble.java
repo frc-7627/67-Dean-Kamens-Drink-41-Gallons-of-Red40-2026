@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public final class DashboardDouble<Subsystem> extends BaseDashboardField<Subsystem, Double>
         implements DashboardField<Double> {
-    public DashboardDouble(Subsystem subsystem, String fieldName, double inner) {
-        super(subsystem, fieldName, inner);
+    public DashboardDouble(Subsystem subsystem, String fieldName, double initialValue) {
+        super(subsystem, fieldName, initialValue);
     }
 
-    public DashboardDouble(Subsystem subsystem, String fieldName, double inner,
+    public DashboardDouble(Subsystem subsystem, String fieldName, double initialValue,
             boolean isConstant) {
-        super(subsystem, fieldName, inner, inner, isConstant);
+        super(subsystem, fieldName, initialValue, initialValue, isConstant);
     }
 
     @Override

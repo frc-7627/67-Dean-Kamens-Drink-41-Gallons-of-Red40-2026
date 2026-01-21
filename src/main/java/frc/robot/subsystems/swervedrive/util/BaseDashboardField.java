@@ -15,14 +15,14 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
      * 
      * @param subsystem the subsystem.
      * @param fieldName the name of the field.
-     * @param inner     the field's initial value.
+     * @param initialValue     the field's initial value.
      */
-    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner inner) {
+    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner initialValue) {
         final String subsystemName = subsystem.getClass().getSimpleName();
         final ValueMode valueMode = ValueMode.PUSH_ONLY;
         this.pushKey = getPushKey(subsystemName, fieldName);
         this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
-        this.innerValue = inner;
+        this.innerValue = initialValue;
         this.defaultValue = null;
         this.valueMode = valueMode;
     }
@@ -32,17 +32,17 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
      * 
      * @param subsystem    the subsystem.
      * @param fieldName    the name of the field.
-     * @param innerValue   the field's initial value.
+     * @param initialValue   the field's initial value.
      * @param defaultValue the field's default value.
      * @param isConstant   whether the field will be treated as a constant.
      */
-    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner innerValue, Inner defaultValue,
+    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner initialValue, Inner defaultValue,
             boolean isConstant) {
         final String subsystemName = subsystem.getClass().getSimpleName();
         final ValueMode valueMode = isConstant ? ValueMode.PUSH_AND_PULL_CONST : ValueMode.PUSH_AND_PULL;
         this.pushKey = getPushKey(subsystemName, fieldName);
         this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
-        this.innerValue = innerValue;
+        this.innerValue = initialValue;
         this.defaultValue = defaultValue;
         this.valueMode = valueMode;
     }
@@ -96,10 +96,10 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
     /**
      * Set the inner value.
      * 
-     * @param inner the inner value.
+     * @param innerValue the inner value.
      */
-    public void setInnerValue(Inner inner) {
-        this.innerValue = inner;
+    public void setInnerValue(Inner innerValue) {
+        this.innerValue = innerValue;
     }
 
     /**
