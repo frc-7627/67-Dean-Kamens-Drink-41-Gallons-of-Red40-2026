@@ -3,7 +3,7 @@ package frc.robot.subsystems.swervedrive.util;
 /**
  * A dashboard field.
  */
-public abstract class BaseDashboardField<Subsystem, Inner> {
+abstract class BaseDashboardField<Subsystem, Inner> {
     private final String pushKey;
     private final String pullKey;
     private Inner innerValue;
@@ -32,7 +32,7 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
      * 
      * @param subsystem    the subsystem.
      * @param fieldName    the name of the field.
-     * @param initialValue   the field's initial value.
+     * @param initialValue the field's initial value.
      * @param defaultValue the field's default value.
      * @param isConstant   whether the field will be treated as a constant.
      */

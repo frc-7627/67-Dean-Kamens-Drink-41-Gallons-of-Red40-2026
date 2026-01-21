@@ -1,8 +1,6 @@
 package frc.robot.subsystems.swervedrive;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import java.util.List;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -12,7 +10,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.util.DashboardDouble;
-import frc.robot.subsystems.swervedrive.util.DashboardField;
 
 public class Intake extends SubsystemBase {
     // Neos
@@ -54,5 +51,10 @@ public class Intake extends SubsystemBase {
      */
     public void stop() {
         motor.stopMotor();
+    }
+
+    @Override
+    public void periodic() {
+        loadSpeed.update();
     }
 }

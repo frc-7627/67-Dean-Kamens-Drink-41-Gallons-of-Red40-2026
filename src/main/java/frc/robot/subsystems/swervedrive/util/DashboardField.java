@@ -3,7 +3,7 @@ package frc.robot.subsystems.swervedrive.util;
 /**
  * A class that can send and receive it's instances to and from the dashboard.
  */
-public interface DashboardField<Inner> {
+interface DashboardField<Inner> {
     /**
      * @return The inner value
      */
