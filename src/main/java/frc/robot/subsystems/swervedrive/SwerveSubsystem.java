@@ -71,11 +71,6 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   private Vision vision;
 
-  private static final List<DashboardField<SwerveSubsystem, ?>> DASHBOARD_FIELDS =
-      List.of(new DashboardField<SwerveSubsystem, DashboardDouble>("Encoder Offset",
-          // TODO: replace 0.0 with encoder offset.
-          (swerveSubsystem) -> new DashboardDouble(0.0)));
-
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
@@ -146,8 +141,6 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);
     }
-
-    DashboardField.updateAll(DASHBOARD_FIELDS, this);
   }
 
   @Override
