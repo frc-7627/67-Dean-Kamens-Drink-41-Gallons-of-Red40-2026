@@ -69,6 +69,14 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
         return String.format("{0}/const/{1}", subsystemName, fieldName);
     }
 
+    /**
+     * Get the pull key from the subsystem name, field name, and value mode.
+     * 
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the field name.
+     * @param valueMode     the value mode.
+     * @return the pull key.
+     */
     private static String getPullKey(String subsystemName, String fieldName, ValueMode valueMode) {
         return switch (valueMode) {
             case PUSH_ONLY -> null;
@@ -78,22 +86,48 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
         };
     }
 
+    /**
+     * @return the inner value.
+     */
     public Inner getInner() {
         return inner;
     }
 
+    /**
+     * Set the inner value.
+     * 
+     * @param inner the inner value.
+     */
     public void setInner(Inner inner) {
         this.inner = inner;
     }
 
+    /**
+     * Send the value to the dashboard using the push key.
+     * 
+     * @param pushKey the push key.
+     */
     abstract protected void send(String pushKey);
 
+    /**
+     * Receive the value from the dashboard using the pull key, falling back on the
+     * provided default.
+     * 
+     * @param pullKey      the pull key.
+     * @param defaultValue the provided default.
+     */
     abstract protected void recv(String pullKey, Inner defaultValue);
 
+    /**
+     * Push the field to the dashboard.
+     */
     public void push() {
         send(pushKey);
     }
 
+    /**
+     * Pull the field from the dashboard.
+     */
     public void pull() {
         if (valueMode.isPull()) {
             recv(pullKey, defaultValue);
