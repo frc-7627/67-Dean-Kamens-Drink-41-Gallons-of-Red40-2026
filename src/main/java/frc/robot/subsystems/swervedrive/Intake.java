@@ -17,16 +17,16 @@ import frc.robot.subsystems.swervedrive.util.DashboardField;
 public class Intake extends SubsystemBase {
     // Neos
 
-    private final SparkMax motor =
-            new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
+    private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
 
-    private double loadSpeed = Constants.IntakeConstants.DEFAULT_LOAD_SPEED;
+    private final DashboardDouble<Intake> loadSpeed = new DashboardDouble<Intake>(
+            this,
+            "Load Speed",
+            Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
+            true);
 
-    private static final List<DashboardField<Intake, ?>> DASHBOARD_FIELDS =
-            List.of(new DashboardField<Intake, DashboardDouble>("Load Speed",
-                    (intake) -> new DashboardDouble(intake.loadSpeed), (pair) -> {
-                        pair.left().loadSpeed = pair.right().value();
-                    }, new DashboardDouble(Constants.IntakeConstants.DEFAULT_LOAD_SPEED), true));
+    private final List<DashboardField<?>> DASHBOARD_FIELDS = List.of(
+            loadSpeed);
 
     /**
      * Subsystem for the intake.
@@ -47,7 +47,7 @@ public class Intake extends SubsystemBase {
      * Sets the speed of the intake motor to the current load speed.
      */
     public void load() {
-        motor.set(loadSpeed);
+        motor.set(loadSpeed.getInner());
     }
 
     /**
@@ -61,6 +61,6 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        DashboardField.updateAll(DASHBOARD_FIELDS, this);
+        DashboardField.updateAll(DASHBOARD_FIELDS);
     }
 }
