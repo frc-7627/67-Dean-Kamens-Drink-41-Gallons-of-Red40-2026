@@ -3,7 +3,7 @@ package frc.robot.subsystems.swervedrive.util;
 /**
  * A dashboard field.
  */
-abstract class BaseDashboardField<Subsystem, Inner> {
+abstract class BaseDashboardField<Inner> {
     private final String pushKey;
     private final String pullKey;
     private Inner innerValue;
@@ -13,12 +13,11 @@ abstract class BaseDashboardField<Subsystem, Inner> {
     /**
      * A dashboard field that is only pushed.
      * 
-     * @param subsystem    the subsystem.
-     * @param fieldName    the name of the field.
-     * @param initialValue the field's initial value.
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
      */
-    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner initialValue) {
-        final String subsystemName = subsystem.getClass().getSimpleName();
+    protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue) {
         final ValueMode valueMode = ValueMode.PUSH_ONLY;
         this.pushKey = getPushKey(subsystemName, fieldName);
         this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
@@ -30,15 +29,14 @@ abstract class BaseDashboardField<Subsystem, Inner> {
     /**
      * A dashboard field that is pushed and pulled.
      * 
-     * @param subsystem    the subsystem.
-     * @param fieldName    the name of the field.
-     * @param initialValue the field's initial value.
-     * @param defaultValue the field's default value.
-     * @param isConstant   whether the field will be treated as a constant.
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
+     * @param defaultValue  the field's default value.
+     * @param isConstant    whether the field will be treated as a constant.
      */
-    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner initialValue, Inner defaultValue,
+    protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue,
             boolean isConstant) {
-        final String subsystemName = subsystem.getClass().getSimpleName();
         final ValueMode valueMode = isConstant ? ValueMode.PUSH_AND_PULL_CONST : ValueMode.PUSH_AND_PULL;
         this.pushKey = getPushKey(subsystemName, fieldName);
         this.pullKey = getPullKey(subsystemName, fieldName, valueMode);

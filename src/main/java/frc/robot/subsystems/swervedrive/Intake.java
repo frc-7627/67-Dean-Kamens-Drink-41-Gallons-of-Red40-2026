@@ -14,10 +14,12 @@ import frc.robot.subsystems.swervedrive.util.DashboardDouble;
 public class Intake extends SubsystemBase {
     // Neos
 
+    private static final String SUBSYSTEM_NAME = Intake.class.getSimpleName();
+
     private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
 
-    private final DashboardDouble<Intake> loadSpeed = new DashboardDouble<Intake>(
-            this,
+    private final DashboardDouble loadSpeed = new DashboardDouble(
+            SUBSYSTEM_NAME,
             "Load Speed",
             Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
             true);

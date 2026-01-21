@@ -2,31 +2,31 @@ package frc.robot.subsystems.swervedrive.util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public final class DashboardString<Subsystem> extends BaseDashboardField<Subsystem, String>
+public final class DashboardString extends BaseDashboardField<String>
         implements DashboardField<String> {
     /**
      * A dashboard field that is only pushed.
      * 
-     * @param subsystem    the subsystem.
-     * @param fieldName    the name of the field.
-     * @param initialValue the field's initial value.
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
      */
-    public DashboardString(Subsystem subsystem, String fieldName, String initialValue) {
-        super(subsystem, fieldName, initialValue);
+    public DashboardString(String subsystemName, String fieldName, String initialValue) {
+        super(subsystemName, fieldName, initialValue);
     }
 
     /**
      * A dashboard field that is pushed and pulled.
      * 
-     * @param subsystem    the subsystem.
-     * @param fieldName    the name of the field.
-     * @param initialValue the field's initial value.
-     * @param defaultValue the field's default value.
-     * @param isConstant   whether the field will be treated as a constant.
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
+     * @param defaultValue  the field's default value.
+     * @param isConstant    whether the field will be treated as a constant.
      */
-    public DashboardString(Subsystem subsystem, String fieldName, String initialValue, String defaultValue,
+    public DashboardString(String subsystemName, String fieldName, String initialValue, String defaultValue,
             boolean isConstant) {
-        super(subsystem, fieldName, initialValue, defaultValue, isConstant);
+        super(subsystemName, fieldName, initialValue, defaultValue, isConstant);
     }
 
     @Override
