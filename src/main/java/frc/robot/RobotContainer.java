@@ -27,6 +27,8 @@ import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
+// import org.littletonrobotics.junction.Logger; TODO: Figure it out
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,8 +42,8 @@ public class RobotContainer {
   final CommandXboxController driverXbox = new CommandXboxController(0);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase =
-      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/neo"));
-    
+      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+
   private final Intake intake = new Intake();
 
   // Establish a Sendable Chooser that will be able to be sent to the SmartDashboard, allowing
@@ -187,4 +189,60 @@ public class RobotContainer {
   public void setMotorBrake(boolean brake) {
     drivebase.setMotorBrake(brake);
   }
+
+
+  /**
+   * Run once when Robot is enabled in teleop in driverstation
+   *
+   * @return void
+   */
+  public void teleopInit() {
+    // opCommands.AutoStow().schedule(); // Move the elevator to the Stow position, and run
+    // endefector
+  }
+
+  public void autoInit() {
+    // led.blink("default");
+  }
+
+  /**
+   * Run once when Robot is disabled in driverstation
+   * 
+   * @return void
+   */
+  public void disabledInit() {
+    // .playSong("BlueLobster"); TODO: Add back soon
+  }
+
+
+  // Periodically do things during teleop
+  public void teleopPeriodic() {
+    Pose2d currentPose = drivebase.getPose();
+    // Logger.recordOutput("MyPose2d", currentPose); TODO: Reimpliment logger
+    /*
+     * Logger.recordOutput("MyPose2dArray", poseA, poseB); Logger.recordOutput("MyPose2dArray", new
+     * Pose2d[] { poseA, poseB }); TODO: Log the ODEM
+     */
+
+  }
+
+  /**
+   * Run every cycle when the robot is disabled in driverstation
+   * 
+   * @return void
+   */
+  public void disabledPeriodic() {
+
+  }
+
+  // TODO: Reimplement the folowing vvvv
+  // public void driveNormal() {
+  // System.out.println("Slow mode: disabled");
+  // slowMode = 1.0;
+  // }
+
+  // public void driveSlow() {
+  // System.out.println("Slow mode: true");
+  // slowMode = slowModeSpeed;
+  // }
 }
