@@ -14,12 +14,12 @@ public final class DashboardDouble<Subsystem> extends BaseDashboardField<Subsyst
     }
 
     @Override
-    public void send(String key) {
-        SmartDashboard.putNumber(key, getInner());
+    public void send(String pushKey) {
+        SmartDashboard.putNumber(pushKey, getInner());
     }
 
     @Override
-    public void recv(String key, Double defaultValue) {
-        setInner(SmartDashboard.getNumber(key, defaultValue));
+    public void recv(String pullKey, Double defaultValue) {
+        setInner(SmartDashboard.getNumber(pullKey, defaultValue));
     }
 }

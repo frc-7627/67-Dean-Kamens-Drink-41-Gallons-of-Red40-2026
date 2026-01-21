@@ -13,12 +13,12 @@ public final class DashboardBoolean<Subsystem> extends BaseDashboardField<Subsys
     }
 
     @Override
-    public void send(String key) {
-        SmartDashboard.putBoolean(key, getInner());
+    public void send(String pushKey) {
+        SmartDashboard.putBoolean(pushKey, getInner());
     }
 
     @Override
-    public void recv(String key, Boolean defaultValue) {
-        setInner(SmartDashboard.getBoolean(key, defaultValue));
+    public void recv(String pullKey, Boolean defaultValue) {
+        setInner(SmartDashboard.getBoolean(pullKey, defaultValue));
     }
 }
