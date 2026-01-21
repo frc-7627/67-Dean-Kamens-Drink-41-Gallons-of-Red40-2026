@@ -1,7 +1,5 @@
 package frc.robot.subsystems.swervedrive.util;
 
-import java.util.List;
-
 /**
  * A class that can send and receive it's instances to and from the dashboard.
  */
@@ -36,16 +34,5 @@ public interface DashboardField<Inner> {
     default void update() {
         push();
         pull();
-    }
-
-    /**
-     * Update all the provided fields.
-     * 
-     * @param fields the provided fields.
-     */
-    public static void updateAll(List<DashboardField<?>> fields) {
-        for (DashboardField<?> field : fields) {
-            field.update();
-        }
     }
 }

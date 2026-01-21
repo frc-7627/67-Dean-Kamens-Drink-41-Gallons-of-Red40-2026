@@ -25,9 +25,6 @@ public class Intake extends SubsystemBase {
             Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
             true);
 
-    private final List<DashboardField<?>> dashboardFields = List.of(
-            loadSpeed);
-
     /**
      * Subsystem for the intake.
      */
@@ -57,10 +54,5 @@ public class Intake extends SubsystemBase {
      */
     public void stop() {
         motor.stopMotor();
-    }
-
-    @Override
-    public void periodic() {
-        DashboardField.updateAll(dashboardFields);
     }
 }

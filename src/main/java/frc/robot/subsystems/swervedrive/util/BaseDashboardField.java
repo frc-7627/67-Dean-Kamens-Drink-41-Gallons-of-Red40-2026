@@ -13,9 +13,9 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
     /**
      * A dashboard field that is only pushed.
      * 
-     * @param subsystem the subsystem.
-     * @param fieldName the name of the field.
-     * @param initialValue     the field's initial value.
+     * @param subsystem    the subsystem.
+     * @param fieldName    the name of the field.
+     * @param initialValue the field's initial value.
      */
     protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner initialValue) {
         final String subsystemName = subsystem.getClass().getSimpleName();
