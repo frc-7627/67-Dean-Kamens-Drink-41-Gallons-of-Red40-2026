@@ -33,9 +33,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
+import frc.robot.subsystems.swervedrive.util.DashboardDouble;
+import frc.robot.subsystems.swervedrive.util.DashboardField;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
@@ -67,6 +70,11 @@ public class SwerveSubsystem extends SubsystemBase {
    * PhotonVision class to keep an accurate odometry.
    */
   private Vision vision;
+
+  private static final List<DashboardField<SwerveSubsystem, ?>> DASHBOARD_FIELDS =
+      List.of(new DashboardField<SwerveSubsystem, DashboardDouble>("Encoder Offset",
+          // TODO: replace 0.0 with encoder offset.
+          (swerveSubsystem) -> new DashboardDouble(0.0)));
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -138,6 +146,8 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);
     }
+
+    DashboardField.updateAll(DASHBOARD_FIELDS, this);
   }
 
   @Override
