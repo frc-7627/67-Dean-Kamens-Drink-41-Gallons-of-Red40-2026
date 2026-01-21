@@ -39,6 +39,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Configure PathFinder for driveToPose
+    
+
     // Instantiate our RobotContainer. This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -47,6 +50,10 @@ public class Robot extends TimedRobot {
     // stop
     // immediately when disabled, but then also let it be pushed more
     disabledTimer = new Timer();
+
+
+
+
 
     if (isSimulation()) {
       DriverStation.silenceJoystickConnectionWarning(true);
