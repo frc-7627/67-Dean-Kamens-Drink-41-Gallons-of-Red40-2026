@@ -2,7 +2,6 @@ package frc.robot.subsystems.swervedrive;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -29,7 +28,8 @@ public class Intake extends SubsystemBase {
         motor_config.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
 
         // TODO: find way to configure that doesn't use deprecated constants.
-        motor.configure(motor_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor.configure(motor_config, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
 
         // TODO: indicate initialization
     }
