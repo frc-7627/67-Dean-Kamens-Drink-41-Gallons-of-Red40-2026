@@ -6,7 +6,7 @@ package frc.robot.subsystems.swervedrive.util;
 public abstract class BaseDashboardField<Subsystem, Inner> {
     private final String pushKey;
     private final String pullKey;
-    private Inner inner;
+    private Inner innerValue;
     private final Inner defaultValue;
     private final ValueMode valueMode;
 
@@ -15,14 +15,14 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
      * 
      * @param subsystem the subsystem.
      * @param fieldName the name of the field.
-     * @param inner     the field's value.
+     * @param inner     the field's initial value.
      */
     protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner inner) {
         final String subsystemName = subsystem.getClass().getSimpleName();
         final ValueMode valueMode = ValueMode.PUSH_ONLY;
         this.pushKey = getPushKey(subsystemName, fieldName);
         this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
-        this.inner = inner;
+        this.innerValue = inner;
         this.defaultValue = null;
         this.valueMode = valueMode;
     }
@@ -32,17 +32,17 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
      * 
      * @param subsystem    the subsystem.
      * @param fieldName    the name of the field.
-     * @param inner        the field's value.
+     * @param innerValue   the field's initial value.
      * @param defaultValue the field's default value.
      * @param isConstant   whether the field will be treated as a constant.
      */
-    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner inner, Inner defaultValue,
+    protected BaseDashboardField(Subsystem subsystem, String fieldName, Inner innerValue, Inner defaultValue,
             boolean isConstant) {
         final String subsystemName = subsystem.getClass().getSimpleName();
         final ValueMode valueMode = isConstant ? ValueMode.PUSH_AND_PULL_CONST : ValueMode.PUSH_AND_PULL;
         this.pushKey = getPushKey(subsystemName, fieldName);
         this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
-        this.inner = inner;
+        this.innerValue = innerValue;
         this.defaultValue = defaultValue;
         this.valueMode = valueMode;
     }
@@ -89,8 +89,8 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
     /**
      * @return the inner value.
      */
-    public Inner getInner() {
-        return inner;
+    public Inner getInnerValue() {
+        return innerValue;
     }
 
     /**
@@ -98,8 +98,8 @@ public abstract class BaseDashboardField<Subsystem, Inner> {
      * 
      * @param inner the inner value.
      */
-    public void setInner(Inner inner) {
-        this.inner = inner;
+    public void setInnerValue(Inner inner) {
+        this.innerValue = inner;
     }
 
     /**

@@ -47,7 +47,7 @@ public class Intake extends SubsystemBase {
      * Sets the speed of the intake motor to the current load speed.
      */
     public void load() {
-        motor.set(loadSpeed.getInner());
+        motor.set(loadSpeed.getInnerValue());
     }
 
     /**

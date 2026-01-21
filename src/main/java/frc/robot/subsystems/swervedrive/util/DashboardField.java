@@ -9,14 +9,14 @@ public interface DashboardField<Inner> {
     /**
      * @return The inner value
      */
-    Inner getInner();
+    Inner getInnerValue();
 
     /**
      * Set the inner value.
      * 
      * @param inner the inner value.
      */
-    void setInner(Inner inner);
+    void setInnerValue(Inner inner);
 
     /**
      * Push the field to the dashboard.
