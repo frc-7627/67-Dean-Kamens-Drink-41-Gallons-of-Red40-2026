@@ -19,10 +19,10 @@ public class Intake extends SubsystemBase {
     private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
 
     private final DashboardDouble loadSpeed = new DashboardDouble(
+            true,
             SUBSYSTEM_NAME,
             "Load Speed",
-            Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
-            true);
+            Constants.IntakeConstants.DEFAULT_LOAD_SPEED);
 
     /**
      * Subsystem for the intake.

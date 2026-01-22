@@ -8,7 +8,23 @@ abstract class BaseDashboardField<Inner> {
     private final String pullKey;
     private Inner innerValue;
     private final Inner defaultValue;
-    private final ValueMode valueMode;
+    private final boolean isPull;
+
+    /**
+     * A dashboard field that is pushed and possibly pulled.
+     * 
+     * @param isPull        whether the field is pulled.
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
+     */
+    protected BaseDashboardField(boolean isPull, String subsystemName, String fieldName, Inner initialValue) {
+        this.pushKey = getPushKey(subsystemName, fieldName);
+        this.pullKey = isPull ? getPullKey(subsystemName, fieldName) : null;
+        this.innerValue = initialValue;
+        this.defaultValue = isPull ? initialValue : null;
+        this.isPull = isPull;
+    }
 
     /**
      * A dashboard field that is only pushed.
@@ -18,12 +34,11 @@ abstract class BaseDashboardField<Inner> {
      * @param initialValue  the field's initial value.
      */
     protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue) {
-        final ValueMode valueMode = ValueMode.PUSH_ONLY;
         this.pushKey = getPushKey(subsystemName, fieldName);
-        this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
+        this.pullKey = null;
         this.innerValue = initialValue;
         this.defaultValue = null;
-        this.valueMode = valueMode;
+        this.isPull = false;
     }
 
     /**
@@ -33,16 +48,13 @@ abstract class BaseDashboardField<Inner> {
      * @param fieldName     the name of the field.
      * @param initialValue  the field's initial value.
      * @param defaultValue  the field's default value.
-     * @param isConstant    whether the field will be treated as a constant.
      */
-    protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue,
-            boolean isConstant) {
-        final ValueMode valueMode = isConstant ? ValueMode.PUSH_AND_PULL_CONST : ValueMode.PUSH_AND_PULL;
+    protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue) {
         this.pushKey = getPushKey(subsystemName, fieldName);
-        this.pullKey = getPullKey(subsystemName, fieldName, valueMode);
+        this.pullKey = getPullKey(subsystemName, fieldName);
         this.innerValue = initialValue;
         this.defaultValue = defaultValue;
-        this.valueMode = valueMode;
+        this.isPull = true;
     }
 
     /**
@@ -57,31 +69,14 @@ abstract class BaseDashboardField<Inner> {
     }
 
     /**
-     * Get the pull-const key from the subsystem name and the field name.
+     * Get the pull key from the subsystem name and the field name.
      * 
      * @param subsystemName the subsystem name.
      * @param fieldName     the field name.
-     * @return the pull-const key.
-     */
-    private static String getPullConstKey(String subsystemName, String fieldName) {
-        return String.format("{0}/const/{1}", subsystemName, fieldName);
-    }
-
-    /**
-     * Get the pull key from the subsystem name, field name, and value mode.
-     * 
-     * @param subsystemName the subsystem name.
-     * @param fieldName     the field name.
-     * @param valueMode     the value mode.
      * @return the pull key.
      */
-    private static String getPullKey(String subsystemName, String fieldName, ValueMode valueMode) {
-        return switch (valueMode) {
-            case PUSH_ONLY -> null;
-            case PUSH_AND_PULL_CONST -> getPullConstKey(subsystemName, fieldName);
-            case PUSH_AND_PULL -> getPushKey(subsystemName, fieldName);
-            default -> throw new IllegalArgumentException();
-        };
+    private static String getPullKey(String subsystemName, String fieldName) {
+        return String.format("{0}/const/{1}", subsystemName, fieldName);
     }
 
     /**
@@ -127,7 +122,7 @@ abstract class BaseDashboardField<Inner> {
      * Pull the field from the dashboard.
      */
     public void pull() {
-        if (valueMode.isPull()) {
+        if (isPull) {
             recv(pullKey, defaultValue);
         }
     }
