@@ -23,12 +23,12 @@ public class Intake extends SubsystemBase {
      * Subsystem for the intake.
      */
     public Intake() {
-        SparkMaxConfig motor_config = new SparkMaxConfig();
-        motor_config.idleMode(IdleMode.kCoast);
-        motor_config.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
+        SparkMaxConfig motorConfig = new SparkMaxConfig();
+        motorConfig.idleMode(IdleMode.kCoast);
+        motorConfig.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
 
         // TODO: find way to configure that doesn't use deprecated constants.
-        motor.configure(motor_config, ResetMode.kResetSafeParameters,
+        motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
 
         // TODO: indicate initialization
