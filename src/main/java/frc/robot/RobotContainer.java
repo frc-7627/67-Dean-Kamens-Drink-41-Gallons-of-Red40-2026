@@ -23,12 +23,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.intake.LoadIntake;
-import frc.robot.subsystems.swervedrive.GameInfo;
-import frc.robot.subsystems.swervedrive.Indicator;
+import frc.robot.subsystems.GameInfo;
+import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.indication.LED;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
-import frc.robot.subsystems.swervedrive.indication.LED;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 import org.littletonrobotics.junction.Logger; // TODO: Figure it out

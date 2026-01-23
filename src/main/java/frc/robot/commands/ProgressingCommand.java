@@ -1,8 +1,9 @@
-package frc.robot.commands.swervedrive;
+package frc.robot.commands;
 
 import java.util.logging.Logger;
-import frc.robot.commands.swervedrive.util.Progress;
-import frc.robot.subsystems.swervedrive.Indicator;
+
+import frc.robot.commands.util.Progress;
+import frc.robot.subsystems.Indicator;
 
 /**
  * A command that has progress.

@@ -1,8 +1,9 @@
 package frc.robot.commands.intake;
 
 import java.util.logging.Logger;
-import frc.robot.commands.swervedrive.IndicatingCommand;
-import frc.robot.subsystems.swervedrive.Indicator;
+
+import frc.robot.commands.IndicatingCommand;
+import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
 
 public class LoadIntake extends IndicatingCommand {

@@ -9,7 +9,7 @@ import com.ctre.phoenix6.controls.SolidColor;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.subsystems.swervedrive.GameInfo;
+import frc.robot.subsystems.GameInfo;
 import swervelib.math.Matter;
 
 /**

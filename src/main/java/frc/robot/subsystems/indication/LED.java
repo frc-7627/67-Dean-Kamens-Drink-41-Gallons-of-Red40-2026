@@ -1,4 +1,4 @@
-package frc.robot.subsystems.swervedrive.indication;
+package frc.robot.subsystems.indication;
 
 import frc.robot.Constants;
 import com.ctre.phoenix6.controls.SolidColor;
@@ -13,7 +13,7 @@ public class LED extends SubsystemBase {
      * The subsystem implementing led indication. Do not use directly, use {@code Indicator} for
      * indicating status.
      * 
-     * @see frc.robot.subsystems.swervedrive.Indicator
+     * @see frc.robot.subsystems.Indicator
      */
     public LED() {}
 
