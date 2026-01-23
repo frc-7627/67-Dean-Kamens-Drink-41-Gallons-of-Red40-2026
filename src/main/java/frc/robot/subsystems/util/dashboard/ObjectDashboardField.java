@@ -1,6 +1,6 @@
 package frc.robot.subsystems.util.dashboard;
 
-public abstract class ObjectDashboardField<Inner> extends BaseDashboardField<Inner> {
+abstract class ObjectDashboardField<Inner> extends BaseDashboardField<Inner> {
     private final Inner defaultValue;
 
     protected ObjectDashboardField(String subsystemName, String fieldName, Inner initialValue) {
