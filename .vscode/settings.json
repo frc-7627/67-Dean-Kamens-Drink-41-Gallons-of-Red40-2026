@@ -34,8 +34,10 @@
     "gamepiece",
     "ironmaple",
     "Neos",
+    "subtable",
     "RGBW",
     "swervedrive",
+    "RGBW",
     "Teleop"
   ],
   "workbench.colorCustomizations": {
