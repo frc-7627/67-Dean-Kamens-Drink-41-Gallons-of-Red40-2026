@@ -3,10 +3,10 @@ package frc.robot.commands.swervedrive.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class PrototypeIntake extends Command {
+public class LoadIntake extends Command {
     private Intake intake;
 
-    public PrototypeIntake(Intake intake) {
+    public LoadIntake(Intake intake) {
         this.intake = intake;
 
         addRequirements(intake);
