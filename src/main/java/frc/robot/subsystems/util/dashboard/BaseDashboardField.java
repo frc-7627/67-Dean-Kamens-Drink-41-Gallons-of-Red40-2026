@@ -1,4 +1,4 @@
-package frc.robot.subsystems.dashboard;
+package frc.robot.subsystems.util.dashboard;
 
 /**
  * A dashboard field.
