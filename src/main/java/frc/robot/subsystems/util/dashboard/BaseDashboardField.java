@@ -130,10 +130,10 @@ abstract class BaseDashboardField<Inner> {
     /**
      * Update the field.
      * 
-     * Push and pull the field to and from the dashboard.
+     * Pull and push the field from and to the dashboard.
      */
     public void update() {
-        push();
         pull();
+        push();
     }
 }
