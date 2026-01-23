@@ -85,14 +85,6 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     }
 
     /**
-     * @return whether the field is pushing or pulling.
-     * @see #fieldMode
-     */
-    protected final FieldMode getFieldMode() {
-        return fieldMode;
-    }
-
-    /**
      * Push the value to the dashboard using the provided key.
      * 
      * @param key the provided key.
