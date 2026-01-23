@@ -2,6 +2,14 @@ package frc.robot.subsystems.util.dashboard;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * A dashboard field for booleans.
+ * 
+ * @see DashboardField
+ * @see BaseDashboardField
+ * @see ValueDashboardField
+ * @see #DashboardDouble(String, String, Double, FieldMode)
+ */
 public final class DashboardDouble extends ValueDashboardField<Double> {
     /**
      * A pushing or pulling dashboard field for doubles.
@@ -10,16 +18,30 @@ public final class DashboardDouble extends ValueDashboardField<Double> {
      * @param fieldName     the name of the field.
      * @param initialValue  the field's initial value.
      * @param fieldMode     whether the field is pushing or pulling.
+     * @see ValueDashboardField#ValueDashboardField(String, String, Double, FieldMode)
      */
     public DashboardDouble(String subsystemName, String fieldName, double initialValue, FieldMode fieldMode) {
         super(subsystemName, fieldName, initialValue, fieldMode);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see #getInnerValue()
+     * @see SmartDashboard#putNumber(String, Double)
+     */
     @Override
     protected final void push(String key) {
         SmartDashboard.putNumber(key, getInnerValue());
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @see #setInnerValue(Double)
+     * @see #getDefaultValue()
+     * @see SmartDashboard#getNumber(String, Double)
+     */
     @Override
     protected final void pull(String key) {
         setInnerValue(SmartDashboard.getNumber(key, getDefaultValue()));

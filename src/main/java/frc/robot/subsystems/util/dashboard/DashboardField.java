@@ -1,10 +1,19 @@
 package frc.robot.subsystems.util.dashboard;
 
+/**
+ * A dashboard field.
+ * 
+ * @see BaseDashboardField
+ * @see #init()
+ * @see #update()
+ */
 public interface DashboardField {
     /**
      * Initialize the field.
      * 
      * This should guarantee that the dashboard can see the field.
+     * 
+     * @see #initAll(DashboardField[])
      */
     void init();
 
@@ -13,6 +22,8 @@ public interface DashboardField {
      * 
      * This should guarantee that the dashboard and the robot agree on the field's
      * value.
+     * 
+     * @see #updateAll(DashboardField[])
      */
     void update();
 
