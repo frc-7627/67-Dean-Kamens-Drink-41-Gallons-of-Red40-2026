@@ -27,7 +27,7 @@ import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
-// import org.littletonrobotics.junction.Logger; TODO: Figure it out
+import org.littletonrobotics.junction.Logger; // TODO: Figure it out
 
 /**
  * This class is where the bulk of the robot should be declared. Since
