@@ -7,10 +7,10 @@ package frc.robot.subsystems.util.dashboard;
  * @see DashboardField
  * @see BaseDashboardField
  * @see DashboardString
- * @see #ObjectDashboardField(String, String, Inner)
- * @see #ObjectDashboardField(String, String, Inner, Inner)
+ * @see #DashboardObject(String, String, Inner)
+ * @see #DashboardObject(String, String, Inner, Inner)
  */
-abstract class ObjectDashboardField<Inner> extends BaseDashboardField<Inner> {
+abstract class DashboardObject<Inner> extends BaseDashboardField<Inner> {
     /**
      * A pushing dashboard field for objects.
      * 
@@ -18,9 +18,10 @@ abstract class ObjectDashboardField<Inner> extends BaseDashboardField<Inner> {
      * @param fieldName     the name of the field.
      * @param initialValue  the field's initial value.
      * @see FieldMode#PUSH
-     * @see BaseDashboardField#BaseDashboardField(String, String, Inner, Inner, FieldMode)
+     * @see BaseDashboardField#BaseDashboardField(String, String, Inner, Inner,
+     *      FieldMode)
      */
-    protected ObjectDashboardField(String subsystemName, String fieldName, Inner initialValue) {
+    protected DashboardObject(String subsystemName, String fieldName, Inner initialValue) {
         super(subsystemName, fieldName, initialValue, null, FieldMode.PUSH);
     }
 
@@ -32,9 +33,10 @@ abstract class ObjectDashboardField<Inner> extends BaseDashboardField<Inner> {
      * @param initialValue  the field's initial value.
      * @param defaultValue  the field's default value.
      * @see FieldMode#PULL
-     * @see BaseDashboardField#BaseDashboardField(String, String, Inner, Inner, FieldMode)
+     * @see BaseDashboardField#BaseDashboardField(String, String, Inner, Inner,
+     *      FieldMode)
      */
-    protected ObjectDashboardField(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue) {
+    protected DashboardObject(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue) {
         super(subsystemName, fieldName, initialValue, defaultValue, FieldMode.PULL);
     }
 }

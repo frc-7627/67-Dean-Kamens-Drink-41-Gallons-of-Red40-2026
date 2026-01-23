@@ -8,9 +8,9 @@ package frc.robot.subsystems.util.dashboard;
  * @see BaseDashboardField
  * @see DashboardBoolean
  * @see DashboardDouble
- * @see #ValueDashboardField(String, String, Inner, FieldMode)
+ * @see #DashboardValue(String, String, Inner, FieldMode)
  */
-abstract class ValueDashboardField<Inner> extends BaseDashboardField<Inner> {
+abstract class DashboardValue<Inner> extends BaseDashboardField<Inner> {
     /**
      * A pushing or pulling dashboard field for values.
      * 
@@ -20,9 +20,10 @@ abstract class ValueDashboardField<Inner> extends BaseDashboardField<Inner> {
      * @param fieldMode     whether the field is pushing or pulling.
      * @see FieldMode
      * @see FieldMode#isPull()
-     * @see BaseDashboardField#BaseDashboardField(String, String, Inner, Inner, FieldMode)
+     * @see BaseDashboardField#BaseDashboardField(String, String, Inner, Inner,
+     *      FieldMode)
      */
-    protected ValueDashboardField(String subsystemName, String fieldName, Inner initialValue, FieldMode fieldMode) {
+    protected DashboardValue(String subsystemName, String fieldName, Inner initialValue, FieldMode fieldMode) {
         super(subsystemName, fieldName, initialValue, fieldMode.isPull() ? initialValue : null, fieldMode);
     }
 }

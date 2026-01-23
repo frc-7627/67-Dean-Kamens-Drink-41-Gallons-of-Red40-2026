@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * 
  * @see DashboardField
  * @see BaseDashboardField
- * @see ValueDashboardField
+ * @see DashboardValue
  * @see #DashboardBoolean(String, String, Boolean, FieldMode)
  */
-public final class DashboardBoolean extends ValueDashboardField<Boolean> {
+public final class DashboardBoolean extends DashboardValue<Boolean> {
     /**
      * A pushing or pulling dashboard field for booleans.
      * 
@@ -18,7 +18,7 @@ public final class DashboardBoolean extends ValueDashboardField<Boolean> {
      * @param fieldName     the name of the field.
      * @param initialValue  the field's initial value.
      * @param fieldMode     whether the field is pushing or pulling.
-     * @see ValueDashboardField#ValueDashboardField(String, String, Boolean, FieldMode)
+     * @see DashboardValue#DashboardValue(String, String, Boolean, FieldMode)
      */
     public DashboardBoolean(String subsystemName, String fieldName, boolean initialValue, FieldMode fieldMode) {
         super(subsystemName, fieldName, initialValue, fieldMode);

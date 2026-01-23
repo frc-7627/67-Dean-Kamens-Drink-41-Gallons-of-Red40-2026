@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * 
  * @see DashboardField
  * @see BaseDashboardField
- * @see ValueDashboardField
+ * @see DashboardValue
  * @see #DashboardDouble(String, String, Double, FieldMode)
  */
-public final class DashboardDouble extends ValueDashboardField<Double> {
+public final class DashboardDouble extends DashboardValue<Double> {
     /**
      * A pushing or pulling dashboard field for doubles.
      * 
@@ -18,7 +18,7 @@ public final class DashboardDouble extends ValueDashboardField<Double> {
      * @param fieldName     the name of the field.
      * @param initialValue  the field's initial value.
      * @param fieldMode     whether the field is pushing or pulling.
-     * @see ValueDashboardField#ValueDashboardField(String, String, Double, FieldMode)
+     * @see DashboardValue#DashboardValue(String, String, Double, FieldMode)
      */
     public DashboardDouble(String subsystemName, String fieldName, double initialValue, FieldMode fieldMode) {
         super(subsystemName, fieldName, initialValue, fieldMode);

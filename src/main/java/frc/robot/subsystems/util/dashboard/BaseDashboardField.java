@@ -4,8 +4,8 @@ package frc.robot.subsystems.util.dashboard;
  * A dashboard field.
  * 
  * @param <Inner> a value of the field.
- * @see ObjectDashboardField
- * @see ValueDashboardField
+ * @see DashboardObject
+ * @see DashboardValue
  * @see #BaseDashboardField(String, String, Inner, Inner, FieldMode)
  */
 abstract class BaseDashboardField<Inner> implements DashboardField {
