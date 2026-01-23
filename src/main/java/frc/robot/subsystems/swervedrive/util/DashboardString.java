@@ -2,8 +2,7 @@ package frc.robot.subsystems.swervedrive.util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public final class DashboardString extends BaseDashboardField<String>
-        implements DashboardField<String> {
+public final class DashboardString extends BaseDashboardField<String> {
     /**
      * A string dashboard field that is only pushed.
      * 

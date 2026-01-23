@@ -2,8 +2,7 @@ package frc.robot.subsystems.swervedrive.util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public final class DashboardBoolean extends BaseDashboardField<Boolean>
-        implements DashboardField<Boolean> {
+public final class DashboardBoolean extends BaseDashboardField<Boolean> {
     /**
      * A boolean dashboard field that is pushed and possibly pulled.
      * 

@@ -114,16 +114,26 @@ abstract class BaseDashboardField<Inner> {
     /**
      * Push the field to the dashboard.
      */
-    public void push() {
+    protected void push() {
         send(pushKey);
     }
 
     /**
      * Pull the field from the dashboard.
      */
-    public void pull() {
+    protected void pull() {
         if (isPull) {
             recv(pullKey, defaultValue);
         }
+    }
+
+    /**
+     * Update the field.
+     * 
+     * Push and pull the field to and from the dashboard.
+     */
+    public void update() {
+        push();
+        pull();
     }
 }
