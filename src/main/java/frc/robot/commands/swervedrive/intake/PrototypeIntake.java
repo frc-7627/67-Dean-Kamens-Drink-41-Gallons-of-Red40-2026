@@ -1,7 +1,7 @@
 package frc.robot.commands.swervedrive.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.swervedrive.Intake;
+import frc.robot.subsystems.Intake;
 
 public class PrototypeIntake extends Command {
     private Intake intake;
