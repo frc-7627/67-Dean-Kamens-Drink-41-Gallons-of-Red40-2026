@@ -15,6 +15,10 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      */
     private Inner innerValue;
     /**
+     * The default value of the dashboard field.
+     */
+    private final Inner defaultValue;
+    /**
      * Whether the field is pushing or pulling.
      */
     private final FieldMode fieldMode;
@@ -25,11 +29,14 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * @param subsystemName the subsystem name.
      * @param fieldName     the name of the field.
      * @param initialValue  the field's initial value.
+     * @param defaultValue  the field's default value.
      * @param fieldMode     whether the field is pushing or pulling.
      */
-    protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, FieldMode fieldMode) {
+    protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue,
+            FieldMode fieldMode) {
         this.key = getKey(subsystemName, fieldName);
         this.innerValue = initialValue;
+        this.defaultValue = defaultValue;
         this.fieldMode = fieldMode;
     }
 
@@ -82,11 +89,17 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     abstract protected void pull(String key);
 
     /**
-     * Gets the default value of the field. Should fail if the field is not pulling.
+     * Gets the default value of the field. Fails if the field is not pulling.
      * 
      * @return the default value.
+     * @throws IllegalStateException
      */
-    abstract protected Inner getDefaultValue();
+    protected final Inner getDefaultValue() {
+        if (!fieldMode.isPull()) {
+            throw new IllegalStateException("Default value only exists for pulling fields!");
+        }
+        return defaultValue;
+    }
 
     /**
      * {@inheritDoc}
