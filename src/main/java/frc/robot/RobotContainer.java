@@ -176,7 +176,10 @@ public class RobotContainer {
       driverXbox.y().onTrue(Commands.runOnce(
           () -> drivebase.driveToPose(drivebase.getPose().rotateBy(Rotation2d.kCCW_90deg))));
 
-      driverXbox.b().whileTrue(new LoadIntake(intake));
+
+
+      /* Operator Xbox */
+      operatorXbox.b().whileTrue(new LoadIntake(intake));
     }
 
   }
