@@ -41,6 +41,10 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
         this.innerValue = innerValue;
     }
 
+    protected final FieldMode getFieldMode() {
+        return fieldMode;
+    }
+
     /**
      * Push the value to the dashboard using the provided key.
      * 
