@@ -128,6 +128,17 @@ abstract class BaseDashboardField<Inner> {
     }
 
     /**
+     * Initialize the field.
+     * 
+     * If the field is pulling, send the initial value to the pull key.
+     */
+    public void init() {
+        if (isPull) {
+            send(pullKey);
+        }
+    }
+
+    /**
      * Update the field.
      * 
      * Pull and push the field from and to the dashboard.

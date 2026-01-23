@@ -34,6 +34,8 @@ public class Intake extends SubsystemBase {
 
         motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
+
+        loadSpeed.init();
     }
 
     /**
