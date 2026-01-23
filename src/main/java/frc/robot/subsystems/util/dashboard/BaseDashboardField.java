@@ -4,10 +4,29 @@ package frc.robot.subsystems.util.dashboard;
  * A dashboard field.
  */
 abstract class BaseDashboardField<Inner> implements DashboardField {
+    /**
+     * The key for the dashboard field.
+     * 
+     * Should be of the form {@code "Subsystem Name/Field Name"}
+     */
     private final String key;
+    /**
+     * The inner value of the dashboard field.
+     */
     private Inner innerValue;
+    /**
+     * Whether the field is pushing or pulling.
+     */
     private final FieldMode fieldMode;
 
+    /**
+     * A pushing or pulling dashboard field.
+     * 
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
+     * @param fieldMode     whether the field is pushing or pulling.
+     */
     protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, FieldMode fieldMode) {
         this.key = getKey(subsystemName, fieldName);
         this.innerValue = initialValue;
@@ -41,6 +60,9 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
         this.innerValue = innerValue;
     }
 
+    /**
+     * @return whether the field is pushing or pulling.
+     */
     protected final FieldMode getFieldMode() {
         return fieldMode;
     }
@@ -60,15 +82,20 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     abstract protected void pull(String key);
 
     /**
+     * Gets the default value of the field. Should fail if the field is not pulling.
+     * 
      * @return the default value.
      */
     abstract protected Inner getDefaultValue();
 
     /**
-     * Initialize the field.
+     * {@inheritDoc}
      * 
-     * If the field is pulling, push.
+     * If the field is pulling, push the current value.
+     * 
+     * @see #push(String)
      */
+    @Override
     public final void init() {
         if (fieldMode.isPull()) {
             push(key);
@@ -76,10 +103,15 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     }
 
     /**
-     * Update the field.
+     * {@inheritDoc}
      * 
-     * Push or pull the field to or from the dashboard.
+     * If the field is pushing, push the current value.
+     * If the field is pulling, pull the current value.
+     * 
+     * @see #push(String)
+     * @see #pull(String)
      */
+    @Override
     public final void update() {
         switch (fieldMode) {
             case PUSH -> {

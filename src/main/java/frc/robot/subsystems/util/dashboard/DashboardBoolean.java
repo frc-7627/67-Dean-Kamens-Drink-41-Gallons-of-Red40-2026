@@ -3,6 +3,14 @@ package frc.robot.subsystems.util.dashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public final class DashboardBoolean extends ValueDashboardField<Boolean> {
+    /**
+     * A pushing or pulling dashboard field for booleans.
+     * 
+     * @param subsystemName the subsystem name.
+     * @param fieldName     the name of the field.
+     * @param initialValue  the field's initial value.
+     * @param fieldMode     whether the field is pushing or pulling.
+     */
     public DashboardBoolean(String subsystemName, String fieldName, boolean initialValue, FieldMode fieldMode) {
         super(subsystemName, fieldName, initialValue, fieldMode);
     }

@@ -2,9 +2,12 @@ package frc.robot.subsystems.util.dashboard;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * A dashboard field for strings.
+ */
 public final class DashboardString extends ObjectDashboardField<String> {
     /**
-     * A string dashboard field that is only pushed.
+     * A pushing dashboard field for strings.
      * 
      * @param subsystemName the subsystem name.
      * @param fieldName     the name of the field.
@@ -15,7 +18,7 @@ public final class DashboardString extends ObjectDashboardField<String> {
     }
 
     /**
-     * A string dashboard field that is pushed and pulled.
+     * A pulling dashboard field for objects.
      * 
      * @param subsystemName the subsystem name.
      * @param fieldName     the name of the field.
