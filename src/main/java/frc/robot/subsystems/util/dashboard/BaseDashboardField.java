@@ -2,20 +2,29 @@ package frc.robot.subsystems.util.dashboard;
 
 /**
  * A dashboard field.
+ * 
+ * @see #BaseDashboardField(String, String, Object, Object, FieldMode)
  */
 abstract class BaseDashboardField<Inner> implements DashboardField {
     /**
      * The key for the dashboard field.
      * 
      * Should be of the form {@code "Subsystem Name/Field Name"}
+     * 
+     * @see #getKey(String, String)
      */
     private final String key;
     /**
      * The inner value of the dashboard field.
+     * 
+     * @see #getInnerValue()
+     * @see #setInnerValue(Object)
      */
     private Inner innerValue;
     /**
      * The default value of the dashboard field.
+     * 
+     * @see #getDefaultValue()
      */
     private final Inner defaultValue;
     /**
@@ -31,6 +40,11 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * @param initialValue  the field's initial value.
      * @param defaultValue  the field's default value.
      * @param fieldMode     whether the field is pushing or pulling.
+     * @see #key
+     * @see #innerValue
+     * @see #defaultValue
+     * @see #fieldMode
+     * @see #getKey(String, String)
      */
     protected BaseDashboardField(String subsystemName, String fieldName, Inner initialValue, Inner defaultValue,
             FieldMode fieldMode) {
@@ -46,6 +60,7 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * @param subsystemName the subsystem name.
      * @param fieldName     the field name.
      * @return the key.
+     * @see String#format(String, String, String)
      */
     private static String getKey(String subsystemName, String fieldName) {
         return String.format("%s/%s", subsystemName, fieldName);
@@ -53,6 +68,7 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
 
     /**
      * @return the inner value.
+     * @see #innerValue
      */
     public final Inner getInnerValue() {
         return innerValue;
@@ -62,6 +78,7 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * Set the inner value.
      * 
      * @param innerValue the inner value.
+     * @see #innerValue
      */
     public final void setInnerValue(Inner innerValue) {
         this.innerValue = innerValue;
@@ -69,6 +86,7 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
 
     /**
      * @return whether the field is pushing or pulling.
+     * @see #fieldMode
      */
     protected final FieldMode getFieldMode() {
         return fieldMode;
@@ -93,6 +111,9 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * 
      * @return the default value.
      * @throws IllegalStateException
+     * @see #fieldMode
+     * @see #defaultValue
+     * @see FieldMode#isPull()
      */
     protected final Inner getDefaultValue() {
         if (!fieldMode.isPull()) {
@@ -106,6 +127,8 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * 
      * If the field is pulling, push the current value.
      * 
+     * @see #fieldMode
+     * @see #key
      * @see #push(String)
      */
     @Override
@@ -121,6 +144,8 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * If the field is pushing, push the current value.
      * If the field is pulling, pull the current value.
      * 
+     * @see #fieldMode
+     * @see #key
      * @see #push(String)
      * @see #pull(String)
      */
