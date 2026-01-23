@@ -2,26 +2,18 @@ package frc.robot.subsystems.util.dashboard;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public final class DashboardBoolean extends BaseDashboardField<Boolean> {
-    /**
-     * A boolean dashboard field that is pushed and possibly pulled.
-     * 
-     * @param isPull        whether the field is pulled.
-     * @param subsystemName the subsystem name.
-     * @param fieldName     the name of the field.
-     * @param initialValue  the field's initial value.
-     */
-    public DashboardBoolean(boolean isPull, String subsystemName, String fieldName, boolean initialValue) {
-        super(isPull, subsystemName, fieldName, initialValue);
+public final class DashboardBoolean extends ValueDashboardField<Boolean> {
+    public DashboardBoolean(String subsystemName, String fieldName, boolean initialValue, FieldMode fieldMode) {
+        super(subsystemName, fieldName, initialValue, fieldMode);
     }
 
     @Override
-    protected void send(String pushKey) {
-        SmartDashboard.putBoolean(pushKey, getInnerValue());
+    protected final void send(String key) {
+        SmartDashboard.putBoolean(key, getInnerValue());
     }
 
     @Override
-    protected void recv(String pullKey, Boolean defaultValue) {
-        setInnerValue(SmartDashboard.getBoolean(pullKey, defaultValue));
+    protected final void recv(String key) {
+        setInnerValue(SmartDashboard.getBoolean(key, getDefaultValue()));
     }
 }

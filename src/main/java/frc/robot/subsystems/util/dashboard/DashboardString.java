@@ -2,7 +2,7 @@ package frc.robot.subsystems.util.dashboard;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public final class DashboardString extends BaseDashboardField<String> {
+public final class DashboardString extends ObjectDashboardField<String> {
     /**
      * A string dashboard field that is only pushed.
      * 
@@ -27,12 +27,12 @@ public final class DashboardString extends BaseDashboardField<String> {
     }
 
     @Override
-    protected void send(String pushKey) {
-        SmartDashboard.putString(pushKey, getInnerValue());
+    protected void send(String key) {
+        SmartDashboard.putString(key, getInnerValue());
     }
 
     @Override
-    protected void recv(String pullKey, String defaultValue) {
-        setInnerValue(SmartDashboard.getString(pullKey, defaultValue));
+    protected void recv(String key) {
+        setInnerValue(SmartDashboard.getString(key, getDefaultValue()));
     }
 }
