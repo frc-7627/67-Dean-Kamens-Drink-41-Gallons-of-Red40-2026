@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
@@ -32,7 +32,6 @@ public class Intake extends SubsystemBase {
         motorConfig.idleMode(IdleMode.kCoast);
         motorConfig.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
 
-        // TODO: find way to configure that doesn't use deprecated constants.
         motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
     }
