@@ -27,7 +27,7 @@ import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
-import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.Logger; // TODO: Figure it out
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -178,6 +178,9 @@ public class RobotContainer {
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+
+      driverXbox.y()
+          .onTrue(Commands.runOnce(() -> drivebase.driveToPose(drivebase.getPose().rotateBy(Rotation2d.kCCW_90deg))));
 
       driverXbox.b().whileTrue(new PrototypeIntake(intake));
     }
