@@ -65,7 +65,7 @@ abstract class BaseDashboardField<Inner> {
      * @return the push key.
      */
     private static String getPushKey(String subsystemName, String fieldName) {
-        return String.format("{0}/{1}", subsystemName, fieldName);
+        return String.format("%s/%s", subsystemName, fieldName);
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class BaseDashboardField<Inner> {
      * @return the pull key.
      */
     private static String getPullKey(String subsystemName, String fieldName) {
-        return String.format("{0}/const/{1}", subsystemName, fieldName);
+        return String.format("%s/const/%s", subsystemName, fieldName);
     }
 
     /**
