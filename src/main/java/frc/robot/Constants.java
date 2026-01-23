@@ -87,7 +87,7 @@ public final class Constants {
                             /* Teleop 1 */ {255, 0, 0}, /* Teleop 2 */ {255, 0, 0},
                             /* Teleop 3 */ {255, 0, 0}, /* Teleop 4 */{255, 0, 0},
                             /* Endgame */ {255, 0, 0},},
-                    /* Blue alliance. */ {/* Auto */ {255, 255, 255}, /* Transition */ {0, 0, 255},
+                    /* Blue alliance. */ {/* Auto */ {0, 0, 255}, /* Transition */ {0, 0, 255},
                             /* Teleop 1 */ {0, 0, 255}, /* Teleop 2 */ {0, 0, 255},
                             /* Teleop 3 */ {0, 0, 255}, /* Teleop 4 */{0, 0, 255},
                             /* Endgame */ {0, 0, 255},},};
