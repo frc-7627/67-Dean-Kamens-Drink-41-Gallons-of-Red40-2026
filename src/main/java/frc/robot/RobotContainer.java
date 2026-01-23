@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.swervedrive.intake.PrototypeIntake;
+import frc.robot.commands.swervedrive.intake.LoadIntake;
 import frc.robot.subsystems.swervedrive.GameInfo;
 import frc.robot.subsystems.swervedrive.Indicator;
 import frc.robot.subsystems.swervedrive.Intake;
@@ -188,10 +188,10 @@ public class RobotContainer {
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
 
-      driverXbox.y()
-          .onTrue(Commands.runOnce(() -> drivebase.driveToPose(drivebase.getPose().rotateBy(Rotation2d.kCCW_90deg))));
+      driverXbox.y().onTrue(Commands.runOnce(
+          () -> drivebase.driveToPose(drivebase.getPose().rotateBy(Rotation2d.kCCW_90deg))));
 
-      driverXbox.b().whileTrue(new PrototypeIntake(indicator, intake));
+      driverXbox.b().whileTrue(new LoadIntake(indicator, intake));
     }
 
   }
@@ -217,9 +217,7 @@ public class RobotContainer {
    * @return void
    */
   public void teleopInit() {
-    // opCommands.AutoStow().schedule(); // Move the elevator to the Stow position,
-    // and run
-    // endefector
+
   }
 
   public void autoInit() {
@@ -232,19 +230,14 @@ public class RobotContainer {
    * @return void
    */
   public void disabledInit() {
-    // .playSong("BlueLobster"); TODO: Add back soon
+    // PLACEHOLDER (SUBSYSTEM CONTAINING KRAKENS, SEE LEBRONAVATOR 2025 FOR
+    // EX).playSong("BlueLobster"); TODO: Add back soon
   }
 
   // Periodically do things during teleop
   public void teleopPeriodic() {
     Pose2d currentPose = drivebase.getPose();
-    // Logger.recordOutput("MyPose2d", currentPose); TODO: Reimpliment logger
-    /*
-     * Logger.recordOutput("MyPose2dArray", poseA, poseB);
-     * Logger.recordOutput("MyPose2dArray", new
-     * Pose2d[] { poseA, poseB }); TODO: Log the ODEM
-     */
-
+    Logger.recordOutput("MyPose2d", currentPose);
   }
 
   /**
@@ -263,7 +256,7 @@ public class RobotContainer {
   // }
 
   // public void driveSlow() {
-  // System.out.println("Slow mode: true");
+  // System.out.println("Slow mode Activated");
   // slowMode = slowModeSpeed;
   // }
 }

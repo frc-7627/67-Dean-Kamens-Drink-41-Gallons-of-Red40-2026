@@ -5,19 +5,19 @@ import frc.robot.commands.swervedrive.IndicatingCommand;
 import frc.robot.subsystems.swervedrive.Indicator;
 import frc.robot.subsystems.swervedrive.Intake;
 
-public class PrototypeIntake extends IndicatingCommand {
-    private static final Logger LOGGER = Logger.getLogger(PrototypeIntake.class.getSimpleName());
+public class LoadIntake extends IndicatingCommand {
+    private static final Logger LOGGER = Logger.getLogger(LoadIntake.class.getSimpleName());
     private Intake intake;
 
     /**
-     * Runs the prototype intake.
+     * Loads the intake.
      * 
      * Loads the intake while running, then stops the intake when done.
      * 
      * @param indicator
      * @param intake
      */
-    public PrototypeIntake(Indicator indicator, Intake intake) {
+    public LoadIntake(Indicator indicator, Intake intake) {
         super(LOGGER, indicator);
 
         this.intake = intake;
