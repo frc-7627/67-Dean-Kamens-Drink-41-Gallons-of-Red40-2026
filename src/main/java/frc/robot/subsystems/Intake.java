@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
 
     private static final String SUBSYSTEM_NAME = Intake.class.getSimpleName();
 
-    private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
+    private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 
     private final DashboardDouble loadSpeed = new DashboardDouble(
             true,
