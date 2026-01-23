@@ -34,7 +34,11 @@
     "gamepiece",
     "ironmaple",
     "Neos",
-    "swervedrive"
+    "subtable",
+    "RGBW",
+    "swervedrive",
+    "RGBW",
+    "Teleop"
   ],
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#ffb733",

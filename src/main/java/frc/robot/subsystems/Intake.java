@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -10,14 +9,26 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.subsystems.util.dashboard.DashboardDouble;
+import frc.robot.subsystems.util.dashboard.DashboardField;
+import frc.robot.subsystems.util.dashboard.FieldMode;
 
 public class Intake extends SubsystemBase {
     // Neos
 
-    private final SparkMax motor =
-            new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_ID, MotorType.kBrushless);
+    private static final String SUBSYSTEM_NAME = Intake.class.getSimpleName();
 
-    private double loadSpeed = Constants.IntakeConstants.DEFAULT_LOAD_SPEED;
+    private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
+
+    private final DashboardDouble loadSpeed = new DashboardDouble(
+            SUBSYSTEM_NAME,
+            "Load Speed",
+            Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
+            FieldMode.PULL);
+
+    private final DashboardField[] dashboardFields = {
+        loadSpeed
+    };
 
     /**
      * Subsystem for the intake.
@@ -29,6 +40,8 @@ public class Intake extends SubsystemBase {
 
         motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
+
+        DashboardField.initAll(dashboardFields);
     }
 
     /**
@@ -37,7 +50,7 @@ public class Intake extends SubsystemBase {
      * Sets the speed of the intake motor to the current load speed.
      */
     public void load() {
-        motor.set(loadSpeed);
+        motor.set(loadSpeed.getInnerValue());
     }
 
     /**
@@ -47,5 +60,10 @@ public class Intake extends SubsystemBase {
      */
     public void stop() {
         motor.stopMotor();
+    }
+
+    @Override
+    public void periodic() {
+        DashboardField.updateAll(dashboardFields);
     }
 }
