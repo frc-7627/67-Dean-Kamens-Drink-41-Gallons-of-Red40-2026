@@ -10,6 +10,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.util.dashboard.DashboardDouble;
+import frc.robot.subsystems.util.dashboard.DashboardField;
+import frc.robot.subsystems.util.dashboard.FieldMode;
 
 public class Intake extends SubsystemBase {
     // Neos
@@ -19,10 +21,14 @@ public class Intake extends SubsystemBase {
     private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 
     private final DashboardDouble loadSpeed = new DashboardDouble(
-            true,
             SUBSYSTEM_NAME,
             "Load Speed",
-            Constants.IntakeConstants.DEFAULT_LOAD_SPEED);
+            Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
+            FieldMode.PULL);
+
+    private final DashboardField[] dashboardFields = {
+        loadSpeed
+    };
 
     /**
      * Subsystem for the intake.
@@ -35,7 +41,7 @@ public class Intake extends SubsystemBase {
         motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
 
-        loadSpeed.init();
+        DashboardField.initAll(dashboardFields);
     }
 
     /**
@@ -58,6 +64,6 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        loadSpeed.update();
+        DashboardField.updateAll(dashboardFields);
     }
 }
