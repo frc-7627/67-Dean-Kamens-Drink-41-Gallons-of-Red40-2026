@@ -31,7 +31,7 @@ public interface DashboardField {
      * Initialize all the provided dashboard fields.
      * 
      * @param dashboardFields the provided dashboard fields.
-     * @see #update()
+     * @see #init()
      */
     static void initAll(DashboardField[] dashboardFields) {
         for (DashboardField dashboardField : dashboardFields) {
