@@ -27,12 +27,12 @@ public final class DashboardString extends ObjectDashboardField<String> {
     }
 
     @Override
-    protected final void send(String key) {
+    protected final void push(String key) {
         SmartDashboard.putString(key, getInnerValue());
     }
 
     @Override
-    protected final void recv(String key) {
+    protected final void pull(String key) {
         setInnerValue(SmartDashboard.getString(key, getDefaultValue()));
     }
 }

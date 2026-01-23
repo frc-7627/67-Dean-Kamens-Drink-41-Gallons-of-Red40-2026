@@ -50,14 +50,14 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * 
      * @param key the provided key.
      */
-    abstract protected void send(String key);
+    abstract protected void push(String key);
 
     /**
      * Pull the value from the dashboard using the provided key.
      * 
      * @param key the provided key.
      */
-    abstract protected void recv(String key);
+    abstract protected void pull(String key);
 
     /**
      * @return the default value.
@@ -71,7 +71,7 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      */
     public final void init() {
         if (fieldMode.isPull()) {
-            send(key);
+            push(key);
         }
     }
 
@@ -83,10 +83,10 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     public final void update() {
         switch (fieldMode) {
             case PUSH -> {
-                send(key);
+                push(key);
             }
             case PULL -> {
-                recv(key);
+                pull(key);
             }
         }
     }

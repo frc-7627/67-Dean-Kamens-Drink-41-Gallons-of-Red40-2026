@@ -8,12 +8,12 @@ public final class DashboardBoolean extends ValueDashboardField<Boolean> {
     }
 
     @Override
-    protected final void send(String key) {
+    protected final void push(String key) {
         SmartDashboard.putBoolean(key, getInnerValue());
     }
 
     @Override
-    protected final void recv(String key) {
+    protected final void pull(String key) {
         setInnerValue(SmartDashboard.getBoolean(key, getDefaultValue()));
     }
 }

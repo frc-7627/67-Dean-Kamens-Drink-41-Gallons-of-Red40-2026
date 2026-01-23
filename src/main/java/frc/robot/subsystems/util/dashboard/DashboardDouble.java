@@ -8,12 +8,12 @@ public final class DashboardDouble extends ValueDashboardField<Double> {
     }
 
     @Override
-    protected final void send(String key) {
+    protected final void push(String key) {
         SmartDashboard.putNumber(key, getInnerValue());
     }
 
     @Override
-    protected final void recv(String key) {
+    protected final void pull(String key) {
         setInnerValue(SmartDashboard.getNumber(key, getDefaultValue()));
     }
 }
