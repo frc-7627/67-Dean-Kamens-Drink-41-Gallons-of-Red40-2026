@@ -9,7 +9,7 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.swervedrive.util.DashboardDouble;
+import frc.robot.subsystems.dashboard.DashboardDouble;
 
 public class Intake extends SubsystemBase {
     // Neos
