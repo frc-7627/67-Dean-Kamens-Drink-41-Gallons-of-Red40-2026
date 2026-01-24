@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import static edu.wpi.first.units.Units.Hertz;
 
 import com.ctre.phoenix6.controls.SolidColor;
+import com.ctre.phoenix6.controls.TwinkleAnimation;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
@@ -50,6 +51,28 @@ public class LED extends SubsystemBase {
     public void blinkWithColor(RGBWColor color) {
         candle.setControl(Constants.LEDConstants.STROBE_ANIMATION
                 .withFrameRate(Constants.LEDConstants.STROBE_FREQUENCY)
+                .withColor(color));
+    }
+
+    /**
+     * Twinkle the LEDs with a specific color.
+     * 
+     * @param color
+     */
+    public void twinkWithColor(RGBWColor color) {
+        candle.setControl(Constants.LEDConstants.TWINKLE_ANIMATION
+                .withFrameRate(Constants.LEDConstants.TWINK_FREQUENCY)
+                .withColor(color));
+    }
+
+    /**
+     * Fade the LEDs with a specific color.
+     * 
+     * @param color
+     */
+    public void fadeWithColor(RGBWColor color) {
+        candle.setControl(Constants.LEDConstants.FADE_ANIMATION
+                .withFrameRate(Constants.LEDConstants.FADE_FREQUENCY)
                 .withColor(color));
     }
 
