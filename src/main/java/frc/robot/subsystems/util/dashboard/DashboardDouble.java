@@ -31,7 +31,7 @@ public final class DashboardDouble extends DashboardValue<Double> {
      * @see SmartDashboard#putNumber(String, Double)
      */
     @Override
-    protected final void push(String key) {
+    protected final void pushWithKey(String key) {
         SmartDashboard.putNumber(key, getInnerValue());
     }
 
@@ -43,7 +43,7 @@ public final class DashboardDouble extends DashboardValue<Double> {
      * @see SmartDashboard#getNumber(String, Double)
      */
     @Override
-    protected final void pull(String key) {
+    protected final void pullWithKey(String key) {
         setInnerValue(SmartDashboard.getNumber(key, getDefaultValue()));
     }
 }
