@@ -99,6 +99,11 @@ public final class Constants {
         public static final SolidColor CONTROL_ALL_LEDS =
                 new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
 
+        public static final StrobeAnimation STROBE_ANIMATION =
+                new StrobeAnimation(0, LAST_ATTACHED_LED_NUM);
+
+        public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
+
         public static final RainbowAnimation RAINBOW_ANIMATION =
                 new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
     }

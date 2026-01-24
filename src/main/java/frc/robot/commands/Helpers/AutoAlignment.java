@@ -18,15 +18,14 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.DrivebaseConstants;
 import frc.robot.commands.IndicatingCommandWrapper;
 import frc.robot.commands.ProgressingCommand;
-//import frc.robot.subsystems.Bluetooth; TODO: Reimplement this with indication, Comments of where it is used are spread througout this file
+// import frc.robot.subsystems.Bluetooth; TODO: Reimplement this with indication, Comments of where
+// it is used are spread througout this file
 import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 
 public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
-    PhotonCamera camera_right = new PhotonCamera("Camera_Right");
-    PhotonCamera camera_left = new PhotonCamera("Camera_Left");
     PhotonCamera Left_PI_CAM = new PhotonCamera("PC_Camera SIG");
     PhotonCamera Right_PI_CAM = new PhotonCamera("PC_Camera MA");
     private final SwerveSubsystem drivebase;
@@ -38,10 +37,11 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
 
     public static int autoAliging;
 
-    private static final Logger LOGGER = Logger.getLogger(DriveBaseRotationAdjust.class.getSimpleName());
+    private static final Logger LOGGER =
+            Logger.getLogger(DriveBaseRotationAdjust.class.getSimpleName());
 
-    public AutoAlignment(Indicator indicator, SwerveSubsystem module, /* Bluetooth led, */ double offset,
-            boolean leftcam) {
+    public AutoAlignment(Indicator indicator, SwerveSubsystem module,
+            /* Bluetooth led, */ double offset, boolean leftcam) {
         super(LOGGER, indicator, AutoAlignmentState.LOOKING_FOR_TARGET);
         this.drivebase = module;
         this.vision = drivebase.getVision();
@@ -58,11 +58,14 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
         autoAliging = 2;
         SmartDashboard.putNumber("Commands/AutoAlign", autoAliging); // debug
 
-        DrivebaseConstants.x_offset = SmartDashboard.getNumber("Vision/x_offset", DrivebaseConstants.x_offset);
-        DrivebaseConstants.y_offset = SmartDashboard.getNumber("Vision/y_offset", DrivebaseConstants.y_offset);
-        DrivebaseConstants.y_offset_left = SmartDashboard.getNumber("Y_Offset_Left", DrivebaseConstants.y_offset_left);
-        DrivebaseConstants.y_offset_right = SmartDashboard.getNumber("Y_Offset_Right",
-                DrivebaseConstants.y_offset_right);
+        DrivebaseConstants.x_offset =
+                SmartDashboard.getNumber("Vision/x_offset", DrivebaseConstants.x_offset);
+        DrivebaseConstants.y_offset =
+                SmartDashboard.getNumber("Vision/y_offset", DrivebaseConstants.y_offset);
+        DrivebaseConstants.y_offset_left =
+                SmartDashboard.getNumber("Y_Offset_Left", DrivebaseConstants.y_offset_left);
+        DrivebaseConstants.y_offset_right =
+                SmartDashboard.getNumber("Y_Offset_Right", DrivebaseConstants.y_offset_right);
         System.out.println("x_offset: " + DrivebaseConstants.x_offset + " y_offset: "
                 + DrivebaseConstants.y_offset);
         System.out.println("[LimeLightCommands/DriveBaseRotationAdjust]] Seeking Target");

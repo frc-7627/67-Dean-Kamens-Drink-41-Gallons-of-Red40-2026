@@ -41,7 +41,6 @@ public class Rizzler {
      */
     public static void griddyemail() {
         System.out.println("\n hitting the griddy on the ops since 7627\n");
-        System.out.println("\nCamera_Right\n");
 
     }
 
