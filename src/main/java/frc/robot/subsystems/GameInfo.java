@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Optional;
+import java.util.logging.Logger;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
 import frc.robot.Constants;
@@ -16,6 +18,8 @@ public class GameInfo extends SubsystemBase {
     public static enum Phase {
         AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
     }
+
+    private static final Logger LOGGER = Logger.getLogger(GameInfo.class.getSimpleName());
 
     private final EventLoop eventLoop = new EventLoop();
     private final BooleanEvent allianceSetEvent;
@@ -33,6 +37,10 @@ public class GameInfo extends SubsystemBase {
         this.allianceSetEvent = isDistinctAllianceEvent
                 .rising()
                 .or(hasGotAllianceEvent.rising());
+
+        allianceSetEvent.ifHigh(() -> {
+            LOGGER.info("Alliance set from driver station.");
+        });
     }
 
     /**
