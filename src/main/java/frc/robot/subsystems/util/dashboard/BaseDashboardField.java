@@ -81,13 +81,22 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     }
 
     /**
-     * Set the current inner value to the new inner value.
+     * Set the current inner value to the new inner value. If the field is pulling,
+     * also push the new inner value with the key.
      * 
      * @param innerValue the new inner value.
      * @see #innerValue
+     * @see #key
+     * @see #fieldMode
+     * @see #push(String)
+     * @see FieldMode#isPull()
      */
     public final void setInnerValue(Inner innerValue) {
         this.innerValue = innerValue;
+
+        if (fieldMode.isPull()) {
+            push(key);
+        }
     }
 
     /**
