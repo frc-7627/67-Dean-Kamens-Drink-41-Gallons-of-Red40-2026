@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @see DashboardValue
  * @see #DashboardBoolean(String, String, Boolean, FieldMode)
  */
-public final class DashboardBoolean extends DashboardValue<Boolean> {
+public class DashboardBoolean extends DashboardValue<Boolean> {
     /**
      * A pushing or pulling dashboard field for booleans.
      * 
@@ -31,7 +31,7 @@ public final class DashboardBoolean extends DashboardValue<Boolean> {
      * @see SmartDashboard#putBoolean(String, Boolean)
      */
     @Override
-    protected final void push(String key) {
+    protected final void pushWithKey(String key) {
         SmartDashboard.putBoolean(key, getInnerValue());
     }
 
@@ -43,7 +43,7 @@ public final class DashboardBoolean extends DashboardValue<Boolean> {
      * @see SmartDashboard#getBoolean(String, Boolean)
      */
     @Override
-    protected final void pull(String key) {
+    protected final void pullWithKey(String key) {
         setInnerValue(SmartDashboard.getBoolean(key, getDefaultValue()));
     }
 }

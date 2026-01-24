@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Hertz;
+
 import org.littletonrobotics.junction.LogFileUtil;
 
 import com.pathplanner.lib.config.PIDConstants;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Frequency;
+
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -16,21 +20,20 @@ import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
+import com.ctre.phoenix6.controls.StrobeAnimation;
+
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.GameInfo;
 import swervelib.math.Matter;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
  * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
@@ -65,7 +68,8 @@ public final class Constants {
         public static double y_offset = 0.0;
         public static double y_offset_left = Units.inchesToMeters(-4.268); // add inches to center
         // //TODO: these ^^^ will need to be retuned
-        public static double y_offset_right = Units.inchesToMeters(8.268); // add inches away from center
+        public static double y_offset_right = Units.inchesToMeters(8.268); // add inches away from
+                                                                           // center
 
         // Hold time on motor brakes when disabled
         public static final double WHEEL_LOCK_TIME = 10; // seconds
@@ -92,10 +96,11 @@ public final class Constants {
 
         private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
 
-        public static final SolidColor CONTROL_ALL_LEDS = new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
+        public static final SolidColor CONTROL_ALL_LEDS =
+                new SolidColor(0, Constants.LEDConstants.LAST_LED_NUM);
 
-        public static final RainbowAnimation RAINBOW_ANIMATION = new RainbowAnimation(FIRST_ATTACHED_LED_NUM,
-                LAST_ATTACHED_LED_NUM);
+        public static final RainbowAnimation RAINBOW_ANIMATION =
+                new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
     }
 
     public static class IndicatorConstants {
@@ -106,20 +111,20 @@ public final class Constants {
              * Indices are in the following order: alliance, game phase, color channel.
              */
             public static final int[][][] DEFAULT_COLOR_ARRAYS = {
-                    /* Red alliance. */ { /* Auto */ { 255, 0, 0 }, /* Transition */ { 255, 0, 0 },
-                            /* Teleop 1 */ { 255, 0, 0 }, /* Teleop 2 */ { 255, 0, 0 },
-                            /* Teleop 3 */ { 255, 0, 0 }, /* Teleop 4 */{ 255, 0, 0 },
-                            /* Endgame */ { 255, 0, 0 }, },
-                    /* Blue alliance. */ { /* Auto */ { 0, 0, 255 }, /* Transition */ { 0, 0, 255 },
-                            /* Teleop 1 */ { 0, 0, 255 }, /* Teleop 2 */ { 0, 0, 255 },
-                            /* Teleop 3 */ { 0, 0, 255 }, /* Teleop 4 */{ 0, 0, 255 },
-                            /* Endgame */ { 0, 0, 255 }, }, };
+                    /* Red alliance. */ {/* Auto */ {255, 0, 0}, /* Transition */ {255, 0, 0},
+                            /* Teleop 1 */ {255, 0, 0}, /* Teleop 2 */ {255, 0, 0},
+                            /* Teleop 3 */ {255, 0, 0}, /* Teleop 4 */{255, 0, 0},
+                            /* Endgame */ {255, 0, 0},},
+                    /* Blue alliance. */ {/* Auto */ {0, 0, 255}, /* Transition */ {0, 0, 255},
+                            /* Teleop 1 */ {0, 0, 255}, /* Teleop 2 */ {0, 0, 255},
+                            /* Teleop 3 */ {0, 0, 255}, /* Teleop 4 */{0, 0, 255},
+                            /* Endgame */ {0, 0, 255},},};
 
-            public static final int[] COMPLETION_COLOR_ARRAY = { 137, 162, 3 };
+            public static final int[] COMPLETION_COLOR_ARRAY = {137, 162, 3};
 
-            public static final int[] INTERRUPTION_COLOR_ARRAY = { 97, 64, 81 };
+            public static final int[] INTERRUPTION_COLOR_ARRAY = {97, 64, 81};
 
-            public static final int[] PROGRESS_BAR_COLOR_ARRAY = { 255, 255, 255 };
+            public static final int[] PROGRESS_BAR_COLOR_ARRAY = {255, 255, 255};
         }
 
     }
@@ -137,6 +142,9 @@ public final class Constants {
         public static final int PROTOTYPE_MOTOR_CAN_ID = 14;
 
         public static final int CANDLE_CAN_ID = 15;
+
+        public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
+        public static final int LAUNCHER_MINION_CAN_ID = 17;
     }
 
     public static class IntakeConstants {
@@ -144,5 +152,17 @@ public final class Constants {
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_LOAD_SPEED = 0.8;
+    }
+
+    public static class LauncherConstants {
+        public static double ShootSpeed = 0.7;
+        public static double ActiveIdle = 0.5;
+        public static double InactiveIdle = 0.3;
+        public static double ManualSpeed = 0.3;
+
+        public static double rampUpPeriod = 0.5;
+
+        public static double currentLimit = 40;
+
     }
 }

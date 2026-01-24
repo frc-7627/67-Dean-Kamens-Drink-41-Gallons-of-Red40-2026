@@ -9,26 +9,22 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.util.dashboard.DashboardDouble;
 import frc.robot.subsystems.util.dashboard.DashboardField;
-import frc.robot.subsystems.util.dashboard.FieldMode;
+import frc.robot.subsystems.util.dashboard.MotorSpeed;
 
+// Colloquially known as Miles at lunch
 public class Intake extends SubsystemBase {
     // Neos
 
     private static final String SUBSYSTEM_NAME = Intake.class.getSimpleName();
 
-    private final SparkMax motor = new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
+    private final SparkMax motor =
+            new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 
-    private final DashboardDouble loadSpeed = new DashboardDouble(
-            SUBSYSTEM_NAME,
-            "Load Speed",
-            Constants.IntakeConstants.DEFAULT_LOAD_SPEED,
-            FieldMode.PULL);
+    private final MotorSpeed loadSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Load Speed",
+            Constants.IntakeConstants.DEFAULT_LOAD_SPEED);
 
-    private final DashboardField[] dashboardFields = {
-        loadSpeed
-    };
+    private final DashboardField[] dashboardFields = {loadSpeed};
 
     /**
      * Subsystem for the intake.

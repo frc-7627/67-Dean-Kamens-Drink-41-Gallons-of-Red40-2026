@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @see #DashboardString(String, String, String)
  * @see #DashboardString(String, String, String, String)
  */
-public final class DashboardString extends DashboardObject<String> {
+public class DashboardString extends DashboardObject<String> {
     /**
      * A pushing dashboard field for strings.
      * 
@@ -44,7 +44,7 @@ public final class DashboardString extends DashboardObject<String> {
      * @see SmartDashboard#putString(String, String)
      */
     @Override
-    protected final void push(String key) {
+    protected final void pushWithKey(String key) {
         SmartDashboard.putString(key, getInnerValue());
     }
 
@@ -56,7 +56,7 @@ public final class DashboardString extends DashboardObject<String> {
      * @see SmartDashboard#getString(String, String)
      */
     @Override
-    protected final void pull(String key) {
+    protected final void pullWithKey(String key) {
         setInnerValue(SmartDashboard.getString(key, getDefaultValue()));
     }
 }

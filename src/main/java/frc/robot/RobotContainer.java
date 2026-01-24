@@ -29,6 +29,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.indication.LED;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.Rizzler;
 
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -41,6 +42,8 @@ import org.littletonrobotics.junction.Logger; // TODO: Figure it out
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  // Rizz up the ops
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandXboxController driverXbox = new CommandXboxController(0);
@@ -97,6 +100,9 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // Rizz up the ops
+    Rizzler.rizz();
+
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);

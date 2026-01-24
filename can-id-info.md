@@ -17,6 +17,9 @@ Look below to quickly look up a CAN ID. It should be updated according to the [f
 | 13 | TRUE | Swerve    | Right  | Front  | Encoder |
 | 14 | TRUE | Prototype |        |        |         |
 | 15 | TRUE | Candle    |        |        |         |
+| 16 | TRUE | Launcher  |        |        |         |
+| 17 | TRUE | Launcher 2|        |        |         |
+|
 
 
 # Computing CAN IDs

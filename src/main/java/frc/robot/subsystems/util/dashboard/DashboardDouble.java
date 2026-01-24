@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @see DashboardValue
  * @see #DashboardDouble(String, String, Double, FieldMode)
  */
-public final class DashboardDouble extends DashboardValue<Double> {
+public class DashboardDouble extends DashboardValue<Double> {
     /**
      * A pushing or pulling dashboard field for doubles.
      * 
@@ -31,7 +31,7 @@ public final class DashboardDouble extends DashboardValue<Double> {
      * @see SmartDashboard#putNumber(String, Double)
      */
     @Override
-    protected final void push(String key) {
+    protected final void pushWithKey(String key) {
         SmartDashboard.putNumber(key, getInnerValue());
     }
 
@@ -43,7 +43,7 @@ public final class DashboardDouble extends DashboardValue<Double> {
      * @see SmartDashboard#getNumber(String, Double)
      */
     @Override
-    protected final void pull(String key) {
+    protected final void pullWithKey(String key) {
         setInnerValue(SmartDashboard.getNumber(key, getDefaultValue()));
     }
 }

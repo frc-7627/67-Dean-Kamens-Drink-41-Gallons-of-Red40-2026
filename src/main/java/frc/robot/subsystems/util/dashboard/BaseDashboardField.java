@@ -58,6 +58,10 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
         this.innerValue = initialValue;
         this.defaultValue = defaultValue;
         this.fieldMode = fieldMode;
+
+        if (!isValid()) {
+            throw new IllegalStateException("Initial dashboard state must be valid!");
+        }
     }
 
     /**
@@ -81,13 +85,21 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     }
 
     /**
-     * Set the current inner value to the new inner value.
+     * Set the current inner value to the new inner value. If the field is pulling,
+     * also push the new inner value with the key.
      * 
      * @param innerValue the new inner value.
      * @see #innerValue
+     * @see #pushIfPull()
      */
     public final void setInnerValue(Inner innerValue) {
         this.innerValue = innerValue;
+
+        if (!isValid()) {
+            this.innerValue = defaultValue;
+        }
+
+        pushIfPull();
     }
 
     /**
@@ -95,20 +107,75 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * 
      * @param key the provided key.
      */
-    abstract protected void push(String key);
+    abstract protected void pushWithKey(String key);
 
     /**
      * Pull the current value from the dashboard using the provided key.
      * 
      * @param key the provided key.
      */
-    abstract protected void pull(String key);
+    abstract protected void pullWithKey(String key);
+
+    /**
+     * Push the field.
+     * 
+     * Push the current value with the key.
+     * 
+     * @see #key
+     * @see #pushWithKey(String)
+     */
+    private void push() {
+        pushWithKey(key);
+    }
+
+    /**
+     * Pull the field.
+     * 
+     * Pull the current value with the key.
+     * 
+     * @see #key
+     * @see #pullWithKey(String)
+     */
+    private void pull() {
+        pullWithKey(key);
+    }
+
+    /**
+     * Push the field if the field is pulling.
+     * 
+     * @see #fieldMode
+     * @see #push()
+     * @see FieldMode#isPull()
+     */
+    private void pushIfPull() {
+        if (fieldMode.isPull()) {
+            push();
+        }
+    }
+
+    /**
+     * @param value the value
+     * @return whether the value is valid.
+     */
+    protected boolean checkValue(Inner value) {
+        return true;
+    }
+
+    /**
+     * @return whether the field is in a valid state.
+     * @see #innerValue
+     * @see #defaultValue
+     * @see #checkValue(Inner)
+     */
+    private boolean isValid() {
+        return checkValue(innerValue) && checkValue(defaultValue);
+    }
 
     /**
      * Gets the default value of the field. Fails if the field is not pulling.
      * 
      * @return the default value.
-     * @throws IllegalStateException
+     * @throws IllegalStateException if the field is not pulling.
      * @see #fieldMode
      * @see #defaultValue
      * @see FieldMode#isPull()
@@ -123,39 +190,36 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
     /**
      * {@inheritDoc}
      * 
-     * If the field is pulling, push the current value with the key.
+     * If the field is pulling, push.
      * 
      * @see #fieldMode
      * @see #key
-     * @see #push(String)
+     * @see #pushWithKey(String)
      * @see FieldMode#isPull()
      */
     @Override
     public final void init() {
-        if (fieldMode.isPull()) {
-            push(key);
-        }
+        pushIfPull();
     }
 
     /**
      * {@inheritDoc}
      * 
-     * If the field is pushing, push the current value with the key.
-     * If the field is pulling, pull the current value with the key.
+     * If the field is pushing, push the field.
+     * If the field is pulling, pull the field.
      * 
      * @see #fieldMode
-     * @see #key
-     * @see #push(String)
-     * @see #pull(String)
+     * @see #push()
+     * @see #pull()
      */
     @Override
     public final void update() {
         switch (fieldMode) {
             case PUSH -> {
-                push(key);
+                push();
             }
             case PULL -> {
-                pull(key);
+                pull();
             }
         }
     }
