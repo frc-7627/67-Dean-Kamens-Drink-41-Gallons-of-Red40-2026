@@ -19,8 +19,10 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import com.ctre.phoenix6.controls.RainbowAnimation;
+import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
+import com.ctre.phoenix6.controls.TwinkleAnimation;
 
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -102,10 +104,18 @@ public final class Constants {
         public static final StrobeAnimation STROBE_ANIMATION =
                 new StrobeAnimation(0, LAST_ATTACHED_LED_NUM);
 
-        public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
-
         public static final RainbowAnimation RAINBOW_ANIMATION =
                 new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
+
+        public static final TwinkleAnimation TWINKLE_ANIMATION =
+                new TwinkleAnimation(FIRST_ATTACHED_LED_NUM, ATTACHED_LED_COUNT);
+
+        public static final SingleFadeAnimation FADE_ANIMATION =
+                new SingleFadeAnimation(FIRST_ATTACHED_LED_NUM, ATTACHED_LED_COUNT);
+
+        public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
+        public static final Frequency TWINK_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
+        public static final Frequency FADE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
     }
 
     public static class IndicatorConstants {
