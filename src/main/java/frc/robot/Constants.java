@@ -28,15 +28,12 @@ import frc.robot.subsystems.GameInfo;
 import swervelib.math.Matter;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
  * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
@@ -92,10 +89,11 @@ public final class Constants {
 
         public static final SolidColor CONTROL_ALL_LEDS = new SolidColor(0, LAST_LED_NUM);
 
-        public static final StrobeAnimation STROBE_ANIMATION = new StrobeAnimation(0, LAST_ATTACHED_LED_NUM);
+        public static final StrobeAnimation STROBE_ANIMATION =
+                new StrobeAnimation(0, LAST_ATTACHED_LED_NUM);
 
-        public static final RainbowAnimation RAINBOW_ANIMATION = new RainbowAnimation(FIRST_ATTACHED_LED_NUM,
-                LAST_ATTACHED_LED_NUM);
+        public static final RainbowAnimation RAINBOW_ANIMATION =
+                new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
         public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
     }
@@ -108,20 +106,20 @@ public final class Constants {
              * Indices are in the following order: alliance, game phase, color channel.
              */
             public static final int[][][] DEFAULT_COLOR_ARRAYS = {
-                    /* Red alliance. */ { /* Auto */ { 255, 0, 0 }, /* Transition */ { 255, 0, 0 },
-                            /* Teleop 1 */ { 255, 0, 0 }, /* Teleop 2 */ { 255, 0, 0 },
-                            /* Teleop 3 */ { 255, 0, 0 }, /* Teleop 4 */{ 255, 0, 0 },
-                            /* Endgame */ { 255, 0, 0 }, },
-                    /* Blue alliance. */ { /* Auto */ { 0, 0, 255 }, /* Transition */ { 0, 0, 255 },
-                            /* Teleop 1 */ { 0, 0, 255 }, /* Teleop 2 */ { 0, 0, 255 },
-                            /* Teleop 3 */ { 0, 0, 255 }, /* Teleop 4 */{ 0, 0, 255 },
-                            /* Endgame */ { 0, 0, 255 }, }, };
+                    /* Red alliance. */ { /* Auto */ {255, 0, 0}, /* Transition */ {255, 0, 0},
+                            /* Teleop 1 */ {255, 0, 0}, /* Teleop 2 */ {255, 0, 0},
+                            /* Teleop 3 */ {255, 0, 0}, /* Teleop 4 */{255, 0, 0},
+                            /* Endgame */ {255, 0, 0},},
+                    /* Blue alliance. */ { /* Auto */ {0, 0, 255}, /* Transition */ {0, 0, 255},
+                            /* Teleop 1 */ {0, 0, 255}, /* Teleop 2 */ {0, 0, 255},
+                            /* Teleop 3 */ {0, 0, 255}, /* Teleop 4 */{0, 0, 255},
+                            /* Endgame */ {0, 0, 255},},};
 
-            public static final int[] COMPLETION_COLOR_ARRAY = { 137, 162, 3 };
+            public static final int[] COMPLETION_COLOR_ARRAY = {137, 162, 3};
 
-            public static final int[] INTERRUPTION_COLOR_ARRAY = { 97, 64, 81 };
+            public static final int[] INTERRUPTION_COLOR_ARRAY = {97, 64, 81};
 
-            public static final int[] PROGRESS_BAR_COLOR_ARRAY = { 255, 255, 255 };
+            public static final int[] PROGRESS_BAR_COLOR_ARRAY = {255, 255, 255};
         }
 
     }
@@ -149,5 +147,17 @@ public final class Constants {
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_LOAD_SPEED = 0.8;
+    }
+
+    public static class LauncherConstants {
+        public static double ShootSpeed = 0.7;
+        public static double ActiveIdle = 0.5;
+        public static double InactiveIdle = 0.3;
+        public static double ManualSpeed = 0.3;
+
+        public static double rampUpPeriod = 0.5;
+
+        public static double currentLimit = 40;
+
     }
 }
