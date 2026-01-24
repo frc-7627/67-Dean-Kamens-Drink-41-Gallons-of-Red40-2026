@@ -17,11 +17,22 @@ public class Indicator extends SubsystemBase {
      * Delegates implementation details to other subsystems(e.g. led, etc.).
      * 
      * @param gameInfo The game information subsystem.
-     * @param led The LED subsystem.
+     * @param led      The LED subsystem.
      */
     public Indicator(GameInfo gameInfo, LED led) {
         this.gameInfo = gameInfo;
         this.led = led;
+
+        gameInfo.onAllianceSet(this::indicateNewAllianceSet);
+    }
+
+    /**
+     * Indicate that a new alliance has been set.
+     * 
+     * Blinks the led with the new default color.
+     */
+    private void indicateNewAllianceSet() {
+        // TODO: blink led
     }
 
     /**
@@ -61,15 +72,18 @@ public class Indicator extends SubsystemBase {
     }
 
     /**
-     * Indicate the progress of a command with the provided logger and current progress.
+     * Indicate the progress of a command with the provided logger and current
+     * progress.
      * 
-     * Logs the current step and progress fraction, and fills the LEDs to the fraction of steps
-     * progressed to total steps, foreground being the progress bar color and background being the
+     * Logs the current step and progress fraction, and fills the LEDs to the
+     * fraction of steps
+     * progressed to total steps, foreground being the progress bar color and
+     * background being the
      * default color.
      * 
      * @param <CommandProgress> an amount of progress.
-     * @param logger the provided logger.
-     * @param currentProgress the current progress.
+     * @param logger            the provided logger.
+     * @param currentProgress   the current progress.
      */
     public <CommandProgress extends Progress> void indicateProgress(Logger logger,
             CommandProgress currentProgress) {
