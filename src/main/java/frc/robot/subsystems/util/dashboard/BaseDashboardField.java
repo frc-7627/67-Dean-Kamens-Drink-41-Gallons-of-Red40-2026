@@ -58,6 +58,10 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
         this.innerValue = initialValue;
         this.defaultValue = defaultValue;
         this.fieldMode = fieldMode;
+
+        if (!isValid()) {
+            throw new IllegalStateException("Initial dashboard state must be valid!");
+        }
     }
 
     /**
@@ -90,6 +94,10 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      */
     public final void setInnerValue(Inner innerValue) {
         this.innerValue = innerValue;
+
+        if (!isValid()) {
+            this.innerValue = defaultValue;
+        }
 
         pushIfPull();
     }
@@ -143,6 +151,24 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
         if (fieldMode.isPull()) {
             push();
         }
+    }
+
+    /**
+     * @param value the value
+     * @return whether the value is valid.
+     */
+    protected boolean checkValue(Inner value) {
+        return true;
+    }
+
+    /**
+     * @return whether the field is in a valid state.
+     * @see #innerValue
+     * @see #defaultValue
+     * @see #checkValue(Inner)
+     */
+    private boolean isValid() {
+        return checkValue(innerValue) && checkValue(defaultValue);
     }
 
     /**
