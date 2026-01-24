@@ -1,21 +1,30 @@
 package frc.robot.subsystems.indication;
 
 import frc.robot.Constants;
+
+import static edu.wpi.first.units.Units.Hertz;
+
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
+
+import edu.wpi.first.units.measure.Frequency;
+import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LED extends SubsystemBase {
     private final CANdle candle = new CANdle(Constants.CanIDs.CANDLE_CAN_ID);
 
     /**
-     * The subsystem implementing led indication. Do not use directly, use {@code Indicator} for
+     * The subsystem implementing led indication. Do not use directly, use
+     * {@code Indicator} for
      * indicating status.
      * 
      * @see frc.robot.subsystems.Indicator
      */
-    public LED() {}
+    public LED() {
+    }
 
     /**
      * Set the LEDs to a solid color of choice.
@@ -34,13 +43,25 @@ public class LED extends SubsystemBase {
     }
 
     /**
-     * Set the LEDs to be filled to the fraction of steps progressed to total steps with the
-     * provided foreground and background color. 
+     * Blink the LEDs with a specific color.
+     * 
+     * @param color
+     */
+    public void blinkWithColor(RGBWColor color) {
+        candle.setControl(Constants.LEDConstants.STROBE_ANIMATION
+                .withFrameRate(Constants.LEDConstants.STROBE_FREQUENCY)
+                .withColor(color));
+    }
+
+    /**
+     * Set the LEDs to be filled to the fraction of steps progressed to total steps
+     * with the
+     * provided foreground and background color.
      * 
      * @param stepsProgressed the steps progressed.
-     * @param totalSteps the total steps.
-     * @param fgColor the provided foreground color.
-     * @param bgColor the provided background color.
+     * @param totalSteps      the total steps.
+     * @param fgColor         the provided foreground color.
+     * @param bgColor         the provided background color.
      */
     public void setProgress(int stepsProgressed, int totalSteps, RGBWColor fgColor,
             RGBWColor bgColor) {

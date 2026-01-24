@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Hertz;
+
 import org.littletonrobotics.junction.LogFileUtil;
 
 import com.pathplanner.lib.config.PIDConstants;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Frequency;
+
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -92,6 +96,8 @@ public final class Constants {
 
         public static final RainbowAnimation RAINBOW_ANIMATION = new RainbowAnimation(FIRST_ATTACHED_LED_NUM,
                 LAST_ATTACHED_LED_NUM);
+
+        public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
     }
 
     public static class IndicatorConstants {

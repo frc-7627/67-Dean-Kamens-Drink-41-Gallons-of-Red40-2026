@@ -32,7 +32,7 @@ public class Indicator extends SubsystemBase {
      * Blinks the led with the new default color.
      */
     private void indicateNewAllianceSet() {
-        // TODO: blink led
+        led.blinkWithColor(getDefaultColor());
     }
 
     /**
