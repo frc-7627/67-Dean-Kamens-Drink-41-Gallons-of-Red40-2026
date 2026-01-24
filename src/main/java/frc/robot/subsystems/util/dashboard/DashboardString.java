@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @see #DashboardString(String, String, String)
  * @see #DashboardString(String, String, String, String)
  */
-public final class DashboardString extends DashboardObject<String> {
+public class DashboardString extends DashboardObject<String> {
     /**
      * A pushing dashboard field for strings.
      * 
