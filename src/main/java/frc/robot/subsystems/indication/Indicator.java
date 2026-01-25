@@ -1,29 +1,35 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.indication;
 
 import java.util.logging.Logger;
 import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.indication.LED;
+import frc.robot.subsystems.util.GameInfo;
 
 public class Indicator extends SubsystemBase {
+    private final Startup startup = new Startup();
+    private final LED led = new LED();
     private final GameInfo gameInfo;
-    private final LED led;
 
     /**
      * The subsystem for indicating any status.
      * 
-     * Delegates implementation details to other subsystems(e.g. led, etc.).
-     * 
-     * @param gameInfo The game information subsystem.
-     * @param led      The LED subsystem.
+     * @param gameInfo The game information singleton.
      */
-    public Indicator(GameInfo gameInfo, LED led) {
+    public Indicator(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
-        this.led = led;
 
         gameInfo.onAllianceSet(this::indicateNewAllianceSet);
+    }
+
+    /**
+     * Indicate that the robot is starting up.
+     * 
+     * @see Startup#startup()
+     */
+    public void indicateStartup() {
+        startup.startup();
     }
 
     /**

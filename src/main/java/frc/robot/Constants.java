@@ -35,7 +35,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.subsystems.GameInfo;
+import frc.robot.subsystems.util.GameInfo;
 import swervelib.math.Matter;
 
 /**
@@ -209,5 +209,18 @@ public final class Constants {
 
         public static final String SONGS_DIRECTORY =
                 String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
+    }
+
+    public static class Directories {
+        public static final String DEPLOY_DIRECTORY =
+                Filesystem.getDeployDirectory().getAbsolutePath();
+
+        public static final String SONGS_DIRECTORY =
+                String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
+    }
+
+    public static class StartupConstants {
+        public static final String STARTUP_BANNER_FILE_PATH =
+                String.format("%s/startup-banner.txt", Directories.DEPLOY_DIRECTORY);
     }
 }

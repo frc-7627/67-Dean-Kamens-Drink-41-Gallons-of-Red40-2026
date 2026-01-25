@@ -3,8 +3,8 @@ package frc.robot.commands.intake;
 import java.util.logging.Logger;
 
 import frc.robot.commands.IndicatingCommand;
-import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.indication.Indicator;
 
 public class LoadIntake extends IndicatingCommand {
     private static final Logger LOGGER = Logger.getLogger(LoadIntake.class.getSimpleName());
