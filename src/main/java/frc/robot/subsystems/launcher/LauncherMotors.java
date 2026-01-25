@@ -41,11 +41,11 @@ class LauncherMotors extends SubsystemBase {
         orchestra.play();
     }
 
-    public void setCommander(double speed) {
+    public void setCommanderSpeed(double speed) {
         commander.set(speed);
     }
 
-    public void setBoth(double speed) {
+    public void setBothSpeeds(double speed) {
         commander.set(speed);
         minion.set(speed);
     }

@@ -115,10 +115,10 @@ public class Launcher extends SubsystemBase {
      * Sets the commander motor to the shoot speed.
      * 
      * @see #shootSpeed
-     * @see LauncherMotors#setCommander(double)
+     * @see LauncherMotors#setCommanderSpeed(double)
      */
     public void shootOut() {
-        launcherMotors.setCommander(shootSpeed.getInnerValue());
+        launcherMotors.setCommanderSpeed(shootSpeed.getInnerValue());
     }
 
     /**
@@ -127,13 +127,13 @@ public class Launcher extends SubsystemBase {
      * Sets the commander motor to the negative shoot speed.
      * 
      * @see #shootSpeed
-     * @see LauncherMotors#setCommander(double)
+     * @see LauncherMotors#setCommanderSpeed(double)
      * @apiNote Do not use unless in extraneous circumstances.
      */
     public void shootIn() {
         // TODO: why shouldn't this method be used unless in extraneous circumstances? Justify in
         // the api note.
-        launcherMotors.setCommander(-shootSpeed.getInnerValue());
+        launcherMotors.setCommanderSpeed(-shootSpeed.getInnerValue());
     }
 
     /**
@@ -142,10 +142,10 @@ public class Launcher extends SubsystemBase {
      * Sets both motors to the manual speed.
      * 
      * @see #manualSpeed
-     * @see LauncherMotors#setBoth(double)
+     * @see LauncherMotors#setBothSpeeds(double)
      */
     public void manualOutBoth() {
-        launcherMotors.setBoth(manualSpeed.getInnerValue());
+        launcherMotors.setBothSpeeds(manualSpeed.getInnerValue());
     }
 
     /**
@@ -154,10 +154,10 @@ public class Launcher extends SubsystemBase {
      * Sets both motors to the negative manual speed.
      * 
      * @see #manualSpeed
-     * @see LauncherMotors#setBoth(double)
+     * @see LauncherMotors#setBothSpeeds(double)
      */
     public void manualInBoth() {
-        launcherMotors.setBoth(-manualSpeed.getInnerValue());
+        launcherMotors.setBothSpeeds(-manualSpeed.getInnerValue());
     }
 
     /**
