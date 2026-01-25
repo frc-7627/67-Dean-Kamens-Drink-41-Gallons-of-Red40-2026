@@ -182,7 +182,7 @@ public final class Constants {
     }
 
     public static class StartupConstants {
-        public static final String STARTUP_MSG_FILE =
-                String.format("%s/startup-msg.txt", Directories.DEPLOY_DIRECTORY);
+        public static final String STARTUP_BANNER_FILE_PATH =
+                String.format("%s/startup-banner.txt", Directories.DEPLOY_DIRECTORY);
     }
 }
