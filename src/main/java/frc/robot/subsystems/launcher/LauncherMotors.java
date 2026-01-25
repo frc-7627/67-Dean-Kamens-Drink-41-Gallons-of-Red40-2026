@@ -12,20 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.launcher.util.MotorsConfigurator;
 
 public class LauncherMotors extends SubsystemBase {
-    public static enum Song {
-        ;
-
-        private final String filePath;
-
-        Song(String simpleFileName) {
-            this.filePath = String.format("%s/%s.chrp", SONGS_DIRECTORY, simpleFileName);
-        }
-
-        public String getFilePath() {
-            return filePath;
-        }
-    }
-
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
     private final MotorsConfigurator motorsConfigurator =

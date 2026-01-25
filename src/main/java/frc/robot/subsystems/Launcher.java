@@ -1,14 +1,12 @@
 package frc.robot.subsystems;
 
-import java.io.File;
+import static frc.robot.Constants.Directories.SONGS_DIRECTORY;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.MusicTone;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.launcher.LauncherMotors;
@@ -17,6 +15,16 @@ import frc.robot.subsystems.launcher.LauncherMotors;
 public class Launcher extends SubsystemBase {
 
     // 2 krakens
+
+    public static enum Song {
+        ;
+
+        private final String filePath;
+
+        Song(String simpleFileName) {
+            this.filePath = String.format("%s/%s.chrp", SONGS_DIRECTORY, simpleFileName);
+        }
+    }
 
     // Instance variables
     private static double ShootSpeed = Constants.LauncherConstants.ShootSpeed;
@@ -89,8 +97,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void playNote(int freq) {
-        m_talonFX_Commander.setControl(new MusicTone(freq));
-        m_talonFX_Minion.setControl(new MusicTone(freq));
+        launcherMotors.playNote(freq);
     }
 
     /**
@@ -105,17 +112,8 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void playSong(String filename) {
-        // Add motors
-        m_Orchestra.addInstrument(m_talonFX_Minion);
-        m_Orchestra.addInstrument(m_talonFX_Commander);
-
-        // Load song and play
-        String filePath = Filesystem.getDeployDirectory() + "/midi/" + filename + ".chrp";
-        System.out.println(filePath);
-        System.out.println(new File(filePath).exists());
-        m_Orchestra.loadMusic(filePath);
-        m_Orchestra.play();
+    public void playSong(Song song) {
+        launcherMotors.playSongFromFile(song.filePath);
     }
 
     /**
