@@ -23,7 +23,7 @@ import frc.robot.commands.ProgressingCommand;
 import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.swervedrive.vision.Vision;
 
 public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
     PhotonCamera Left_PI_CAM = new PhotonCamera("PC_Camera SIG");

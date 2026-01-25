@@ -28,7 +28,7 @@ import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.indication.LED;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.swervedrive.vision.Vision;
 import frc.robot.Rizzler;
 
 import java.io.File;
