@@ -6,12 +6,11 @@ import com.ctre.phoenix6.controls.MusicTone;
 import com.ctre.phoenix6.hardware.TalonFX;
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
-import static frc.robot.Constants.Directories.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.launcher.util.MotorsConfigurator;
 
-public class LauncherMotors extends SubsystemBase {
+class LauncherMotors extends SubsystemBase {
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
     private final MotorsConfigurator motorsConfigurator =
