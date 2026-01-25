@@ -26,64 +26,12 @@ public class Launcher extends SubsystemBase {
         }
     }
 
-    // Instance variables
-    private static double ShootSpeed = Constants.LauncherConstants.ShootSpeed;
-    private static double ActiveIdle = Constants.LauncherConstants.ActiveIdle;
-    private static double InactiveIdle = Constants.LauncherConstants.InactiveIdle;
-    private static double ManualSpeed = Constants.LauncherConstants.ManualSpeed;
-
-    private static double rampUpPeriod = Constants.LauncherConstants.rampUpPeriod; // TODO: Test
-                                                                                   // this
-                                                                                   // thoroughly
-
-    private static double currentLimit = Constants.LauncherConstants.currentLimit;
-
-    // Define Motor IDs
-    final TalonFX m_talonFX_Commander = new TalonFX(Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID);
-    final TalonFX m_talonFX_Minion = new TalonFX(Constants.CanIDs.LAUNCHER_MINION_CAN_ID);
-
-    // Magic motion for audio and follower control
-    private final MotionMagicVoltage m_request = new MotionMagicVoltage(0);
-
-    // Make an orchestra
-    Orchestra m_Orchestra = new Orchestra();
-
     private final LauncherMotors launcherMotors;
 
     /** Initiallizes the Climber Subsystem */
     public Launcher(LauncherMotors launcherMotors) {
         this.launcherMotors = launcherMotors;
 
-        // in init function
-        var talonFXConfig = new TalonFXConfiguration();
-
-        // Current limit
-        talonFXConfig.CurrentLimits.withStatorCurrentLimitEnable(true);
-        talonFXConfig.CurrentLimits.withStatorCurrentLimit(currentLimit);
-
-        // Speed limit
-        talonFXConfig.MotorOutput.withPeakForwardDutyCycle(ShootSpeed);
-        talonFXConfig.MotorOutput.withPeakReverseDutyCycle(-ShootSpeed);
-
-        talonFXConfig.MotorOutput.withNeutralMode(NeutralModeValue.Coast); // Set to Coast mode bc
-                                                                           // big mass flywheel
-
-        // Ramp Up speed
-        talonFXConfig.OpenLoopRamps.withDutyCycleOpenLoopRampPeriod(rampUpPeriod);
-        talonFXConfig.ClosedLoopRamps.withDutyCycleClosedLoopRampPeriod(rampUpPeriod);
-
-        // Music stuff
-        talonFXConfig.Audio.withBeepOnBoot(false);
-        talonFXConfig.Audio.withBeepOnConfig(false);
-        talonFXConfig.Audio.withAllowMusicDurDisable(true);
-
-        // Set FollowerMode
-
-        m_talonFX_Commander.getConfigurator().apply(talonFXConfig); // Apply Motor Config
-        m_talonFX_Minion.getConfigurator().apply(talonFXConfig); // Apply Motor Config
-
-        // Reset controls after using audio IS A MUST OR ELSE WILL EXPLODE
-        // Also sets m_talonFX_Minion to follower of m_talonFX_Commander
         resetControlMode();
     }
 
@@ -124,16 +72,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void resetControlMode() {
-        // Clean up orchestra
-        m_Orchestra.stop();
-        m_Orchestra.clearInstruments();
-
-        // create a Motion Magic request, voltage output
-        // final MotionMagicVoltage m_request = new MotionMagicVoltage(0);
-        m_talonFX_Commander.setControl(m_request.withPosition(getPositionCommander()));
-
-        // Setup follower config
-        m_talonFX_Minion.setControl(new Follower(m_talonFX_Commander.getDeviceID(), null));
+        launcherMotors.reset();
     }
 
 
@@ -145,7 +84,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void ShootOut() {
-        m_talonFX_Commander.set(ShootSpeed);
+        // m_talonFX_Commander.set(ShootSpeed);
     }
 
     /**
@@ -156,7 +95,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void ShootIn() {
-        m_talonFX_Commander.set(-ShootSpeed); // DO NOT USE UNLESS IN AN EXTRENUOUS CIRCUMSTANCE
+        // m_talonFX_Commander.set(-ShootSpeed); // DO NOT USE UNLESS IN AN EXTRENUOUS CIRCUMSTANCE
     }
 
     /**
@@ -167,8 +106,8 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void ManualOutBoth() {
-        m_talonFX_Commander.set(ManualSpeed);
-        m_talonFX_Minion.set(ManualSpeed);
+        // m_talonFX_Commander.set(ManualSpeed);
+        // m_talonFX_Minion.set(ManualSpeed);
     }
 
     /**
@@ -179,8 +118,8 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void ManualInBoth() {
-        m_talonFX_Commander.set(-ManualSpeed);
-        m_talonFX_Minion.set(-ManualSpeed);
+        // m_talonFX_Commander.set(-ManualSpeed);
+        // m_talonFX_Minion.set(-ManualSpeed);
     }
 
     /**
@@ -190,50 +129,6 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void stop() {
-        m_talonFX_Commander.set(0.0);
-        m_talonFX_Minion.set(0.0);
+        launcherMotors.stop();
     }
-
-    /**
-     * Returns the current position of the Launcher wheels
-     * 
-     * @return double - the reported encoder position
-     * @version 1.0
-     */
-    public double getPositionCommander() {
-        return m_talonFX_Commander.getPosition().getValueAsDouble();
-    }
-
-    public double getPositionMinion() {
-        return m_talonFX_Minion.getPosition().getValueAsDouble();
-    }
-
-    /**
-     * Gets the output current of the Launcher Motor
-     * 
-     * @version 1.0
-     * @return Output amperage (double)
-     */
-    public double getCurrentCommander() {
-        return m_talonFX_Commander.getSupplyCurrent(false).getValueAsDouble();
-    }
-
-    public double getCurrentMinon() {
-        return m_talonFX_Minion.getSupplyCurrent(false).getValueAsDouble();
-    }
-
-    /**
-     * Gets the current Launcher Motor Velocity (NOT RPM)
-     * 
-     * @version 1.0
-     * @return Motor Velocity as a double
-     */
-    public double getVelocityCommander() {
-        return m_talonFX_Commander.getVelocity().getValueAsDouble();
-    }
-
-    public double getVelocityMinion() {
-        return m_talonFX_Minion.getVelocity().getValueAsDouble();
-    }
-
 }
