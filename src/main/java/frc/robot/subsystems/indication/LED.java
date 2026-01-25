@@ -10,11 +10,7 @@ class LED {
     private final CANdle candle = new CANdle(Constants.CanIDs.CANDLE_CAN_ID);
 
     /**
-     * The subsystem implementing led indication. Do not use directly, use
-     * {@code Indicator} for
-     * indicating status.
-     * 
-     * @see frc.robot.subsystems.indication.Indicator
+     * The LED.
      */
     public LED() {
     }
