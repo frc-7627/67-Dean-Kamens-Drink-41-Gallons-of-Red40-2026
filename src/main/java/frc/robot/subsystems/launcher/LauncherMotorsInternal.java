@@ -34,7 +34,7 @@ public class LauncherMotorsInternal extends SubsystemBase {
         minion.setControl(new MusicTone(freq));
     }
 
-    public void playSong(String filePath) {
+    public void playSongFromFile(String filePath) {
         orchestra.addInstrument(commander);
         orchestra.addInstrument(minion);
         orchestra.loadMusic(filePath);
