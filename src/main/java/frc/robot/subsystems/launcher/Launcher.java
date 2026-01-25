@@ -95,17 +95,6 @@ public class Launcher extends SubsystemBase {
         return false;
     }
 
-    /**
-     * Reset the launcher.
-     * 
-     * Resets the launcher motors.
-     * 
-     * @see LauncherMotors#reset()
-     */
-    public void reset() {
-        launcherMotors.reset();
-    }
-
 
     /**
      * Shoot out.
