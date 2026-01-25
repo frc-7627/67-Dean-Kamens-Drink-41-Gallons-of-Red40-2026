@@ -73,7 +73,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public boolean playHorn() {
+    public boolean playHornIfSafe() {
         if (isSafeToPlayMusic()) {
             launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
             return true;
@@ -95,7 +95,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public boolean playSong(Song song) {
+    public boolean playSongIfSafe(Song song) {
         if (isSafeToPlayMusic()) {
             launcherMotors.playSongFromFile(song.filePath);
             return true;
