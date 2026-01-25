@@ -1,11 +1,11 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.indication;
 
 import java.util.logging.Logger;
 import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.indication.LED;
+import frc.robot.subsystems.GameInfo;
 
 public class Indicator extends SubsystemBase {
     private final LED led;

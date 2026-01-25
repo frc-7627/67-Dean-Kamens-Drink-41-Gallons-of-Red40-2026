@@ -22,7 +22,7 @@ public class LED extends SubsystemBase {
      * {@code Indicator} for
      * indicating status.
      * 
-     * @see frc.robot.subsystems.Indicator
+     * @see frc.robot.subsystems.indication.Indicator
      */
     public LED() {
     }
