@@ -14,7 +14,7 @@ import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LED extends SubsystemBase {
+public class LED {
     private final CANdle candle = new CANdle(Constants.CanIDs.CANDLE_CAN_ID);
 
     /**

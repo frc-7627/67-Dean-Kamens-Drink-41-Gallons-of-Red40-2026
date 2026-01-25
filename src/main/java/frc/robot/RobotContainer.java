@@ -54,7 +54,7 @@ public class RobotContainer {
 
   private final GameInfo gameInfo = new GameInfo();
 
-  private final Indicator indicator = new Indicator(gameInfo, new LED());
+  private final Indicator indicator = new Indicator(gameInfo);
 
   private final Intake intake = new Intake();
 

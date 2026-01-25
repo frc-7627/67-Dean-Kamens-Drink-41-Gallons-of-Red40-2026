@@ -8,20 +8,16 @@ import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.GameInfo;
 
 public class Indicator extends SubsystemBase {
-    private final LED led;
+    private final LED led = new LED();
     private final GameInfo gameInfo;
 
     /**
      * The subsystem for indicating any status.
      * 
-     * Delegates implementation details to other subsystems(e.g. led, etc.).
-     * 
-     * @param gameInfo The game information subsystem.
-     * @param led      The LED subsystem.
+     * @param gameInfo The game information singleton.
      */
-    public Indicator(GameInfo gameInfo, LED led) {
+    public Indicator(GameInfo gameInfo) {
         this.gameInfo = gameInfo;
-        this.led = led;
 
         gameInfo.onAllianceSet(this::indicateNewAllianceSet);
     }
