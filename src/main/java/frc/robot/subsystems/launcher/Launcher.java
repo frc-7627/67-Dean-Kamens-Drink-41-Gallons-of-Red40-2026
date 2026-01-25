@@ -55,6 +55,14 @@ public class Launcher extends SubsystemBase {
         DashboardField.updateAll(dashboardFields);
     }
 
+    /**
+     * @return whether it is currently safe to play music.
+     */
+    private boolean isSafeToPlayMusic() {
+        // TODO
+        return true;
+    }
+
     // TODO: fix docs
     /**
      * Plays a constant tone based on provided input using the talonFX controllers
@@ -65,9 +73,13 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void playHorn() {
-        // TODO: ensure elevator is at 0.
-        launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
+    public boolean playHorn() {
+        if (isSafeToPlayMusic()) {
+            launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
+            return true;
+        }
+
+        return false;
     }
 
     // TODO: fix docs
@@ -83,9 +95,13 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void playSong(Song song) {
-        // TODO: ensure elevator is at 0.
-        launcherMotors.playSongFromFile(song.filePath);
+    public boolean playSong(Song song) {
+        if (isSafeToPlayMusic()) {
+            launcherMotors.playSongFromFile(song.filePath);
+            return true;
+        }
+
+        return false;
     }
 
     // TODO: fix docs
