@@ -92,7 +92,7 @@ public class Launcher extends SubsystemBase {
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
-    public void shootOut() {
+    public void shootOut() throws IllegalStateException {
         launcherMotors.setCommanderSpeed(shootSpeed.getInnerValue());
     }
 
@@ -105,7 +105,7 @@ public class Launcher extends SubsystemBase {
      * @see LauncherMotors#setCommanderSpeed(double)
      * @apiNote Do not use unless in extraneous circumstances.
      */
-    public void shootIn() {
+    public void shootIn() throws IllegalStateException {
         // TODO: why shouldn't this method be used unless in extraneous circumstances? Justify in
         // the api note.
         launcherMotors.setCommanderSpeed(-shootSpeed.getInnerValue());
@@ -119,7 +119,7 @@ public class Launcher extends SubsystemBase {
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
-    public void manualOutBoth() {
+    public void manualOutBoth() throws IllegalStateException {
         launcherMotors.setBothSpeeds(manualSpeed.getInnerValue());
     }
 
@@ -131,7 +131,7 @@ public class Launcher extends SubsystemBase {
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
-    public void manualInBoth() {
+    public void manualInBoth() throws IllegalStateException {
         launcherMotors.setBothSpeeds(-manualSpeed.getInnerValue());
     }
 
@@ -142,7 +142,7 @@ public class Launcher extends SubsystemBase {
      * 
      * @see LauncherMotors#stopBoth()
      */
-    public void stop() {
+    public void stop() throws IllegalStateException {
         launcherMotors.stopBoth();
     }
 }
