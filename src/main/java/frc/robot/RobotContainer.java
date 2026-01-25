@@ -23,11 +23,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.intake.LoadIntake;
-import frc.robot.subsystems.GameInfo;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
+import frc.robot.subsystems.util.GameInfo;
 import frc.robot.Rizzler;
 
 import java.io.File;

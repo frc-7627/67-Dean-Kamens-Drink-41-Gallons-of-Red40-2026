@@ -5,7 +5,7 @@ import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.GameInfo;
+import frc.robot.subsystems.util.GameInfo;
 
 public class Indicator extends SubsystemBase {
     private final LED led = new LED();
