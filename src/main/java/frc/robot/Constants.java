@@ -95,6 +95,8 @@ public final class Constants {
                         Units.inchesToMeters(-10.776) /* This is forward. */,
                         Units.inchesToMeters(7.776)),
                 new Rotation3d(0, Units.degreesToRadians(30), 25));
+
+        public static final int MAX_CONNECTION_ATTEMPTS = 10;
     }
 
     public static class OperatorConstants {
