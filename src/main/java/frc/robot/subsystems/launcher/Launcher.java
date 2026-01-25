@@ -3,7 +3,6 @@ package frc.robot.subsystems.launcher;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.launcher.dashboard.CurrentLimit;
 import frc.robot.subsystems.launcher.dashboard.RampUpPeriod;
 import frc.robot.subsystems.launcher.dashboard.ShootSpeed;
@@ -55,40 +54,42 @@ public class Launcher extends SubsystemBase {
         DashboardField.updateAll(dashboardFields);
     }
 
-    // TODO: fix docs
     /**
-     * Plays the horn if it is safe to do so.
+     * Plays the horn frequency as a note on the motors.
      * 
-     * @return whether it was safe to do so.
+     * @see frc.robot.Constants.LauncherConstants#HORN_FREQ
+     * @see LauncherMotors#playNote(int)
+     * @apiNote Motors enter music mode.
      */
-    public void playHorn() {
-        launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
+    public void playHornOnMotors() {
+        launcherMotors.playNote(HORN_FREQ);
     }
 
-    // TODO: fix docs
     /**
-     * Plays the provided song if it is safe to do so.
+     * Plays the provided song from its file on the motors.
      * 
      * @param song the provided song.
-     * @return whether it was safe to do so.
-     * @see #isSafeToPlayMusic()
      * @see LauncherMotors#playSongFromFile(String)
      * @see Song
+     * @apiNote Motors enter music mode.
      */
-    public void playSong(Song song) {
+    public void playSongOnMotors(Song song) {
         launcherMotors.playSongFromFile(song.filePath);
     }
 
-    public void exitMusicMode() {
+    /**
+     * Exit music mode on the motors.
+     */
+    public void exitMusicModeOnMotors() {
         launcherMotors.exitMusicMode();
     }
-
 
     /**
      * Shoot out.
      * 
      * Sets the commander motor to the shoot speed.
      * 
+     * @throws IllegalStateException if the motors are in music mode.
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
@@ -101,9 +102,10 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets the commander motor to the negative shoot speed.
      * 
+     * @throws IllegalStateException if the motors are in music mode.
+     * @apiNote Do not use unless in extraneous circumstances.
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
-     * @apiNote Do not use unless in extraneous circumstances.
      */
     public void shootIn() throws IllegalStateException {
         // TODO: why shouldn't this method be used unless in extraneous circumstances? Justify in
@@ -116,6 +118,7 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets both motors to the manual speed.
      * 
+     * @throws IllegalStateException if the motors are in music mode.
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
@@ -128,6 +131,7 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets both motors to the negative manual speed.
      * 
+     * @throws IllegalStateException if the motors are in music mode.
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
@@ -140,6 +144,7 @@ public class Launcher extends SubsystemBase {
      * 
      * Stops both motors.
      * 
+     * @throws IllegalStateException if the motors are in music mode.
      * @see LauncherMotors#stopBoth()
      */
     public void stop() throws IllegalStateException {
