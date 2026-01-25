@@ -248,7 +248,7 @@ public class RobotContainer {
    * @return void
    */
   public void disabledPeriodic() {
-
+    gameInfo.disabledPeriodic();
   }
 
   // TODO: Reimplement the folowing vvvv
