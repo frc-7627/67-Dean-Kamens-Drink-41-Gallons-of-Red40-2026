@@ -201,16 +201,6 @@ public final class Constants {
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
         public static final int HORN_FREQ = 440;
-
-        public static double ShootSpeed = 0.7;
-        public static double ActiveIdle = 0.5;
-        public static double InactiveIdle = 0.3;
-        public static double ManualSpeed = 0.3;
-
-        public static double rampUpPeriod = 0.5;
-
-        public static double currentLimit = 40;
-
     }
 
     public static class Directories {
