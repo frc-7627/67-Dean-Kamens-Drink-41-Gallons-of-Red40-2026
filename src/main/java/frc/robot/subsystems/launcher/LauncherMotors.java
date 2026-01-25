@@ -15,41 +15,78 @@ class LauncherMotors {
     private final MotorsConfigurator motorsConfigurator =
             new MotorsConfigurator(commander.getConfigurator(), minion.getConfigurator());
     private final Orchestra orchestra = new Orchestra();
+    private boolean inMusicMode = false;
 
+    /**
+     * The launcher motors.
+     */
     public LauncherMotors() {
-        reset();
+        resetControl();
     }
 
-    public void reset() {
-        orchestra.stop();
-        orchestra.clearInstruments();
-
+    private void resetControl() {
         commander.setControl(TARGET_DEFAULT_POSITION.withPosition(getCommanderPosition()));
         minion.setControl(new Follower(commander.getDeviceID(), null));
     }
 
-    public void playNote(int freq) {
-        commander.setControl(new MusicTone(freq));
-        minion.setControl(new MusicTone(freq));
+    public void enterMusicMode() {
+        if (!inMusicMode) {
+            orchestra.addInstrument(commander);
+            orchestra.addInstrument(minion);
+        }
+
+        inMusicMode = true;
     }
 
-    public void playSongFromFile(String filePath) {
-        orchestra.addInstrument(commander);
-        orchestra.addInstrument(minion);
-        orchestra.loadMusic(filePath);
-        orchestra.play();
+    public void exitMusicMode() {
+        orchestra.stop();
+        orchestra.clearInstruments();
+
+        resetControl();
+
+        inMusicMode = false;
     }
 
-    public void setCommanderSpeed(double speed) {
+    public void playNote(int freq) throws IllegalStateException {
+        if (inMusicMode) {
+            commander.setControl(new MusicTone(freq));
+            minion.setControl(new MusicTone(freq));
+        } else {
+            throw new IllegalStateException("Can only play note when in music mode!");
+        }
+    }
+
+    public void playSongFromFile(String filePath) throws IllegalStateException {
+        if (inMusicMode) {
+            orchestra.loadMusic(filePath);
+            orchestra.play();
+        } else {
+            throw new IllegalStateException("Can only play song when in music mode!");
+        }
+    }
+
+    public void setCommanderSpeed(double speed) throws IllegalStateException {
+        if (inMusicMode) {
+            throw new IllegalStateException("Can only control motors when not in music mode!");
+        }
+
         commander.set(speed);
     }
 
     public void setBothSpeeds(double speed) {
+        if (inMusicMode) {
+            throw new IllegalStateException("Can only control motors when not in music mode!");
+        }
+
         commander.set(speed);
         minion.set(speed);
     }
 
     public void stopBoth() {
+        if (inMusicMode) {
+            throw new IllegalStateException("Can only control motors when not in music mode!");
+        }
+
         commander.set(0.0);
         minion.set(0.0);
     }
