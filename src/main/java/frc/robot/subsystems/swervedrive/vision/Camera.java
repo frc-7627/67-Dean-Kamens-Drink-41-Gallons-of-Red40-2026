@@ -23,11 +23,11 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import static frc.robot.Constants.VisionConstants.*;
 import frc.robot.Robot;
 
 /**
@@ -37,23 +37,11 @@ public enum Camera {
     /**
      * Left camera.
      */
-    LEFT_CAMERA("PC_Camera SIG", new Rotation3d(0, Units.degreesToRadians(30), 25),
-            // TODO: Make sure the position of these cameras are correct less you wish the robot
-            // to explode when using auto align
-            new Translation3d(Units.inchesToMeters(5.840),
-                    Units.inchesToMeters(-11.776) /* This is forward. */,
-                    Units.inchesToMeters(7.776)),
-            VecBuilder.fill(Vision.singleStDev, Vision.singleStDev, Vision.singleStDev),
-            VecBuilder.fill(Vision.multiStDev, Vision.multiStDev, Vision.multiStDev)),
+    LEFT_CAMERA(LEFT_CAMERA_NAME, LEFT_CAMERA_TRANSFORM),
     /**
      * Right camera.
      */
-    RIGHT_CAMERA("PC_Camera_MA", new Rotation3d(0, Units.degreesToRadians(30), 25),
-            new Translation3d(Units.inchesToMeters(5.840),
-                    Units.inchesToMeters(-10.776) /* This is forward. */,
-                    Units.inchesToMeters(7.776)),
-            VecBuilder.fill(Vision.singleStDev, Vision.singleStDev, Vision.singleStDev),
-            VecBuilder.fill(Vision.multiStDev, Vision.multiStDev, Vision.multiStDev));
+    RIGHT_CAMERA(RIGHT_CAMERA_NAME, RIGHT_CAMERA_TRANSFORM);
 
     // TODO: What is the below message referring to?
     // TODO: PUT BACK OR YOU WILL DIE
@@ -73,7 +61,7 @@ public enum Camera {
     /**
      * Transform of the camera rotation and translation relative to the center of the robot
      */
-    private final Transform3d robotToCamTransform;
+    private final Transform3d transform;
     /**
      * Current standard deviations used.
      */
@@ -108,8 +96,8 @@ public enum Camera {
      * @param multiTagStdDevsMatrix Multi AprilTag standard deviations of estimated poses from the
      *        camera.
      */
-    Camera(String name, Rotation3d robotToCamRotation, Translation3d robotToCamTranslation,
-            Matrix<N3, N1> ProvidedSingleTagStdDevs, Matrix<N3, N1> ProvidedMultiTagStdDevsMatrix) {
+    Camera(String name, Transform3d transform) {
+        this.transform = transform;
         latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.",
                 AlertType.kWarning);
 
@@ -131,15 +119,9 @@ public enum Camera {
             }
         } ;
 
-        // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html
-        robotToCamTransform = new Transform3d(robotToCamTranslation, robotToCamRotation);
-
         poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
-                PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToCamTransform);
+                PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, transform);
         poseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-
-        Vision.singleTagStdDevs = ProvidedSingleTagStdDevs;
-        Vision.multiTagStdDevs = ProvidedMultiTagStdDevsMatrix;
 
         if (Robot.isSimulation()) {
             SimCameraProperties cameraProp = new SimCameraProperties();
@@ -167,7 +149,7 @@ public enum Camera {
      */
     public void addToVisionSim(VisionSystemSim systemSim) {
         if (Robot.isSimulation()) {
-            systemSim.addCamera(cameraSim, robotToCamTransform);
+            systemSim.addCamera(cameraSim, transform);
         }
     }
 

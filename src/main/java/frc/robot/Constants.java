@@ -23,10 +23,13 @@ import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
-
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.GameInfo;
+import frc.robot.subsystems.swervedrive.vision.Vision;
 import swervelib.math.Matter;
 
 /**
@@ -76,6 +79,22 @@ public final class Constants {
         // Hold time on motor brakes when disabled
         public static final double WHEEL_LOCK_TIME = 10; // seconds
 
+    }
+
+    public static final class VisionConstants {
+        public static final String LEFT_CAMERA_NAME = "PC_Camera SIG";
+        public static final String RIGHT_CAMERA_NAME = "PC_Camera_MA";
+
+        public static final Transform3d LEFT_CAMERA_TRANSFORM = new Transform3d(
+                new Translation3d(Units.inchesToMeters(5.840),
+                        Units.inchesToMeters(-11.776) /* This is forward. */,
+                        Units.inchesToMeters(7.776)),
+                new Rotation3d(0, Units.degreesToRadians(30), 25));
+        public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
+                new Translation3d(Units.inchesToMeters(5.840),
+                        Units.inchesToMeters(-10.776) /* This is forward. */,
+                        Units.inchesToMeters(7.776)),
+                new Rotation3d(0, Units.degreesToRadians(30), 25));
     }
 
     public static class OperatorConstants {
