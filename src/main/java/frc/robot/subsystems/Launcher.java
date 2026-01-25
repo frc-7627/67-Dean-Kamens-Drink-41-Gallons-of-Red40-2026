@@ -36,19 +36,13 @@ public class Launcher extends SubsystemBase {
 
     private final MotorSpeed activeIdleSpeed =
             new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE);
-    private final MotorSpeed inactiveIdleSpeed = 
+    private final MotorSpeed inactiveIdleSpeed =
             new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE);
     private final MotorSpeed manualSpeed =
             new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
 
-    private final DashboardField[] dashboardFields = {
-        currentLimit,
-        rampUpPeriod,
-        shootSpeed,
-        activeIdleSpeed,
-        inactiveIdleSpeed,
-        manualSpeed
-    };
+    private final DashboardField[] dashboardFields = {currentLimit, rampUpPeriod, shootSpeed,
+            activeIdleSpeed, inactiveIdleSpeed, manualSpeed};
 
     /** Initiallizes the Climber Subsystem */
     public Launcher() {
@@ -117,8 +111,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void shootOut() {
-        // TODO: reimplement
-        // m_talonFX_Commander.set(ShootSpeed);
+        launcherMotors.setCommander(shootSpeed.getInnerValue());
     }
 
     // TODO: fix docs
@@ -130,8 +123,8 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void shootIn() {
-        // TODO: reimplement
-        // m_talonFX_Commander.set(-ShootSpeed); // DO NOT USE UNLESS IN AN EXTRENUOUS CIRCUMSTANCE
+        // TODO: why shouldn't this method be used unless in extraneous circumstances? Answer in docs.
+        launcherMotors.setCommander(shootSpeed.getInnerValue());
     }
 
     // TODO: fix docs
@@ -143,9 +136,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void manualOutBoth() {
-        // TODO: reimplement
-        // m_talonFX_Commander.set(ManualSpeed);
-        // m_talonFX_Minion.set(ManualSpeed);
+        launcherMotors.setBoth(manualSpeed.getInnerValue());
     }
 
     // TODO: fix docs
@@ -157,9 +148,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void manualInBoth() {
-        // TODO: reimplement
-        // m_talonFX_Commander.set(-ManualSpeed);
-        // m_talonFX_Minion.set(-ManualSpeed);
+        launcherMotors.setBoth(-manualSpeed.getInnerValue());
     }
 
     /**
