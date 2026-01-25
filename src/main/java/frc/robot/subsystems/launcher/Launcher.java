@@ -55,28 +55,18 @@ public class Launcher extends SubsystemBase {
         DashboardField.updateAll(dashboardFields);
     }
 
-    /**
-     * @return whether it is currently safe to play music.
-     */
-    private boolean isSafeToPlayMusic() {
-        // TODO
-        return true;
-    }
-
+    // TODO: fix docs
     /**
      * Plays the horn if it is safe to do so.
      * 
      * @return whether it was safe to do so.
      */
-    public boolean playHornIfSafe() {
-        if (isSafeToPlayMusic()) {
-            launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
-            return true;
-        }
-
-        return false;
+    public void playHorn() {
+        launcherMotors.enterMusicMode();
+        launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
     }
 
+    // TODO: fix docs
     /**
      * Plays the provided song if it is safe to do so.
      * 
@@ -86,13 +76,13 @@ public class Launcher extends SubsystemBase {
      * @see LauncherMotors#playSongFromFile(String)
      * @see Song
      */
-    public boolean playSongIfSafe(Song song) {
-        if (isSafeToPlayMusic()) {
-            launcherMotors.playSongFromFile(song.filePath);
-            return true;
-        }
+    public void playSong(Song song) {
+        launcherMotors.enterMusicMode();
+        launcherMotors.playSongFromFile(song.filePath);
+    }
 
-        return false;
+    public void exitMusicMode() {
+        launcherMotors.exitMusicMode();
     }
 
 
