@@ -25,6 +25,7 @@ import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
 
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.util.GameInfo;
 import swervelib.math.Matter;
@@ -172,5 +173,11 @@ public final class Constants {
 
         public static double currentLimit = 40;
 
+    }
+
+    public static class Directories {
+        public static final String DEPLOY_DIRECTORY = Filesystem.getDeployDirectory().getAbsolutePath();
+
+        public static final String SONGS_DIRECTORY = String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
     }
 }
