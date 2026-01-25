@@ -11,6 +11,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.launcher.LauncherMotors;
 
 // Colloquially known as Miles after bad Chinese
 public class Launcher extends SubsystemBase {
@@ -39,8 +40,12 @@ public class Launcher extends SubsystemBase {
     // Make an orchestra
     Orchestra m_Orchestra = new Orchestra();
 
+    private final LauncherMotors launcherMotors;
+
     /** Initiallizes the Climber Subsystem */
-    public Launcher() {
+    public Launcher(LauncherMotors launcherMotors) {
+        this.launcherMotors = launcherMotors;
+
         // in init function
         var talonFXConfig = new TalonFXConfiguration();
 
