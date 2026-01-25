@@ -173,7 +173,7 @@ public enum Camera {
                         connectionRetries));
             }
         } else {
-            throw new NoCameraConnection(String.format("Failed to connect to camera '%s'!", name));
+            throw new NoCameraConnection();
         }
 
         return camera;
