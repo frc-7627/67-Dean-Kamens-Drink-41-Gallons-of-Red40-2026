@@ -18,12 +18,14 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import org.photonvision.simulation.SimCameraProperties;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -97,6 +99,20 @@ public final class Constants {
                 new Rotation3d(0, Units.degreesToRadians(30), 25));
 
         public static final int MAX_CONNECTION_RETRIES = 10;
+
+        public static final SimCameraProperties SIM_CAMERA_PROPERTIES = new SimCameraProperties()
+                // A 640 x 480 camera with a 100 degree diagonal FOV.
+                .setCalibration(960, 720, Rotation2d.fromDegrees(100))
+                // Approximate detection noise with average and standard deviation error in
+                // pixels.
+                .setCalibError(0.25, 0.08)
+                // Set the camera image capture framerate (Note: this is limited by robot loop
+                // rate).
+                .setFPS(30)
+                // The average and standard deviation in milliseconds of image data latency.
+                .setAvgLatencyMs(35).setLatencyStdDevMs(5);
+        
+        public static final boolean DRAW_WIREFRAME = true;
     }
 
     public static class OperatorConstants {

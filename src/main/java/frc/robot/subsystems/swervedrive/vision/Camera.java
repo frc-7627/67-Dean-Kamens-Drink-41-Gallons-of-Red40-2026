@@ -111,21 +111,8 @@ public enum Camera {
         poseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
         if (Robot.isSimulation()) {
-            SimCameraProperties cameraProp = new SimCameraProperties();
-            // A 640 x 480 camera with a 100 degree diagonal FOV.
-            cameraProp.setCalibration(960, 720, Rotation2d.fromDegrees(100));
-            // Approximate detection noise with average and standard deviation error in
-            // pixels.
-            cameraProp.setCalibError(0.25, 0.08);
-            // Set the camera image capture framerate (Note: this is limited by robot loop
-            // rate).
-            cameraProp.setFPS(30);
-            // The average and standard deviation in milliseconds of image data latency.
-            cameraProp.setAvgLatencyMs(35);
-            cameraProp.setLatencyStdDevMs(5);
-
-            cameraSim = new PhotonCameraSim(camera, cameraProp);
-            cameraSim.enableDrawWireframe(true);
+            cameraSim = new PhotonCameraSim(camera, SIM_CAMERA_PROPERTIES);
+            cameraSim.enableDrawWireframe(DRAW_WIREFRAME);
         }
     }
 
