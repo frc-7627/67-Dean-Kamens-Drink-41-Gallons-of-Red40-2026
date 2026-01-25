@@ -62,7 +62,6 @@ public class Launcher extends SubsystemBase {
      * @return whether it was safe to do so.
      */
     public void playHorn() {
-        launcherMotors.enterMusicMode();
         launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
     }
 
@@ -77,7 +76,6 @@ public class Launcher extends SubsystemBase {
      * @see Song
      */
     public void playSong(Song song) {
-        launcherMotors.enterMusicMode();
         launcherMotors.playSongFromFile(song.filePath);
     }
 

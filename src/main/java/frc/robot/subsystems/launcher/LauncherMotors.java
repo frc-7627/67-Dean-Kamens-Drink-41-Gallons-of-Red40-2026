@@ -29,15 +29,6 @@ class LauncherMotors {
         minion.setControl(new Follower(commander.getDeviceID(), null));
     }
 
-    public void enterMusicMode() {
-        if (!inMusicMode) {
-            orchestra.addInstrument(commander);
-            orchestra.addInstrument(minion);
-        }
-
-        inMusicMode = true;
-    }
-
     public void exitMusicMode() {
         orchestra.stop();
         orchestra.clearInstruments();
@@ -47,22 +38,20 @@ class LauncherMotors {
         inMusicMode = false;
     }
 
-    public void playNote(int freq) throws IllegalStateException {
-        if (inMusicMode) {
-            commander.setControl(new MusicTone(freq));
-            minion.setControl(new MusicTone(freq));
-        } else {
-            throw new IllegalStateException("Can only play note when in music mode!");
-        }
+    public void playNote(int freq) {
+        inMusicMode = true;
+
+        commander.setControl(new MusicTone(freq));
+        minion.setControl(new MusicTone(freq));
     }
 
-    public void playSongFromFile(String filePath) throws IllegalStateException {
-        if (inMusicMode) {
-            orchestra.loadMusic(filePath);
-            orchestra.play();
-        } else {
-            throw new IllegalStateException("Can only play song when in music mode!");
-        }
+    public void playSongFromFile(String filePath) {
+        inMusicMode = true;
+
+        orchestra.addInstrument(commander);
+        orchestra.addInstrument(minion);
+        orchestra.loadMusic(filePath);
+        orchestra.play();
     }
 
     public void setCommanderSpeed(double speed) throws IllegalStateException {
