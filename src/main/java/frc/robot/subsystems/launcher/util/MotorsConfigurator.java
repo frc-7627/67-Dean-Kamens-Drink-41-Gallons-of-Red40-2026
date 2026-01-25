@@ -17,6 +17,12 @@ public class MotorsConfigurator {
     private final OpenLoopRampsConfigs openLoopRampsConfigs = DEFAULT_OPEN_LOOP_RAMPS_CONFIGS;
     private final ClosedLoopRampsConfigs closedLoopRampsConfigs = DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS;
 
+    /**
+     * Interface for updating the launcher motors' configurations.
+     * 
+     * @param commanderConfigurator the configurator for the commander motor.
+     * @param minionConfigurator the configurator for the minion motor.
+     */
     public MotorsConfigurator(TalonFXConfigurator commanderConfigurator, TalonFXConfigurator minionConfigurator) {
         this.commanderConfigurator = commanderConfigurator;
         this.minionConfigurator = minionConfigurator;
@@ -34,6 +40,11 @@ public class MotorsConfigurator {
         minionConfigurator.apply(AUDIO_CONFIGS);
     }
 
+    /**
+     * Update the configuration with the new current limit.
+     * 
+     * @param currentLimit the new current limit.
+     */
     public void applyCurrentLimit(double currentLimit) {
         currentLimitsConfigs.withStatorCurrentLimit(currentLimit);
 
@@ -41,6 +52,11 @@ public class MotorsConfigurator {
         minionConfigurator.apply(currentLimitsConfigs);
     }
 
+    /**
+     * Update the configuration with the new shoot speed.
+     * 
+     * @param shootSpeed the new shoot speed.
+     */
     public void applyShootSpeed(double shootSpeed) {
         motorOutputConfigs.withPeakForwardDutyCycle(shootSpeed);
         motorOutputConfigs.withPeakReverseDutyCycle(-shootSpeed);
@@ -49,6 +65,11 @@ public class MotorsConfigurator {
         minionConfigurator.apply(motorOutputConfigs);
     }
 
+    /**
+     * Update the configuration with the new ramp up period.
+     * 
+     * @param rampUpPeriod the new ramp up period.
+     */
     public void applyRampUpPeriod(double rampUpPeriod) {
         openLoopRampsConfigs.withDutyCycleOpenLoopRampPeriod(rampUpPeriod);
         closedLoopRampsConfigs.withDutyCycleClosedLoopRampPeriod(rampUpPeriod);
