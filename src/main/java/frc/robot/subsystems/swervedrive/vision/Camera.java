@@ -33,21 +33,27 @@ import frc.robot.Robot;
 /**
  * Camera Enum to select each camera
  */
-public enum Cameras {
-    Left_PI_CAM("PC_Camera SIG", new Rotation3d(0, Units.degreesToRadians(30), 25),
+public enum Camera {
+    /**
+     * Left camera.
+     */
+    LEFT_CAMERA("PC_Camera SIG", new Rotation3d(0, Units.degreesToRadians(30), 25),
             // TODO: Make sure the position of these cameras are correct less you wish the robot
             // to explode when using auto align
             new Translation3d(Units.inchesToMeters(5.840),
-                    Units.inchesToMeters(-11.776) /* This is forward */,
+                    Units.inchesToMeters(-11.776) /* This is forward. */,
                     Units.inchesToMeters(7.776)),
             VecBuilder.fill(Vision.singleStDev, Vision.singleStDev, Vision.singleStDev),
-            VecBuilder.fill(Vision.multiStDev, Vision.multiStDev, Vision.multiStDev)), RIGHT_PI_CAM("PC_Camera_MA",
-                    new Rotation3d(0, Units.degreesToRadians(30), 25),
-                    new Translation3d(Units.inchesToMeters(5.840),
-                            Units.inchesToMeters(-10.776), /* This is forward */
-                            Units.inchesToMeters(7.776)),
-                    VecBuilder.fill(Vision.singleStDev, Vision.singleStDev, Vision.singleStDev),
-                    VecBuilder.fill(Vision.multiStDev, Vision.multiStDev, Vision.multiStDev));
+            VecBuilder.fill(Vision.multiStDev, Vision.multiStDev, Vision.multiStDev)),
+    /**
+     * Right camera.
+     */
+    RIGHT_CAMERA("PC_Camera_MA", new Rotation3d(0, Units.degreesToRadians(30), 25),
+            new Translation3d(Units.inchesToMeters(5.840),
+                    Units.inchesToMeters(-10.776) /* This is forward. */,
+                    Units.inchesToMeters(7.776)),
+            VecBuilder.fill(Vision.singleStDev, Vision.singleStDev, Vision.singleStDev),
+            VecBuilder.fill(Vision.multiStDev, Vision.multiStDev, Vision.multiStDev));
 
     // TODO: What is the below message referring to?
     // TODO: PUT BACK OR YOU WILL DIE
@@ -91,20 +97,19 @@ public enum Cameras {
     private double lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
 
     /**
-     * Construct a Photon Camera class with help. Standard deviations are fake values,
-     * experiment and determine estimation noise on an actual robot.
+     * Construct a Photon Camera class with help. Standard deviations are fake values, experiment
+     * and determine estimation noise on an actual robot.
      *
      * @param name Name of the PhotonVision camera found in the PV UI.
      * @param robotToCamRotation {@link Rotation3d} of the camera.
      * @param robotToCamTranslation {@link Translation3d} relative to the center of the robot.
      * @param singleTagStdDevs Single AprilTag standard deviations of estimated poses from the
      *        camera.
-     * @param multiTagStdDevsMatrix Multi AprilTag standard deviations of estimated poses from
-     *        the camera.
+     * @param multiTagStdDevsMatrix Multi AprilTag standard deviations of estimated poses from the
+     *        camera.
      */
-    Cameras(String name, Rotation3d robotToCamRotation, Translation3d robotToCamTranslation,
-            Matrix<N3, N1> ProvidedSingleTagStdDevs,
-            Matrix<N3, N1> ProvidedMultiTagStdDevsMatrix) {
+    Camera(String name, Rotation3d robotToCamRotation, Translation3d robotToCamTranslation,
+            Matrix<N3, N1> ProvidedSingleTagStdDevs, Matrix<N3, N1> ProvidedMultiTagStdDevsMatrix) {
         latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.",
                 AlertType.kWarning);
 
@@ -121,8 +126,7 @@ public enum Cameras {
             camera = null;
             camera = new PhotonCamera(name);
             if (iteration > 10) {
-                System.out.println(
-                        "Breaking Off Camera reconnection attempt loop ... Good Luck!");
+                System.out.println("Breaking Off Camera reconnection attempt loop ... Good Luck!");
                 break;
             }
         } ;
@@ -168,11 +172,11 @@ public enum Cameras {
     }
 
     /**
-     * Get the result with the least ambiguity from the best tracked target within the Cache.
-     * This may not be the most recent result!
+     * Get the result with the least ambiguity from the best tracked target within the Cache. This
+     * may not be the most recent result!
      *
-     * @return The result in the cache with the least ambiguous best tracked target. This is not
-     *         the most recent result!
+     * @return The result in the cache with the least ambiguous best tracked target. This is not the
+     *         most recent result!
      */
     public Optional<PhotonPipelineResult> getBestResult() {
         if (resultsList.isEmpty()) {
@@ -202,8 +206,8 @@ public enum Cameras {
     }
 
     /**
-     * Get the estimated robot pose. Updates the current robot pose estimation, standard
-     * deviations, and flushes the cache of results.
+     * Get the estimated robot pose. Updates the current robot pose estimation, standard deviations,
+     * and flushes the cache of results.
      *
      * @return Estimated pose.
      */
@@ -213,8 +217,8 @@ public enum Cameras {
     }
 
     /**
-     * Update the latest results, cached with a maximum refresh rate of 1req/15ms. Sorts the
-     * list by timestamp.
+     * Update the latest results, cached with a maximum refresh rate of 1req/15ms. Sorts the list by
+     * timestamp.
      */
     private void updateUnreadResults() {
         double mostRecentTimestamp =
@@ -239,15 +243,15 @@ public enum Cameras {
     }
 
     /**
-     * The latest estimated robot pose on the field from vision data. This may be empty. This
-     * should only be called once per loop.
+     * The latest estimated robot pose on the field from vision data. This may be empty. This should
+     * only be called once per loop.
      *
      * <p>
-     * Also includes updates for the standard deviations, which can (optionally) be retrieved
-     * with {@link Cameras#updateEstimationStdDevs}
+     * Also includes updates for the standard deviations, which can (optionally) be retrieved with
+     * {@link Camera#updateEstimationStdDevs}
      *
-     * @return An {@link EstimatedRobotPose} with an estimated pose, estimate timestamp, and
-     *         targets used for estimation.
+     * @return An {@link EstimatedRobotPose} with an estimated pose, estimate timestamp, and targets
+     *         used for estimation.
      */
     private void updateEstimatedGlobalPose() {
         Optional<EstimatedRobotPose> visionEst = Optional.empty();
@@ -260,8 +264,7 @@ public enum Cameras {
 
     /**
      * Calculates new standard deviations This algorithm is a heuristic that creates dynamic
-     * standard deviations based on number of tags, estimation strategy, and distance from the
-     * tags.
+     * standard deviations based on number of tags, estimation strategy, and distance from the tags.
      *
      * @param estimatedPose The estimated pose to guess standard deviations for.
      * @param targets All targets in this camera frame
@@ -286,8 +289,8 @@ public enum Cameras {
                     continue;
                 }
                 numTags++;
-                avgDist += tagPose.get().toPose2d().getTranslation().getDistance(
-                        estimatedPose.get().estimatedPose.toPose2d().getTranslation());
+                avgDist += tagPose.get().toPose2d().getTranslation()
+                        .getDistance(estimatedPose.get().estimatedPose.toPose2d().getTranslation());
             }
 
             // Debug
@@ -308,8 +311,8 @@ public enum Cameras {
                                                  // invalid: was 4
                                                  // before
                 {
-                    estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE,
-                            Double.MAX_VALUE);
+                    estStdDevs =
+                            VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
                 } else {
                     estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
                 }
