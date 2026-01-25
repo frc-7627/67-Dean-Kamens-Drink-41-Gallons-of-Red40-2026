@@ -43,7 +43,9 @@ public class Launcher extends SubsystemBase {
     private final DashboardField[] dashboardFields = {currentLimit, rampUpPeriod, shootSpeed,
             activeIdleSpeed, inactiveIdleSpeed, manualSpeed};
 
-    /** Initiallizes the Climber Subsystem */
+    /**
+     * The launcher subsystem.
+     */
     public Launcher() {
         DashboardField.initAll(dashboardFields);
 
@@ -63,15 +65,10 @@ public class Launcher extends SubsystemBase {
         return true;
     }
 
-    // TODO: fix docs
     /**
-     * Plays a constant tone based on provided input using the talonFX controllers
+     * Plays the horn if it is safe to do so.
      * 
-     * Only use this when elevator is at 0
-     * 
-     * @param freq the frequency in hz of the tone
-     * @return void
-     * @version 1.0
+     * @return whether it was safe to do so.
      */
     public boolean playHornIfSafe() {
         if (isSafeToPlayMusic()) {
@@ -82,18 +79,14 @@ public class Launcher extends SubsystemBase {
         return false;
     }
 
-    // TODO: fix docs
     /**
-     * Plays a CHRP file using Pheonix Orchestra using both TalonFX motor controllers, limited to
-     * the amount of talonFXs used by subsystem
-     *
-     * Only use this when elevator is at 0
-     *
-     * MIDI files can be converted to CHRP files in the Pheonix Tuner X utilites
+     * Plays the provided song if it is safe to do so.
      * 
-     * @param filename the name of the CHRP file as String (without the extension)
-     * @return void
-     * @version 1.0
+     * @param song the provided song.
+     * @return whether it was safe to do so.
+     * @see #isSafeToPlayMusic()
+     * @see LauncherMotors#playSongFromFile(String)
+     * @see Song
      */
     public boolean playSongIfSafe(Song song) {
         if (isSafeToPlayMusic()) {
@@ -104,73 +97,75 @@ public class Launcher extends SubsystemBase {
         return false;
     }
 
-    // TODO: fix docs
     /**
-     * Resets the control modes of both TalonFXs Must use after playing audio on the Motor
-     * Controllers To revert them back to position control for elevator use
+     * Reset the launcher.
      * 
-     * @return void
-     * @version 1.0
+     * Resets the launcher motors.
+     * 
+     * @see LauncherMotors#reset()
      */
     public void reset() {
         launcherMotors.reset();
     }
 
 
-    // TODO: fix docs
     /**
-     * Spins the Launcher up at a speed specified in the instance variable ShootSpeed for general
-     * control
+     * Shoot out.
      * 
-     * @return void
-     * @version 1.0
+     * Sets the commander motor to the shoot speed.
+     * 
+     * @see #shootSpeed
+     * @see LauncherMotors#setCommander(double)
      */
     public void shootOut() {
         launcherMotors.setCommander(shootSpeed.getInnerValue());
     }
 
-    // TODO: fix docs
     /**
-     * Spins the Launcher in a counter clockwise direction at a speed specified in the instance
-     * variable ShootSpeed for general TODO: make sure ^^ this is the right way control
+     * Shoot in.
      * 
-     * @return void
-     * @version 1.0
+     * Sets the commander motor to the negative shoot speed.
+     * 
+     * @see #shootSpeed
+     * @see LauncherMotors#setCommander(double)
+     * @apiNote Do not use unless in extraneous circumstances.
      */
     public void shootIn() {
-        // TODO: why shouldn't this method be used unless in extraneous circumstances? Answer in docs.
-        launcherMotors.setCommander(shootSpeed.getInnerValue());
+        // TODO: why shouldn't this method be used unless in extraneous circumstances? Justify in
+        // the api note.
+        launcherMotors.setCommander(-shootSpeed.getInnerValue());
     }
 
-    // TODO: fix docs
     /**
-     * Slowly moves the launcher at a speed specified in the instance variable ManualSpeed for fine
-     * control
+     * Manually shoot out.
      * 
-     * @return void
-     * @version 1.0
+     * Sets both motors to the manual speed.
+     * 
+     * @see #manualSpeed
+     * @see LauncherMotors#setBoth(double)
      */
     public void manualOutBoth() {
         launcherMotors.setBoth(manualSpeed.getInnerValue());
     }
 
-    // TODO: fix docs
     /**
-     * Slowly moves the launcher at a speed specified in the instance variable ManualSpeed for fine
-     * control
+     * Manually shoot in.
      * 
-     * @return void
-     * @version 1.0
+     * Sets both motors to the negative manual speed.
+     * 
+     * @see #manualSpeed
+     * @see LauncherMotors#setBoth(double)
      */
     public void manualInBoth() {
         launcherMotors.setBoth(-manualSpeed.getInnerValue());
     }
 
     /**
-     * Stops all Motors
+     * Stop the launcher.
      * 
-     * @return void
-     * @version 1.0
+     * Stops both motors.
+     * 
+     * @see LauncherMotors#stopBoth()
      */
     public void stop() {
         launcherMotors.stopBoth();
