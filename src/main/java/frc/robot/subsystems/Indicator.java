@@ -6,10 +6,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.indication.LED;
+import frc.robot.subsystems.launcher.Music;
 
 public class Indicator extends SubsystemBase {
-    private final LED led;
     private final GameInfo gameInfo;
+    private final LED led;
+    private final Music music;
 
     /**
      * The subsystem for indicating any status.
@@ -19,9 +21,10 @@ public class Indicator extends SubsystemBase {
      * @param gameInfo The game information subsystem.
      * @param led      The LED subsystem.
      */
-    public Indicator(GameInfo gameInfo, LED led) {
+    public Indicator(GameInfo gameInfo, LED led, Music music) {
         this.gameInfo = gameInfo;
         this.led = led;
+        this.music = music;
 
         gameInfo.onAllianceSet(this::indicateNewAllianceSet);
     }
