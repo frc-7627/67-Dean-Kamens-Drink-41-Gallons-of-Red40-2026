@@ -77,7 +77,7 @@ public enum Camera {
     /**
      * Simulated camera instance which only exists during simulations.
      */
-    public PhotonCameraSim cameraSim;
+    public final PhotonCameraSim cameraSim;
     /**
      * Results list to be updated periodically and cached to avoid unnecessary queries.
      */
@@ -101,18 +101,20 @@ public enum Camera {
      */
     Camera(String name, Transform3d transform) {
         this.transform = transform;
-        latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.",
+        this.latencyAlert = new Alert(String.format("Camera '%s' is experiencing high latency.", name),
                 AlertType.kWarning);
 
         this.camera = getPhotonCamera(name);
 
-        poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
+        this.poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
                 PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, transform);
         poseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
         if (Robot.isSimulation()) {
-            cameraSim = new PhotonCameraSim(camera, SIM_CAMERA_PROPERTIES);
+            this.cameraSim = new PhotonCameraSim(camera, SIM_CAMERA_PROPERTIES);
             cameraSim.enableDrawWireframe(DRAW_WIREFRAME);
+        } else {
+            this.cameraSim = null;
         }
     }
 
