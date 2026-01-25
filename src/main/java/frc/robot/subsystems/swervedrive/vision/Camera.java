@@ -6,6 +6,7 @@ import static edu.wpi.first.units.Units.Seconds;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -142,6 +143,40 @@ public enum Camera {
             cameraSim = new PhotonCameraSim(camera, cameraProp);
             cameraSim.enableDrawWireframe(true);
         }
+    }
+
+    /**
+     * Get a connected photon camera with the provided name.
+     * 
+     * @param name the provided name.
+     * @return a connected photon camera with the provided name.
+     * @throws NoCameraConnection if unable to connect to the camera.
+     */
+    private static PhotonCamera getConnectedPhotonCamera(String name) throws NoCameraConnection {
+        LOGGER.fine(String.format("Trying to connect to camera '%s'...", name));
+        PhotonCamera camera = new PhotonCamera(name);
+
+        int connectionRetries = 0;
+
+        for (; connectionRetries < MAX_CONNECTION_RETRIES
+                && !camera.isConnected(); connectionRetries++) {
+            LOGGER.fine(String.format("Retrying to connect to camera '%s'... (retry %d)", name,
+                    connectionRetries + 1));
+            camera = new PhotonCamera(name);
+        }
+
+        if (camera.isConnected()) {
+            if (connectionRetries == 0) {
+                LOGGER.info(String.format("Connected to camera '%s' with no retries!", name));
+            } else {
+                LOGGER.info(String.format("Connected to camera '%s' after %d retries.", name,
+                        connectionRetries));
+            }
+        } else {
+            throw new NoCameraConnection(String.format("Failed to connect to camera '%s'!", name));
+        }
+
+        return camera;
     }
 
     /**
