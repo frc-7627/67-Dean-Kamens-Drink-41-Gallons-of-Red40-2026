@@ -35,10 +35,9 @@ public class Indicator extends SubsystemBase {
     /**
      * Indicate that a new alliance has been set.
      * 
-     * Blinks the led with the new default color.
+     * Twinks the led with the new default color.
      */
     private void indicateNewAllianceSet() {
-        //led.blinkWithColor(getDefaultColor());
         led.twinkWithColor(getDefaultColor());
     }
 
