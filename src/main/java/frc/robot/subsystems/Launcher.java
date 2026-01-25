@@ -1,15 +1,15 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.Directories.SONGS_DIRECTORY;
-import com.ctre.phoenix6.Orchestra;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.NeutralModeValue;
+import static frc.robot.Constants.Directories.*;
+import static frc.robot.Constants.LauncherConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.launcher.LauncherMotors;
+import frc.robot.subsystems.launcher.dashboard.CurrentLimit;
+import frc.robot.subsystems.launcher.dashboard.RampUpPeriod;
+import frc.robot.subsystems.launcher.dashboard.ShootSpeed;
+import frc.robot.subsystems.util.dashboard.DashboardField;
+import frc.robot.subsystems.util.dashboard.MotorSpeed;
 
 // Colloquially known as Miles after bad Chinese
 public class Launcher extends SubsystemBase {
@@ -26,15 +26,44 @@ public class Launcher extends SubsystemBase {
         }
     }
 
-    private final LauncherMotors launcherMotors;
+    private static final String SUBSYSTEM_NAME = Launcher.class.getSimpleName();
+
+    private final LauncherMotors launcherMotors = new LauncherMotors();
+
+    private final CurrentLimit currentLimit = new CurrentLimit(launcherMotors.getConfigurator());
+    private final RampUpPeriod rampUpPeriod = new RampUpPeriod(launcherMotors.getConfigurator());
+    private final ShootSpeed shootSpeed = new ShootSpeed(launcherMotors.getConfigurator());
+
+    private final MotorSpeed activeIdleSpeed =
+            new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE);
+    private final MotorSpeed inactiveIdleSpeed = 
+            new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE);
+    private final MotorSpeed manualSpeed =
+            new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
+
+    private final DashboardField[] dashboardFields = {
+        currentLimit,
+        rampUpPeriod,
+        shootSpeed,
+        activeIdleSpeed,
+        inactiveIdleSpeed,
+        manualSpeed
+    };
 
     /** Initiallizes the Climber Subsystem */
+    // TODO: remove param
     public Launcher(LauncherMotors launcherMotors) {
-        this.launcherMotors = launcherMotors;
+        DashboardField.initAll(dashboardFields);
 
         reset();
     }
 
+    @Override
+    public void periodic() {
+        DashboardField.updateAll(dashboardFields);
+    }
+
+    // TODO: fix docs
     /**
      * Plays a constant tone based on provided input using the talonFX controllers
      * 
@@ -49,6 +78,7 @@ public class Launcher extends SubsystemBase {
         launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
     }
 
+    // TODO: fix docs
     /**
      * Plays a CHRP file using Pheonix Orchestra using both TalonFX motor controllers, limited to
      * the amount of talonFXs used by subsystem
@@ -66,6 +96,7 @@ public class Launcher extends SubsystemBase {
         launcherMotors.playSongFromFile(song.filePath);
     }
 
+    // TODO: fix docs
     /**
      * Resets the control modes of both TalonFXs Must use after playing audio on the Motor
      * Controllers To revert them back to position control for elevator use
@@ -78,6 +109,7 @@ public class Launcher extends SubsystemBase {
     }
 
 
+    // TODO: fix docs
     /**
      * Spins the Launcher up at a speed specified in the instance variable ShootSpeed for general
      * control
@@ -86,9 +118,11 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void shootOut() {
+        // TODO: reimplement
         // m_talonFX_Commander.set(ShootSpeed);
     }
 
+    // TODO: fix docs
     /**
      * Spins the Launcher in a counter clockwise direction at a speed specified in the instance
      * variable ShootSpeed for general TODO: make sure ^^ this is the right way control
@@ -97,9 +131,11 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void shootIn() {
+        // TODO: reimplement
         // m_talonFX_Commander.set(-ShootSpeed); // DO NOT USE UNLESS IN AN EXTRENUOUS CIRCUMSTANCE
     }
 
+    // TODO: fix docs
     /**
      * Slowly moves the launcher at a speed specified in the instance variable ManualSpeed for fine
      * control
@@ -108,10 +144,12 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void manualOutBoth() {
+        // TODO: reimplement
         // m_talonFX_Commander.set(ManualSpeed);
         // m_talonFX_Minion.set(ManualSpeed);
     }
 
+    // TODO: fix docs
     /**
      * Slowly moves the launcher at a speed specified in the instance variable ManualSpeed for fine
      * control
@@ -120,6 +158,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void manualInBoth() {
+        // TODO: reimplement
         // m_talonFX_Commander.set(-ManualSpeed);
         // m_talonFX_Minion.set(-ManualSpeed);
     }
