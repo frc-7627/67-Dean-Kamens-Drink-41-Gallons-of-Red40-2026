@@ -34,9 +34,9 @@ public class Launcher extends SubsystemBase {
     private final ShootSpeed shootSpeed = new ShootSpeed(launcherMotors.getConfigurator());
 
     private final MotorSpeed activeIdleSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE);
+            new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE_SPEED);
     private final MotorSpeed inactiveIdleSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE);
+            new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE_SPEED);
     private final MotorSpeed manualSpeed =
             new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
 

@@ -39,15 +39,12 @@ import frc.robot.subsystems.GameInfo;
 import swervelib.math.Matter;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
  * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
@@ -97,23 +94,24 @@ public final class Constants {
         public static final int ATTACHED_LED_COUNT = 0;
 
         public static final int FIRST_ATTACHED_LED_NUM = ONBOARD_LED_COUNT;
-        public static final int LAST_ATTACHED_LED_NUM = Math.min(LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT,
-                FIRST_ATTACHED_LED_NUM);
+        public static final int LAST_ATTACHED_LED_NUM =
+                Math.min(LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT, FIRST_ATTACHED_LED_NUM);
 
         private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
 
         public static final SolidColor CONTROL_ALL_LEDS = new SolidColor(0, LAST_LED_NUM);
 
-        public static final StrobeAnimation STROBE_ANIMATION = new StrobeAnimation(0, LAST_ATTACHED_LED_NUM);
+        public static final StrobeAnimation STROBE_ANIMATION =
+                new StrobeAnimation(0, LAST_ATTACHED_LED_NUM);
 
-        public static final RainbowAnimation RAINBOW_ANIMATION = new RainbowAnimation(FIRST_ATTACHED_LED_NUM,
-                LAST_ATTACHED_LED_NUM);
+        public static final RainbowAnimation RAINBOW_ANIMATION =
+                new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
-        public static final TwinkleAnimation TWINKLE_ANIMATION = new TwinkleAnimation(FIRST_ATTACHED_LED_NUM,
-                LAST_ATTACHED_LED_NUM);
+        public static final TwinkleAnimation TWINKLE_ANIMATION =
+                new TwinkleAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
-        public static final SingleFadeAnimation FADE_ANIMATION = new SingleFadeAnimation(FIRST_ATTACHED_LED_NUM,
-                LAST_ATTACHED_LED_NUM);
+        public static final SingleFadeAnimation FADE_ANIMATION =
+                new SingleFadeAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
         public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
         public static final Frequency TWINK_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
@@ -128,20 +126,20 @@ public final class Constants {
              * Indices are in the following order: alliance, game phase, color channel.
              */
             public static final int[][][] DEFAULT_COLOR_ARRAYS = {
-                    /* Red alliance. */ { /* Auto */ { 255, 0, 0 }, /* Transition */ { 255, 0, 0 },
-                            /* Teleop 1 */ { 255, 0, 0 }, /* Teleop 2 */ { 255, 0, 0 },
-                            /* Teleop 3 */ { 255, 0, 0 }, /* Teleop 4 */{ 255, 0, 0 },
-                            /* Endgame */ { 255, 0, 0 }, },
-                    /* Blue alliance. */ { /* Auto */ { 0, 0, 255 }, /* Transition */ { 0, 0, 255 },
-                            /* Teleop 1 */ { 0, 0, 255 }, /* Teleop 2 */ { 0, 0, 255 },
-                            /* Teleop 3 */ { 0, 0, 255 }, /* Teleop 4 */{ 0, 0, 255 },
-                            /* Endgame */ { 0, 0, 255 }, }, };
+                    /* Red alliance. */ { /* Auto */ {255, 0, 0}, /* Transition */ {255, 0, 0},
+                            /* Teleop 1 */ {255, 0, 0}, /* Teleop 2 */ {255, 0, 0},
+                            /* Teleop 3 */ {255, 0, 0}, /* Teleop 4 */{255, 0, 0},
+                            /* Endgame */ {255, 0, 0},},
+                    /* Blue alliance. */ { /* Auto */ {0, 0, 255}, /* Transition */ {0, 0, 255},
+                            /* Teleop 1 */ {0, 0, 255}, /* Teleop 2 */ {0, 0, 255},
+                            /* Teleop 3 */ {0, 0, 255}, /* Teleop 4 */{0, 0, 255},
+                            /* Endgame */ {0, 0, 255},},};
 
-            public static final int[] COMPLETION_COLOR_ARRAY = { 137, 162, 3 };
+            public static final int[] COMPLETION_COLOR_ARRAY = {137, 162, 3};
 
-            public static final int[] INTERRUPTION_COLOR_ARRAY = { 97, 64, 81 };
+            public static final int[] INTERRUPTION_COLOR_ARRAY = {97, 64, 81};
 
-            public static final int[] PROGRESS_BAR_COLOR_ARRAY = { 255, 255, 255 };
+            public static final int[] PROGRESS_BAR_COLOR_ARRAY = {255, 255, 255};
         }
 
     }
@@ -175,33 +173,32 @@ public final class Constants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
         public static final double DEFAULT_SHOOT_SPEED = 0.7;
-        public static final double DEFAULT_ACTIVE_IDLE = 0.5;
-        public static final double DEFAULT_INACTIVE_IDLE = 0.3;
+        public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
+        public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;
         public static final double DEFAULT_MANUAL_SPEED = 0.3;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 
-        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
-            .withStatorCurrentLimitEnable(true)
-            .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS =
+                new CurrentLimitsConfigs().withStatorCurrentLimitEnable(true)
+                        .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
-        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-            .withPeakForwardDutyCycle(DEFAULT_SHOOT_SPEED)
-            .withPeakReverseDutyCycle(-DEFAULT_SHOOT_SPEED)
-            .withNeutralMode(NeutralModeValue.Coast);
+        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS =
+                new MotorOutputConfigs().withPeakForwardDutyCycle(DEFAULT_SHOOT_SPEED)
+                        .withPeakReverseDutyCycle(-DEFAULT_SHOOT_SPEED)
+                        .withNeutralMode(NeutralModeValue.Coast);
 
-        public static final OpenLoopRampsConfigs DEFAULT_OPEN_LOOP_RAMPS_CONFIGS = new OpenLoopRampsConfigs()
-            .withDutyCycleOpenLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
+        public static final OpenLoopRampsConfigs DEFAULT_OPEN_LOOP_RAMPS_CONFIGS =
+                new OpenLoopRampsConfigs().withDutyCycleOpenLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
 
-        public static final ClosedLoopRampsConfigs DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS = new ClosedLoopRampsConfigs()
-            .withDutyCycleClosedLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
+        public static final ClosedLoopRampsConfigs DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS =
+                new ClosedLoopRampsConfigs()
+                        .withDutyCycleClosedLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
 
-        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs()
-            .withBeepOnBoot(false)
-            .withBeepOnConfig(false)
-            .withAllowMusicDurDisable(true);
+        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
+                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
         public static final int HORN_FREQ = 440;
 
@@ -217,8 +214,10 @@ public final class Constants {
     }
 
     public static class Directories {
-        public static final String DEPLOY_DIRECTORY = Filesystem.getDeployDirectory().getAbsolutePath();
+        public static final String DEPLOY_DIRECTORY =
+                Filesystem.getDeployDirectory().getAbsolutePath();
 
-        public static final String SONGS_DIRECTORY = String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
+        public static final String SONGS_DIRECTORY =
+                String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
     }
 }
