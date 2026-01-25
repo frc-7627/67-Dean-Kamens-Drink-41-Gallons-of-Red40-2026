@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 import static frc.robot.Constants.StartupConstants.*;
 
+// Colloquially known as Rizzler.
 public class Startup {
     private static final Logger LOGGER = Logger.getLogger(Startup.class.getSimpleName());
 
