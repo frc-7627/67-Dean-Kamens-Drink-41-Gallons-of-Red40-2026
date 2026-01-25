@@ -56,7 +56,7 @@ public enum Camera {
     /**
      * Camera instance for comms.
      */
-    public PhotonCamera camera;
+    public final PhotonCamera camera;
     /**
      * Pose estimator for camera.
      */
@@ -104,23 +104,7 @@ public enum Camera {
         latencyAlert = new Alert("'" + name + "' Camera is experiencing high latency.",
                 AlertType.kWarning);
 
-        camera = new PhotonCamera(name);
-
-        System.out.println(
-                "Checking if Camera is conncected ... Connection?: " + camera.isConnected());
-
-        int iteration = 0;
-        while (camera.isConnected() == false) {
-            iteration++;
-            System.out.println("Looping check if Camera is conncected ... Connection?:"
-                    + camera.isConnected() + iteration);
-            camera = null;
-            camera = new PhotonCamera(name);
-            if (iteration > 10) {
-                System.out.println("Breaking Off Camera reconnection attempt loop ... Good Luck!");
-                break;
-            }
-        } ;
+        this.camera = getPhotonCamera(name);
 
         poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
                 PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, transform);
@@ -146,13 +130,12 @@ public enum Camera {
     }
 
     /**
-     * Get a connected photon camera with the provided name.
+     * Try to get a connected photon camera with the provided name.
      * 
      * @param name the provided name.
-     * @return a connected photon camera with the provided name if connected, empty optional
-     *         otherwise.
+     * @return a photon camera with the provided name, connected if possible.
      */
-    private static Optional<PhotonCamera> getConnectedPhotonCamera(String name) {
+    private static PhotonCamera getPhotonCamera(String name) {
         LOGGER.fine(String.format("Trying to connect to camera '%s'...", name));
         PhotonCamera camera = new PhotonCamera(name);
 
@@ -173,10 +156,10 @@ public enum Camera {
                         connectionRetries));
             }
         } else {
-            return Optional.empty();
+            LOGGER.severe(String.format("Failed to connect to camera '%s'!", name));
         }
 
-        return Optional.of(camera);
+        return camera;
     }
 
     /**
