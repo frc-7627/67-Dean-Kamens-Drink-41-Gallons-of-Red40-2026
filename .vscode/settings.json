@@ -30,14 +30,14 @@
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
     "Brushless",
+    "chrp",
     "drivebase",
     "gamepiece",
     "ironmaple",
     "Neos",
+    "RGBW",
     "subtable",
-    "RGBW",
     "swervedrive",
-    "RGBW",
     "Teleop"
   ],
   "workbench.colorCustomizations": {
