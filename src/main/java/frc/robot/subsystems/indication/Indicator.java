@@ -8,6 +8,7 @@ import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.util.GameInfo;
 
 public class Indicator extends SubsystemBase {
+    private final Startup startup = new Startup();
     private final LED led = new LED();
     private final GameInfo gameInfo;
 
@@ -20,6 +21,15 @@ public class Indicator extends SubsystemBase {
         this.gameInfo = gameInfo;
 
         gameInfo.onAllianceSet(this::indicateNewAllianceSet);
+    }
+
+    /**
+     * Indicate that the robot is starting up.
+     * 
+     * @see Startup#startup()
+     */
+    public void indicateStartup() {
+        startup.startup();
     }
 
     /**
