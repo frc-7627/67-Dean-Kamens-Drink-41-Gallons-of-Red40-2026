@@ -56,7 +56,7 @@ public enum Camera {
     /**
      * Camera instance for comms.
      */
-    public PhotonCamera camera; // TODO: was final
+    public PhotonCamera camera;
     /**
      * Pose estimator for camera.
      */
@@ -149,10 +149,10 @@ public enum Camera {
      * Get a connected photon camera with the provided name.
      * 
      * @param name the provided name.
-     * @return a connected photon camera with the provided name.
-     * @throws NoCameraConnection if unable to connect to the camera.
+     * @return a connected photon camera with the provided name if connected, empty optional
+     *         otherwise.
      */
-    private static PhotonCamera getConnectedPhotonCamera(String name) throws NoCameraConnection {
+    private static Optional<PhotonCamera> getConnectedPhotonCamera(String name) {
         LOGGER.fine(String.format("Trying to connect to camera '%s'...", name));
         PhotonCamera camera = new PhotonCamera(name);
 
@@ -173,10 +173,10 @@ public enum Camera {
                         connectionRetries));
             }
         } else {
-            throw new NoCameraConnection();
+            return Optional.empty();
         }
 
-        return camera;
+        return Optional.of(camera);
     }
 
     /**
