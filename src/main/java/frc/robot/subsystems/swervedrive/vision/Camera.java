@@ -46,6 +46,8 @@ public enum Camera {
     // TODO: What is the below message referring to?
     // TODO: PUT BACK OR YOU WILL DIE
 
+    private static final Logger LOGGER = Logger.getLogger(Camera.class.getSimpleName());
+
     /**
      * Latency alert to use when high latency is detected.
      */
