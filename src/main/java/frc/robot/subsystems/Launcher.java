@@ -32,7 +32,7 @@ public class Launcher extends SubsystemBase {
     public Launcher(LauncherMotors launcherMotors) {
         this.launcherMotors = launcherMotors;
 
-        resetControlMode();
+        reset();
     }
 
     /**
@@ -44,8 +44,9 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void playNote(int freq) {
-        launcherMotors.playNote(freq);
+    public void playHorn() {
+        // TODO: ensure elevator is at 0.
+        launcherMotors.playNote(Constants.LauncherConstants.HORN_FREQ);
     }
 
     /**
@@ -61,6 +62,7 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void playSong(Song song) {
+        // TODO: ensure elevator is at 0.
         launcherMotors.playSongFromFile(song.filePath);
     }
 
@@ -71,7 +73,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void resetControlMode() {
+    public void reset() {
         launcherMotors.reset();
     }
 
@@ -83,7 +85,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void ShootOut() {
+    public void shootOut() {
         // m_talonFX_Commander.set(ShootSpeed);
     }
 
@@ -94,7 +96,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void ShootIn() {
+    public void shootIn() {
         // m_talonFX_Commander.set(-ShootSpeed); // DO NOT USE UNLESS IN AN EXTRENUOUS CIRCUMSTANCE
     }
 
@@ -105,7 +107,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void ManualOutBoth() {
+    public void manualOutBoth() {
         // m_talonFX_Commander.set(ManualSpeed);
         // m_talonFX_Minion.set(ManualSpeed);
     }
@@ -117,7 +119,7 @@ public class Launcher extends SubsystemBase {
      * @return void
      * @version 1.0
      */
-    public void ManualInBoth() {
+    public void manualInBoth() {
         // m_talonFX_Commander.set(-ManualSpeed);
         // m_talonFX_Minion.set(-ManualSpeed);
     }
