@@ -62,7 +62,7 @@ class LauncherMotors {
         commander.set(speed);
     }
 
-    public void setBothSpeeds(double speed) {
+    public void setBothSpeeds(double speed) throws IllegalStateException {
         if (inMusicMode) {
             throw new IllegalStateException("Can only control motors when not in music mode!");
         }
@@ -71,7 +71,7 @@ class LauncherMotors {
         minion.set(speed);
     }
 
-    public void stopBoth() {
+    public void stopBoth() throws IllegalStateException {
         if (inMusicMode) {
             throw new IllegalStateException("Can only control motors when not in music mode!");
         }
