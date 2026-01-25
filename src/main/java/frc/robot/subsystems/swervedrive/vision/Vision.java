@@ -61,7 +61,7 @@ public class Vision {
      */
     private Field2d field2d;
 
-    private static double tagsSeen = 0;
+    private double tagsSeen = 0;
 
     static double singleStDev = 0.5;
     static double multiStDev = 1;
