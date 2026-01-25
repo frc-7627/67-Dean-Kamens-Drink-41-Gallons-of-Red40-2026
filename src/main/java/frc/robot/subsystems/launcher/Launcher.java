@@ -1,10 +1,9 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.launcher;
 
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.launcher.LauncherMotors;
 import frc.robot.subsystems.launcher.dashboard.CurrentLimit;
 import frc.robot.subsystems.launcher.dashboard.RampUpPeriod;
 import frc.robot.subsystems.launcher.dashboard.ShootSpeed;

@@ -1,8 +1,7 @@
 package frc.robot.subsystems.launcher.dashboard;
 
 import static frc.robot.Constants.LauncherConstants.DEFAULT_SHOOT_SPEED;
-
-import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.util.MotorsConfigurator;
 import frc.robot.subsystems.util.dashboard.MotorSpeed;
 
