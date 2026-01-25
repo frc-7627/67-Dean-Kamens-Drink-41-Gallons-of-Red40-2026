@@ -24,11 +24,21 @@ class LauncherMotors {
         resetControl();
     }
 
+    /**
+     * Reset motor control to ensure motors are usable.
+     * 
+     * Sets the commander to target its own position, and the minion to follow the commander.
+     */
     private void resetControl() {
         commander.setControl(TARGET_DEFAULT_POSITION.withPosition(getCommanderPosition()));
         minion.setControl(new Follower(commander.getDeviceID(), null));
     }
 
+    /**
+     * Exit music mode.
+     * 
+     * Clears the orchestra and resets motor control.
+     */
     public void exitMusicMode() {
         orchestra.stop();
         orchestra.clearInstruments();
@@ -38,6 +48,14 @@ class LauncherMotors {
         inMusicMode = false;
     }
 
+    /**
+     * Play a note of the provided frequency.
+     * 
+     * Enters music mode and plays the note on each motor.
+     * 
+     * @param freq the provided frequency, in hertz.
+     * @apiNote Enters music mode.
+     */
     public void playNote(int freq) {
         inMusicMode = true;
 
@@ -45,6 +63,14 @@ class LauncherMotors {
         minion.setControl(new MusicTone(freq));
     }
 
+    /**
+     * Play a song from the provided file path.
+     * 
+     * Enters music mode, adds the motors to the orchestra, loads the song file, and plays the song.
+     * 
+     * @param filePath the provided file path. This should be a {@code *.chrp} file.
+     * @apiNote Enters music mode.
+     */
     public void playSongFromFile(String filePath) {
         inMusicMode = true;
 
@@ -54,6 +80,12 @@ class LauncherMotors {
         orchestra.play();
     }
 
+    /**
+     * Set the commander motor's speed to the provided speed.
+     * 
+     * @param speed the provided speed.
+     * @throws IllegalStateException if the motors are in music mode.
+     */
     public void setCommanderSpeed(double speed) throws IllegalStateException {
         if (inMusicMode) {
             throw new IllegalStateException("Can only control motors when not in music mode!");
@@ -62,6 +94,12 @@ class LauncherMotors {
         commander.set(speed);
     }
 
+    /**
+     * Set both motors' speed to the provided speed.
+     * 
+     * @param speed the provided speed.
+     * @throws IllegalStateException if the motors are in music mode.
+     */
     public void setBothSpeeds(double speed) throws IllegalStateException {
         if (inMusicMode) {
             throw new IllegalStateException("Can only control motors when not in music mode!");
@@ -71,6 +109,11 @@ class LauncherMotors {
         minion.set(speed);
     }
 
+    /**
+     * Stop both motors.
+     * 
+     * @throws IllegalStateException if the motors are in music mode.
+     */
     public void stopBoth() throws IllegalStateException {
         if (inMusicMode) {
             throw new IllegalStateException("Can only control motors when not in music mode!");
@@ -80,30 +123,51 @@ class LauncherMotors {
         minion.set(0.0);
     }
 
+    /**
+     * @return the position of the commander motor.
+     */
     public double getCommanderPosition() {
         return commander.getPosition().getValueAsDouble();
     }
 
+    /**
+     * @return the supply current of the commander motor.
+     */
     public double getCommanderCurrent() {
         return commander.getSupplyCurrent(false).getValueAsDouble();
     }
 
+    /**
+     * @return the velocity of the commander motor.
+     */
     public double getCommanderVelocity() {
         return commander.getVelocity().getValueAsDouble();
     }
 
+    /**
+     * @return the position of the minion motor.
+     */
     public double getMinionPosition() {
         return minion.getPosition().getValueAsDouble();
     }
 
+    /**
+     * @return the supply current of the minion motor.
+     */
     public double getMinionCurrent() {
         return minion.getSupplyCurrent(false).getValueAsDouble();
     }
 
+    /**
+     * @return the velocity of the minion motor.
+     */
     public double getMinionVelocity() {
         return minion.getVelocity().getValueAsDouble();
     }
 
+    /**
+     * @return the configurator for the motors.
+     */
     public MotorsConfigurator getConfigurator() {
         return motorsConfigurator;
     }
