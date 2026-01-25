@@ -49,10 +49,10 @@ public class LauncherMotors extends SubsystemBase {
         minion.setControl(new MusicTone(freq));
     }
 
-    public void playSong(Song song) {
+    public void playSongFromFile(String filePath) {
         orchestra.addInstrument(commander);
         orchestra.addInstrument(minion);
-        orchestra.loadMusic(song.getFilePath());
+        orchestra.loadMusic(filePath);
         orchestra.play();
     }
 
