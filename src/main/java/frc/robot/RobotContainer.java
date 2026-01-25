@@ -28,7 +28,6 @@ import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.subsystems.util.GameInfo;
-import frc.robot.Rizzler;
 
 import java.io.File;
 import swervelib.SwerveInputStream;
