@@ -211,14 +211,6 @@ public final class Constants {
                 String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
     }
 
-    public static class Directories {
-        public static final String DEPLOY_DIRECTORY =
-                Filesystem.getDeployDirectory().getAbsolutePath();
-
-        public static final String SONGS_DIRECTORY =
-                String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
-    }
-
     public static class StartupConstants {
         public static final String STARTUP_BANNER_FILE_PATH =
                 String.format("%s/startup-banner.txt", Directories.DEPLOY_DIRECTORY);
