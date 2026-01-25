@@ -27,9 +27,6 @@ import frc.robot.subsystems.GameInfo;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.indication.LED;
-import frc.robot.subsystems.launcher.LauncherMotors;
-import frc.robot.subsystems.launcher.LauncherMotorsInternal;
-import frc.robot.subsystems.launcher.Music;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
 import frc.robot.Rizzler;
@@ -57,11 +54,7 @@ public class RobotContainer {
 
   private final GameInfo gameInfo = new GameInfo();
 
-  private final LauncherMotorsInternal launcherMotorsInternal = new LauncherMotorsInternal();
-
-  private final LauncherMotors launcherMotors = new LauncherMotors(launcherMotorsInternal);
-
-  private final Indicator indicator = new Indicator(gameInfo, new LED(), new Music(launcherMotorsInternal));
+  private final Indicator indicator = new Indicator(gameInfo, new LED());
 
   private final Intake intake = new Intake();
 
