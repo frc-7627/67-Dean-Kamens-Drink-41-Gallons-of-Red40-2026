@@ -173,6 +173,6 @@ public class Launcher extends SubsystemBase {
      * @version 1.0
      */
     public void stop() {
-        launcherMotors.stop();
+        launcherMotors.stopBoth();
     }
 }

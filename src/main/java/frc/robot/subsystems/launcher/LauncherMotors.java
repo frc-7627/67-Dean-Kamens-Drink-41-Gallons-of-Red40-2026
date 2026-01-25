@@ -50,7 +50,7 @@ class LauncherMotors extends SubsystemBase {
         minion.set(speed);
     }
 
-    public void stop() {
+    public void stopBoth() {
         commander.set(0.0);
         minion.set(0.0);
     }
