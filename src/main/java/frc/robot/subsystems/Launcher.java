@@ -51,8 +51,7 @@ public class Launcher extends SubsystemBase {
     };
 
     /** Initiallizes the Climber Subsystem */
-    // TODO: remove param
-    public Launcher(LauncherMotors launcherMotors) {
+    public Launcher() {
         DashboardField.initAll(dashboardFields);
 
         reset();
