@@ -48,8 +48,6 @@ public class Launcher extends SubsystemBase {
      */
     public Launcher() {
         DashboardField.initAll(dashboardFields);
-
-        reset();
     }
 
     @Override
