@@ -121,6 +121,8 @@ public final class Constants {
 
         // TODO: set field to 2026.
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(null);
+    
+        public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
     }
 
     public static class OperatorConstants {
