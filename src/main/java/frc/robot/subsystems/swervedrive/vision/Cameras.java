@@ -80,4 +80,19 @@ public class Cameras {
 
         return allTargetPoses;
     }
+
+    /**
+     * Get the best target pose from the field layout.
+     * 
+     * @param fieldLayout the field layout.
+     * @return the best target pose.
+     */
+    public Optional<Pose2d> getBestTargetPose(AprilTagFieldLayout fieldLayout) {
+        // Get the best target.
+        return getBestTarget()
+            // Get the pose 3d using the target, if present, and the field layout.
+            .flatMap(target -> fieldLayout.getTagPose(target.getFiducialId()))
+            // Project the target pose 3d to 2d.
+            .map(targetPose3d -> targetPose3d.toPose2d());
+    }
 }
