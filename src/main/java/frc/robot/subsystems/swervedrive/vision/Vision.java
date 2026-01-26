@@ -72,7 +72,7 @@ public class Vision {
         DashboardField.updateAll(dashboardFields);
     }
 
-    private boolean isSimulation() {
+    private static boolean isSimulation() {
         return Robot.isSimulation();
     }
 
@@ -133,7 +133,7 @@ public class Vision {
      * @param id AprilTag ID
      * @return Distance
      */
-    public double getDistanceFromAprilTag(int id, Pose2d currentPose) {
+    public static double getDistanceFromAprilTag(int id, Pose2d currentPose) {
         Optional<Pose3d> tag = FIELD_LAYOUT.getTagPose(id);
         return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPose,
                 pose3d.toPose2d())).orElse(-1.0);
