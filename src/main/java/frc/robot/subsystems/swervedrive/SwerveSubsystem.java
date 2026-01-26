@@ -17,6 +17,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import com.pathplanner.lib.util.swerve.SwerveSetpoint;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -36,6 +37,7 @@ import frc.robot.subsystems.swervedrive.vision.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
@@ -140,7 +142,19 @@ public class SwerveSubsystem extends SubsystemBase {
     // When vision is enabled we must manually update odometry in SwerveDrive
     if (visionDriveTest) {
       swerveDrive.updateOdometry();
-      vision.updatePoseEstimation(swerveDrive);
+      swerveDrive.getSimulationDriveTrainPose().ifPresent(driveTrainPose -> {
+        vision.updateSimWithDriveTrainPose(driveTrainPose);
+      });
+
+      List<VisionMeasurement> visionMeasurements = vision.updateAndGetVisionMeasurements();
+
+      visionMeasurements.forEach(visionMeasurement -> {
+        final Pose2d pose = visionMeasurement.estimatedPose().estimatedPose.toPose2d();
+        final double timestamp = visionMeasurement.estimatedPose().timestampSeconds;
+        final double stdDev = visionMeasurement.stdDev();
+
+        swerveDrive.addVisionMeasurement(pose, timestamp, VecBuilder.fill(stdDev, stdDev, stdDev));
+      });
     }
   }
 
