@@ -57,8 +57,4 @@ public class VisionSim {
     public void updateVisionEstimationWithPose(EstimatedRobotPose estimatedRobotPose) {
         getVisionEstimationObject().setPose(estimatedRobotPose.estimatedPose.toPose2d());
     }
-
-    public void updateVisionEstimation() {
-        getVisionEstimationObject().setPoses();
-    }
 }
