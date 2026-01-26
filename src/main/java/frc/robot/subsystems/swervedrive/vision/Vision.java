@@ -100,27 +100,36 @@ public class Vision {
 
     }
 
+    public void updateSimWithDriveTrainPose(Pose2d driveTrainPose) {
+        /*
+         * In the maple-sim, odometry is simulated using encoder values, accounting for factors like
+         * skidding and drifting. As a result, the odometry may not always be 100% accurate.
+         * However, the vision system should be able to provide a reasonably accurate pose
+         * estimation, even when odometry is incorrect. (This is why teams implement vision system
+         * to correct odometry.) Therefore, we must ensure that the actual robot pose is provided in
+         * the simulator when updating the vision simulation during the simulation.
+         */
+        if (isSimulation()) {
+            visionSim.updateWithDriveTrainPose(driveTrainPose);
+        }
+    }
+
     /**
      * Update the pose estimation inside of {@link SwerveDrive} with all of the given poses.
      *
      * @param swerveDrive {@link SwerveDrive} instance.
      */
-    public void updatePoseEstimation(SwerveDrive swerveDrive) {
+    public List<VisionMeasurement> updateAndGetVisionMeasurements() {
+        List<VisionMeasurement> visionMeasurements =
+                cameras.getAllVisionMeasurements(standardDeviations);
+
         if (isSimulation()) {
-            /*
-             * In the maple-sim, odometry is simulated using encoder values, accounting for factors
-             * like skidding and drifting. As a result, the odometry may not always be 100%
-             * accurate. However, the vision system should be able to provide a reasonably accurate
-             * pose estimation, even when odometry is incorrect. (This is why teams implement vision
-             * system to correct odometry.) Therefore, we must ensure that the actual robot pose is
-             * provided in the simulator when updating the vision simulation during the simulation.
-             */
-            swerveDrive.getSimulationDriveTrainPose().ifPresent(driveTrainPose -> {
-                visionSim.updateWithDriveTrainPose(driveTrainPose);
+            visionMeasurements.forEach(visionMeasurement -> {
+                visionSim.updateVisionEstimationWithPose(visionMeasurement.estimatedPose());
             });
         }
 
-        cameras.updatePoseEstimation(swerveDrive, visionSim, standardDeviations, isSimulation());
+        return visionMeasurements;
     }
 
     /**
