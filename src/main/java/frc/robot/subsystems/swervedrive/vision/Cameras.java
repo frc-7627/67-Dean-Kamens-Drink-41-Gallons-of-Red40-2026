@@ -3,9 +3,13 @@ package frc.robot.subsystems.swervedrive.vision;
 import static frc.robot.Constants.VisionConstants.*;
 import java.util.List;
 import java.util.Optional;
+import org.photonvision.EstimatedRobotPose;
 import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
+import frc.robot.subsystems.swervedrive.vision.dashboard.StandardDeviations;
+import swervelib.SwerveDrive;
 
 /**
  * The cameras.
@@ -85,15 +89,37 @@ public class Cameras {
     public Optional<Pose2d> getBestTargetPose() {
         // Get the best target.
         return getBestTarget()
-            // Get the pose 3d using the target, if present, and the field layout.
-            .flatMap(target -> FIELD_LAYOUT.getTagPose(target.getFiducialId()))
-            // Project the target pose 3d to 2d.
-            .map(targetPose3d -> targetPose3d.toPose2d());
+                // Get the pose 3d using the target, if present, and the field layout.
+                .flatMap(target -> FIELD_LAYOUT.getTagPose(target.getFiducialId()))
+                // Project the target pose 3d to 2d.
+                .map(targetPose3d -> targetPose3d.toPose2d());
     }
 
     public void addAllToVisionSystemSim(VisionSystemSim visionSystemSim) {
         for (Camera camera : cameras) {
             camera.addToVisionSim(visionSystemSim);
+        }
+    }
+
+    public void updatePoseEstimation(SwerveDrive swerveDrive, VisionSim visionSim,
+            StandardDeviations standardDeviations, boolean isSimulation) {
+        for (Camera camera : cameras) {
+            Optional<EstimatedRobotPose> estimatedPoseOptional =
+                    camera.getEstimatedGlobalPose(standardDeviations);
+
+            if (isSimulation) {
+                estimatedPoseOptional.ifPresentOrElse(estimatedPose -> {
+                    visionSim.updateVisionEstimationWithPose(estimatedPose);
+                }, () -> {
+                    visionSim.updateVisionEstimation();
+                });
+            }
+
+            estimatedPoseOptional.ifPresent(estimatedPose -> {
+                final double stdDev = camera.getCurrentStdDev();
+                swerveDrive.addVisionMeasurement(estimatedPose.estimatedPose.toPose2d(),
+                        estimatedPose.timestampSeconds, VecBuilder.fill(stdDev, stdDev, stdDev));
+            });
         }
     }
 }
