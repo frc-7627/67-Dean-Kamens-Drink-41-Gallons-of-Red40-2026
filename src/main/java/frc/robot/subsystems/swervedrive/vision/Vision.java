@@ -65,6 +65,8 @@ public class Vision {
 
     private double tagsSeen = 0;
 
+    private final Cameras cameras = new Cameras();
+
     private final StandardDeviations standardDeviations = new StandardDeviations();
 
     private final DashboardField[] dashboardFields = {standardDeviations,};
