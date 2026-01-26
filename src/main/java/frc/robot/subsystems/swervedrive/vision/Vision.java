@@ -49,7 +49,7 @@ public class Vision {
     /**
      * Photon Vision Simulation
      */
-    public VisionSystemSim visionSim;
+    public VisionSystemSim visionSystemSim;
     /**
      * Count of times that the odom thinks we're more than 10meters away from the april tag.
      */
@@ -57,7 +57,7 @@ public class Vision {
     /**
      * Current pose from the pose estimator using wheel odometry.
      */
-    private Supplier<Pose2d> currentPose;
+    private Supplier<Pose2d> currentPoseSupplier;
     /**
      * Field from {@link swervelib.SwerveDrive#field}
      */
@@ -78,15 +78,15 @@ public class Vision {
      * @param field Current field, should be {@link SwerveDrive#field}
      */
     public Vision(Supplier<Pose2d> currentPose, Field2d field) {
-        this.currentPose = currentPose;
+        this.currentPoseSupplier = currentPose;
         this.field2d = field;
 
         if (Robot.isSimulation()) {
-            visionSim = new VisionSystemSim("Vision");
-            visionSim.addAprilTags(fieldLayout);
+            visionSystemSim = new VisionSystemSim("Vision");
+            visionSystemSim.addAprilTags(fieldLayout);
 
             for (Camera c : Camera.values()) {
-                c.addToVisionSim(visionSim);
+                c.addToVisionSim(visionSystemSim);
             }
 
             openSimCameraViews();
@@ -135,7 +135,7 @@ public class Vision {
              * system to correct odometry.) Therefore, we must ensure that the actual robot pose is
              * provided in the simulator when updating the vision simulation during the simulation.
              */
-            visionSim.update(swerveDrive.getSimulationDriveTrainPose().get());
+            visionSystemSim.update(swerveDrive.getSimulationDriveTrainPose().get());
         }
         for (Camera camera : Camera.values()) {
             Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
@@ -162,7 +162,7 @@ public class Vision {
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Camera camera) {
         Optional<EstimatedRobotPose> poseEst = camera.getEstimatedGlobalPose(standardDeviations);
         if (Robot.isSimulation()) {
-            Field2d debugField = visionSim.getDebugField();
+            Field2d debugField = visionSystemSim.getDebugField();
             // Uncomment to enable outputting of vision targets in sim.
             poseEst.ifPresentOrElse(est -> debugField.getObject("VisionEstimation")
                     .setPose(est.estimatedPose.toPose2d()), () -> {
@@ -208,7 +208,7 @@ public class Vision {
     public double getDistanceFromAprilTag(int id) {
         Optional<Pose3d> tag = fieldLayout.getTagPose(id);
         return tag
-                .map(pose3d -> PhotonUtils.getDistanceToPose(currentPose.get(), pose3d.toPose2d()))
+                .map(pose3d -> PhotonUtils.getDistanceToPose(currentPoseSupplier.get(), pose3d.toPose2d()))
                 .orElse(-1.0);
     }
 
@@ -239,8 +239,8 @@ public class Vision {
      *
      * @return Vision Simulation
      */
-    public VisionSystemSim getVisionSim() {
-        return visionSim;
+    public VisionSystemSim getVisionSystemSim() {
+        return visionSystemSim;
     }
 
     /**
