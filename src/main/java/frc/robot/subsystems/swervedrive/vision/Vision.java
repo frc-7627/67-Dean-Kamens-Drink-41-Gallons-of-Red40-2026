@@ -37,11 +37,6 @@ import swervelib.telemetry.SwerveDriveTelemetry;
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
 public class Vision {
-
-    /**
-     * April Tag Field Layout of the year.
-     */
-    public static final AprilTagFieldLayout fieldLayout = FIELD_LAYOUT;
     /**
      * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
      */
@@ -85,7 +80,7 @@ public class Vision {
 
         if (Robot.isSimulation()) {
             visionSystemSim = new VisionSystemSim("Vision");
-            visionSystemSim.addAprilTags(fieldLayout);
+            visionSystemSim.addAprilTags(FIELD_LAYOUT);
 
             for (Camera c : Camera.values()) {
                 c.addToVisionSim(visionSystemSim);
@@ -130,12 +125,12 @@ public class Vision {
      * @return The target pose of the AprilTag.
      */
     public static Pose2d getAprilTagPose(int aprilTag, Transform2d robotOffset) {
-        Optional<Pose3d> aprilTagPose3d = fieldLayout.getTagPose(aprilTag);
+        Optional<Pose3d> aprilTagPose3d = FIELD_LAYOUT.getTagPose(aprilTag);
         if (aprilTagPose3d.isPresent()) {
             return aprilTagPose3d.get().toPose2d().transformBy(robotOffset);
         } else {
             throw new RuntimeException(
-                    "Cannot get AprilTag " + aprilTag + " from field " + fieldLayout.toString());
+                    "Cannot get AprilTag " + aprilTag + " from field " + FIELD_LAYOUT.toString());
         }
 
     }
@@ -227,7 +222,7 @@ public class Vision {
      * @return Distance
      */
     public double getDistanceFromAprilTag(int id) {
-        Optional<Pose3d> tag = fieldLayout.getTagPose(id);
+        Optional<Pose3d> tag = FIELD_LAYOUT.getTagPose(id);
         return tag
                 .map(pose3d -> PhotonUtils.getDistanceToPose(currentPoseSupplier.get(), pose3d.toPose2d()))
                 .orElse(-1.0);
@@ -250,8 +245,8 @@ public class Vision {
 
         List<Pose2d> poses = new ArrayList<>();
         for (PhotonTrackedTarget target : targets) {
-            if (fieldLayout.getTagPose(target.getFiducialId()).isPresent()) {
-                Pose2d targetPose = fieldLayout.getTagPose(target.getFiducialId()).get().toPose2d();
+            if (FIELD_LAYOUT.getTagPose(target.getFiducialId()).isPresent()) {
+                Pose2d targetPose = FIELD_LAYOUT.getTagPose(target.getFiducialId()).get().toPose2d();
                 poses.add(targetPose);
             }
         }

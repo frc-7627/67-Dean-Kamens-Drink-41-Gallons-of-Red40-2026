@@ -108,7 +108,7 @@ public enum Camera {
 
         this.innerPhotonCamera = getPhotonCamera(name);
 
-        this.poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
+        this.poseEstimator = new PhotonPoseEstimator(FIELD_LAYOUT,
                 PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, transform);
         poseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
