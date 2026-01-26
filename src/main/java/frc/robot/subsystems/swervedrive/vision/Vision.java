@@ -41,10 +41,8 @@ public class Vision {
      * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
      */
     // private static double maximumAmbiguity = 0.25;
-    /**
-     * Photon Vision Simulation
-     */
-    public VisionSystemSim visionSystemSim;
+
+    private final VisionSim visionSim;
     /**
      * Count of times that the odom thinks we're more than 10meters away from the april tag.
      */
@@ -78,16 +76,7 @@ public class Vision {
         this.currentPoseSupplier = currentPose;
         this.field2d = field;
 
-        if (isSimulation()) {
-            visionSystemSim = new VisionSystemSim("Vision");
-            visionSystemSim.addAprilTags(FIELD_LAYOUT);
-
-            for (Camera c : Camera.values()) {
-                c.addToVisionSim(visionSystemSim);
-            }
-
-            openSimCameraViews();
-        }
+        this.visionSim = isSimulation() ? new VisionSim(cameras) : null;
 
         // Shuffleboard!
         DashboardField.initAll(dashboardFields);
@@ -99,25 +88,6 @@ public class Vision {
 
     private boolean isSimulation() {
         return Robot.isSimulation();
-    }
-
-    /**
-     * Open up the photon vision camera streams on the localhost, assumes running photon vision on
-     * localhost.
-     */
-    private void openSimCameraViews() {
-        if (Desktop.isDesktopSupported()
-                && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-            // try
-            // {
-            // Desktop.getDesktop().browse(new URI("http://localhost:1182/"));
-            // Desktop.getDesktop().browse(new URI("http://localhost:1184/"));
-            // Desktop.getDesktop().browse(new URI("http://localhost:1186/"));
-            // } catch (IOException | URISyntaxException e)
-            // {
-            // e.printStackTrace();
-            // }
-        }
     }
 
     /**
@@ -145,7 +115,7 @@ public class Vision {
      * @param swerveDrive {@link SwerveDrive} instance.
      */
     public void updatePoseEstimation(SwerveDrive swerveDrive) {
-        if (isSimulation() && swerveDrive.getSimulationDriveTrainPose().isPresent()) {
+        if (isSimulation()) {
             /*
              * In the maple-sim, odometry is simulated using encoder values, accounting for factors
              * like skidding and drifting. As a result, the odometry may not always be 100%
@@ -154,8 +124,12 @@ public class Vision {
              * system to correct odometry.) Therefore, we must ensure that the actual robot pose is
              * provided in the simulator when updating the vision simulation during the simulation.
              */
-            visionSystemSim.update(swerveDrive.getSimulationDriveTrainPose().get());
+            swerveDrive.getSimulationDriveTrainPose().ifPresent(
+                driveTrainPose -> {
+                    visionSim.updateWithDriveTrainPose(driveTrainPose);
+                });
         }
+        
         for (Camera camera : Camera.values()) {
             Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
             if (poseEst.isPresent()) {
@@ -179,16 +153,15 @@ public class Vision {
      *         create the estimate
      */
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Camera camera) {
-        Optional<EstimatedRobotPose> poseEst = camera.getEstimatedGlobalPose(standardDeviations);
+        Optional<EstimatedRobotPose> estimatedPoseOptional = camera.getEstimatedGlobalPose(standardDeviations);
         if (isSimulation()) {
-            Field2d debugField = visionSystemSim.getDebugField();
-            // Uncomment to enable outputting of vision targets in sim.
-            poseEst.ifPresentOrElse(est -> debugField.getObject("VisionEstimation")
-                    .setPose(est.estimatedPose.toPose2d()), () -> {
-                        debugField.getObject("VisionEstimation").setPoses();
-                    });
+            estimatedPoseOptional.ifPresentOrElse(estimatedPose -> {
+                visionSim.updateVisionEstimationWithPose(estimatedPose);
+            }, () -> {
+                visionSim.updateVisionEstimation();
+            });
         }
-        return poseEst;
+        return estimatedPoseOptional;
     }
 
     /**
