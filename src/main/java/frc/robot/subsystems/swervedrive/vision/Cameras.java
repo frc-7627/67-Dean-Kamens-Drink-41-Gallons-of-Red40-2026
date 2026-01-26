@@ -1,10 +1,10 @@
 package frc.robot.subsystems.swervedrive.vision;
 
+import static frc.robot.Constants.VisionConstants.*;
 import java.util.List;
 import java.util.Optional;
 import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonTrackedTarget;
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 
 /**
@@ -59,17 +59,14 @@ public class Cameras {
     }
 
     /**
-     * Get all target poses from the field layout.
-     * 
-     * @param fieldLayout the field layout.
      * @return all target poses.
      */
-    public List<Pose2d> getAllTargetPoses(AprilTagFieldLayout fieldLayout) {
+    public List<Pose2d> getAllTargetPoses() {
         List<Pose2d> allTargetPoses = List.of();
 
         for (PhotonTrackedTarget target : getAllTargets()) {
             // Get the target's pose 3d using the field layout.
-            fieldLayout.getTagPose(target.getFiducialId())
+            FIELD_LAYOUT.getTagPose(target.getFiducialId())
                     // Project the target pose 3d to 2d.
                     .map(targetPose3d -> targetPose3d.toPose2d())
                     // Add the target pose.
@@ -83,16 +80,13 @@ public class Cameras {
     }
 
     /**
-     * Get the best target pose from the field layout.
-     * 
-     * @param fieldLayout the field layout.
      * @return the best target pose.
      */
-    public Optional<Pose2d> getBestTargetPose(AprilTagFieldLayout fieldLayout) {
+    public Optional<Pose2d> getBestTargetPose() {
         // Get the best target.
         return getBestTarget()
             // Get the pose 3d using the target, if present, and the field layout.
-            .flatMap(target -> fieldLayout.getTagPose(target.getFiducialId()))
+            .flatMap(target -> FIELD_LAYOUT.getTagPose(target.getFiducialId()))
             // Project the target pose 3d to 2d.
             .map(targetPose3d -> targetPose3d.toPose2d());
     }

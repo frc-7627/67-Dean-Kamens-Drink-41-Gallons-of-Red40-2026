@@ -177,7 +177,7 @@ public class Vision {
      * Update the {@link Field2d} to include tracked targets/
      */
     public void updateVisionField() {
-        getTrackedTargetsObject().setPoses(cameras.getAllTargetPoses(FIELD_LAYOUT));
+        getTrackedTargetsObject().setPoses(cameras.getAllTargetPoses());
     }
 
 }
