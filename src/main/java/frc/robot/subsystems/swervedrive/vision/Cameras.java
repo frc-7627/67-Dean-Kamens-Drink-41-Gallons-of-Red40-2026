@@ -101,25 +101,15 @@ public class Cameras {
         }
     }
 
-    public void updatePoseEstimation(SwerveDrive swerveDrive, VisionSim visionSim,
-            StandardDeviations standardDeviations, boolean isSimulation) {
+    public List<VisionMeasurement> getAllVisionMeasurements(StandardDeviations standardDeviations) {
+        List<VisionMeasurement> allVisionMeasurements = List.of();
+
         for (Camera camera : cameras) {
-            Optional<EstimatedRobotPose> estimatedPoseOptional =
-                    camera.getEstimatedGlobalPose(standardDeviations);
-
-            if (isSimulation) {
-                estimatedPoseOptional.ifPresentOrElse(estimatedPose -> {
-                    visionSim.updateVisionEstimationWithPose(estimatedPose);
-                }, () -> {
-                    visionSim.updateVisionEstimation();
-                });
-            }
-
-            estimatedPoseOptional.ifPresent(estimatedPose -> {
-                final double stdDev = camera.getCurrentStdDev();
-                swerveDrive.addVisionMeasurement(estimatedPose.estimatedPose.toPose2d(),
-                        estimatedPose.timestampSeconds, VecBuilder.fill(stdDev, stdDev, stdDev));
+            camera.getVisionMeasurement(standardDeviations).ifPresent(visionMeasurement -> {
+                allVisionMeasurements.add(visionMeasurement);
             });
         }
+
+        return allVisionMeasurements;
     }
 }
