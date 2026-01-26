@@ -122,39 +122,7 @@ public class Vision {
             });
         }
 
-        for (Camera camera : Camera.values()) {
-            Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
-            if (poseEst.isPresent()) {
-                var pose = poseEst.get();
-                final double stdDev = camera.getCurrentStdDev();
-                swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
-                        pose.timestampSeconds, VecBuilder.fill(stdDev, stdDev, stdDev));
-            }
-        }
-
-    }
-
-    /**
-     * Generates the estimated robot pose. Returns empty if:
-     * <ul>
-     * <li>No Pose Estimates could be generated</li>
-     * <li>The generated pose estimate was considered not accurate</li>
-     * </ul>
-     *
-     * @return an {@link EstimatedRobotPose} with an estimated pose, timestamp, and targets used to
-     *         create the estimate
-     */
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Camera camera) {
-        Optional<EstimatedRobotPose> estimatedPoseOptional =
-                camera.getEstimatedGlobalPose(standardDeviations);
-        if (isSimulation()) {
-            estimatedPoseOptional.ifPresentOrElse(estimatedPose -> {
-                visionSim.updateVisionEstimationWithPose(estimatedPose);
-            }, () -> {
-                visionSim.updateVisionEstimation();
-            });
-        }
-        return estimatedPoseOptional;
+        cameras.updatePoseEstimation(swerveDrive, visionSim, standardDeviations, isSimulation());
     }
 
     /**
