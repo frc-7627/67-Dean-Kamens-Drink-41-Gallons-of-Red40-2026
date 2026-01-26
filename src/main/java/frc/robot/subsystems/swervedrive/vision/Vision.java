@@ -49,8 +49,6 @@ public class Vision {
      */
     private Field2d field2d;
 
-    private double tagsSeen = 0;
-
     private final Cameras cameras = new Cameras();
 
     private final StandardDeviations standardDeviations = new StandardDeviations();
