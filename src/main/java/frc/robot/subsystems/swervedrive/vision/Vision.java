@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
-
+import frc.robot.subsystems.swervedrive.vision.dashboard.StandardDeviations;
+import frc.robot.subsystems.util.dashboard.DashboardField;
 import java.awt.Desktop;
 import java.net.URI;
 import java.util.ArrayList;
@@ -63,17 +64,9 @@ public class Vision {
 
     private double tagsSeen = 0;
 
-    static double singleStDev = 0.5;
-    static double multiStDev = 1;
+    private final StandardDeviations standardDeviations = new StandardDeviations();
 
-    /**
-     * Standard Deviation for single tag readings for pose estimation.
-     */
-    static Matrix<N3, N1> singleTagStdDevs;
-    /**
-     * Standard deviation for multi-tag readings for pose estimation.
-     */
-    static Matrix<N3, N1> multiTagStdDevs;
+    private final DashboardField[] dashboardFields = {standardDeviations,};
 
     /**
      * 
@@ -87,10 +80,6 @@ public class Vision {
         this.currentPose = currentPose;
         this.field2d = field;
 
-        // Shuffleboard!
-        SmartDashboard.putNumber("Vision/singleTagStdDev", singleStDev);
-        SmartDashboard.putNumber("Vision/multiTagStdDev", multiStDev);
-
         if (Robot.isSimulation()) {
             visionSim = new VisionSystemSim("Vision");
             visionSim.addAprilTags(fieldLayout);
@@ -101,6 +90,13 @@ public class Vision {
 
             openSimCameraViews();
         }
+
+        // Shuffleboard!
+        DashboardField.initAll(dashboardFields);
+    }
+
+    public void update() {
+        DashboardField.updateAll(dashboardFields);
     }
 
     /**
@@ -288,15 +284,6 @@ public class Vision {
         }
 
         field2d.getObject("tracked targets").setPoses(poses);
-    }
-
-    public static void updateShuffleboard() {
-        singleStDev = SmartDashboard.getNumber("Vision/singleTagStdDev", singleStDev);
-        multiStDev = SmartDashboard.getNumber("Vision/multiTagStdDev", multiStDev); // TODO: Redo in
-                                                                                    // the
-                                                                                    // new way
-        singleTagStdDevs = VecBuilder.fill(singleStDev, singleStDev, singleStDev);
-        multiTagStdDevs = VecBuilder.fill(multiStDev, multiStDev, multiStDev);
     }
 
 }
