@@ -101,6 +101,25 @@ public class Vision {
     }
 
     /**
+     * Open up the photon vision camera streams on the localhost, assumes running photon vision on
+     * localhost.
+     */
+    private void openSimCameraViews() {
+        if (Desktop.isDesktopSupported()
+                && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            // try
+            // {
+            // Desktop.getDesktop().browse(new URI("http://localhost:1182/"));
+            // Desktop.getDesktop().browse(new URI("http://localhost:1184/"));
+            // Desktop.getDesktop().browse(new URI("http://localhost:1186/"));
+            // } catch (IOException | URISyntaxException e)
+            // {
+            // e.printStackTrace();
+            // }
+        }
+    }
+
+    /**
      * Calculates a target pose relative to an AprilTag on the field.
      *
      * @param aprilTag The ID of the AprilTag.
@@ -210,56 +229,6 @@ public class Vision {
         return tag
                 .map(pose3d -> PhotonUtils.getDistanceToPose(currentPoseSupplier.get(), pose3d.toPose2d()))
                 .orElse(-1.0);
-    }
-
-    /**
-     * Get tracked target from a camera of AprilTagID
-     *
-     * @param id AprilTag ID
-     * @param camera Camera to check.
-     * @return Tracked target.
-     */
-    public PhotonTrackedTarget getTargetFromId(int id, Camera camera) {
-        PhotonTrackedTarget target = null;
-        for (PhotonPipelineResult result : camera.resultsList) {
-            if (result.hasTargets()) {
-                for (PhotonTrackedTarget i : result.getTargets()) {
-                    if (i.getFiducialId() == id) {
-                        return i;
-                    }
-                }
-            }
-        }
-        return target;
-
-    }
-
-    /**
-     * Vision simulation.
-     *
-     * @return Vision Simulation
-     */
-    public VisionSystemSim getVisionSystemSim() {
-        return visionSystemSim;
-    }
-
-    /**
-     * Open up the photon vision camera streams on the localhost, assumes running photon vision on
-     * localhost.
-     */
-    private void openSimCameraViews() {
-        if (Desktop.isDesktopSupported()
-                && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-            // try
-            // {
-            // Desktop.getDesktop().browse(new URI("http://localhost:1182/"));
-            // Desktop.getDesktop().browse(new URI("http://localhost:1184/"));
-            // Desktop.getDesktop().browse(new URI("http://localhost:1186/"));
-            // } catch (IOException | URISyntaxException e)
-            // {
-            // e.printStackTrace();
-            // }
-        }
     }
 
     /**
