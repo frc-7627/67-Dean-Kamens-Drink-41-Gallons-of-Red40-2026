@@ -4,6 +4,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -140,8 +141,9 @@ public class Vision {
             Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
             if (poseEst.isPresent()) {
                 var pose = poseEst.get();
+                final double stdDev = camera.getCurrentStdDev();
                 swerveDrive.addVisionMeasurement(pose.estimatedPose.toPose2d(),
-                        pose.timestampSeconds, camera.curStdDevs);
+                        pose.timestampSeconds, VecBuilder.fill(stdDev, stdDev, stdDev));
             }
         }
 
@@ -158,7 +160,7 @@ public class Vision {
      *         create the estimate
      */
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Camera camera) {
-        Optional<EstimatedRobotPose> poseEst = camera.getEstimatedGlobalPose();
+        Optional<EstimatedRobotPose> poseEst = camera.getEstimatedGlobalPose(standardDeviations);
         if (Robot.isSimulation()) {
             Field2d debugField = visionSim.getDebugField();
             // Uncomment to enable outputting of vision targets in sim.
