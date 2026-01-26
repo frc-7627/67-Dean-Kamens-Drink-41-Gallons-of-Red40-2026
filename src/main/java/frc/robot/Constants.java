@@ -113,6 +113,9 @@ public final class Constants {
                 .setAvgLatencyMs(35).setLatencyStdDevMs(5);
         
         public static final boolean DRAW_WIREFRAME = true;
+
+        public static final double DEFAULT_SINGLE_TAG_STD_DEV = 0.5;
+        public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
     }
 
     public static class OperatorConstants {
