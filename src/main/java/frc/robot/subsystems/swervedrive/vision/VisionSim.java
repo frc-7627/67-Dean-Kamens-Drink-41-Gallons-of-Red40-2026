@@ -11,12 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
  * Vision simulation.
  */
 public class VisionSim {
-    private final Cameras cameras;
-
     private final VisionSystemSim visionSystemSim;
 
     public VisionSim(Cameras cameras) {
-        this.cameras = cameras;
         this.visionSystemSim = getVisionSystemSim(cameras);
     }
 
