@@ -202,6 +202,12 @@ public enum Camera {
         return currentStdDev;
     }
 
+    public Optional<VisionMeasurement> getVisionMeasurement(StandardDeviations standardDeviations) {
+        return getEstimatedGlobalPose(standardDeviations).map(
+            estimatedRobotPose -> new VisionMeasurement(estimatedRobotPose, currentStdDev)
+        );
+    }
+
     /**
      * Get the estimated robot pose. Updates the current robot pose estimation, standard deviations,
      * and flushes the cache of results.
