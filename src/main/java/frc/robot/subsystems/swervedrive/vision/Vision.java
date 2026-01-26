@@ -41,10 +41,6 @@ public class Vision {
     private final VisionSim visionSim;
 
     /**
-     * Current pose from the pose estimator using wheel odometry.
-     */
-    private Supplier<Pose2d> currentPoseSupplier;
-    /**
      * Field from {@link swervelib.SwerveDrive#field}
      */
     private Field2d field2d;
@@ -63,8 +59,7 @@ public class Vision {
      * @param currentPose Current pose supplier, should reference {@link SwerveDrive#getPose()}
      * @param field Current field, should be {@link SwerveDrive#field}
      */
-    public Vision(Supplier<Pose2d> currentPose, Field2d field) {
-        this.currentPoseSupplier = currentPose;
+    public Vision(Field2d field) {
         this.field2d = field;
 
         this.visionSim = isSimulation() ? new VisionSim(cameras) : null;
@@ -138,9 +133,9 @@ public class Vision {
      * @param id AprilTag ID
      * @return Distance
      */
-    public double getDistanceFromAprilTag(int id) {
+    public double getDistanceFromAprilTag(int id, Pose2d currentPose) {
         Optional<Pose3d> tag = FIELD_LAYOUT.getTagPose(id);
-        return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPoseSupplier.get(),
+        return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPose,
                 pose3d.toPose2d())).orElse(-1.0);
     }
 

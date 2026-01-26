@@ -120,8 +120,8 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
                     .println("[LimeLightCommands/DriveBaseRotationAdjust] Target Found! Moving...");
             // bestTarget = resultRPi.getBestTarget();
             for (PhotonTrackedTarget r : result.getTargets()) {
-                if (vision.getDistanceFromAprilTag(r.getFiducialId()) < vision
-                        .getDistanceFromAprilTag(bestTarget.getFiducialId())) {
+                if (vision.getDistanceFromAprilTag(r.getFiducialId(), drivebase.getPose()) < vision
+                        .getDistanceFromAprilTag(bestTarget.getFiducialId(), drivebase.getPose())) {
                     System.out.println("tag:" + r.getFiducialId());
                     bestTarget = r;
                 }
