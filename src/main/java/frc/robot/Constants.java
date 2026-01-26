@@ -24,6 +24,8 @@ import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -116,6 +118,9 @@ public final class Constants {
 
         public static final double DEFAULT_SINGLE_TAG_STD_DEV = 0.5;
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
+
+        // TODO: set field to 2026.
+        public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(null);
     }
 
     public static class OperatorConstants {

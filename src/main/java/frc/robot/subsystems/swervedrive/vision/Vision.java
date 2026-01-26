@@ -17,6 +17,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.swervedrive.vision.dashboard.StandardDeviations;
 import frc.robot.subsystems.util.dashboard.DashboardField;
+import static frc.robot.Constants.VisionConstants.FIELD_LAYOUT;
 import java.awt.Desktop;
 import java.net.URI;
 import java.util.ArrayList;
@@ -40,8 +41,7 @@ public class Vision {
     /**
      * April Tag Field Layout of the year.
      */
-    public static final AprilTagFieldLayout fieldLayout =
-            AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
+    public static final AprilTagFieldLayout fieldLayout = FIELD_LAYOUT;
     /**
      * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
      */
