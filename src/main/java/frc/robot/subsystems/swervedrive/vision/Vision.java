@@ -78,7 +78,7 @@ public class Vision {
         this.currentPoseSupplier = currentPose;
         this.field2d = field;
 
-        if (Robot.isSimulation()) {
+        if (isSimulation()) {
             visionSystemSim = new VisionSystemSim("Vision");
             visionSystemSim.addAprilTags(FIELD_LAYOUT);
 
@@ -95,6 +95,10 @@ public class Vision {
 
     public void update() {
         DashboardField.updateAll(dashboardFields);
+    }
+
+    private boolean isSimulation() {
+        return Robot.isSimulation();
     }
 
     /**
@@ -141,8 +145,7 @@ public class Vision {
      * @param swerveDrive {@link SwerveDrive} instance.
      */
     public void updatePoseEstimation(SwerveDrive swerveDrive) {
-        if (SwerveDriveTelemetry.isSimulation
-                && swerveDrive.getSimulationDriveTrainPose().isPresent()) {
+        if (isSimulation() && swerveDrive.getSimulationDriveTrainPose().isPresent()) {
             /*
              * In the maple-sim, odometry is simulated using encoder values, accounting for factors
              * like skidding and drifting. As a result, the odometry may not always be 100%
@@ -177,7 +180,7 @@ public class Vision {
      */
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Camera camera) {
         Optional<EstimatedRobotPose> poseEst = camera.getEstimatedGlobalPose(standardDeviations);
-        if (Robot.isSimulation()) {
+        if (isSimulation()) {
             Field2d debugField = visionSystemSim.getDebugField();
             // Uncomment to enable outputting of vision targets in sim.
             poseEst.ifPresentOrElse(est -> debugField.getObject("VisionEstimation")
