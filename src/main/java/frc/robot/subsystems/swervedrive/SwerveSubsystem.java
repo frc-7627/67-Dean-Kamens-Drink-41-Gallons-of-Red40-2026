@@ -226,6 +226,7 @@ public class SwerveSubsystem extends SubsystemBase {
     PathfindingCommand.warmupCommand().schedule();
   }
 
+  // TODO: factor out into vision.
   /**
    * Aim the robot at the target returned by PhotonVision.
    *
