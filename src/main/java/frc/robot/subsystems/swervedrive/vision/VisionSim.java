@@ -14,18 +14,12 @@ public class VisionSim {
     private final VisionSystemSim visionSystemSim;
 
     public VisionSim(Cameras cameras) {
-        this.visionSystemSim = getVisionSystemSim(cameras);
-    }
-
-    private static VisionSystemSim getVisionSystemSim(Cameras cameras) {
-        final VisionSystemSim visionSystemSim = new VisionSystemSim("Vision");
+        this.visionSystemSim = new VisionSystemSim("Vision");
         visionSystemSim.addAprilTags(FIELD_LAYOUT);
 
         cameras.addAllToVisionSystemSim(visionSystemSim);
 
         openSimCameraViews();
-
-        return visionSystemSim;
     }
 
     private static void openSimCameraViews() {
