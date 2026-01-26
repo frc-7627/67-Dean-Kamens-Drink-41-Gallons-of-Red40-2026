@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.VisionConstants.*;
 import frc.robot.Robot;
+import frc.robot.subsystems.swervedrive.vision.dashboard.StandardDeviations;
 
 /**
  * Camera Enum to select each camera
@@ -68,7 +69,7 @@ public enum Camera {
     /**
      * Current standard deviations used.
      */
-    public Matrix<N3, N1> curStdDevs;
+    private double currentStdDev;
     /**
      * Estimated robot pose.
      */
@@ -101,8 +102,9 @@ public enum Camera {
      */
     Camera(String name, Transform3d transform) {
         this.transform = transform;
-        this.latencyAlert = new Alert(String.format("Camera '%s' is experiencing high latency.", name),
-                AlertType.kWarning);
+        this.latencyAlert =
+                new Alert(String.format("Camera '%s' is experiencing high latency.", name),
+                        AlertType.kWarning);
 
         this.camera = getPhotonCamera(name);
 
@@ -196,14 +198,19 @@ public enum Camera {
         return resultsList.isEmpty() ? Optional.empty() : Optional.of(resultsList.get(0));
     }
 
+    public double getCurrentStdDev() {
+        return currentStdDev;
+    }
+
     /**
      * Get the estimated robot pose. Updates the current robot pose estimation, standard deviations,
      * and flushes the cache of results.
      *
      * @return Estimated pose.
      */
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
-        updateUnreadResults();
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(
+            StandardDeviations standardDeviations) {
+        updateUnreadResults(standardDeviations);
         return estimatedRobotPose;
     }
 
@@ -211,7 +218,7 @@ public enum Camera {
      * Update the latest results, cached with a maximum refresh rate of 1req/15ms. Sorts the list by
      * timestamp.
      */
-    private void updateUnreadResults() {
+    private void updateUnreadResults(StandardDeviations standardDeviations) {
         double mostRecentTimestamp =
                 resultsList.isEmpty() ? 0.0 : resultsList.get(0).getTimestampSeconds();
         double currentTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
@@ -228,7 +235,7 @@ public enum Camera {
                 return a.getTimestampSeconds() >= b.getTimestampSeconds() ? 1 : -1;
             });
             if (!resultsList.isEmpty()) {
-                updateEstimatedGlobalPose();
+                updateEstimatedGlobalPose(standardDeviations);
             }
         }
     }
@@ -244,11 +251,11 @@ public enum Camera {
      * @return An {@link EstimatedRobotPose} with an estimated pose, estimate timestamp, and targets
      *         used for estimation.
      */
-    private void updateEstimatedGlobalPose() {
+    private void updateEstimatedGlobalPose(StandardDeviations standardDeviations) {
         Optional<EstimatedRobotPose> visionEst = Optional.empty();
         for (var change : resultsList) {
             visionEst = poseEstimator.update(change);
-            updateEstimationStdDevs(visionEst, change.getTargets());
+            updateEstimationStdDevs(standardDeviations, visionEst, change.getTargets());
         }
         estimatedRobotPose = visionEst;
     }
@@ -260,15 +267,17 @@ public enum Camera {
      * @param estimatedPose The estimated pose to guess standard deviations for.
      * @param targets All targets in this camera frame
      */
-    private void updateEstimationStdDevs(Optional<EstimatedRobotPose> estimatedPose,
-            List<PhotonTrackedTarget> targets) {
+    private void updateEstimationStdDevs(StandardDeviations standardDeviations,
+            Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+        final double singleTagStdDev = standardDeviations.getSingleTagStdDev();
+        
         if (estimatedPose.isEmpty()) {
             // No pose input. Default to single-tag std devs
-            curStdDevs = Vision.singleTagStdDevs;
+            currentStdDev = singleTagStdDev;
 
         } else {
             // Pose present. Start running Heuristic
-            var estStdDevs = Vision.singleTagStdDevs;
+            double estimatedStdDev = singleTagStdDev;
             int numTags = 0;
             double avgDist = 0;
 
@@ -289,25 +298,24 @@ public enum Camera {
 
             if (numTags == 0) {
                 // No tags visible. Default to single-tag std devs
-                curStdDevs = Vision.singleTagStdDevs;
+                currentStdDev = singleTagStdDev;
             } else {
                 // One or more tags visible, run the full heuristic.
                 avgDist /= numTags;
                 // Decrease std devs if multiple targets are visible
                 if (numTags > 1) {
-                    estStdDevs = Vision.multiTagStdDevs;
+                    estimatedStdDev = standardDeviations.getMultiTagStdDev();
                 }
                 // Increase std devs based on (average) distance
                 if (numTags == 1 && avgDist > 3) // Assuming Max Distance before tag was
                                                  // invalid: was 4
                                                  // before
                 {
-                    estStdDevs =
-                            VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+                    estimatedStdDev = Double.MAX_VALUE;
                 } else {
-                    estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+                    estimatedStdDev = estimatedStdDev * (1 + (avgDist * avgDist / 30));
                 }
-                curStdDevs = estStdDevs;
+                currentStdDev = estimatedStdDev;
             }
         }
     }
