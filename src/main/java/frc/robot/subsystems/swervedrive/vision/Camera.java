@@ -57,7 +57,7 @@ public enum Camera {
     /**
      * Camera instance for comms.
      */
-    public final PhotonCamera camera;
+    private final PhotonCamera innerPhotonCamera;
     /**
      * Pose estimator for camera.
      */
@@ -106,14 +106,14 @@ public enum Camera {
                 new Alert(String.format("Camera '%s' is experiencing high latency.", name),
                         AlertType.kWarning);
 
-        this.camera = getPhotonCamera(name);
+        this.innerPhotonCamera = getPhotonCamera(name);
 
         this.poseEstimator = new PhotonPoseEstimator(Vision.fieldLayout,
                 PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, transform);
         poseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
         if (Robot.isSimulation()) {
-            this.cameraSim = new PhotonCameraSim(camera, SIM_CAMERA_PROPERTIES);
+            this.cameraSim = new PhotonCameraSim(innerPhotonCamera, SIM_CAMERA_PROPERTIES);
             cameraSim.enableDrawWireframe(DRAW_WIREFRAME);
         } else {
             this.cameraSim = null;
@@ -128,18 +128,18 @@ public enum Camera {
      */
     private static PhotonCamera getPhotonCamera(String name) {
         LOGGER.fine(String.format("Trying to connect to camera '%s'...", name));
-        PhotonCamera camera = new PhotonCamera(name);
+        PhotonCamera photonCamera = new PhotonCamera(name);
 
         int connectionRetries = 0;
 
         for (; connectionRetries < MAX_CONNECTION_RETRIES
-                && !camera.isConnected(); connectionRetries++) {
+                && !photonCamera.isConnected(); connectionRetries++) {
             LOGGER.fine(String.format("Retrying to connect to camera '%s'... (retry %d)", name,
                     connectionRetries + 1));
-            camera = new PhotonCamera(name);
+            photonCamera = new PhotonCamera(name);
         }
 
-        if (camera.isConnected()) {
+        if (photonCamera.isConnected()) {
             if (connectionRetries == 0) {
                 LOGGER.info(String.format("Connected to camera '%s' with no retries!", name));
             } else {
@@ -150,7 +150,7 @@ public enum Camera {
             LOGGER.severe(String.format("Failed to connect to camera '%s'!", name));
         }
 
-        return camera;
+        return photonCamera;
     }
 
     /**
@@ -228,7 +228,7 @@ public enum Camera {
         }
         if ((resultsList.isEmpty() || (currentTimestamp - mostRecentTimestamp >= debounceTime))
                 && (currentTimestamp - lastReadTimestamp) >= debounceTime) {
-            resultsList = Robot.isReal() ? camera.getAllUnreadResults()
+            resultsList = Robot.isReal() ? innerPhotonCamera.getAllUnreadResults()
                     : cameraSim.getCamera().getAllUnreadResults();
             lastReadTimestamp = currentTimestamp;
             resultsList.sort((PhotonPipelineResult a, PhotonPipelineResult b) -> {
