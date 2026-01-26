@@ -12,12 +12,13 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.IterativeRobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.swervedrive.vision.dashboard.StandardDeviations;
 import frc.robot.subsystems.util.dashboard.DashboardField;
-import static frc.robot.Constants.VisionConstants.FIELD_LAYOUT;
+import static frc.robot.Constants.VisionConstants.*;
 import java.awt.Desktop;
 import java.net.URI;
 import java.util.ArrayList;
@@ -124,12 +125,11 @@ public class Vision {
              * system to correct odometry.) Therefore, we must ensure that the actual robot pose is
              * provided in the simulator when updating the vision simulation during the simulation.
              */
-            swerveDrive.getSimulationDriveTrainPose().ifPresent(
-                driveTrainPose -> {
-                    visionSim.updateWithDriveTrainPose(driveTrainPose);
-                });
+            swerveDrive.getSimulationDriveTrainPose().ifPresent(driveTrainPose -> {
+                visionSim.updateWithDriveTrainPose(driveTrainPose);
+            });
         }
-        
+
         for (Camera camera : Camera.values()) {
             Optional<EstimatedRobotPose> poseEst = getEstimatedGlobalPose(camera);
             if (poseEst.isPresent()) {
@@ -153,7 +153,8 @@ public class Vision {
      *         create the estimate
      */
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Camera camera) {
-        Optional<EstimatedRobotPose> estimatedPoseOptional = camera.getEstimatedGlobalPose(standardDeviations);
+        Optional<EstimatedRobotPose> estimatedPoseOptional =
+                camera.getEstimatedGlobalPose(standardDeviations);
         if (isSimulation()) {
             estimatedPoseOptional.ifPresentOrElse(estimatedPose -> {
                 visionSim.updateVisionEstimationWithPose(estimatedPose);
@@ -199,35 +200,19 @@ public class Vision {
      */
     public double getDistanceFromAprilTag(int id) {
         Optional<Pose3d> tag = FIELD_LAYOUT.getTagPose(id);
-        return tag
-                .map(pose3d -> PhotonUtils.getDistanceToPose(currentPoseSupplier.get(), pose3d.toPose2d()))
-                .orElse(-1.0);
+        return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPoseSupplier.get(),
+                pose3d.toPose2d())).orElse(-1.0);
+    }
+
+    private FieldObject2d getTrackedTargetsObject() {
+        return field2d.getObject(TRACKED_TARGETS_OBJECT_NAME);
     }
 
     /**
      * Update the {@link Field2d} to include tracked targets/
      */
     public void updateVisionField() {
-
-        List<PhotonTrackedTarget> targets = new ArrayList<PhotonTrackedTarget>();
-        for (Camera c : Camera.values()) {
-            if (!c.resultsList.isEmpty()) {
-                PhotonPipelineResult latest = c.resultsList.get(0);
-                if (latest.hasTargets()) {
-                    targets.addAll(latest.targets);
-                }
-            }
-        }
-
-        List<Pose2d> poses = new ArrayList<>();
-        for (PhotonTrackedTarget target : targets) {
-            if (FIELD_LAYOUT.getTagPose(target.getFiducialId()).isPresent()) {
-                Pose2d targetPose = FIELD_LAYOUT.getTagPose(target.getFiducialId()).get().toPose2d();
-                poses.add(targetPose);
-            }
-        }
-
-        field2d.getObject("tracked targets").setPoses(poses);
+        getTrackedTargetsObject().setPoses(cameras.getAllTargetPoses(FIELD_LAYOUT));
     }
 
 }

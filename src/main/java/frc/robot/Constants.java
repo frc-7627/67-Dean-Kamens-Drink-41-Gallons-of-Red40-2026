@@ -123,6 +123,8 @@ public final class Constants {
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(null);
     
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
+
+        public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
     }
 
     public static class OperatorConstants {
