@@ -1,0 +1,64 @@
+package frc.robot.subsystems.swervedrive.vision;
+
+import static frc.robot.Constants.VisionConstants.*;
+import java.awt.Desktop;
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.simulation.VisionSystemSim;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
+
+/**
+ * Vision simulation.
+ */
+public class VisionSim {
+    private final Cameras cameras;
+
+    private final VisionSystemSim visionSystemSim;
+
+    public VisionSim(Cameras cameras) {
+        this.cameras = cameras;
+        this.visionSystemSim = getVisionSystemSim(cameras);
+    }
+
+    private static VisionSystemSim getVisionSystemSim(Cameras cameras) {
+        final VisionSystemSim visionSystemSim = new VisionSystemSim("Vision");
+        visionSystemSim.addAprilTags(FIELD_LAYOUT);
+
+        cameras.addAllToVisionSystemSim(visionSystemSim);
+
+        openSimCameraViews();
+
+        return visionSystemSim;
+    }
+
+    private static void openSimCameraViews() {
+        if (Desktop.isDesktopSupported()
+                && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            // try
+            // {
+            // Desktop.getDesktop().browse(new URI("http://localhost:1182/"));
+            // Desktop.getDesktop().browse(new URI("http://localhost:1184/"));
+            // Desktop.getDesktop().browse(new URI("http://localhost:1186/"));
+            // } catch (IOException | URISyntaxException e)
+            // {
+            // e.printStackTrace();
+            // }
+        }
+    }
+
+    public void updateWithDriveTrainPose(Pose2d driveTrainPose) {
+        visionSystemSim.update(driveTrainPose);
+    }
+
+    private FieldObject2d getVisionEstimationObject() {
+        return visionSystemSim.getDebugField().getObject(VISION_ESTIMATION_OBJECT_NAME);
+    }
+
+    public void updateVisionEstimationWithPose(EstimatedRobotPose estimatedRobotPose) {
+        getVisionEstimationObject().setPose(estimatedRobotPose.estimatedPose.toPose2d());
+    }
+
+    public void updateVisionEstimation() {
+        getVisionEstimationObject().setPoses();
+    }
+}
