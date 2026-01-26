@@ -2,6 +2,7 @@ package frc.robot.subsystems.swervedrive.vision;
 
 import java.util.List;
 import java.util.Optional;
+import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -94,5 +95,11 @@ public class Cameras {
             .flatMap(target -> fieldLayout.getTagPose(target.getFiducialId()))
             // Project the target pose 3d to 2d.
             .map(targetPose3d -> targetPose3d.toPose2d());
+    }
+
+    public void addAllToVisionSystemSim(VisionSystemSim visionSystemSim) {
+        for (Camera camera : cameras) {
+            camera.addToVisionSim(visionSystemSim);
+        }
     }
 }
