@@ -7,14 +7,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * A teleop command.
  */
-public enum TeleopCommand {
-    ;
-
+public class TeleopCommand {
     private final Command command;
 
     private final BiConsumer<Trigger, Command> binder;
 
-    TeleopCommand(Command command, BiConsumer<Trigger, Command> binder) {
+    public TeleopCommand(Command command, BiConsumer<Trigger, Command> binder) {
         this.command = command;
         this.binder = binder;
     }
