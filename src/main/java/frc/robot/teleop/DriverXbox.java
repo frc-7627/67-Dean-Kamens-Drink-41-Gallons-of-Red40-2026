@@ -1,13 +1,14 @@
 package frc.robot.teleop;
 
-import java.util.List;
+import java.util.Map;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class DriverXbox implements TeleopController {
     private final CommandXboxController xboxController = new CommandXboxController(0);
 
     @Override
-    public void bindTeleopCommands(List<TeleopCommand> teleopCommands, boolean isSimulation, boolean isTest) {
+    public void bindTeleopCommands(Map<TeleopCommandId, TeleopCommand> teleopCommands,
+            boolean isSimulation, boolean isTest) {
         // TODO
     }
 }

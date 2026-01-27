@@ -1,7 +1,8 @@
 package frc.robot.teleop;
 
-import java.util.List;
+import java.util.Map;
 
 public interface TeleopController {
-    void bindTeleopCommands(List<TeleopCommand> teleopCommands, boolean isSimulation, boolean isTest);
+    void bindTeleopCommands(Map<TeleopCommandId, TeleopCommand> teleopCommands,
+            boolean isSimulation, boolean isTest);
 }
