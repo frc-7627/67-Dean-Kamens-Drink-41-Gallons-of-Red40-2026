@@ -162,6 +162,13 @@ public final class Constants {
         public static final int LAUNCHER_MINION_CAN_ID = 17;
     }
 
+    public static class VisionConstants {
+        public static final double BLUE_HUB_X = 15;
+        public static final double BLUE_HUB_Y = 15;
+        public static final double RED_HUB_X = 55;
+        public static final double RED_HUB_Y = 55;
+    }
+
     public static class IntakeConstants {
         public static final int AMP_LIMIT = 150;
 

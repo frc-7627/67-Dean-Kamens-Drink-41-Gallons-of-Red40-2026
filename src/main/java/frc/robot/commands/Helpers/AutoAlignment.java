@@ -12,6 +12,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -40,16 +41,12 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
     private static final Logger LOGGER =
             Logger.getLogger(DriveBaseRotationAdjust.class.getSimpleName());
 
-    public AutoAlignment(Indicator indicator, SwerveSubsystem module,
-            /* Bluetooth led, */ double offset, boolean leftcam) {
+    public AutoAlignment(Indicator indicator, SwerveSubsystem module, double offset) {
         super(LOGGER, indicator, AutoAlignmentState.LOOKING_FOR_TARGET);
         this.drivebase = module;
         this.vision = drivebase.getVision();
-        // this.led = led;
         user_offset = offset;
-        this.leftcam = leftcam;
         addRequirements(drivebase);
-        // addRequirements(led);
     }
 
     /** Run once at Command Start */
@@ -71,17 +68,11 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
         System.out.println("[LimeLightCommands/DriveBaseRotationAdjust]] Seeking Target");
 
         @SuppressWarnings("removal")
-        // var resultL = camera_left.getLatestResult();
-        // var resultR = camera_right.getLatestResult();
-        // TODO: var resultA = Left_PI_CAM.getLatestResult(); ++
-        // Right_PI_CAM.getLatestResult();
-        // TODO add these ... I think
         var resultLPi = Left_PI_CAM.getLatestResult();
         var resultRPi = Right_PI_CAM.getLatestResult();
 
         PhotonPipelineResult result = resultRPi;
         PhotonTrackedTarget bestTarget;
-        // default to R if something happens
 
         boolean bothTargets = resultLPi.hasTargets() && resultRPi.hasTargets();
         boolean leftTargetsNoRightTargets = resultLPi.hasTargets() && !resultRPi.hasTargets();
@@ -107,18 +98,14 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
             bestTarget = resultRPi.getBestTarget();
         } else {
             // No targets found in either
-            // led.bluetoothOFF();
             driveCommand = Commands.none();
             bestTarget = null;
         }
 
-        // PhotonPipelineResult result = resultRPi;
-        // if(leftcam) result = resultLPi;
 
         if (eitherTargets) {
             System.out
                     .println("[LimeLightCommands/DriveBaseRotationAdjust] Target Found! Moving...");
-            // bestTarget = resultRPi.getBestTarget();
             for (PhotonTrackedTarget r : result.getTargets()) {
                 if (vision.getDistanceFromAprilTag(r.getFiducialId()) < vision
                         .getDistanceFromAprilTag(bestTarget.getFiducialId())) {
@@ -133,10 +120,9 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
             int tagID = bestTarget.getFiducialId();
             // Transform2d pose = new Transform2d(drivebase.getPose().getX(),
             // drivebase.getPose().getY(), drivebase.getPose().getRotation());
-            Pose2d newPose = Vision.getAprilTagPose(tagID,
-                    new Transform2d(DrivebaseConstants.x_offset,
-                            DrivebaseConstants.y_offset + user_offset,
-                            new Rotation2d(Math.toRadians(180))));
+            Pose2d newPose = new Pose2d(
+                    new Translation2d(drivebase.getPose().getX(), drivebase.getPose().getY()),
+                    new Rotation2d(/* Radians */));
             System.out.println(newPose.toString());
             System.out.println("Goal Pose: " + newPose);
             driveCommand = new IndicatingCommandWrapper(drivebase.driveToPose(newPose), indicator); // ,
