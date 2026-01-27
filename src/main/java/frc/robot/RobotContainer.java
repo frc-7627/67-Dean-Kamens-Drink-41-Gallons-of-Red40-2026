@@ -14,25 +14,26 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.intake.LoadIntake;
 import frc.robot.subsystems.GameInfo;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.indication.LED;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.vision.Vision;
-import frc.robot.Rizzler;
+import frc.robot.teleop.command.TeleopCommands;
+import frc.robot.teleop.controller.ControlContext;
+import frc.robot.teleop.controller.DriverController;
+import frc.robot.teleop.controller.DriverXboxController;
+import frc.robot.teleop.controller.OperatorXboxController;
+import frc.robot.teleop.controller.TeleopController;
+import frc.robot.teleop.controller.TeleopDriveInputs;
 
 import java.io.File;
-import swervelib.SwerveInputStream;
 import org.littletonrobotics.junction.Logger; // TODO: Figure it out
 
 /**
@@ -44,10 +45,9 @@ import org.littletonrobotics.junction.Logger; // TODO: Figure it out
 public class RobotContainer {
   // Rizz up the ops
 
+  private final DriverController driverController = new DriverXboxController();
+  private final TeleopController operatorController = new OperatorXboxController();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  final CommandXboxController driverXbox = new CommandXboxController(0);
-  final CommandXboxController operatorXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase =
       new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
@@ -62,39 +62,6 @@ public class RobotContainer {
   // SmartDashboard, allowing
   // selection of desired auto
   private final SendableChooser<Command> autoChooser;
-
-  /**
-   * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular
-   * velocity.
-   */
-  SwerveInputStream driveAngularVelocity = SwerveInputStream
-      .of(drivebase.getSwerveDrive(), () -> driverXbox.getLeftY() * -1,
-          () -> driverXbox.getLeftX() * -1)
-      .withControllerRotationAxis(driverXbox::getRightX).deadband(OperatorConstants.DEADBAND)
-      .scaleTranslation(0.8).allianceRelativeControl(true);
-
-  /**
-   * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
-   */
-  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
-      .withControllerHeadingAxis(driverXbox::getRightX, driverXbox::getRightY).headingWhile(true);
-
-  /**
-   * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
-   */
-  SwerveInputStream driveRobotOriented =
-      driveAngularVelocity.copy().robotRelative(true).allianceRelativeControl(false);
-
-  SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream
-      .of(drivebase.getSwerveDrive(), () -> -driverXbox.getLeftY(), () -> -driverXbox.getLeftX())
-      .withControllerRotationAxis(() -> driverXbox.getRawAxis(2))
-      .deadband(OperatorConstants.DEADBAND).scaleTranslation(0.8).allianceRelativeControl(true);
-  // Derive the heading axis with math!
-  SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard.copy()
-      .withControllerHeadingAxis(() -> Math.sin(driverXbox.getRawAxis(2) * Math.PI) * (Math.PI * 2),
-          () -> Math.cos(driverXbox.getRawAxis(2) * Math.PI) * (Math.PI * 2))
-      .headingWhile(true).translationHeadingOffset(true)
-      .translationHeadingOffset(Rotation2d.fromDegrees(0));
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -135,66 +102,26 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
    */
   private void configureBindings() {
-    Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveRobotOrientedAngularVelocity = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
-    Command driveFieldOrientedDirectAngleKeyboard =
-        drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard =
-        drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard =
-        drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
+    final ControlContext controlContext =
+        new ControlContext(Robot.isSimulation(), DriverStation.isTest());
 
-    if (RobotBase.isSimulation()) {
-      drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
-    } else {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    }
+    final TeleopDriveInputs driveInputs = driverController.getTeleopDriveInputs(drivebase);
 
-    if (Robot.isSimulation()) {
+    drivebase.setDefaultCommand(
+        drivebase.driveFieldOriented(driveInputs.getDefaultInputStream(drivebase, controlContext)));
+
+    final TeleopCommands teleopCommands =
+        new TeleopCommands(indicator, drivebase, intake, driveInputs);
+
+    teleopCommands.bindToController(driverController, controlContext);
+    teleopCommands.bindToController(operatorController, controlContext);
+
+    if (controlContext.isSimulation()) {
       Pose2d target = new Pose2d(new Translation2d(1, 4), Rotation2d.fromDegrees(90));
       // drivebase.getSwerveDrive().field.getObject("targetPose").setPose(target);
-      driveDirectAngleKeyboard.driveToPose(() -> target,
+      driveInputs.driveDirectAngleKeyboard().driveToPose(() -> target,
           new ProfiledPIDController(5, 0, 0, new Constraints(5, 2)), new ProfiledPIDController(5, 0,
               0, new Constraints(Units.degreesToRadians(360), Units.degreesToRadians(180))));
-      driverXbox.start().onTrue(
-          Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
-      driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
-      driverXbox.button(2)
-          .whileTrue(Commands.runEnd(() -> driveDirectAngleKeyboard.driveToPoseEnabled(true),
-              () -> driveDirectAngleKeyboard.driveToPoseEnabled(false)));
-
-      // driverXbox.b().whileTrue(
-      // drivebase.driveToPose(
-      // new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-      // );
-
-    }
-    if (DriverStation.isTest()) {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command
-                                                                       // above!
-
-      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
-    } else {
-      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      driverXbox.start().whileTrue(Commands.none());
-      driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
-
-      driverXbox.y().onTrue(Commands.runOnce(
-          () -> drivebase.driveToPose(drivebase.getPose().rotateBy(Rotation2d.kCCW_90deg))));
-
-
-
-      /* Operator Xbox */
-      operatorXbox.b().whileTrue(new LoadIntake(indicator, intake));
     }
 
   }
