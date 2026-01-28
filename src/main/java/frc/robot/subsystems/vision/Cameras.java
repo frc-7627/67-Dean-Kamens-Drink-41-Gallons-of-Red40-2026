@@ -3,7 +3,7 @@ package frc.robot.subsystems.vision;
 import java.util.List;
 
 class Cameras implements Vision {
-    Cameras() {
+    Cameras() throws VisionConstructorException {
 
     }
 
