@@ -1,6 +1,6 @@
-package frc.robot.subsystems.drivebase.vision.dashboard;
+package frc.robot.subsystems.legacy.vision.dashboard;
 
-import frc.robot.subsystems.drivebase.vision.OldVision;
+import frc.robot.subsystems.legacy.vision.OldVision;
 import frc.robot.subsystems.legacy.SwerveSubsystem;
 import frc.robot.subsystems.util.dashboard.DashboardDouble;
 import frc.robot.subsystems.util.dashboard.DashboardField;

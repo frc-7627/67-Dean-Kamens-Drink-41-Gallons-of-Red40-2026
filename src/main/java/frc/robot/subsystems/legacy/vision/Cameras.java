@@ -1,4 +1,4 @@
-package frc.robot.subsystems.drivebase.vision;
+package frc.robot.subsystems.legacy.vision;
 
 import static frc.robot.Constants.VisionConstants.*;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
-import frc.robot.subsystems.drivebase.vision.dashboard.StandardDeviations;
+import frc.robot.subsystems.legacy.vision.dashboard.StandardDeviations;
 import swervelib.SwerveDrive;
 
 /**

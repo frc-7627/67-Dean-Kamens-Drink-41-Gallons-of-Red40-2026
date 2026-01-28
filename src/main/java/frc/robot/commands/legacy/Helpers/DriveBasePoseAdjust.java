@@ -13,7 +13,7 @@ import frc.robot.Constants.DrivebaseConstants;
 import frc.robot.commands.IndicatingCommandWrapper;
 import frc.robot.commands.ProgressingCommand;
 import frc.robot.subsystems.Indicator;
-import frc.robot.subsystems.drivebase.vision.OldVision;
+import frc.robot.subsystems.legacy.vision.OldVision;
 import frc.robot.subsystems.legacy.SwerveSubsystem;
 
 /** See Constructor for details */

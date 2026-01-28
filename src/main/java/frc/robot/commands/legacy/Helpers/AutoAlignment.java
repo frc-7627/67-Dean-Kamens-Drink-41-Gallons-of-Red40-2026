@@ -22,7 +22,7 @@ import frc.robot.commands.ProgressingCommand;
 // it is used are spread througout this file
 import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.Indicator;
-import frc.robot.subsystems.drivebase.vision.OldVision;
+import frc.robot.subsystems.legacy.vision.OldVision;
 import frc.robot.subsystems.legacy.SwerveSubsystem;
 
 public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
