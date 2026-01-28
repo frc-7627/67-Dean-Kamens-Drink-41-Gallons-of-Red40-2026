@@ -12,8 +12,8 @@ import frc.robot.subsystems.launcher.util.MotorsConfigurator;
 class LauncherMotors {
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
-    private final MotorsConfigurator motorsConfigurator =
-            new MotorsConfigurator(commander.getConfigurator(), minion.getConfigurator());
+    private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(commander.getConfigurator(),
+            minion.getConfigurator());
     private final Orchestra orchestra = new Orchestra();
     private boolean inMusicMode = false;
 
@@ -27,7 +27,8 @@ class LauncherMotors {
     /**
      * Reset motor control to ensure motors are usable.
      * 
-     * Sets the commander to target its own position, and the minion to follow the commander.
+     * Sets the commander to target its own position, and the minion to follow the
+     * commander.
      */
     private void resetControl() {
         commander.setControl(TARGET_DEFAULT_POSITION.withPosition(getCommanderPosition()));
@@ -66,7 +67,8 @@ class LauncherMotors {
     /**
      * Play a song from the provided file path.
      * 
-     * Enters music mode, adds the motors to the orchestra, loads the song file, and plays the song.
+     * Enters music mode, adds the motors to the orchestra, loads the song file, and
+     * plays the song.
      * 
      * @param filePath the provided file path. This should be a {@code *.chrp} file.
      * @apiNote Enters music mode.
@@ -78,6 +80,10 @@ class LauncherMotors {
         orchestra.addInstrument(minion);
         orchestra.loadMusic(filePath);
         orchestra.play();
+    }
+
+    public void setTangentialSpeed(double speed) {
+
     }
 
     /**

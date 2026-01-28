@@ -2,6 +2,8 @@ package frc.robot.subsystems.launcher;
 
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.launcher.dashboard.CurrentLimit;
 import frc.robot.subsystems.launcher.dashboard.RampUpPeriod;
@@ -32,15 +34,14 @@ public class Launcher extends SubsystemBase {
     private final RampUpPeriod rampUpPeriod = new RampUpPeriod(launcherMotors.getConfigurator());
     private final ShootSpeed shootSpeed = new ShootSpeed(launcherMotors.getConfigurator());
 
-    private final MotorSpeed activeIdleSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE_SPEED);
-    private final MotorSpeed inactiveIdleSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE_SPEED);
-    private final MotorSpeed manualSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
+    private final MotorSpeed activeIdleSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed",
+            DEFAULT_ACTIVE_IDLE_SPEED);
+    private final MotorSpeed inactiveIdleSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed",
+            DEFAULT_INACTIVE_IDLE_SPEED);
+    private final MotorSpeed manualSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
 
-    private final DashboardField[] dashboardFields = {currentLimit, rampUpPeriod, shootSpeed,
-            activeIdleSpeed, inactiveIdleSpeed, manualSpeed};
+    private final DashboardField[] dashboardFields = { currentLimit, rampUpPeriod, shootSpeed,
+            activeIdleSpeed, inactiveIdleSpeed, manualSpeed };
 
     /**
      * The launcher subsystem.
@@ -108,7 +109,8 @@ public class Launcher extends SubsystemBase {
      * @see LauncherMotors#setCommanderSpeed(double)
      */
     public void shootIn() throws IllegalStateException {
-        // TODO: why shouldn't this method be used unless in extraneous circumstances? Justify in
+        // TODO: why shouldn't this method be used unless in extraneous circumstances?
+        // Justify in
         // the api note.
         launcherMotors.setCommanderSpeed(-shootSpeed.getInnerValue());
     }
