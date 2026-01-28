@@ -2,10 +2,11 @@ package frc.robot.subsystems.drivebase;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.vision.VisionOdometry;
 import com.pathplanner.lib.path.PathConstraints;
 
-public interface Drivebase extends DrivebaseMarker {
+public interface Drivebase extends Subsystem, PathConstraintsSupplier {
     void lock();
 
     void zeroGyro();
@@ -15,8 +16,6 @@ public interface Drivebase extends DrivebaseMarker {
     void centerModules();
 
     void driveWithSpeeds(ChassisSpeeds chassisSpeeds);
-
-    PathConstraints getPathConstraints();
 
     static Drivebase get(VisionOdometry visionOdometry, Alliance alliance)
             throws DrivebaseConstructorException {
