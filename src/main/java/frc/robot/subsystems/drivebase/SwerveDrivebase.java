@@ -12,11 +12,11 @@ import swervelib.parser.SwerveParser;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 
-public class SwerveDrivebase extends SubsystemBase implements Drivebase {
+class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private final VisionOdometry visionOdometry;
     private final SwerveDrive swerveDrive;
 
-    public SwerveDrivebase(VisionOdometry visionOdometry, Alliance alliance)
+    SwerveDrivebase(VisionOdometry visionOdometry, Alliance alliance)
             throws DrivebaseConstructorException {
         this.visionOdometry = visionOdometry;
 
