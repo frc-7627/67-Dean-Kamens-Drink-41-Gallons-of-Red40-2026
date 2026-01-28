@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ProgressingCommand;
 import frc.robot.commands.intake.LoadIntake;
 import frc.robot.subsystems.Indicator;
-import frc.robot.subsystems.drivebase.SwerveSubsystem;
+import frc.robot.subsystems.legacy.SwerveSubsystem;
 
 /** See Constructor for details */
 public class DriveBaseRotationAdjust extends ProgressingCommand<AutoAlignmentState> {
