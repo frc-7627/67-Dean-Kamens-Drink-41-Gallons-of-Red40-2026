@@ -20,7 +20,7 @@ public class SwerveDrivebase extends SubsystemBase implements Drivebase {
         } catch (SwerveConstructorException cause) {
             throw new DrivebaseConstructorException("Could not construct Swerve!", cause);
         }
-        
+
     }
 
     @Override
@@ -28,26 +28,31 @@ public class SwerveDrivebase extends SubsystemBase implements Drivebase {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'lock'");
     }
+
     @Override
     public void zeroGyro() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'zeroGyro'");
     }
+
     @Override
     public void resetOdometryToInitial() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'resetOdometryToInitial'");
     }
+
     @Override
     public void centerModules() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'centerModules'");
     }
+
     @Override
     public void driveWithSpeeds(ChassisSpeeds chassisSpeeds) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'driveWithSpeeds'");
     }
+
     @Override
     public PathConstraints getPathConstraints() {
         // TODO Auto-generated method stub

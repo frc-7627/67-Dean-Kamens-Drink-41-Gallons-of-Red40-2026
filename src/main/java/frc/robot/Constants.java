@@ -77,15 +77,19 @@ public final class Constants {
         // TODO
         public static final File SWERVE_CONFIG_FILE = null;
 
-        public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
-        public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)), Rotation2d.fromDegrees(0));
+        public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
+                new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
+        public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE =
+                new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)), Rotation2d.fromDegrees(0));
 
         public static double x_offset = Units.inchesToMeters(16.6220472441);
 
         public static double y_offset = 0.0;
-        public static double y_offset_left = Units.inchesToMeters(-4.268); // add inches to center
+        public static double y_offset_left = Units.inchesToMeters(-4.268); // add inches to
+                                                                           // center
         // //TODO: these ^^^ will need to be retuned
-        public static double y_offset_right = Units.inchesToMeters(8.268); // add inches away from
+        public static double y_offset_right = Units.inchesToMeters(8.268); // add inches
+                                                                           // away from
                                                                            // center
 
         // Hold time on motor brakes when disabled
@@ -111,17 +115,21 @@ public final class Constants {
         public static final int MAX_CONNECTION_RETRIES = 10;
 
         public static final SimCameraProperties SIM_CAMERA_PROPERTIES = new SimCameraProperties()
-                // A 640 x 480 camera with a 100 degree diagonal FOV.
+                // A 640 x 480 camera with a 100 degree diagonal
+                // FOV.
                 .setCalibration(960, 720, Rotation2d.fromDegrees(100))
-                // Approximate detection noise with average and standard deviation error in
+                // Approximate detection noise with average and
+                // standard deviation error in
                 // pixels.
                 .setCalibError(0.25, 0.08)
-                // Set the camera image capture framerate (Note: this is limited by robot loop
+                // Set the camera image capture framerate (Note:
+                // this is limited by robot loop
                 // rate).
                 .setFPS(30)
-                // The average and standard deviation in milliseconds of image data latency.
+                // The average and standard deviation in
+                // milliseconds of image data latency.
                 .setAvgLatencyMs(35).setLatencyStdDevMs(5);
-        
+
         public static final boolean DRAW_WIREFRAME = true;
 
         public static final double DEFAULT_SINGLE_TAG_STD_DEV = 0.5;
@@ -129,7 +137,7 @@ public final class Constants {
 
         // TODO: set field to 2026.
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(null);
-    
+
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
         public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
