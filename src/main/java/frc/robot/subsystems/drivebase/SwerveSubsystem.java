@@ -68,7 +68,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * PhotonVision class to keep an accurate odometry.
    */
-  private Vision vision;
+  private OldVision vision;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -134,7 +134,7 @@ public class SwerveSubsystem extends SubsystemBase {
    * Setup the photon vision class.
    */
   public void setupPhotonVision() {
-    vision = new Vision(swerveDrive.field);
+    vision = new OldVision(swerveDrive.field);
   }
 
   @Override
@@ -696,7 +696,7 @@ public class SwerveSubsystem extends SubsystemBase {
     return swerveDrive;
   }
 
-  public Vision getVision() {
+  public OldVision getVision() {
     return vision;
   }
 }

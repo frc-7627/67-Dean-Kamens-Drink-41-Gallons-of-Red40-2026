@@ -36,7 +36,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.GameInfo;
-import frc.robot.subsystems.drivebase.vision.Vision;
 import swervelib.math.Matter;
 
 /**

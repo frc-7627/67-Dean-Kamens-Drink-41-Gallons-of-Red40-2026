@@ -23,13 +23,13 @@ import frc.robot.commands.ProgressingCommand;
 import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.drivebase.SwerveSubsystem;
-import frc.robot.subsystems.drivebase.vision.Vision;
+import frc.robot.subsystems.drivebase.vision.OldVision;
 
 public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
     PhotonCamera Left_PI_CAM = new PhotonCamera("PC_Camera SIG");
     PhotonCamera Right_PI_CAM = new PhotonCamera("PC_Camera MA");
     private final SwerveSubsystem drivebase;
-    private final Vision vision;
+    private final OldVision vision;
     // private final Bluetooth led;
     private boolean leftcam;
     private double user_offset;
@@ -133,7 +133,7 @@ public class AutoAlignment extends ProgressingCommand<AutoAlignmentState> {
             int tagID = bestTarget.getFiducialId();
             // Transform2d pose = new Transform2d(drivebase.getPose().getX(),
             // drivebase.getPose().getY(), drivebase.getPose().getRotation());
-            Pose2d newPose = Vision.getAprilTagPose(tagID,
+            Pose2d newPose = OldVision.getAprilTagPose(tagID,
                     new Transform2d(DrivebaseConstants.x_offset,
                             DrivebaseConstants.y_offset + user_offset,
                             new Rotation2d(Math.toRadians(180))));

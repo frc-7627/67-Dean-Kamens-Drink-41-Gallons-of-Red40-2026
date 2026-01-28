@@ -14,7 +14,7 @@ import frc.robot.commands.IndicatingCommandWrapper;
 import frc.robot.commands.ProgressingCommand;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.drivebase.SwerveSubsystem;
-import frc.robot.subsystems.drivebase.vision.Vision;
+import frc.robot.subsystems.drivebase.vision.OldVision;
 
 /** See Constructor for details */
 public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> {
@@ -26,7 +26,8 @@ public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> 
 
     private Command driveCommand;
 
-    private static final Logger LOGGER = Logger.getLogger(DriveBaseRotationAdjust.class.getSimpleName());
+    private static final Logger LOGGER =
+            Logger.getLogger(DriveBaseRotationAdjust.class.getSimpleName());
 
     /**
      * Turns the Robot to face an April Tag, using PhotonVison detections
@@ -35,7 +36,8 @@ public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> 
      * @requires led visually indicated when an apriltag is being detected
      * @version 2.0
      */
-    public DriveBasePoseAdjust(Indicator indicator, SwerveSubsystem module, /* Bluetooth led, */ double offset) {
+    public DriveBasePoseAdjust(Indicator indicator, SwerveSubsystem module,
+            /* Bluetooth led, */ double offset) {
         super(LOGGER, indicator, AutoAlignmentState.LOOKING_FOR_TARGET);
         this.drivebase = module;
         addRequirements(drivebase);
@@ -43,8 +45,10 @@ public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> 
         user_offset = offset;
 
         // Shuffleboard!
-        DrivebaseConstants.x_offset = SmartDashboard.getNumber("Vision/x_offset", DrivebaseConstants.x_offset);
-        DrivebaseConstants.y_offset = SmartDashboard.getNumber("Vision/y_offset", DrivebaseConstants.y_offset);
+        DrivebaseConstants.x_offset =
+                SmartDashboard.getNumber("Vision/x_offset", DrivebaseConstants.x_offset);
+        DrivebaseConstants.y_offset =
+                SmartDashboard.getNumber("Vision/y_offset", DrivebaseConstants.y_offset);
         SmartDashboard.putNumber("Vision/x_offset", DrivebaseConstants.x_offset);
         SmartDashboard.putNumber("Vision/y_offset", DrivebaseConstants.y_offset);
     }
@@ -61,20 +65,26 @@ public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> 
     /** Run once at Command Start */
     @Override
     public void initialize() {
-        DrivebaseConstants.x_offset = SmartDashboard.getNumber("Vision/x_offset", DrivebaseConstants.x_offset);
-        DrivebaseConstants.y_offset = SmartDashboard.getNumber("Vision/y_offset", DrivebaseConstants.y_offset);
-        System.out.println("x_offset: " + DrivebaseConstants.x_offset + " y_offset: " + DrivebaseConstants.y_offset);
+        DrivebaseConstants.x_offset =
+                SmartDashboard.getNumber("Vision/x_offset", DrivebaseConstants.x_offset);
+        DrivebaseConstants.y_offset =
+                SmartDashboard.getNumber("Vision/y_offset", DrivebaseConstants.y_offset);
+        System.out.println("x_offset: " + DrivebaseConstants.x_offset + " y_offset: "
+                + DrivebaseConstants.y_offset);
         System.out.println("[LimeLightCommands/DriveBaseRotationAdjust]] Seeking Target");
         @SuppressWarnings("removal")
         var result = camera.getLatestResult();
         if (result.hasTargets()) {
-            System.out.println("[LimeLightCommands/DriveBaseRotationAdjust] Target Found! Moving...");
+            System.out
+                    .println("[LimeLightCommands/DriveBaseRotationAdjust] Target Found! Moving...");
 
             int tagID = result.getBestTarget().getFiducialId();
             // Transform2d pose = new Transform2d(drivebase.getPose().getX(),
             // drivebase.getPose().getY(), drivebase.getPose().getRotation());
-            Pose2d new_pose = Vision.getAprilTagPose(tagID, new Transform2d(DrivebaseConstants.x_offset,
-                    DrivebaseConstants.y_offset + user_offset, new Rotation2d(Math.toRadians(180))));
+            Pose2d new_pose = OldVision.getAprilTagPose(tagID,
+                    new Transform2d(DrivebaseConstants.x_offset,
+                            DrivebaseConstants.y_offset + user_offset,
+                            new Rotation2d(Math.toRadians(180))));
             System.out.println(new_pose.toString());
             driveCommand = new IndicatingCommandWrapper(drivebase.driveToPose(new_pose), indicator);
         } else {
@@ -85,15 +95,13 @@ public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> 
     }
 
     @Override
-    public void execute() {
-    }
+    public void execute() {}
 
     /**
      * Run once at Command End
      * 
-     * @param interupted - False if Command ended by isFinished()
-     *                   True if by something else like
-     *                   letting go of a button
+     * @param interupted - False if Command ended by isFinished() True if by something else like
+     *        letting go of a button
      */
     @Override
     public void end(boolean interrupted) {
@@ -106,8 +114,7 @@ public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> 
     /**
      * Checks if it's time to end the Command
      * 
-     * @return True - End the Command
-     *         False - Keep running Periodic
+     * @return True - End the Command False - Keep running Periodic
      */
     @Override
     public boolean isFinished() {

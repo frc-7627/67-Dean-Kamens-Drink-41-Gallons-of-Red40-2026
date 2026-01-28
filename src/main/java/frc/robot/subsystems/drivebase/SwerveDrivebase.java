@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.drivebase.swerve.Swerve;
 import frc.robot.subsystems.drivebase.swerve.SwerveConstructorException;
 import frc.robot.subsystems.drivebase.swerve.SwerveDriveWrapper;
-import frc.robot.subsystems.drivebase.vision.Vision;
+import frc.robot.subsystems.drivebase.vision.OldVision;
 
 public class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private final Swerve swerve;
-    private final Vision vision;
+    private final OldVision vision;
 
     public SwerveDrivebase(Alliance alliance) throws DrivebaseConstructorException {
         try {
             this.swerve = new SwerveDriveWrapper(alliance);
-            this.vision = new Vision(swerve.getField());
+            this.vision = new OldVision(swerve.getField());
         } catch (SwerveConstructorException cause) {
             throw new DrivebaseConstructorException("Could not construct Swerve!", cause);
         }

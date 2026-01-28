@@ -37,7 +37,7 @@ import swervelib.telemetry.SwerveDriveTelemetry;
  * Example PhotonVision class to aid in the pursuit of accurate odometry. Taken from
  * https://gitlab.com/ironclad_code/ironclad-2024/-/blob/master/src/main/java/frc/robot/vision/Vision.java?ref_type=heads
  */
-public class Vision {
+public class OldVision {
     private final VisionSim visionSim;
 
     /**
@@ -59,7 +59,7 @@ public class Vision {
      * @param currentPose Current pose supplier, should reference {@link SwerveDrive#getPose()}
      * @param field Current field, should be {@link SwerveDrive#field}
      */
-    public Vision(Field2d field) {
+    public OldVision(Field2d field) {
         this.field2d = field;
 
         this.visionSim = isSimulation() ? new VisionSim(cameras) : null;
@@ -135,8 +135,8 @@ public class Vision {
      */
     public static double getDistanceFromAprilTag(int id, Pose2d currentPose) {
         Optional<Pose3d> tag = FIELD_LAYOUT.getTagPose(id);
-        return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPose,
-                pose3d.toPose2d())).orElse(-1.0);
+        return tag.map(pose3d -> PhotonUtils.getDistanceToPose(currentPose, pose3d.toPose2d()))
+                .orElse(-1.0);
     }
 
     private FieldObject2d getTrackedTargetsObject() {
