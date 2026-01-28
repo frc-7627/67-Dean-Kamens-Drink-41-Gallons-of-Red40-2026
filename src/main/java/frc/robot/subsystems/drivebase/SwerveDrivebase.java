@@ -16,7 +16,8 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
 
-    SwerveDrivebase(VisionMeasurementsSupplier vision, Alliance alliance) throws DrivebaseConstructorException {
+    SwerveDrivebase(VisionMeasurementsSupplier vision, Alliance alliance)
+            throws DrivebaseConstructorException {
         this.vision = vision;
 
         final Pose2d initialPose = switch (alliance) {
