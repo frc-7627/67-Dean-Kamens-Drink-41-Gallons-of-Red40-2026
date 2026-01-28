@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ProgressingCommand;
 import frc.robot.commands.intake.LoadIntake;
 import frc.robot.subsystems.Indicator;
-//import frc.robot.subsystems.Bluetooth; TODO: Reimplement with new indication
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.drivebase.SwerveSubsystem;
 
 /** See Constructor for details */
 public class DriveBaseRotationAdjust extends ProgressingCommand<AutoAlignmentState> {

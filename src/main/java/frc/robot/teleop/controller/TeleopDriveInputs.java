@@ -2,7 +2,7 @@ package frc.robot.teleop.controller;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.drivebase.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
 public record TeleopDriveInputs(SwerveInputStream driveAngularVelocity,

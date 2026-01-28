@@ -1,4 +1,4 @@
-package frc.robot.subsystems.swervedrive.vision;
+package frc.robot.subsystems.drivebase.vision;
 
 import static edu.wpi.first.units.Units.Microseconds;
 import static edu.wpi.first.units.Units.Milliseconds;
@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.VisionConstants.*;
 import frc.robot.Robot;
-import frc.robot.subsystems.swervedrive.vision.dashboard.StandardDeviations;
+import frc.robot.subsystems.drivebase.vision.dashboard.StandardDeviations;
 
 /**
  * Camera Enum to select each camera

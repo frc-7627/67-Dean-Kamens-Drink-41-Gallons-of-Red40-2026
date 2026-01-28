@@ -13,9 +13,8 @@ import frc.robot.Constants.DrivebaseConstants;
 import frc.robot.commands.IndicatingCommandWrapper;
 import frc.robot.commands.ProgressingCommand;
 import frc.robot.subsystems.Indicator;
-//import frc.robot.subsystems.Bluetooth; TODO: Reimplement with new indication
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.vision.Vision;
+import frc.robot.subsystems.drivebase.SwerveSubsystem;
+import frc.robot.subsystems.drivebase.vision.Vision;
 
 /** See Constructor for details */
 public class DriveBasePoseAdjust extends ProgressingCommand<AutoAlignmentState> {

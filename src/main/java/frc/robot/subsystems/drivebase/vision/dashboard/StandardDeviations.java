@@ -1,7 +1,7 @@
-package frc.robot.subsystems.swervedrive.vision.dashboard;
+package frc.robot.subsystems.drivebase.vision.dashboard;
 
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.vision.Vision;
+import frc.robot.subsystems.drivebase.SwerveSubsystem;
+import frc.robot.subsystems.drivebase.vision.Vision;
 import frc.robot.subsystems.util.dashboard.DashboardDouble;
 import frc.robot.subsystems.util.dashboard.DashboardField;
 import frc.robot.subsystems.util.dashboard.FieldMode;
