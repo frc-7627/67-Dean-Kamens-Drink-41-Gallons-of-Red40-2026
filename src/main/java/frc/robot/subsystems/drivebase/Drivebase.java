@@ -15,8 +15,8 @@ public interface Drivebase extends PathConstraintsSupplier {
 
     void driveWithSpeeds(ChassisSpeeds chassisSpeeds);
 
-    static Drivebase get(VisionOdometry visionOdometry, Alliance alliance)
+    static Drivebase get(VisionOdometry vision, Alliance alliance)
             throws DrivebaseConstructorException {
-        return new SwerveDrivebase(visionOdometry, alliance);
+        return new SwerveDrivebase(vision, alliance);
     }
 }

@@ -13,12 +13,12 @@ import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
-    private final VisionOdometry visionOdometry;
+    private final VisionOdometry vision;
     private final SwerveDrive swerveDrive;
 
-    SwerveDrivebase(VisionOdometry visionOdometry, Alliance alliance)
+    SwerveDrivebase(VisionOdometry vision, Alliance alliance)
             throws DrivebaseConstructorException {
-        this.visionOdometry = visionOdometry;
+        this.vision = vision;
 
         final Pose2d initialPose = switch (alliance) {
             case Red -> RED_ALLIANCE_INITIAL_POSE;
