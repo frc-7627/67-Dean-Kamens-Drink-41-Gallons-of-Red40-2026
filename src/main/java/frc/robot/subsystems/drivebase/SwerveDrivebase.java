@@ -1,24 +1,35 @@
 package frc.robot.subsystems.drivebase;
 
+import java.io.IOException;
 import com.pathplanner.lib.path.PathConstraints;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.drivebase.swerve.Swerve;
-import frc.robot.subsystems.drivebase.swerve.SwerveConstructorException;
-import frc.robot.subsystems.drivebase.swerve.SwerveDriveWrapper;
-import frc.robot.subsystems.drivebase.vision.OldVision;
+import frc.robot.subsystems.vision.VisionOdometry;
+import swervelib.SwerveDrive;
+import swervelib.parser.SwerveParser;
+import static frc.robot.Constants.*;
+import static frc.robot.Constants.DrivebaseConstants.*;
 
 public class SwerveDrivebase extends SubsystemBase implements Drivebase {
-    private final Swerve swerve;
-    private final OldVision vision;
+    private final VisionOdometry visionOdometry;
+    private final SwerveDrive swerveDrive;
 
-    public SwerveDrivebase(Alliance alliance) throws DrivebaseConstructorException {
+    public SwerveDrivebase(VisionOdometry visionOdometry, Alliance alliance)
+            throws DrivebaseConstructorException {
+        this.visionOdometry = visionOdometry;
+
+        final Pose2d initialPose = switch (alliance) {
+            case Red -> RED_ALLIANCE_INITIAL_POSE;
+            case Blue -> BLUE_ALLIANCE_INITIAL_POSE;
+        };
+
         try {
-            this.swerve = new SwerveDriveWrapper(alliance);
-            this.vision = new OldVision(swerve.getField());
-        } catch (SwerveConstructorException cause) {
-            throw new DrivebaseConstructorException("Could not construct Swerve!", cause);
+            this.swerveDrive =
+                    new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
+        } catch (IOException cause) {
+            throw new DrivebaseConstructorException("Could not create swerve drive!", cause);
         }
 
     }
