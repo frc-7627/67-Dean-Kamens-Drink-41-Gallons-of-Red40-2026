@@ -1,4 +1,4 @@
-package frc.robot.commands.Helpers;
+package frc.robot.commands.legacy.Helpers;
 
 import frc.robot.commands.util.Progress;
 

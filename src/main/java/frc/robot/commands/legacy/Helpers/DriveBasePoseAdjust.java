@@ -1,4 +1,4 @@
-package frc.robot.commands.Helpers;
+package frc.robot.commands.legacy.Helpers;
 
 import java.util.logging.Logger;
 
