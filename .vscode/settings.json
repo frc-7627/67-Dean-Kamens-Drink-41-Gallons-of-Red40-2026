@@ -30,6 +30,7 @@
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
     "Brushless",
+    "chrp",
     "drivebase",
     "gamepiece",
     "griddy",
