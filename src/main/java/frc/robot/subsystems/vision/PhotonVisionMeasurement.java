@@ -6,11 +6,11 @@ import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.numbers.N3;
 
-public class PhotonVisionMeasurement implements VisionMeasurement {
+class PhotonVisionMeasurement implements VisionMeasurement {
     private final EstimatedRobotPose estimatedRobotPose;
     private final double stdDev;
 
-    public PhotonVisionMeasurement(EstimatedRobotPose estimatedRobotPose, double stdDev) {
+    PhotonVisionMeasurement(EstimatedRobotPose estimatedRobotPose, double stdDev) {
         this.estimatedRobotPose = estimatedRobotPose;
         this.stdDev = stdDev;
     }

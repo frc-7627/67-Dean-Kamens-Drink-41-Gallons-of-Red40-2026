@@ -2,9 +2,9 @@ package frc.robot.subsystems.vision;
 
 import java.util.List;
 
-public class Cameras implements Vision {
+class Cameras implements Vision {
     Cameras() {
-        
+
     }
 
     @Override

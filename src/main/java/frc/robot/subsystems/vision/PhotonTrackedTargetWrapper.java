@@ -6,10 +6,10 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 
-public class PhotonTrackedTargetWrapper implements Target {
+class PhotonTrackedTargetWrapper implements Target {
     private final PhotonTrackedTarget photonTrackedTarget;
 
-    public PhotonTrackedTargetWrapper(PhotonTrackedTarget photonTrackedTarget) {
+    PhotonTrackedTargetWrapper(PhotonTrackedTarget photonTrackedTarget) {
         this.photonTrackedTarget = photonTrackedTarget;
     }
 
