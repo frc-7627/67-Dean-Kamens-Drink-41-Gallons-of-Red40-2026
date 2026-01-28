@@ -2,8 +2,8 @@ package frc.robot.subsystems.vision;
 
 import java.util.List;
 
-class Cameras implements Vision {
-    Cameras() throws VisionConstructorException {
+class PhotonCameras implements Vision {
+    PhotonCameras() throws VisionConstructorException {
 
     }
 
@@ -18,5 +18,5 @@ class Cameras implements Vision {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getVisionMeasurements'");
     }
-    
+
 }
