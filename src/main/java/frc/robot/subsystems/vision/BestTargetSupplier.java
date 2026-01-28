@@ -1,5 +1,5 @@
 package frc.robot.subsystems.vision;
 
-public interface TargetSupplier {
+public interface BestTargetSupplier {
     Target getBestTarget();
 }
