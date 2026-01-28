@@ -5,7 +5,8 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.Hertz;
-
+import static edu.wpi.first.units.Units.Meter;
+import java.io.File;
 import org.littletonrobotics.junction.LogFileUtil;
 
 import com.pathplanner.lib.config.PIDConstants;
@@ -27,9 +28,11 @@ import com.ctre.phoenix6.controls.TwinkleAnimation;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.GameInfo;
@@ -71,6 +74,11 @@ public final class Constants {
     // }
 
     public static final class DrivebaseConstants {
+        // TODO
+        public static final File SWERVE_CONFIG_FILE = null;
+
+        public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
+        public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)), Rotation2d.fromDegrees(0));
 
         public static double x_offset = Units.inchesToMeters(16.6220472441);
 
