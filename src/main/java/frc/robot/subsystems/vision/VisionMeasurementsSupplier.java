@@ -2,6 +2,6 @@ package frc.robot.subsystems.vision;
 
 import java.util.List;
 
-public interface VisionOdometry {
+public interface VisionMeasurementsSupplier {
     List<VisionMeasurement> getVisionMeasurements();
 }

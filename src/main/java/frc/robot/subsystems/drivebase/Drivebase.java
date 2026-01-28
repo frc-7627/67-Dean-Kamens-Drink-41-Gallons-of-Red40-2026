@@ -2,7 +2,7 @@ package frc.robot.subsystems.drivebase;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.subsystems.vision.VisionOdometry;
+import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 
 public interface Drivebase extends PathConstraintsSupplier {
     void lock();
@@ -15,7 +15,7 @@ public interface Drivebase extends PathConstraintsSupplier {
 
     void driveWithSpeeds(ChassisSpeeds chassisSpeeds);
 
-    static Drivebase get(VisionOdometry vision, Alliance alliance)
+    static Drivebase get(VisionMeasurementsSupplier vision, Alliance alliance)
             throws DrivebaseConstructorException {
         return new SwerveDrivebase(vision, alliance);
     }

@@ -6,18 +6,17 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.vision.VisionOdometry;
+import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveParser;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
-    private final VisionOdometry vision;
+    private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
 
-    SwerveDrivebase(VisionOdometry vision, Alliance alliance)
-            throws DrivebaseConstructorException {
+    SwerveDrivebase(VisionMeasurementsSupplier vision, Alliance alliance) throws DrivebaseConstructorException {
         this.vision = vision;
 
         final Pose2d initialPose = switch (alliance) {
