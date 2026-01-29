@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import javax.management.RuntimeErrorException;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -69,7 +70,11 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    try {
+      m_robotContainer = new RobotContainer();
+    } catch (RobotException e) {
+      throw new RuntimeException(e);
+    }
 
     // Create a timer to disable motor brake a few seconds after disable. This will
     // let the robot

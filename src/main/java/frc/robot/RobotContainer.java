@@ -59,7 +59,7 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {
+  public RobotContainer() throws RobotInitException {
     // Rizz up the ops
     Rizzler.rizz();
 
