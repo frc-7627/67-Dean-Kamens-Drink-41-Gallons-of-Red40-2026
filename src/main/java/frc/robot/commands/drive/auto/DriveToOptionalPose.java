@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WrapperCommand;
 import frc.robot.subsystems.drivebase.AutoDrive;
 
-class DriveToPose extends WrapperCommand {
-    DriveToPose(AutoDrive drivebase,
-            Optional<Pose2d> targetPoseOptional) {
-        super(targetPoseOptional.isPresent() ? AutoBuilder.pathfindToPose(targetPoseOptional.get(),
+class DriveToOptionalPose extends WrapperCommand {
+    DriveToOptionalPose(AutoDrive drivebase,
+            Optional<Pose2d> poseOptional) {
+        super(poseOptional.isPresent() ? AutoBuilder.pathfindToPose(poseOptional.get(),
                 drivebase.getPathConstraints()) : Commands.none());
 
         addRequirements(drivebase);
