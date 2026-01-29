@@ -62,18 +62,6 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public void resetOdometryToInitial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resetOdometryToInitial'");
-    }
-
-    @Override
-    public void centerModules() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'centerModules'");
-    }
-
-    @Override
     public void driveWithSpeeds(ChassisSpeeds chassisSpeeds) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'driveWithSpeeds'");

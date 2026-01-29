@@ -8,9 +8,5 @@ public interface ManualDrivebase extends Subsystem {
 
     void zeroGyro();
 
-    void resetOdometryToInitial();
-
-    void centerModules();
-
     void driveWithSpeeds(ChassisSpeeds chassisSpeeds);
 }
