@@ -1,6 +1,8 @@
 package frc.robot.subsystems.drivebase;
 
-public class DrivebaseConstructorException extends Exception {
+import frc.robot.RobotInitException;
+
+public class DrivebaseConstructorException extends RobotInitException {
     DrivebaseConstructorException(String msg, Throwable cause) {
         super(msg, cause);
     }
