@@ -15,9 +15,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.drive.manual.DriveWithInput;
+import frc.robot.resources.vision.Vision;
+import frc.robot.resources.vision.VisionInitException;
 import frc.robot.subsystems.GameInfo;
 import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.drivebase.Drivebase;
+import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.indication.LED;
 import frc.robot.subsystems.legacy.SwerveSubsystem;
 import frc.robot.teleop.command.TeleopCommands;
@@ -41,9 +46,10 @@ public class RobotContainer {
   private final DriverController driverController = new DriverXboxController();
   private final TeleopController operatorController = new OperatorXboxController();
 
-  // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem drivebase =
-      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+  // The robot's subsystems and resources are defined here...
+  private final Drivebase drivebase;
+
+  private final Vision vision;
 
   private final GameInfo gameInfo = new GameInfo();
 
@@ -60,49 +66,62 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() throws RobotInitException {
+    this.autoChooser = AutoBuilder.buildAutoChooser();
+
+    try {
+      this.vision = Vision.create();
+    } catch (VisionInitException cause) {
+      throw new RobotInitException("Could not initialize vision!", cause);
+    }
+
+    try {
+      // TODO
+      this.drivebase = Drivebase.create(vision, null);
+    } catch (DrivebaseInitException cause) {
+      throw new RobotInitException("Could not initialize drivebase!", cause);
+    }
+
+    // Configure
+    configureTeleop();
+    configureAuto();
+
     // Rizz up the ops
     Rizzler.rizz();
+  }
 
-    // Configure the trigger bindings
-    configureBindings();
+  /**
+   * Configure teleop stuff.
+   */
+  private void configureTeleop() {
+    drivebase
+        .setDefaultCommand(new DriveWithInput(drivebase, driverController.getInput(drivebase)));
+
+    final TeleopCommands teleopCommands = new TeleopCommands(indicator, drivebase, intake);
+
+    teleopCommands.bindToController(driverController);
+    teleopCommands.bindToController(operatorController);
+
+  }
+
+  /**
+   * Configure auto stuff.
+   */
+  private void configureAuto() {
     DriverStation.silenceJoystickConnectionWarning(true);
 
     // Create the NamedCommands that will be used in PathPlanner
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-
-    // Have the autoChooser pull in all PathPlanner autos as options
-    autoChooser = AutoBuilder.buildAutoChooser();
 
     // Set the default auto (do nothing)
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
 
     // Add a simple auto option to have the robot drive forward for 1 second then
     // stop
-    autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
+    // TODO: replace
+    // autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
 
     // Put the autoChooser on the SmartDashboard
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
-  }
-
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in
-   * {@link edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-   * {@link CommandXboxController
-   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4} controllers or
-   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
-   */
-  private void configureBindings() {
-    // TODO: set default command on drivebase
-
-    final TeleopCommands teleopCommands =
-        new TeleopCommands(indicator, drivebase, intake);
-
-    teleopCommands.bindToController(driverController);
-    teleopCommands.bindToController(operatorController);
-
   }
 
   /**
@@ -116,8 +135,8 @@ public class RobotContainer {
     return autoChooser.getSelected();
   }
 
-  public void setMotorBrake(boolean brake) {
-    drivebase.setMotorBrake(brake);
+  public void setBrake(boolean brake) {
+    drivebase.setBrake(brake);
   }
 
   /**

@@ -7,25 +7,27 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.drive.auto.RotateCCW90;
+import frc.robot.commands.drive.manual.Lock;
+import frc.robot.commands.drive.manual.ZeroGyro;
 import frc.robot.commands.intake.LoadIntake;
 
 public enum TeleopCommandFactory {
     /**
      * 
      */
-    LOCK(context -> Commands.runOnce(context.drivebase()::lock, context.drivebase()).repeatedly(),
+    LOCK(context -> new Lock(context.drivebase()),
             Trigger::whileTrue),
     /**
      * 
      */
-    ZERO_GYRO(context -> Commands.runOnce(context.drivebase()::zeroGyro, context.drivebase()),
+    ZERO_GYRO(context -> new ZeroGyro(context.drivebase()),
             Trigger::whileTrue),
     /**
      * 
      */
     ROTATE_90_DEG(
-            context -> Commands.runOnce(() -> context.drivebase()
-                    .driveToPose(context.drivebase().getPose().rotateBy(Rotation2d.kCCW_90deg))),
+            context -> new RotateCCW90(context.drivebase()),
             Trigger::onTrue),
     /**
      * 
