@@ -35,6 +35,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Filesystem;
 import frc.robot.subsystems.GameInfo;
 import swervelib.math.Matter;
 
@@ -73,8 +74,7 @@ public final class Constants {
     // }
 
     public static final class DrivebaseConstants {
-        // TODO
-        public static final File SWERVE_CONFIG_FILE = null;
+        public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
 
         public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
                 new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
