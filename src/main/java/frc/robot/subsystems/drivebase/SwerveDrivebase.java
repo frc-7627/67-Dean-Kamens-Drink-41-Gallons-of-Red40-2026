@@ -44,12 +44,16 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     }
 
-    @Override
-    public void periodic() {
+    private void updateVisionMeasurements() {
         vision.getVisionMeasurements().forEach(visionMeasurement -> {
             swerveDrive.addVisionMeasurement(visionMeasurement.getPose(),
                     visionMeasurement.getTimestamp(), visionMeasurement.getStdDevs());
         });
+    }
+
+    @Override
+    public void periodic() {
+        updateVisionMeasurements();
     }
 
     private SwerveInputStream getDefaultInput(DoubleSupplier x, DoubleSupplier y,
