@@ -7,5 +7,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 public interface AutoDrivebase extends Subsystem {
     PathConstraints getPathConstraints();
 
+    /**
+     * Gets the measured pose (position and rotation) of the robot, as reported by
+     * odometry.
+     *
+     * @return The robot's pose
+     */
     Pose2d getPose();
 }

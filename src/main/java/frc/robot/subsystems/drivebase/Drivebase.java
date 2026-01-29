@@ -8,6 +8,11 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 public interface Drivebase extends AutoDrivebase, ManualDrivebase, InputSupplier {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 
+    /**
+     * Sets the motor mode to brake
+     * 
+     * @param brake is the brake on or off
+     */
     void setBrake(boolean brake);
 
     static Drivebase create(VisionMeasurementsSupplier vision, GeneralGameInfoSupplier gameInfoSupplier)
