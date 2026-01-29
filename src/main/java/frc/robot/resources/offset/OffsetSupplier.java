@@ -1,4 +1,4 @@
-package frc.robot.subsystems.offset;
+package frc.robot.resources.offset;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
