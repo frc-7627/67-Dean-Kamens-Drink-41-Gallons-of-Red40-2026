@@ -30,7 +30,7 @@ public enum TeleopCommandFactory {
 
     private final Function<CommandContext, Command> commandSupplier;
 
-    TeleopCommandFactory(Function<CommandContext, Command> commandSupplier) {
+    private TeleopCommandFactory(Function<CommandContext, Command> commandSupplier) {
         this.commandSupplier = commandSupplier;
     }
 
