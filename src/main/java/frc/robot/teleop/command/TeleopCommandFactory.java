@@ -1,6 +1,7 @@
 package frc.robot.teleop.command;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -75,5 +76,9 @@ public enum TeleopCommandFactory {
 
     public TeleopCommand makeTeleopCommand(CommandContext context) {
         return new TeleopCommand(commandSupplier.apply(context), binder);
+    }
+
+    Consumer<Trigger> getBinder(CommandContext context) {
+        return trigger -> binder.accept(trigger, commandSupplier.apply(context));
     }
 }
