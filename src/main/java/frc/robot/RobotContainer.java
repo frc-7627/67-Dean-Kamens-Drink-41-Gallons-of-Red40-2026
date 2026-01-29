@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.drive.manual.DriveWithInput;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
+import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.Vision;
 import frc.robot.resources.vision.VisionInitException;
@@ -91,17 +92,22 @@ public class RobotContainer {
     }
 
     // Configure
-    configureTeleop();
-    configureAuto();
+    setupTeleop();
+
+    try {
+      setupAuto();
+    } catch (PathPlannerConfigException cause) {
+      throw new RobotInitException("Could not configure autos!", cause);
+    }
 
     // Rizz up the ops
     Rizzler.rizz();
   }
 
   /**
-   * Configure teleop stuff.
+   * Setup teleop stuff.
    */
-  private void configureTeleop() {
+  private void setupTeleop() {
     drivebase
         .setDefaultCommand(new DriveWithInput(drivebase, driverController.getInput(drivebase)));
 
@@ -113,10 +119,10 @@ public class RobotContainer {
   }
 
   /**
-   * Configure auto stuff.
+   * Setup auto stuff.
    */
-  private void configureAuto() {
-    drivebase.getPathPlannerConfigurator().ifPresent(PathPlannerConfigurator::configureAndInit);
+  private void setupAuto() throws PathPlannerConfigException {
+    drivebase.getPathPlannerConfigurator().get().configureAndInit();
 
     DriverStation.silenceJoystickConnectionWarning(true);
 
