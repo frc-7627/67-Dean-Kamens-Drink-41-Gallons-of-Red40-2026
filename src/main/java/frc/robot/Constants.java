@@ -7,18 +7,10 @@ package frc.robot;
 import static edu.wpi.first.units.Units.Hertz;
 import static edu.wpi.first.units.Units.Meter;
 import java.io.File;
-import org.littletonrobotics.junction.LogFileUtil;
-
-import com.pathplanner.lib.config.PIDConstants;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Frequency;
 
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import org.photonvision.simulation.SimCameraProperties;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SingleFadeAnimation;
@@ -26,8 +18,6 @@ import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -74,7 +64,8 @@ public final class Constants {
     // }
 
     public static final class DrivebaseConstants {
-        public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
+        public static final File SWERVE_CONFIG_FILE =
+                new File(Filesystem.getDeployDirectory(), "swerve");
 
         public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
                 new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));

@@ -14,7 +14,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
-import frc.robot.subsystems.drivebase.AutoDrivebase;
 
 class PathPlannerConfiguratorImpl implements PathPlannerConfigurator {
     private static final Alliance ORIGIN_ALLIANCE = Alliance.Blue;
