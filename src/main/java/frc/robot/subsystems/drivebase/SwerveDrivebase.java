@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
+import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
+import static frc.robot.Constants.OperatorConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private final VisionMeasurementsSupplier vision;
@@ -36,6 +38,15 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
 
+    }
+
+    private SwerveInputStream getDefaultInput(DoubleSupplier x, DoubleSupplier y,
+            DoubleSupplier rot) {
+        return SwerveInputStream
+                .of(swerveDrive, x, y)
+                .withControllerRotationAxis(rot)
+                .deadband(DEADBAND).scaleTranslation(0.8)
+                .allianceRelativeControl(true);
     }
 
     @Override
@@ -89,7 +100,6 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public Supplier<ChassisSpeeds> getInput(DoubleSupplier x, DoubleSupplier y,
             DoubleSupplier rot) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInput'");
+        return getDefaultInput(x, y, rot);
     }
 }
