@@ -18,7 +18,7 @@ public class TeleopCommands {
 
     public void bindToController(TeleopController controller) {
         teleopCommandFactories.forEach(factory -> {
-            controller.bindCommand(factory, factory.getBinder(commandContext));
+            controller.bindCommand(factory, factory.getBinderConsumer(commandContext));
         });
     }
 }
