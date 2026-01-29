@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.controllers.PathFollowingController;
 import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
@@ -62,6 +66,28 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
                 .deadband(DEADBAND).scaleTranslation(0.8).allianceRelativeControl(true);
     }
 
+    private void resetOdometry(Pose2d pose) {
+        swerveDrive.resetOdometry(pose);
+    }
+
+    private ChassisSpeeds getSpeeds() {
+        return swerveDrive.getRobotVelocity();
+    }
+
+    private void driveWithSpeedsAndFeedForwards(ChassisSpeeds speeds,
+            DriveFeedforwards feedforwards) {
+        swerveDrive.drive(speeds, swerveDrive.kinematics.toSwerveModuleStates(speeds),
+                feedforwards.linearForces());
+    }
+
+    private PathFollowingController getController() {
+        return new PPHolonomicDriveController(
+                // Translation PID Constants
+                new PIDConstants(5.0, 0.0, 0.0),
+                // Rotation PID Constants
+                new PIDConstants(5.0, 0.0, 0.0));
+    }
+
     @Override
     public void lock() {
         swerveDrive.lockPose();
@@ -90,11 +116,12 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     @Override
     public Optional<PathPlannerConfigurator> getPathPlannerConfigurator() {
-        // TODO Auto-generated method stub
         final boolean gotConfigurator = this.gotConfigurator;
         this.gotConfigurator = true;
-        throw new UnsupportedOperationException(
-                "Unimplemented method 'getPathPlannerConfigurator'");
+        return gotConfigurator ? Optional.empty()
+                : Optional.of(PathPlannerConfigurator.create(this::getPose, this::resetOdometry,
+                        this::getSpeeds, this::driveWithSpeedsAndFeedForwards, getController(),
+                        gameInfoSupplier, this));
     }
 
     @Override
