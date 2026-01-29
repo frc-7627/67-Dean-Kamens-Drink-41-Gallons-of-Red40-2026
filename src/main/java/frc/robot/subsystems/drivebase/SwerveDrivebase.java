@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveParser;
@@ -74,5 +75,11 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     public Pose2d getPose() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPose'");
+    }
+
+    @Override
+    public PathPlannerConfigurator getPathPlannerConfigurator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPathPlannerConfigurator'");
     }
 }
