@@ -1,8 +1,8 @@
 package frc.robot.resources.vision;
 
-import frc.robot.RobotInitException;
+import frc.robot.RobotException;
 
-public class VisionInitException extends RobotInitException {
+public final class VisionInitException extends RobotException {
     VisionInitException(String msg, Throwable cause) {
         super(msg, cause);
     }
