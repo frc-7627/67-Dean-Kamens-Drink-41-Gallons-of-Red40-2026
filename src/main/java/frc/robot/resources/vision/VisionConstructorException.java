@@ -1,4 +1,4 @@
-package frc.robot.subsystems.vision;
+package frc.robot.resources.vision;
 
 public class VisionConstructorException extends Exception {
     VisionConstructorException(String msg, Throwable cause) {

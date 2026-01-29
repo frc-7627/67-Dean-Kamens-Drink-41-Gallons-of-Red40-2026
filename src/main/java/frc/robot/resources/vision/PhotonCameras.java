@@ -1,8 +1,9 @@
-package frc.robot.subsystems.vision;
+package frc.robot.resources.vision;
 
 import java.util.List;
+import frc.robot.resources.Resource;
 
-class PhotonCameras implements Vision {
+class PhotonCameras extends Resource implements Vision {
     PhotonCameras() throws VisionConstructorException {
 
     }
