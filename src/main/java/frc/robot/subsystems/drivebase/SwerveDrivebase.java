@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
@@ -23,6 +23,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
+    private boolean gotConfigurator;
 
     SwerveDrivebase(VisionMeasurementsSupplier vision, GeneralGameInfoSupplier gameInfoSupplier)
             throws DrivebaseInitException {
@@ -43,49 +44,53 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     }
 
+    @Override
+    public void periodic() {
+        vision.getVisionMeasurements().forEach(visionMeasurement -> {
+            swerveDrive.addVisionMeasurement(visionMeasurement.getPose(),
+                    visionMeasurement.getTimestamp(), visionMeasurement.getStdDevs());
+        });
+    }
+
     private SwerveInputStream getDefaultInput(DoubleSupplier x, DoubleSupplier y,
             DoubleSupplier rot) {
-        return SwerveInputStream
-                .of(swerveDrive, x, y)
-                .withControllerRotationAxis(rot)
-                .deadband(DEADBAND).scaleTranslation(0.8)
-                .allianceRelativeControl(true);
+        return SwerveInputStream.of(swerveDrive, x, y).withControllerRotationAxis(rot)
+                .deadband(DEADBAND).scaleTranslation(0.8).allianceRelativeControl(true);
     }
 
     @Override
     public void lock() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lock'");
+        swerveDrive.lockPose();
     }
 
     @Override
     public void zeroGyro() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'zeroGyro'");
+        swerveDrive.zeroGyro();
     }
 
     @Override
     public void driveWithSpeeds(ChassisSpeeds chassisSpeeds) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'driveWithSpeeds'");
+        swerveDrive.drive(chassisSpeeds);
     }
 
     @Override
     public PathConstraints getPathConstraints() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPathConstraints'");
+        return new PathConstraints(swerveDrive.getMaximumChassisVelocity(), 4.0,
+                swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
     }
 
     @Override
     public Pose2d getPose() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPose'");
+        return swerveDrive.getPose();
     }
 
     @Override
     public Optional<PathPlannerConfigurator> getPathPlannerConfigurator() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPathPlannerConfigurator'");
+        final boolean gotConfigurator = this.gotConfigurator;
+        this.gotConfigurator = true;
+        throw new UnsupportedOperationException(
+                "Unimplemented method 'getPathPlannerConfigurator'");
     }
 
     @Override
@@ -96,7 +101,6 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     @Override
     public void setBrake(boolean brake) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setBrake'");
+        swerveDrive.setMotorIdleMode(brake);
     }
 }

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.drive.manual.DriveWithInput;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
+import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.Vision;
 import frc.robot.resources.vision.VisionInitException;
 import frc.robot.subsystems.GameInfo;
@@ -115,6 +116,8 @@ public class RobotContainer {
    * Configure auto stuff.
    */
   private void configureAuto() {
+    drivebase.getPathPlannerConfigurator().ifPresent(PathPlannerConfigurator::configureAndInit);
+
     DriverStation.silenceJoystickConnectionWarning(true);
 
     // Create the NamedCommands that will be used in PathPlanner
