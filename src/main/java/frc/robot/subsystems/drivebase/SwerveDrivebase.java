@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
@@ -19,14 +20,16 @@ import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
+    private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
 
-    SwerveDrivebase(VisionMeasurementsSupplier vision, Alliance alliance)
+    SwerveDrivebase(VisionMeasurementsSupplier vision, GeneralGameInfoSupplier gameInfoSupplier)
             throws DrivebaseInitException {
+        this.gameInfoSupplier = gameInfoSupplier;
         this.vision = vision;
 
-        final Pose2d initialPose = switch (alliance) {
+        final Pose2d initialPose = switch (gameInfoSupplier.getAlliance()) {
             case Red -> RED_ALLIANCE_INITIAL_POSE;
             case Blue -> BLUE_ALLIANCE_INITIAL_POSE;
         };

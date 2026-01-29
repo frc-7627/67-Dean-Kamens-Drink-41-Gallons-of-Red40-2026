@@ -2,6 +2,7 @@ package frc.robot.subsystems.drivebase;
 
 import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 
@@ -10,8 +11,8 @@ public interface Drivebase extends AutoDrivebase, ManualDrivebase, InputSupplier
 
     void setBrake(boolean brake);
 
-    static Drivebase create(VisionMeasurementsSupplier vision, Alliance alliance)
+    static Drivebase create(VisionMeasurementsSupplier vision, GeneralGameInfoSupplier gameInfoSupplier)
             throws DrivebaseInitException {
-        return new SwerveDrivebase(vision, alliance);
+        return new SwerveDrivebase(vision, gameInfoSupplier);
     }
 }

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.drive.manual.DriveWithInput;
+import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.vision.Vision;
 import frc.robot.resources.vision.VisionInitException;
 import frc.robot.subsystems.GameInfo;
@@ -51,11 +52,11 @@ public class RobotContainer {
 
   private final Vision vision;
 
-  private final GameInfo gameInfo = new GameInfo();
+  private final GameInfoSupplier gameInfoSupplier;
 
-  private final Indicator indicator = new Indicator(gameInfo, new LED());
+  private final Indicator indicator;
 
-  private final Intake intake = new Intake();
+  private final Intake intake;
 
   // Establish a Sendable Chooser that will be able to be sent to the
   // SmartDashboard, allowing
@@ -68,6 +69,14 @@ public class RobotContainer {
   public RobotContainer() throws RobotInitException {
     this.autoChooser = AutoBuilder.buildAutoChooser();
 
+    this.gameInfoSupplier = GameInfoSupplier.create();
+
+    // TODO
+    this.indicator = null;
+
+    // TODO
+    this.intake = null;
+
     try {
       this.vision = Vision.create();
     } catch (VisionInitException cause) {
@@ -75,8 +84,7 @@ public class RobotContainer {
     }
 
     try {
-      // TODO
-      this.drivebase = Drivebase.create(vision, null);
+      this.drivebase = Drivebase.create(vision, gameInfoSupplier);
     } catch (DrivebaseInitException cause) {
       throw new RobotInitException("Could not initialize drivebase!", cause);
     }
