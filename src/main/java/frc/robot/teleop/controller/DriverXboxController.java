@@ -1,9 +1,11 @@
 package frc.robot.teleop.controller;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.drivebase.InputSupplier;
 import frc.robot.subsystems.legacy.SwerveSubsystem;
@@ -12,101 +14,102 @@ import frc.robot.teleop.command.TeleopCommandFactory;
 import swervelib.SwerveInputStream;
 
 public class DriverXboxController implements DriverController {
-        private final CommandXboxController xboxController = new CommandXboxController(0);
+    private final CommandXboxController xboxController = new CommandXboxController(0);
 
-        @Override
-        public void bindCommand(TeleopCommandFactory factory, TeleopCommand command,
-                        ControlContext controlContext) {
+    @Override
+    public void bindCommand(TeleopCommandFactory factory, TeleopCommand command,
+            ControlContext controlContext) {
 
-                if (controlContext.isSimulation()) {
-                        switch (factory) {
-                                case RESET_ODOMETRY_START_SIM -> command
-                                                .bindTrigger(xboxController.start());
-                                case CHARACTERIZE_DRIVE_MOTORS_SIM -> command
-                                                .bindTrigger(xboxController.button(1));
-                                case DRIVE_ANGLE_KEYBOARD_SIM -> command
-                                                .bindTrigger(xboxController.button(2));
-                                default -> {
-                                }
-                        }
+        if (controlContext.isSimulation()) {
+            switch (factory) {
+                case RESET_ODOMETRY_START_SIM -> command.bindTrigger(xboxController.start());
+                case CHARACTERIZE_DRIVE_MOTORS_SIM -> command.bindTrigger(xboxController.button(1));
+                case DRIVE_ANGLE_KEYBOARD_SIM -> command.bindTrigger(xboxController.button(2));
+                default -> {
                 }
+            }
+        }
 
-                if (controlContext.isTest()) {
-                        switch (factory) {
-                                case LOCK -> command.bindTrigger(xboxController.x());
-                                case ZERO_GYRO -> command.bindTrigger(xboxController.start());
-                                case CENTER_MODULES -> command.bindTrigger(xboxController.back());
-                                default -> {
-                                }
-                        }
-                } else {
-                        switch (factory) {
-                                case LOCK -> command.bindTrigger(xboxController.leftBumper());
-                                case ZERO_GYRO -> command.bindTrigger(xboxController.a());
-                                case ADD_FAKE_VISION_READING -> command
-                                                .bindTrigger(xboxController.x());
-                                case ROTATE_90_DEG -> command.bindTrigger(xboxController.y());
-                                default -> {
-                                }
-                        }
+        if (controlContext.isTest()) {
+            switch (factory) {
+                case LOCK -> command.bindTrigger(xboxController.x());
+                case ZERO_GYRO -> command.bindTrigger(xboxController.start());
+                case CENTER_MODULES -> command.bindTrigger(xboxController.back());
+                default -> {
                 }
+            }
+        } else {
+            switch (factory) {
+                case LOCK -> command.bindTrigger(xboxController.leftBumper());
+                case ZERO_GYRO -> command.bindTrigger(xboxController.a());
+                case ADD_FAKE_VISION_READING -> command.bindTrigger(xboxController.x());
+                case ROTATE_90_DEG -> command.bindTrigger(xboxController.y());
+                default -> {
+                }
+            }
         }
+    }
 
-        @Override
-        public Supplier<ChassisSpeeds> getInput(InputSupplier drivebase) {
-                return drivebase.getInput(() -> xboxController.getLeftY() * -1,
-                                () -> xboxController.getLeftX() * -1, xboxController::getRightX);
+    @Override
+    public void bindCommand(TeleopCommandFactory factory, Consumer<Trigger> binder) {
+        switch (factory) {
+            case LOCK -> binder.accept(xboxController.leftBumper());
+            case ZERO_GYRO -> binder.accept(xboxController.a());
+            case ROTATE_90_DEG -> binder.accept(xboxController.y());
+            default -> {
+            }
         }
+    }
 
-        @Override
-        public TeleopDriveInputs getTeleopDriveInputs(SwerveSubsystem drivebase) {
-                /**
-                 * Converts driver input into a field-relative ChassisSpeeds that is controlled by
-                 * angular velocity.
-                 */
-                SwerveInputStream driveAngularVelocity = SwerveInputStream
-                                .of(drivebase.getSwerveDrive(),
-                                                () -> xboxController.getLeftY() * -1,
-                                                () -> xboxController.getLeftX() * -1)
-                                .withControllerRotationAxis(xboxController::getRightX)
-                                .deadband(OperatorConstants.DEADBAND).scaleTranslation(0.8)
-                                .allianceRelativeControl(true);
+    @Override
+    public Supplier<ChassisSpeeds> getInput(InputSupplier drivebase) {
+        return drivebase.getInput(() -> xboxController.getLeftY() * -1,
+                () -> xboxController.getLeftX() * -1, xboxController::getRightX);
+    }
 
-                /**
-                 * Clone's the angular velocity input stream and converts it to a fieldRelative
-                 * input stream.
-                 */
-                SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
-                                .withControllerHeadingAxis(xboxController::getRightX,
-                                                xboxController::getRightY)
-                                .headingWhile(true);
+    @Override
+    public TeleopDriveInputs getTeleopDriveInputs(SwerveSubsystem drivebase) {
+        /**
+         * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular
+         * velocity.
+         */
+        SwerveInputStream driveAngularVelocity = SwerveInputStream
+                .of(drivebase.getSwerveDrive(), () -> xboxController.getLeftY() * -1,
+                        () -> xboxController.getLeftX() * -1)
+                .withControllerRotationAxis(xboxController::getRightX)
+                .deadband(OperatorConstants.DEADBAND).scaleTranslation(0.8)
+                .allianceRelativeControl(true);
 
-                /**
-                 * Clone's the angular velocity input stream and converts it to a robotRelative
-                 * input stream.
-                 */
-                SwerveInputStream driveRobotOriented = driveAngularVelocity.copy()
-                                .robotRelative(true).allianceRelativeControl(false);
+        /**
+         * Clone's the angular velocity input stream and converts it to a fieldRelative input
+         * stream.
+         */
+        SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
+                .withControllerHeadingAxis(xboxController::getRightX, xboxController::getRightY)
+                .headingWhile(true);
 
-                SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream
-                                .of(drivebase.getSwerveDrive(), () -> -xboxController.getLeftY(),
-                                                () -> -xboxController.getLeftX())
-                                .withControllerRotationAxis(() -> xboxController.getRawAxis(2))
-                                .deadband(OperatorConstants.DEADBAND).scaleTranslation(0.8)
-                                .allianceRelativeControl(true);
-                // Derive the heading axis with math!
-                SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard
-                                .copy()
-                                .withControllerHeadingAxis(
-                                                () -> Math.sin(xboxController.getRawAxis(2)
-                                                                * Math.PI) * (Math.PI * 2),
-                                                () -> Math.cos(xboxController.getRawAxis(2)
-                                                                * Math.PI) * (Math.PI * 2))
-                                .headingWhile(true).translationHeadingOffset(true)
-                                .translationHeadingOffset(Rotation2d.fromDegrees(0));
+        /**
+         * Clone's the angular velocity input stream and converts it to a robotRelative input
+         * stream.
+         */
+        SwerveInputStream driveRobotOriented =
+                driveAngularVelocity.copy().robotRelative(true).allianceRelativeControl(false);
 
-                return new TeleopDriveInputs(driveAngularVelocity, driveDirectAngle,
-                                driveRobotOriented, driveAngularVelocityKeyboard,
-                                driveDirectAngleKeyboard);
-        }
+        SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream
+                .of(drivebase.getSwerveDrive(), () -> -xboxController.getLeftY(),
+                        () -> -xboxController.getLeftX())
+                .withControllerRotationAxis(() -> xboxController.getRawAxis(2))
+                .deadband(OperatorConstants.DEADBAND).scaleTranslation(0.8)
+                .allianceRelativeControl(true);
+        // Derive the heading axis with math!
+        SwerveInputStream driveDirectAngleKeyboard = driveAngularVelocityKeyboard.copy()
+                .withControllerHeadingAxis(
+                        () -> Math.sin(xboxController.getRawAxis(2) * Math.PI) * (Math.PI * 2),
+                        () -> Math.cos(xboxController.getRawAxis(2) * Math.PI) * (Math.PI * 2))
+                .headingWhile(true).translationHeadingOffset(true)
+                .translationHeadingOffset(Rotation2d.fromDegrees(0));
+
+        return new TeleopDriveInputs(driveAngularVelocity, driveDirectAngle, driveRobotOriented,
+                driveAngularVelocityKeyboard, driveDirectAngleKeyboard);
+    }
 }
