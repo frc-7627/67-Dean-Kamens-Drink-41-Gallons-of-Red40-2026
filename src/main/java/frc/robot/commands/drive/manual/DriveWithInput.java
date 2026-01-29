@@ -1,4 +1,4 @@
-package frc.robot.commands.drivebase;
+package frc.robot.commands.drive.manual;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;

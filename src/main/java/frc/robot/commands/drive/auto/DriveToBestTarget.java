@@ -1,4 +1,4 @@
-package frc.robot.commands.drivebase;
+package frc.robot.commands.drive.auto;
 
 import frc.robot.subsystems.drivebase.AutoDrive;
 import frc.robot.subsystems.offset.OffsetSupplier;

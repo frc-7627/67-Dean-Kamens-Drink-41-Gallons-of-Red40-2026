@@ -1,4 +1,4 @@
-package frc.robot.commands.drivebase;
+package frc.robot.commands.drive.auto;
 
 import java.util.Optional;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WrapperCommand;
 import frc.robot.subsystems.drivebase.AutoDrive;
 
-public class DriveToPose extends WrapperCommand {
-    public DriveToPose(AutoDrive drivebase,
+class DriveToPose extends WrapperCommand {
+    DriveToPose(AutoDrive drivebase,
             Optional<Pose2d> targetPoseOptional) {
         super(targetPoseOptional.isPresent() ? AutoBuilder.pathfindToPose(targetPoseOptional.get(),
                 drivebase.getPathConstraints()) : Commands.none());
