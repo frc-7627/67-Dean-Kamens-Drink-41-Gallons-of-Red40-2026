@@ -2,6 +2,8 @@ package frc.robot.subsystems.drivebase;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -82,5 +84,12 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     public Optional<PathPlannerConfigurator> getPathPlannerConfigurator() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPathPlannerConfigurator'");
+    }
+
+    @Override
+    public Supplier<ChassisSpeeds> getInput(DoubleSupplier x, DoubleSupplier y,
+            DoubleSupplier rot) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getInput'");
     }
 }

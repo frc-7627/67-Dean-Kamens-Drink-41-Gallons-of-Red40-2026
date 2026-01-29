@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 
-public interface Drivebase extends AutoDrivebase, ManualDrivebase {
+public interface Drivebase extends AutoDrivebase, ManualDrivebase, InputSupplier {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 
     static Drivebase create(VisionMeasurementsSupplier vision, Alliance alliance)
