@@ -8,6 +8,8 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 public interface Drivebase extends AutoDrivebase, ManualDrivebase, InputSupplier {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 
+    void setBrake(boolean brake);
+
     static Drivebase create(VisionMeasurementsSupplier vision, Alliance alliance)
             throws DrivebaseInitException {
         return new SwerveDrivebase(vision, alliance);

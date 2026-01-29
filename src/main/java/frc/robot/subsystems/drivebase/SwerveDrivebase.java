@@ -102,4 +102,10 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
             DoubleSupplier rot) {
         return getDefaultInput(x, y, rot);
     }
+
+    @Override
+    public void setBrake(boolean brake) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setBrake'");
+    }
 }
