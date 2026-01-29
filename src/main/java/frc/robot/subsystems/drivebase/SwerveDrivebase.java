@@ -69,4 +69,10 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPathConstraints'");
     }
+
+    @Override
+    public Pose2d getPose() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPose'");
+    }
 }
