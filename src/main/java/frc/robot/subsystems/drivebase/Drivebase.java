@@ -5,7 +5,7 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 
 public interface Drivebase extends AutoDrivebase, ManualDrivebase {
     static Drivebase create(VisionMeasurementsSupplier vision, Alliance alliance)
-            throws DrivebaseConstructorException {
+            throws DrivebaseInitException {
         return new SwerveDrivebase(vision, alliance);
     }
 }

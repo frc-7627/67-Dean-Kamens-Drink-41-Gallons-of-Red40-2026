@@ -4,7 +4,7 @@ import java.util.List;
 import frc.robot.resources.Resource;
 
 class PhotonCameras extends Resource implements Vision {
-    PhotonCameras() throws VisionConstructorException {
+    PhotonCameras() throws VisionInitException {
 
     }
 

@@ -17,7 +17,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private final SwerveDrive swerveDrive;
 
     SwerveDrivebase(VisionMeasurementsSupplier vision, Alliance alliance)
-            throws DrivebaseConstructorException {
+            throws DrivebaseInitException {
         this.vision = vision;
 
         final Pose2d initialPose = switch (alliance) {
@@ -29,7 +29,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
             this.swerveDrive =
                     new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
         } catch (IOException cause) {
-            throw new DrivebaseConstructorException("Could not create swerve drive!", cause);
+            throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
 
     }
