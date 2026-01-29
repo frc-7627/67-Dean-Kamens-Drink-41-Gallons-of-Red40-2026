@@ -6,12 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -26,12 +21,10 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.indication.LED;
 import frc.robot.subsystems.legacy.SwerveSubsystem;
 import frc.robot.teleop.command.TeleopCommands;
-import frc.robot.teleop.controller.ControlContext;
 import frc.robot.teleop.controller.DriverController;
 import frc.robot.teleop.controller.DriverXboxController;
 import frc.robot.teleop.controller.OperatorXboxController;
 import frc.robot.teleop.controller.TeleopController;
-import frc.robot.teleop.controller.TeleopDriveInputs;
 
 import java.io.File;
 import org.littletonrobotics.junction.Logger; // TODO: Figure it out
@@ -102,27 +95,13 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
    */
   private void configureBindings() {
-    final ControlContext controlContext =
-        new ControlContext(Robot.isSimulation(), DriverStation.isTest());
-
-    final TeleopDriveInputs driveInputs = driverController.getTeleopDriveInputs(drivebase);
-
-    drivebase.setDefaultCommand(
-        drivebase.driveFieldOriented(driveInputs.getDefaultInputStream(drivebase, controlContext)));
+    // TODO: set default command on drivebase
 
     final TeleopCommands teleopCommands =
-        new TeleopCommands(indicator, drivebase, intake, driveInputs);
+        new TeleopCommands(indicator, drivebase, intake);
 
-    teleopCommands.bindToController(driverController, controlContext);
-    teleopCommands.bindToController(operatorController, controlContext);
-
-    if (controlContext.isSimulation()) {
-      Pose2d target = new Pose2d(new Translation2d(1, 4), Rotation2d.fromDegrees(90));
-      // drivebase.getSwerveDrive().field.getObject("targetPose").setPose(target);
-      driveInputs.driveDirectAngleKeyboard().driveToPose(() -> target,
-          new ProfiledPIDController(5, 0, 0, new Constraints(5, 2)), new ProfiledPIDController(5, 0,
-              0, new Constraints(Units.degreesToRadians(360), Units.degreesToRadians(180))));
-    }
+    teleopCommands.bindToController(driverController);
+    teleopCommands.bindToController(operatorController);
 
   }
 
