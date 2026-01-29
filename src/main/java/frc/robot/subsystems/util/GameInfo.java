@@ -1,17 +1,15 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.util;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotState;
 import frc.robot.Constants;
 
-public class GameInfo extends SubsystemBase {
+public class GameInfo {
     /**
      * A game phase.
      */
@@ -35,7 +33,6 @@ public class GameInfo extends SubsystemBase {
         BooleanEvent isDistinctAllianceEvent = new BooleanEvent(eventLoop, () -> isDistinctAlliance);
         BooleanEvent hasGotAllianceEvent = new BooleanEvent(eventLoop, () -> hasGotAlliance);
         this.allianceSetEvent = isDistinctAllianceEvent
-                .rising()
                 .or(hasGotAllianceEvent.rising());
 
         allianceSetEvent.ifHigh(() -> {
@@ -78,17 +75,12 @@ public class GameInfo extends SubsystemBase {
     }
 
     /**
-     * Run every cycle.
+     * Run every cycle when disabled.
      * 
-     * Updates the alliance, if disabled.
+     * Updates the alliance.
      */
-    @Override
-    public void periodic() {
-        if (RobotState.isDisabled()) {
-            updateAlliance();
-        } else {
-            isDistinctAlliance = false;
-        }
+    public void disabledPeriodic() {
+        updateAlliance();
 
         eventLoop.poll();
     }

@@ -92,7 +92,7 @@ abstract class BaseDashboardField<Inner> implements DashboardField {
      * @see #innerValue
      * @see #pushIfPull()
      */
-    public final void setInnerValue(Inner innerValue) {
+    public void setInnerValue(Inner innerValue) {
         this.innerValue = innerValue;
 
         if (!isValid()) {

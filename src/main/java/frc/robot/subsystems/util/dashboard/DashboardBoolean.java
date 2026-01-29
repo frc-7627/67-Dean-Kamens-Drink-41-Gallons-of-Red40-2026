@@ -31,7 +31,7 @@ public class DashboardBoolean extends DashboardValue<Boolean> {
      * @see SmartDashboard#putBoolean(String, Boolean)
      */
     @Override
-    protected final void pushWithKey(String key) {
+    protected void pushWithKey(String key) {
         SmartDashboard.putBoolean(key, getInnerValue());
     }
 
@@ -43,7 +43,7 @@ public class DashboardBoolean extends DashboardValue<Boolean> {
      * @see SmartDashboard#getBoolean(String, Boolean)
      */
     @Override
-    protected final void pullWithKey(String key) {
+    protected void pullWithKey(String key) {
         setInnerValue(SmartDashboard.getBoolean(key, getDefaultValue()));
     }
 }

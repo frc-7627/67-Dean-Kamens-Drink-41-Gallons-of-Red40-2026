@@ -2,27 +2,15 @@ package frc.robot.subsystems.indication;
 
 import frc.robot.Constants;
 
-import static edu.wpi.first.units.Units.Hertz;
-
 import com.ctre.phoenix6.controls.SolidColor;
-import com.ctre.phoenix6.controls.TwinkleAnimation;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
-import edu.wpi.first.units.measure.Frequency;
-import edu.wpi.first.units.measure.Time;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public class LED extends SubsystemBase {
+class LED {
     private final CANdle candle = new CANdle(Constants.CanIDs.CANDLE_CAN_ID);
 
     /**
-     * The subsystem implementing led indication. Do not use directly, use
-     * {@code Indicator} for
-     * indicating status.
-     * 
-     * @see frc.robot.subsystems.Indicator
+     * The LED.
      */
     public LED() {
     }

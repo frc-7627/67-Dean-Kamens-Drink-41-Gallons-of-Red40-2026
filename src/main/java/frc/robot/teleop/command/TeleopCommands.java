@@ -1,7 +1,7 @@
 package frc.robot.teleop.command;
 
 import java.util.List;
-import frc.robot.subsystems.Indicator;
+import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.teleop.controller.TeleopController;

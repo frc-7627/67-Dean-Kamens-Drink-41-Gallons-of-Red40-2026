@@ -17,7 +17,7 @@ import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
 import frc.robot.resources.vision.VisionInitException;
-import frc.robot.subsystems.Indicator;
+import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
@@ -48,7 +48,7 @@ public class RobotContainer {
 
     private final GameInfoSupplier gameInfoSupplier;
 
-    private final Indicator indicator;
+    private final frc.robot.subsystems.indication.Indicator indicator;
 
     private final Intake intake;
 
@@ -92,8 +92,7 @@ public class RobotContainer {
             throw new RobotInitException("Could not configure autos!", cause);
         }
 
-        // Rizz up the ops
-        Rizzler.rizz();
+        indicator.indicateStartup();
     }
 
     /**

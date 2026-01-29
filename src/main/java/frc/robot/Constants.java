@@ -24,9 +24,10 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
-import frc.robot.subsystems.GameInfo;
+import frc.robot.subsystems.util.GameInfo;
 import swervelib.math.Matter;
 
 /**
@@ -149,7 +150,8 @@ public final class Constants {
         public static final int ATTACHED_LED_COUNT = 0;
 
         public static final int FIRST_ATTACHED_LED_NUM = ONBOARD_LED_COUNT;
-        public static final int LAST_ATTACHED_LED_NUM = LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT;
+        public static final int LAST_ATTACHED_LED_NUM =
+                Math.min(LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT, FIRST_ATTACHED_LED_NUM);
 
         private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
 
@@ -163,10 +165,10 @@ public final class Constants {
                 new RainbowAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
         public static final TwinkleAnimation TWINKLE_ANIMATION =
-                new TwinkleAnimation(FIRST_ATTACHED_LED_NUM, ATTACHED_LED_COUNT);
+                new TwinkleAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
         public static final SingleFadeAnimation FADE_ANIMATION =
-                new SingleFadeAnimation(FIRST_ATTACHED_LED_NUM, ATTACHED_LED_COUNT);
+                new SingleFadeAnimation(FIRST_ATTACHED_LED_NUM, LAST_ATTACHED_LED_NUM);
 
         public static final Frequency STROBE_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
         public static final Frequency TWINK_FREQUENCY = Frequency.ofRelativeUnits(1.0, Hertz);
@@ -234,5 +236,18 @@ public final class Constants {
 
         public static double currentLimit = 40;
 
+    }
+
+    public static class Directories {
+        public static final String DEPLOY_DIRECTORY =
+                Filesystem.getDeployDirectory().getAbsolutePath();
+
+        public static final String SONGS_DIRECTORY =
+                String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
+    }
+
+    public static class StartupConstants {
+        public static final String STARTUP_BANNER_FILE_PATH =
+                String.format("%s/startup-banner.txt", Directories.DEPLOY_DIRECTORY);
     }
 }
