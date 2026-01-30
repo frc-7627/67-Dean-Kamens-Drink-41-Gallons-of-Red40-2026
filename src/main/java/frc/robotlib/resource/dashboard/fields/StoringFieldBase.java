@@ -59,5 +59,5 @@ abstract class StoringFieldBase<Stored> extends SubdashboardBase implements Stor
 
     abstract protected void push(Stored stored);
 
-    abstract protected Stored pull(Stored pulled);
+    abstract protected Stored pull(Stored currentStored);
 }
