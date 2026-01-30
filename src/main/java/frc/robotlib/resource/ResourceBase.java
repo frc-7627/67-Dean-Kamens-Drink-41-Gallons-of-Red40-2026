@@ -7,6 +7,7 @@ public class ResourceBase extends PeriodicBase implements Resource {
 
     protected ResourceBase(Collection<? extends Subresource> subresources) {
         super(subresources);
+        ResourceScheduler.getInstance().schedule(this);
     }
 
     @Override
