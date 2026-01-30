@@ -8,13 +8,14 @@ import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.resources.Resource;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 
 /**
  * Interface that plans and creates the path for the robot given its current
  * state.
  */
-public interface PathPlannerConfigurator {
+public interface PathPlannerConfigurator extends Resource {
     void configureAndInit() throws PathPlannerConfigException;
 
     static PathPlannerConfigurator create(Supplier<Pose2d> getPose, Consumer<Pose2d> resetOdometry,
