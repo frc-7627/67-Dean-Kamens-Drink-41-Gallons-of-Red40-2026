@@ -4,40 +4,39 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import java.util.List;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-
-import frc.robot.Constants;
-import frc.robot.subsystems.util.dashboard.DashboardField;
-import frc.robot.subsystems.util.dashboard.MotorSpeed;
+import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
+import static frc.robot.Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID;
+import static frc.robot.Constants.IntakeConstants.*;
+import frc.robotlib.resource.dashboard.Dashboard;
+import frc.robotlib.resource.dashboard.fields.PullingDouble;
 
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements Intake {
     // Neos
 
-    private static final String SUBSYSTEM_NAME = IntakeImpl.class.getSimpleName();
+    private static final String DASHBOARD_NAME = Intake.class.getSimpleName();
 
-    private final SparkMax motor =
-            new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
+    private final SparkMax motor = new SparkMax(PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 
-    private final MotorSpeed loadSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Load Speed",
-            Constants.IntakeConstants.DEFAULT_LOAD_SPEED);
-
-    private final DashboardField[] dashboardFields = {loadSpeed};
+    private final PullingDouble loadSpeed = new PullingDouble(DASHBOARD_NAME, "Load Speed",
+            CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_LOAD_SPEED);
 
     /**
      * Subsystem for the intake.
      */
     IntakeImpl() {
-        SparkMaxConfig motorConfig = new SparkMaxConfig();
+        final SparkMaxConfig motorConfig = new SparkMaxConfig();
         motorConfig.idleMode(IdleMode.kCoast);
-        motorConfig.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
+        motorConfig.smartCurrentLimit(AMP_LIMIT);
 
         motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
 
-        DashboardField.initAll(dashboardFields);
+        Dashboard.create(DASHBOARD_NAME, List.of(loadSpeed));
     }
 
     /**
@@ -47,7 +46,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void load() {
-        motor.set(loadSpeed.getInnerValue());
+        motor.set(loadSpeed.getPulled());
     }
 
     /**
@@ -58,10 +57,5 @@ final class IntakeImpl extends SubsystemBase implements Intake {
     @Override
     public void stop() {
         motor.stopMotor();
-    }
-
-    @Override
-    public void periodic() {
-        DashboardField.updateAll(dashboardFields);
     }
 }
