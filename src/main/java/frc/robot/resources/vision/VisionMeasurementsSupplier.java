@@ -1,7 +1,7 @@
 package frc.robot.resources.vision;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 public interface VisionMeasurementsSupplier {
-    List<VisionMeasurement> getVisionMeasurements();
+    Stream<VisionMeasurement> getVisionMeasurements();
 }
