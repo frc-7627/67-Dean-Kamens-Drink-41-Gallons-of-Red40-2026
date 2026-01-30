@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import frc.robot.resources.Resource;
-import frc.robot.subsystems.legacy.vision.dashboard.StandardDeviations;
 import frc.robot.subsystems.util.dashboard.DashboardField;
 
 class PhotonCameras extends Resource implements Vision {
