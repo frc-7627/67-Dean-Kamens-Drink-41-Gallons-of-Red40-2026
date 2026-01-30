@@ -22,6 +22,7 @@ import frc.robot.subsystems.controlstate.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
+import frc.robot.teleop.command.CommandContext;
 import frc.robot.teleop.command.TeleopCommands;
 import frc.robot.teleop.controller.DriverController;
 import frc.robot.teleop.controller.DriverXboxController;
@@ -86,7 +87,7 @@ public class RobotContainer {
             throw new RobotInitException("Could not initialize drivebase!", cause);
         }
 
-        this.teleopCommands = new TeleopCommands(indicator, drivebase, intake, globalControlState);
+        this.teleopCommands = new TeleopCommands(new CommandContext(indicator, drivebase, intake, globalControlState));
 
         // Configure
         setupTeleop();
