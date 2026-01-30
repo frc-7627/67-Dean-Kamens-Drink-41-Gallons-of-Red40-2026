@@ -6,5 +6,6 @@ import frc.robot.subsystems.controlstate.ControlState;
 import frc.robot.teleop.command.TeleopCommandFactory;
 
 public interface TeleopController {
-    void bindCommand(TeleopCommandFactory factory, Consumer<Consumer<Command>> binderConsumer, ControlState controlState);
+    void bindCommand(TeleopCommandFactory factory, Consumer<Consumer<Command>> binderConsumer,
+            ControlState controlState);
 }
