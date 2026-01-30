@@ -3,6 +3,7 @@ package frc.robot.teleop.command;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.drive.auto.RotateCCW90;
 import frc.robot.commands.drive.manual.Lock;
 import frc.robot.commands.drive.manual.ZeroGyro;
@@ -24,13 +25,17 @@ public enum TeleopCommandFactory {
     /**
      * 
      */
-    LOAD_INTAKE(context -> new LoadIntake(context.indicator(), context.intake()))
+    LOAD_INTAKE(context -> new LoadIntake(context.indicator(), context.intake())),
+    /**
+     * 
+     */
+    LAUNCH_FUEL(context -> new PrintCommand("launch fuel")),
 
     ;
 
     private final Function<CommandContext, Command> commandSupplier;
 
-    TeleopCommandFactory(Function<CommandContext, Command> commandSupplier) {
+    private TeleopCommandFactory(Function<CommandContext, Command> commandSupplier) {
         this.commandSupplier = commandSupplier;
     }
 

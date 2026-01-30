@@ -13,9 +13,9 @@ public interface BestTargetSupplier {
      *
      * @return The best target of the pipeline result.
      */
-    Target getBestTarget();
+    Optional<Target> getBestTarget();
 
     default Optional<Pose2d> getBestTargetPose() {
-        return getBestTarget().getPose();
+        return getBestTarget().flatMap(Target::getPose);
     }
 }

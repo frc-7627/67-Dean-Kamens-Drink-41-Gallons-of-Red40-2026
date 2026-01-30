@@ -17,4 +17,8 @@ class PhotonTrackedTargetWrapper implements Target {
     public Optional<Pose2d> getPose() {
         return FIELD_LAYOUT.getTagPose(photonTrackedTarget.getFiducialId()).map(Pose3d::toPose2d);
     }
+
+    public int compareWith(PhotonTrackedTargetWrapper other) {
+        return Double.compare(photonTrackedTarget.getPoseAmbiguity(), other.photonTrackedTarget.getPoseAmbiguity());
+    }
 }

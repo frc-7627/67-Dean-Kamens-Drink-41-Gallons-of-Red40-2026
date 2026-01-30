@@ -16,7 +16,6 @@ import frc.robot.commands.drive.manual.DriveWithInput;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
-import frc.robot.resources.vision.VisionInitException;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivebase.Drivebase;
@@ -48,7 +47,7 @@ public class RobotContainer {
 
     private final GameInfoSupplier gameInfoSupplier;
 
-    private final frc.robot.subsystems.indication.Indicator indicator;
+    private final Indicator indicator;
 
     private final Intake intake;
 
@@ -71,11 +70,7 @@ public class RobotContainer {
         // TODO
         this.intake = null;
 
-        try {
-            this.vision = Vision.create();
-        } catch (VisionInitException cause) {
-            throw new RobotInitException("Could not initialize vision!", cause);
-        }
+        this.vision = Vision.create();
 
         try {
             this.drivebase = Drivebase.create(vision, gameInfoSupplier);
