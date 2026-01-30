@@ -74,8 +74,7 @@ public class RobotContainer {
 
         this.gameInfoSupplier = GameInfoSupplier.create();
 
-        // TODO
-        this.indicator = null;
+        this.indicator = Indicator.create(gameInfoSupplier);
 
         // TODO
         this.intake = null;
