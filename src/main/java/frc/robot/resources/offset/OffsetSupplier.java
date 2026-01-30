@@ -5,6 +5,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
+/**
+ * Interface that supplies the 2D offsets to the robot.
+ */
 public interface OffsetSupplier {
     Translation2d getOffset();
 

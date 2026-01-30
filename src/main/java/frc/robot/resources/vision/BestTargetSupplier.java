@@ -3,6 +3,9 @@ package frc.robot.resources.vision;
 import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
 
+/**
+ * Interface that supplies the pose of the best target for the robot.
+ */
 public interface BestTargetSupplier {
 
     /**
@@ -15,9 +18,9 @@ public interface BestTargetSupplier {
      */
     Optional<Target> getBestTarget();
 
-
     /**
      * Gets the positon of the best target
+     * 
      * @return the position of the best target
      */
     default Optional<Pose2d> getBestTargetPose() {

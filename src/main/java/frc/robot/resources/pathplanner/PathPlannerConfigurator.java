@@ -10,6 +10,10 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 
+/**
+ * Interface that plans and creates the path for the robot given its current
+ * state.
+ */
 public interface PathPlannerConfigurator {
     void configureAndInit() throws PathPlannerConfigException;
 
