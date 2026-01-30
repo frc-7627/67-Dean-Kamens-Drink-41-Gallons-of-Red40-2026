@@ -5,7 +5,7 @@ import java.util.Collection;
 public class ExclusiveResourceBase extends PeriodicBase implements ExclusiveResource {
     protected ExclusiveResourceBase() {}
 
-    protected ExclusiveResourceBase(Collection<Subresource> subresources) {
+    protected ExclusiveResourceBase(Collection<? extends Subresource> subresources) {
         super(subresources);
     }
 

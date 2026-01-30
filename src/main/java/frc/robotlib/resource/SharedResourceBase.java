@@ -5,7 +5,7 @@ import java.util.Collection;
 public class SharedResourceBase extends PeriodicBase implements SharedResource {
     protected SharedResourceBase() {}
 
-    protected SharedResourceBase(Collection<Subresource> subresources) {
+    protected SharedResourceBase(Collection<? extends SharedSubresource> subresources) {
         super(subresources);
     }
 

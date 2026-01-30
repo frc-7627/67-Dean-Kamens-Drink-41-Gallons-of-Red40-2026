@@ -8,7 +8,7 @@ class PeriodicBase {
 
     protected PeriodicBase() {}
 
-    protected PeriodicBase(Collection<Subresource> subresources) {
+    protected PeriodicBase(Collection<? extends Subresource> subresources) {
         this.subresources.addAll(subresources);
     }
 
