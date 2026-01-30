@@ -11,8 +11,6 @@ import java.io.File;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Frequency;
 
-import org.photonvision.simulation.SimCameraProperties;
-
 import com.ctre.phoenix6.configs.AudioConfigs;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -34,8 +32,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.Filesystem;
-import frc.robot.subsystems.util.GameInfo;
+import frc.robot.resources.gameinfo.GameInfoSupplier;
 import swervelib.math.Matter;
 
 /**
@@ -113,33 +110,11 @@ public final class Constants {
 
         public static final int MAX_CONNECTION_RETRIES = 10;
 
-        public static final SimCameraProperties SIM_CAMERA_PROPERTIES = new SimCameraProperties()
-                // A 640 x 480 camera with a 100 degree diagonal
-                // FOV.
-                .setCalibration(960, 720, Rotation2d.fromDegrees(100))
-                // Approximate detection noise with average and
-                // standard deviation error in
-                // pixels.
-                .setCalibError(0.25, 0.08)
-                // Set the camera image capture framerate (Note:
-                // this is limited by robot loop
-                // rate).
-                .setFPS(30)
-                // The average and standard deviation in
-                // milliseconds of image data latency.
-                .setAvgLatencyMs(35).setLatencyStdDevMs(5);
-
-        public static final boolean DRAW_WIREFRAME = true;
-
         public static final double DEFAULT_SINGLE_TAG_STD_DEV = 0.5;
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
 
         // TODO: set field to 2026.
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(null);
-
-        public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
-
-        public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
     }
 
     public static class OperatorConstants {
@@ -214,7 +189,7 @@ public final class Constants {
     }
 
     public static class GameInfoConstants {
-        public static final GameInfo.Phase START_PHASE = GameInfo.Phase.AUTO;
+        public static final GameInfoSupplier.Phase START_PHASE = GameInfoSupplier.Phase.AUTO;
         public static final Alliance DEFAULT_ALLIANCE = Alliance.Red;
     }
 
