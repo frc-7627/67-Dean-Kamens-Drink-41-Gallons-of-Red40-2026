@@ -8,4 +8,8 @@ interface Transport<Value> {
     static Transport<Boolean> createBoolean(String key) {
         return new TransportBoolean(key);
     }
+
+    static Transport<Double> createDouble(String key) {
+        return new TransportDouble(key);
+    }
 }

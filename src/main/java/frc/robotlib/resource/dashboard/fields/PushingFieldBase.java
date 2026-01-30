@@ -2,19 +2,23 @@ package frc.robotlib.resource.dashboard.fields;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import frc.robotlib.resource.dashboard.PushingField;
 
-abstract class PushingFieldBase<Pulled, Pushed> extends SubdashboardBase
-        implements PushingField<Pulled, Pushed> {
+abstract class PushingFieldBase<Pushed> extends SubdashboardBase
+        implements PushingField<Pushed> {
+    private final Transport<Pushed> transport;
     private final Predicate<Pushed> checkPushed;
     private final Consumer<Pushed> onPush;
     private Pushed currentPushed;
 
     protected PushingFieldBase(String superdashboardName, String fieldName,
+            Function<String, Transport<Pushed>> transportConstructor,
             Predicate<Pushed> checkPushed, Consumer<Pushed> onPush, Pushed initialPushed) {
         super(superdashboardName, superdashboardName);
 
+        this.transport = transportConstructor.apply(getKeyName());
         this.checkPushed = Objects.requireNonNull(checkPushed);
         this.onPush = Objects.requireNonNull(onPush);
 
@@ -25,6 +29,10 @@ abstract class PushingFieldBase<Pulled, Pushed> extends SubdashboardBase
         } else {
             throw new BadInitialValueError(initialPushed);
         }
+    }
+
+    private void push(Pushed pushed) {
+        transport.push(pushed);
     }
 
     @Override
@@ -44,6 +52,4 @@ abstract class PushingFieldBase<Pulled, Pushed> extends SubdashboardBase
     protected void onPush(Pushed pushed) {
         onPush.accept(pushed);
     }
-
-    abstract protected void push(Pushed pushed);
 }

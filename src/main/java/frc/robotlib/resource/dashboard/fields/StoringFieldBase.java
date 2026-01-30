@@ -2,18 +2,22 @@ package frc.robotlib.resource.dashboard.fields;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import frc.robotlib.resource.dashboard.StoringField;
 
 abstract class StoringFieldBase<Stored> extends SubdashboardBase implements StoringField<Stored> {
+    private final Transport<Stored> transport;
     private final Predicate<Stored> checkStored;
     private final Consumer<Stored> onStore;
     private Stored currentStored;
-    
+
     protected StoringFieldBase(String superdashboardName, String fieldName,
-            Predicate<Stored> checkStored, Consumer<Stored> onStore, Stored initialStored) {
+            Function<String, Transport<Stored>> transportConstructor, Predicate<Stored> checkStored,
+            Consumer<Stored> onStore, Stored initialStored) {
         super(superdashboardName, fieldName);
 
+        this.transport = transportConstructor.apply(getKeyName());
         this.checkStored = Objects.requireNonNull(checkStored);
         this.onStore = Objects.requireNonNull(onStore);
 
@@ -24,6 +28,14 @@ abstract class StoringFieldBase<Stored> extends SubdashboardBase implements Stor
         } else {
             throw new BadInitialValueError(initialStored);
         }
+    }
+
+    private void push(Stored stored) {
+        transport.push(stored);
+    }
+
+    private Stored pull(Stored currentStored) {
+        return transport.pull(currentStored);
     }
 
     @Override
@@ -56,8 +68,4 @@ abstract class StoringFieldBase<Stored> extends SubdashboardBase implements Stor
     protected void onStore(Stored stored) {
         onStore.accept(stored);
     }
-
-    abstract protected void push(Stored stored);
-
-    abstract protected Stored pull(Stored currentStored);
 }
