@@ -61,7 +61,7 @@ final class GameInfoSupplierImpl extends Resource implements GameInfoSupplier {
     }
 
     @Override
-    protected void periodic() {
+    public void periodic() {
         if (RobotState.isDisabled()) {
             updateAlliance();
 

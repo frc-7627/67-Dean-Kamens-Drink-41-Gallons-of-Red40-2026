@@ -21,7 +21,7 @@ class PhotonCameras extends Resource implements Vision {
     }
 
     @Override
-    protected void periodic() {
+    public void periodic() {
         DashboardField.updateAll(dashboardFields);
     }
 

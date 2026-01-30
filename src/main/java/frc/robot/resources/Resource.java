@@ -11,5 +11,5 @@ public abstract class Resource {
         CommandScheduler.getInstance().schedule(new RunCommand(this::periodic));
     }
 
-    protected void periodic() {}
+    public void periodic() {}
 }
