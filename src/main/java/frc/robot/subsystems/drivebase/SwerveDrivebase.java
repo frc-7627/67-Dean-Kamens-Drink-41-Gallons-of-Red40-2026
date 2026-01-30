@@ -40,8 +40,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         };
 
         try {
-            this.swerveDrive =
-                    new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
+            this.swerveDrive = new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
         } catch (IOException cause) {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
@@ -60,6 +59,13 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         updateVisionMeasurements();
     }
 
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param rot
+     * @return
+     */
     private SwerveInputStream getDefaultInput(DoubleSupplier x, DoubleSupplier y,
             DoubleSupplier rot) {
         return SwerveInputStream.of(swerveDrive, x, y).withControllerRotationAxis(rot)

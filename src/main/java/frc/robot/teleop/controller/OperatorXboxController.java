@@ -13,6 +13,7 @@ public class OperatorXboxController implements TeleopController {
             Consumer<Consumer<Command>> binderConsumer) {
         switch (factory) {
             case LOAD_INTAKE -> binderConsumer.accept(xboxController.b()::whileTrue);
+            case LAUNCH_FUEL -> binderConsumer.accept(xboxController.x()::whileTrue);
             default -> {
             }
         }
