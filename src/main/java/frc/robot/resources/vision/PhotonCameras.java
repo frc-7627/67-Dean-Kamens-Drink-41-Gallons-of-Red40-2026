@@ -14,7 +14,7 @@ class PhotonCameras extends Resource implements Vision {
 
     private final DashboardField[] dashboardFields = {standardDeviations,};
 
-    PhotonCameras() throws VisionInitException {
+    PhotonCameras() {
         this.photonCameraWrappers = List.of(PhotonCameraInfo.values()).stream()
                 .map(photonCameraInfo -> new PhotonCameraWrapper(photonCameraInfo)).toList();
 
