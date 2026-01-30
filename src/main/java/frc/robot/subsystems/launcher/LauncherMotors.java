@@ -7,8 +7,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
-import frc.robot.subsystems.launcher.util.MotorsConfigurator;
-
 class LauncherMotors {
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);

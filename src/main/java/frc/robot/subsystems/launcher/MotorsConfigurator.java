@@ -1,4 +1,4 @@
-package frc.robot.subsystems.launcher.util;
+package frc.robot.subsystems.launcher;
 
 import static frc.robot.Constants.LauncherConstants.*;
 
@@ -8,7 +8,7 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 
-public class MotorsConfigurator {
+final class MotorsConfigurator {
     private final TalonFXConfigurator commanderConfigurator;
     private final TalonFXConfigurator minionConfigurator;
 
@@ -23,7 +23,7 @@ public class MotorsConfigurator {
      * @param commanderConfigurator the configurator for the commander motor.
      * @param minionConfigurator the configurator for the minion motor.
      */
-    public MotorsConfigurator(TalonFXConfigurator commanderConfigurator, TalonFXConfigurator minionConfigurator) {
+    MotorsConfigurator(TalonFXConfigurator commanderConfigurator, TalonFXConfigurator minionConfigurator) {
         this.commanderConfigurator = commanderConfigurator;
         this.minionConfigurator = minionConfigurator;
 
@@ -45,7 +45,7 @@ public class MotorsConfigurator {
      * 
      * @param currentLimit the new current limit.
      */
-    public void applyCurrentLimit(double currentLimit) {
+    void applyCurrentLimit(double currentLimit) {
         currentLimitsConfigs.withStatorCurrentLimit(currentLimit);
 
         commanderConfigurator.apply(currentLimitsConfigs);
@@ -57,7 +57,7 @@ public class MotorsConfigurator {
      * 
      * @param shootSpeed the new shoot speed.
      */
-    public void applyShootSpeed(double shootSpeed) {
+    void applyShootSpeed(double shootSpeed) {
         motorOutputConfigs.withPeakForwardDutyCycle(shootSpeed);
         motorOutputConfigs.withPeakReverseDutyCycle(-shootSpeed);
 
@@ -70,7 +70,7 @@ public class MotorsConfigurator {
      * 
      * @param rampUpPeriod the new ramp up period.
      */
-    public void applyRampUpPeriod(double rampUpPeriod) {
+    void applyRampUpPeriod(double rampUpPeriod) {
         openLoopRampsConfigs.withDutyCycleOpenLoopRampPeriod(rampUpPeriod);
         closedLoopRampsConfigs.withDutyCycleClosedLoopRampPeriod(rampUpPeriod);
 
