@@ -6,7 +6,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 
-class PhotonTrackedTargetWrapper implements ComparableTarget<PhotonTrackedTargetWrapper> {
+class PhotonTrackedTargetWrapper implements Target {
     private final PhotonTrackedTarget photonTrackedTarget;
 
     PhotonTrackedTargetWrapper(PhotonTrackedTarget photonTrackedTarget) {
@@ -18,8 +18,7 @@ class PhotonTrackedTargetWrapper implements ComparableTarget<PhotonTrackedTarget
         return FIELD_LAYOUT.getTagPose(photonTrackedTarget.getFiducialId()).map(Pose3d::toPose2d);
     }
 
-    @Override
-    public boolean compareWith(PhotonTrackedTargetWrapper other) {
-        return photonTrackedTarget.getPoseAmbiguity() < other.photonTrackedTarget.getPoseAmbiguity();
+    public int compareWith(PhotonTrackedTargetWrapper other) {
+        return Double.compare(photonTrackedTarget.getPoseAmbiguity(), other.photonTrackedTarget.getPoseAmbiguity());
     }
 }
