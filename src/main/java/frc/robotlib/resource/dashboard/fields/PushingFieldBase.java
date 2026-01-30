@@ -9,6 +9,7 @@ abstract class PushingFieldBase<Pulled, Pushed> extends SubdashboardBase
         implements PushingField<Pulled, Pushed> {
     private final Predicate<Pushed> checkPushed;
     private final Consumer<Pushed> onPush;
+    private Pushed currentPushed;
 
     protected PushingFieldBase(String superdashboardName, String fieldName,
             Predicate<Pushed> checkPushed, Consumer<Pushed> onPush, Pushed initialPushed) {
@@ -18,6 +19,7 @@ abstract class PushingFieldBase<Pulled, Pushed> extends SubdashboardBase
         this.onPush = Objects.requireNonNull(onPush);
 
         if (checkPushed(Objects.requireNonNull(initialPushed))) {
+            this.currentPushed = initialPushed;
             onPush(initialPushed);
             push(initialPushed);
         } else {
@@ -32,7 +34,8 @@ abstract class PushingFieldBase<Pulled, Pushed> extends SubdashboardBase
 
     @Override
     public final void setPushed(Pushed pushed) {
-        if (checkPushed(Objects.requireNonNull(pushed))) {
+        if (checkPushed(Objects.requireNonNull(pushed)) && !currentPushed.equals(pushed)) {
+            this.currentPushed = pushed;
             onPush(pushed);
             push(pushed);
         }

@@ -44,6 +44,15 @@ abstract class StoringFieldBase<Stored> extends SubdashboardBase implements Stor
         }
     }
 
+    @Override
+    public void setPushed(Stored stored) {
+        if (checkPushed(Objects.requireNonNull(stored)) && !currentStored.equals(stored)) {
+            currentStored = stored;
+            onStore(stored);
+            push(stored);
+        }
+    }
+
     protected void onStore(Stored stored) {
         onStore.accept(stored);
     }
