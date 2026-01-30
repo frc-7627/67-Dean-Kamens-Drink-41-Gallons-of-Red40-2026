@@ -2,12 +2,12 @@ package frc.robot.resources.vision;
 
 import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
-import frc.robot.resources.Resource;
+import frc.robotlib.resource.SharedResource;
 
 /**
  * Interface that supplies the pose of the best target for the robot.
  */
-public interface BestTargetSupplier extends Resource {
+public interface BestTargetSupplier extends SharedResource {
 
     /**
      * Returns the best target in this pipeline result. If there are no targets,
