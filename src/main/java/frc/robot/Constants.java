@@ -24,6 +24,7 @@ import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -118,7 +119,11 @@ public final class Constants {
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
 
         // TODO: set field to 2026.
-        public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(null);
+        public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
+
+        public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
+
+        public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
     }
 
     public static class OperatorConstants {
