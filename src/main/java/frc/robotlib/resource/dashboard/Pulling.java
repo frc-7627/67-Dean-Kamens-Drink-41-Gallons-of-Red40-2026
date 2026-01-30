@@ -1,4 +1,4 @@
-package frc.robot.resources.dashboard;
+package frc.robotlib.resource.dashboard;
 
 interface Pulling<Pulled> {
     boolean checkPulled(Pulled pulled);

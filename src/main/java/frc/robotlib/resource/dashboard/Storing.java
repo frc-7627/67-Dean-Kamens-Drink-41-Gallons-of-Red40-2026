@@ -1,4 +1,4 @@
-package frc.robot.resources.dashboard;
+package frc.robotlib.resource.dashboard;
 
 interface Storing<Stored> extends Pushing<Stored>, Pulling<Stored> {
     boolean checkStored(Stored stored);

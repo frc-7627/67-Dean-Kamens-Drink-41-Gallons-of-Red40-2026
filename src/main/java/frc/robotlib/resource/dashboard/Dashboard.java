@@ -1,4 +1,4 @@
-package frc.robot.resources.dashboard;
+package frc.robotlib.resource.dashboard;
 
 import java.util.Collection;
 import frc.robotlib.resource.Resource;

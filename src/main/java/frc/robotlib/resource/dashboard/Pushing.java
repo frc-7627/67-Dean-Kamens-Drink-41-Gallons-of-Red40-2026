@@ -1,4 +1,4 @@
-package frc.robot.resources.dashboard;
+package frc.robotlib.resource.dashboard;
 
 interface Pushing<Pushed> {
     boolean checkPushed(Pushed pushed);
