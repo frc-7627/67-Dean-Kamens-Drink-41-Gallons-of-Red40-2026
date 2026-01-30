@@ -17,7 +17,7 @@ import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
 import frc.robot.subsystems.indication.Indicator;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.controlstate.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
@@ -76,8 +76,7 @@ public class RobotContainer {
 
         this.indicator = Indicator.create(gameInfoSupplier);
 
-        // TODO
-        this.intake = null;
+        this.intake = Intake.create();
 
         this.vision = Vision.create();
 

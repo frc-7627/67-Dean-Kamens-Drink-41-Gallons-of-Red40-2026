@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
@@ -13,10 +13,10 @@ import frc.robot.subsystems.util.dashboard.DashboardField;
 import frc.robot.subsystems.util.dashboard.MotorSpeed;
 
 // Colloquially known as Miles at lunch
-public class Intake extends SubsystemBase {
+final class IntakeImpl extends SubsystemBase implements Intake {
     // Neos
 
-    private static final String SUBSYSTEM_NAME = Intake.class.getSimpleName();
+    private static final String SUBSYSTEM_NAME = IntakeImpl.class.getSimpleName();
 
     private final SparkMax motor =
             new SparkMax(Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
@@ -29,7 +29,7 @@ public class Intake extends SubsystemBase {
     /**
      * Subsystem for the intake.
      */
-    public Intake() {
+    IntakeImpl() {
         SparkMaxConfig motorConfig = new SparkMaxConfig();
         motorConfig.idleMode(IdleMode.kCoast);
         motorConfig.smartCurrentLimit(Constants.IntakeConstants.AMP_LIMIT);
@@ -41,19 +41,21 @@ public class Intake extends SubsystemBase {
     }
 
     /**
-     * Load a gamepiece with the intake.
+     * {@inheritDoc}
      * 
      * Sets the speed of the intake motor to the current load speed.
      */
+    @Override
     public void load() {
         motor.set(loadSpeed.getInnerValue());
     }
 
     /**
-     * Stops the intake.
+     * {@inheritDoc}
      * 
      * Stops the intake motor.
      */
+    @Override
     public void stop() {
         motor.stopMotor();
     }
