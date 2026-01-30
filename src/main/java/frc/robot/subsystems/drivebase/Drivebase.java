@@ -5,7 +5,7 @@ import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 
-public interface Drivebase extends AutoDrivebase, ManualDrivebase, InputSupplier {
+public interface Drivebase extends AutoDrivebase, TeleopDrivebase, InputSupplier {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 
     /**
@@ -15,8 +15,8 @@ public interface Drivebase extends AutoDrivebase, ManualDrivebase, InputSupplier
      */
     void setBrake(boolean brake);
 
-    static Drivebase create(VisionMeasurementsSupplier vision, GeneralGameInfoSupplier gameInfoSupplier)
-            throws DrivebaseInitException {
+    static Drivebase create(VisionMeasurementsSupplier vision,
+            GeneralGameInfoSupplier gameInfoSupplier) throws DrivebaseInitException {
         return new SwerveDrivebase(vision, gameInfoSupplier);
     }
 }
