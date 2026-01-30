@@ -1,15 +1,12 @@
 package frc.robot.resources.vision;
 
-import frc.robot.subsystems.legacy.vision.OldVision;
-import frc.robot.subsystems.legacy.SwerveSubsystem;
 import frc.robot.subsystems.util.dashboard.DashboardDouble;
 import frc.robot.subsystems.util.dashboard.DashboardField;
 import frc.robot.subsystems.util.dashboard.FieldMode;
 import static frc.robot.Constants.VisionConstants.*;
 
 public class StandardDeviations implements DashboardField {
-    private static final String SUBSYSTEM_NAME = String.format("%s/%s",
-            SwerveSubsystem.class.getSimpleName(), OldVision.class.getSimpleName());
+    private static final String SUBSYSTEM_NAME = String.format("%s", Vision.class.getSimpleName());
 
     private final DashboardDouble singleTagStdDev = new DashboardDouble(SUBSYSTEM_NAME,
             "Single Tag Standard Deviation", DEFAULT_SINGLE_TAG_STD_DEV, FieldMode.PULL);
