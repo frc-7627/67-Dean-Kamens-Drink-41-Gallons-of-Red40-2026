@@ -15,6 +15,11 @@ public interface BestTargetSupplier {
      */
     Optional<Target> getBestTarget();
 
+
+    /**
+     * Gets the positon of the best target
+     * @return the position of the best target
+     */
     default Optional<Pose2d> getBestTargetPose() {
         return getBestTarget().flatMap(Target::getPose);
     }
