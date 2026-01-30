@@ -1,5 +1,7 @@
 package frc.robot.resources.gameinfo;
 
+import edu.wpi.first.math.geometry.Pose2d;
+
 import frc.robotlib.resource.SharedResource;
 
 /**
@@ -20,4 +22,6 @@ public interface SpecificGameInfoSupplier extends SharedResource {
      * @return whether the hub is active.
      */
     boolean isHubActive();
+
+    Pose2d getHubPose();
 }

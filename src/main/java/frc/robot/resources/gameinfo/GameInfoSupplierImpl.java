@@ -2,6 +2,7 @@ package frc.robot.resources.gameinfo;
 
 import java.util.Optional;
 import java.util.logging.Logger;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -80,5 +81,11 @@ final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoS
     public boolean isHubActive() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isHubActive'");
+    }
+
+    @Override
+    public Pose2d getHubPose() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getHubPose'");
     }
 }

@@ -43,5 +43,4 @@ class PhotonCameras extends SharedResourceBase implements Vision {
         return photonCameraWrappers.stream().flatMap(photonCameraWrapper -> photonCameraWrapper
                 .getVisionMeasurement(standardDeviations.get()).stream());
     }
-
 }
