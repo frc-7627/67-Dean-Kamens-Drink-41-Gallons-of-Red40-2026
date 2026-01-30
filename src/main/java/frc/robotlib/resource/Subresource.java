@@ -1,4 +1,4 @@
-package frc.robot.resources;
+package frc.robotlib.resource;
 
 /**
  * A subresource that may have periodic behavior.

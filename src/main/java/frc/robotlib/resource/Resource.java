@@ -1,7 +1,7 @@
-package frc.robot.resources;
+package frc.robotlib.resource;
 
 /**
- * A shared resource that may have periodic behavior.
+ * A resource that may have periodic behavior.
  * 
  * The difference between this, {@link Periodic}, and {@link Subresource} is that this interface
  * guarantees that {@link #periodic()} is automatically called, and <b>should not be called
@@ -10,5 +10,5 @@ package frc.robot.resources;
  * @see Periodic
  * @see Subresource
  */
-public non-sealed interface Resource extends Periodic {
+public sealed interface Resource extends Periodic permits ExclusiveResource, SharedResource {
 }

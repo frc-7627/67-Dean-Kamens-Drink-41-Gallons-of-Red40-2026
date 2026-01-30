@@ -43,7 +43,9 @@
     "pathplanner",
     "RGBW",
     "Rizzler",
+    "robotlib",
     "Subresource",
+    "subresources",
     "subtable",
     "swervedrive",
     "Teleop"

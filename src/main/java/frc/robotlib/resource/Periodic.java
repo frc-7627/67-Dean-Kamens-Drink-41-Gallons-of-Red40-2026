@@ -1,4 +1,4 @@
-package frc.robot.resources;
+package frc.robotlib.resource;
 
 /**
  * A class that may have periodic behavior.
