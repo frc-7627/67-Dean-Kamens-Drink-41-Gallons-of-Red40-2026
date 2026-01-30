@@ -88,9 +88,9 @@ public class RobotContainer {
             throw new RobotInitException("Could not initialize drivebase!", cause);
         }
 
-        this.intake = Intake.create();
-
         this.indicator = Indicator.create(gameInfoSupplier);
+
+        this.intake = Intake.create();
 
         this.feeder = Feeder.create();
 
