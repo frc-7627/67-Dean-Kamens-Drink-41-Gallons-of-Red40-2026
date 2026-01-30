@@ -90,11 +90,10 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets the commander motor to the shoot speed.
      * 
-     * @throws IllegalStateException if the motors are in music mode.
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
-    public void shootOut() throws IllegalStateException {
+    public void shootOut() {
         launcherMotors.setCommanderSpeed(shootSpeed.getInnerValue());
     }
 
@@ -103,12 +102,11 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets the commander motor to the negative shoot speed.
      * 
-     * @throws IllegalStateException if the motors are in music mode.
      * @apiNote Do not use unless in extraneous circumstances.
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
-    public void shootIn() throws IllegalStateException {
+    public void shootIn() {
         // TODO: why shouldn't this method be used unless in extraneous circumstances?
         // Justify in
         // the api note.
@@ -120,11 +118,10 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets both motors to the manual speed.
      * 
-     * @throws IllegalStateException if the motors are in music mode.
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
-    public void manualOutBoth() throws IllegalStateException {
+    public void manualOutBoth() {
         launcherMotors.setBothSpeeds(manualSpeed.getInnerValue());
     }
 
@@ -133,11 +130,10 @@ public class Launcher extends SubsystemBase {
      * 
      * Sets both motors to the negative manual speed.
      * 
-     * @throws IllegalStateException if the motors are in music mode.
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
-    public void manualInBoth() throws IllegalStateException {
+    public void manualInBoth() {
         launcherMotors.setBothSpeeds(-manualSpeed.getInnerValue());
     }
 
@@ -146,10 +142,9 @@ public class Launcher extends SubsystemBase {
      * 
      * Stops both motors.
      * 
-     * @throws IllegalStateException if the motors are in music mode.
      * @see LauncherMotors#stopBoth()
      */
-    public void stop() throws IllegalStateException {
+    public void stop() {
         launcherMotors.stopBoth();
     }
 }

@@ -83,18 +83,17 @@ class LauncherMotors {
     }
 
     public void setTangentialSpeed(double speed) {
-
+        throw new UnsupportedOperationException("Unimplemented method 'setTangentialSpeed'");
     }
 
     /**
      * Set the commander motor's speed to the provided speed.
      * 
      * @param speed the provided speed.
-     * @throws IllegalStateException if the motors are in music mode.
      */
-    public void setCommanderSpeed(double speed) throws IllegalStateException {
+    public void setCommanderSpeed(double speed) {
         if (inMusicMode) {
-            throw new IllegalStateException("Can only control motors when not in music mode!");
+            exitMusicMode();
         }
 
         commander.set(speed);
@@ -104,11 +103,10 @@ class LauncherMotors {
      * Set both motors' speed to the provided speed.
      * 
      * @param speed the provided speed.
-     * @throws IllegalStateException if the motors are in music mode.
      */
-    public void setBothSpeeds(double speed) throws IllegalStateException {
+    public void setBothSpeeds(double speed) {
         if (inMusicMode) {
-            throw new IllegalStateException("Can only control motors when not in music mode!");
+            exitMusicMode();
         }
 
         commander.set(speed);
@@ -117,12 +115,10 @@ class LauncherMotors {
 
     /**
      * Stop both motors.
-     * 
-     * @throws IllegalStateException if the motors are in music mode.
      */
-    public void stopBoth() throws IllegalStateException {
+    public void stopBoth() {
         if (inMusicMode) {
-            throw new IllegalStateException("Can only control motors when not in music mode!");
+            exitMusicMode();
         }
 
         commander.set(0.0);
