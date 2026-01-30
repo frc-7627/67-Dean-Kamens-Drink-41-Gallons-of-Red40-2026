@@ -1,23 +1,17 @@
-package frc.robot.subsystems.util;
+package frc.robot.resources.gameinfo;
 
+import java.util.Optional;
+import java.util.logging.Logger;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
-import java.util.Optional;
-import java.util.logging.Logger;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants;
+import frc.robot.resources.Resource;
 
-public class GameInfo {
-    /**
-     * A game phase.
-     */
-    public static enum Phase {
-        AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
-    }
-
-    private static final Logger LOGGER = Logger.getLogger(GameInfo.class.getSimpleName());
+final class GameInfoSupplierImpl extends Resource implements GameInfoSupplier {
+    private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getSimpleName());
 
     private final EventLoop eventLoop = new EventLoop();
     private final BooleanEvent allianceSetEvent;
@@ -27,33 +21,25 @@ public class GameInfo {
     private boolean hasGotAlliance = false;
 
     /**
-     * Subsystem for getting game info.
+     * Resource for getting game info.
      */
-    public GameInfo() {
-        BooleanEvent isDistinctAllianceEvent = new BooleanEvent(eventLoop, () -> isDistinctAlliance);
+    GameInfoSupplierImpl() {
+        BooleanEvent isDistinctAllianceEvent =
+                new BooleanEvent(eventLoop, () -> isDistinctAlliance);
         BooleanEvent hasGotAllianceEvent = new BooleanEvent(eventLoop, () -> hasGotAlliance);
-        this.allianceSetEvent = isDistinctAllianceEvent
-                .or(hasGotAllianceEvent.rising());
+        this.allianceSetEvent = isDistinctAllianceEvent.or(hasGotAllianceEvent.rising());
 
         allianceSetEvent.ifHigh(() -> {
             LOGGER.info("Alliance set from driver station.");
         });
     }
 
-    /**
-     * Gets the current phase.
-     * 
-     * @return The current phase.
-     */
+    @Override
     public Phase getPhase() {
         return phase;
     }
 
-    /**
-     * Gets the current alliance.
-     * 
-     * @return The current alliance.
-     */
+    @Override
     public Alliance getAlliance() {
         return alliance;
     }
@@ -74,23 +60,25 @@ public class GameInfo {
         }
     }
 
-    /**
-     * Run every cycle when disabled.
-     * 
-     * Updates the alliance.
-     */
-    public void disabledPeriodic() {
-        updateAlliance();
+    @Override
+    protected void periodic() {
+        if (RobotState.isDisabled()) {
+            updateAlliance();
 
-        eventLoop.poll();
+            eventLoop.poll();
+        } else {
+            isDistinctAlliance = false;
+        }
     }
 
-    /**
-     * Bind the action for when an alliance has been set by the driver station.
-     * 
-     * @param action the action.
-     */
+    @Override
     public void onAllianceSet(Runnable action) {
         allianceSetEvent.ifHigh(action);
+    }
+
+    @Override
+    public boolean isHubActive() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isHubActive'");
     }
 }

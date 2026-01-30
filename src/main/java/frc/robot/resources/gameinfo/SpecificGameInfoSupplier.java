@@ -9,7 +9,13 @@ public interface SpecificGameInfoSupplier {
         AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
     }
 
+    /**
+     * @return the current phase.
+     */
     Phase getPhase();
 
+    /**
+     * @return whether the hub is active.
+     */
     boolean isHubActive();
 }

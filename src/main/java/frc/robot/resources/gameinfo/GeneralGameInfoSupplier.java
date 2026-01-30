@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
  * alliance of the team.
  */
 public interface GeneralGameInfoSupplier {
+    /**
+     * @return the current alliance.
+     */
     Alliance getAlliance();
-
-    void onAllianceSet(Runnable action);
 }

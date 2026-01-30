@@ -6,6 +6,13 @@ package frc.robot.resources.gameinfo;
  * Contains all information and states about the game.
  */
 public interface GameInfoSupplier extends GeneralGameInfoSupplier, SpecificGameInfoSupplier {
+    /**
+     * Bind the action for when an alliance has been set by the driver station.
+     * 
+     * @param action the action.
+     */
+    void onAllianceSet(Runnable action);
+
     static GameInfoSupplier create() {
         throw new UnsupportedOperationException("Game info supplier not implemented!");
     }
