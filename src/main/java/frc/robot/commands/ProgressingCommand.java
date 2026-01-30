@@ -3,7 +3,7 @@ package frc.robot.commands;
 import java.util.logging.Logger;
 
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.Indicator;
+import frc.robot.subsystems.indication.Indicator;
 
 /**
  * A command that has progress.

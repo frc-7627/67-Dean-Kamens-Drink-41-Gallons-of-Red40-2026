@@ -23,13 +23,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.intake.LoadIntake;
-import frc.robot.subsystems.GameInfo;
-import frc.robot.subsystems.Indicator;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.indication.LED;
+import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.swervedrive.Vision;
-import frc.robot.Rizzler;
+import frc.robot.subsystems.util.GameInfo;
 
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -54,7 +52,7 @@ public class RobotContainer {
 
   private final GameInfo gameInfo = new GameInfo();
 
-  private final Indicator indicator = new Indicator(gameInfo, new LED());
+  private final Indicator indicator = new Indicator(gameInfo);
 
   private final Intake intake = new Intake();
 
@@ -100,8 +98,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Rizz up the ops
-    Rizzler.rizz();
+    indicator.indicateStartup();
 
     // Configure the trigger bindings
     configureBindings();
@@ -249,7 +246,7 @@ public class RobotContainer {
    * @return void
    */
   public void disabledPeriodic() {
-
+    gameInfo.disabledPeriodic();
   }
 
   // TODO: Reimplement the folowing vvvv

@@ -32,12 +32,13 @@
     "Brushless",
     "drivebase",
     "gamepiece",
+    "griddy",
     "ironmaple",
     "Neos",
+    "RGBW",
+    "Rizzler",
     "subtable",
-    "RGBW",
     "swervedrive",
-    "RGBW",
     "Teleop"
   ],
   "workbench.colorCustomizations": {

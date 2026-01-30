@@ -44,7 +44,7 @@ public class DashboardString extends DashboardObject<String> {
      * @see SmartDashboard#putString(String, String)
      */
     @Override
-    protected final void pushWithKey(String key) {
+    protected void pushWithKey(String key) {
         SmartDashboard.putString(key, getInnerValue());
     }
 
@@ -56,7 +56,7 @@ public class DashboardString extends DashboardObject<String> {
      * @see SmartDashboard#getString(String, String)
      */
     @Override
-    protected final void pullWithKey(String key) {
+    protected void pullWithKey(String key) {
         setInnerValue(SmartDashboard.getString(key, getDefaultValue()));
     }
 }
