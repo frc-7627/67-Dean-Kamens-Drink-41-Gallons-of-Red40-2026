@@ -5,22 +5,22 @@ import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.util.GameInfo;
+import frc.robot.resources.gameinfo.GameInfoSupplier;
 
 public class Indicator extends SubsystemBase {
     private final Startup startup = new Startup();
     private final LED led = new LED();
-    private final GameInfo gameInfo;
+    private final GameInfoSupplier gameInfoSupplier;
 
     /**
      * The subsystem for indicating any status.
      * 
-     * @param gameInfo The game information singleton.
+     * @param gameInfoSupplier The game information supplier resource.
      */
-    public Indicator(GameInfo gameInfo) {
-        this.gameInfo = gameInfo;
+    public Indicator(GameInfoSupplier gameInfoSupplier) {
+        this.gameInfoSupplier = gameInfoSupplier;
 
-        gameInfo.onAllianceSet(this::indicateNewAllianceSet);
+        gameInfoSupplier.onAllianceSet(this::indicateNewAllianceSet);
     }
 
     /**
@@ -78,18 +78,15 @@ public class Indicator extends SubsystemBase {
     }
 
     /**
-     * Indicate the progress of a command with the provided logger and current
-     * progress.
+     * Indicate the progress of a command with the provided logger and current progress.
      * 
-     * Logs the current step and progress fraction, and fills the LEDs to the
-     * fraction of steps
-     * progressed to total steps, foreground being the progress bar color and
-     * background being the
+     * Logs the current step and progress fraction, and fills the LEDs to the fraction of steps
+     * progressed to total steps, foreground being the progress bar color and background being the
      * default color.
      * 
      * @param <CommandProgress> an amount of progress.
-     * @param logger            the provided logger.
-     * @param currentProgress   the current progress.
+     * @param logger the provided logger.
+     * @param currentProgress the current progress.
      */
     public <CommandProgress extends Progress> void indicateProgress(Logger logger,
             CommandProgress currentProgress) {
@@ -106,8 +103,8 @@ public class Indicator extends SubsystemBase {
      */
     private RGBWColor getDefaultColor() {
         return getColorFromArray(
-                Constants.IndicatorConstants.ColorArrays.DEFAULT_COLOR_ARRAYS[gameInfo
-                        .getAlliance().ordinal()][gameInfo.getPhase().ordinal()]);
+                Constants.IndicatorConstants.ColorArrays.DEFAULT_COLOR_ARRAYS[gameInfoSupplier
+                        .getAlliance().ordinal()][gameInfoSupplier.getPhase().ordinal()]);
     }
 
     /**
