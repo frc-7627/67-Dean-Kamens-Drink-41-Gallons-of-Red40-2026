@@ -86,7 +86,7 @@ public class RobotContainer {
             throw new RobotInitException("Could not initialize drivebase!", cause);
         }
 
-        this.teleopCommands = new TeleopCommands(indicator, drivebase, intake);
+        this.teleopCommands = new TeleopCommands(indicator, drivebase, intake, globalControlState);
 
         // Configure
         setupTeleop();
