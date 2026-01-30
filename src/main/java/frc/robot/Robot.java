@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robotlib.resource.ResourceScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -106,6 +107,10 @@ public class Robot extends LoggedRobot {
         // robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        /*
+         * Runs the resource scheduler. 
+         */
+        ResourceScheduler.getInstance().run();
     }
 
     /**
