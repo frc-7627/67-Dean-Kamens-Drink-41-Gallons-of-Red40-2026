@@ -30,6 +30,7 @@
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
     "Brushless",
+    "controlstate",
     "drivebase",
     "Feedforwards",
     "gameinfo",
@@ -38,10 +39,9 @@
     "Holonomic",
     "ironmaple",
     "Neos",
-    "RGBW",
-    "Rizzler",
     "pathplanner",
     "RGBW",
+    "Rizzler",
     "subtable",
     "swervedrive",
     "Teleop"
