@@ -22,6 +22,8 @@ import frc.robot.subsystems.controlstate.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
+import frc.robot.subsystems.feeder.Feeder;
+import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.teleop.command.CommandContext;
 import frc.robot.teleop.command.TeleopCommands;
 import frc.robot.teleop.controller.DriverController;
@@ -47,15 +49,19 @@ public class RobotContainer {
     private final TeleopController operatorController = new OperatorXboxController();
 
     // The robot's subsystems and resources are defined here...
-    private final Drivebase drivebase;
-
     private final Vision vision;
 
     private final GameInfoSupplier gameInfoSupplier;
 
+    private final Drivebase drivebase;
+
     private final Indicator indicator;
 
     private final Intake intake;
+
+    private final Feeder feeder;
+    
+    private final Hopper hopper;
 
     private final GlobalControlState globalControlState;
 
@@ -72,21 +78,25 @@ public class RobotContainer {
     public RobotContainer() throws RobotInitException {
         this.autoChooser = AutoBuilder.buildAutoChooser();
 
-        this.gameInfoSupplier = GameInfoSupplier.create();
-
-        this.indicator = Indicator.create(gameInfoSupplier);
-
-        this.intake = Intake.create();
-
         this.vision = Vision.create();
 
-        this.globalControlState = GlobalControlState.create();
+        this.gameInfoSupplier = GameInfoSupplier.create();
 
         try {
             this.drivebase = Drivebase.create(vision, gameInfoSupplier);
         } catch (DrivebaseInitException cause) {
             throw new RobotInitException("Could not initialize drivebase!", cause);
         }
+
+        this.intake = Intake.create();
+
+        this.indicator = Indicator.create(gameInfoSupplier);
+
+        this.feeder = Feeder.create();
+
+        this.hopper = Hopper.create();
+
+        this.globalControlState = GlobalControlState.create();
 
         this.teleopCommands = new TeleopCommands(new CommandContext(indicator, drivebase, intake, globalControlState));
 
