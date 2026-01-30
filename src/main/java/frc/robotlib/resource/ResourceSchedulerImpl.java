@@ -2,11 +2,15 @@ package frc.robotlib.resource;
 
 import java.util.Collection;
 import java.util.List;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Watchdog;
 
 final class ResourceSchedulerImpl implements ResourceScheduler {
     private static final ResourceSchedulerImpl INSTANCE = new ResourceSchedulerImpl();
 
     private final List<Resource> resources = List.of();
+
+    private final Watchdog watchdog = new Watchdog(TimedRobot.kDefaultPeriod, () -> {});
 
     private ResourceSchedulerImpl() {}
 
@@ -22,7 +26,19 @@ final class ResourceSchedulerImpl implements ResourceScheduler {
 
     @Override
     public void run() {
-        resources.forEach(Resource::periodic);
+        watchdog.reset();
+
+        resources.forEach(resource -> {
+            resource.periodic();
+            watchdog.addEpoch(resource.getName() + ".periodic()");
+        });
+
+        watchdog.disable();
+
+        if (watchdog.isExpired()) {
+            System.out.println("ResourceScheduler loop overrun");
+            watchdog.printEpochs();
+        }
     }
 
     static ResourceSchedulerImpl getInstance() {
