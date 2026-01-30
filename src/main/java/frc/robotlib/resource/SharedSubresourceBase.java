@@ -2,7 +2,7 @@ package frc.robotlib.resource;
 
 import java.util.Collection;
 
-public class SharedSubresourceBase extends PeriodicBase implements SharedSubresource {
+public class SharedSubresourceBase extends SubresourceBase implements SharedSubresource {
     protected SharedSubresourceBase() {}
 
     protected SharedSubresourceBase(Collection<? extends SharedSubresource> subresources) {

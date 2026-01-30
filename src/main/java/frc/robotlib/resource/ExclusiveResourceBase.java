@@ -2,7 +2,7 @@ package frc.robotlib.resource;
 
 import java.util.Collection;
 
-public class ExclusiveResourceBase extends PeriodicBase implements ExclusiveResource {
+public class ExclusiveResourceBase extends ResourceBase implements ExclusiveResource {
     protected ExclusiveResourceBase() {}
 
     protected ExclusiveResourceBase(Collection<? extends Subresource> subresources) {
