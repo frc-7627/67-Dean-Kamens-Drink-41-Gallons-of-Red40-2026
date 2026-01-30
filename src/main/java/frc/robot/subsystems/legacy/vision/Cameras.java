@@ -8,7 +8,7 @@ import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
-import frc.robot.subsystems.legacy.vision.dashboard.StandardDeviations;
+import frc.robot.resources.vision.StandardDeviations;
 import swervelib.SwerveDrive;
 
 /**

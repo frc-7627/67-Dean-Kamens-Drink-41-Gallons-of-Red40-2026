@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.subsystems.legacy.vision.dashboard.StandardDeviations;
+import frc.robot.resources.vision.StandardDeviations;
 import frc.robot.subsystems.util.dashboard.DashboardField;
 import static frc.robot.Constants.VisionConstants.*;
 import java.awt.Desktop;

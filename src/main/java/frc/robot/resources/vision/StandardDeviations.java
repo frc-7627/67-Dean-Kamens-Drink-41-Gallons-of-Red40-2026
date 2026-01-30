@@ -1,4 +1,4 @@
-package frc.robot.subsystems.legacy.vision.dashboard;
+package frc.robot.resources.vision;
 
 import frc.robot.subsystems.legacy.vision.OldVision;
 import frc.robot.subsystems.legacy.SwerveSubsystem;

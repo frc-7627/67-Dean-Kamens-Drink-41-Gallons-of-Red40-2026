@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.VisionConstants.*;
 import frc.robot.Robot;
-import frc.robot.subsystems.legacy.vision.dashboard.StandardDeviations;
+import frc.robot.resources.vision.StandardDeviations;
 
 /**
  * Camera Enum to select each camera
