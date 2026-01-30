@@ -3,7 +3,6 @@ package frc.robot.subsystems.launcher;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.launcher.dashboard.CurrentLimit;
 import frc.robot.subsystems.launcher.dashboard.RampUpPeriod;
@@ -12,7 +11,7 @@ import frc.robot.subsystems.util.dashboard.DashboardField;
 import frc.robot.subsystems.util.dashboard.MotorSpeed;
 
 // Colloquially known as Miles after bad Chinese
-public class Launcher extends SubsystemBase {
+public class LauncherImpl extends SubsystemBase {
 
     // 2 krakens
 
@@ -26,7 +25,7 @@ public class Launcher extends SubsystemBase {
         }
     }
 
-    private static final String SUBSYSTEM_NAME = Launcher.class.getSimpleName();
+    private static final String SUBSYSTEM_NAME = LauncherImpl.class.getSimpleName();
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
 
@@ -34,19 +33,20 @@ public class Launcher extends SubsystemBase {
     private final RampUpPeriod rampUpPeriod = new RampUpPeriod(launcherMotors.getConfigurator());
     private final ShootSpeed shootSpeed = new ShootSpeed(launcherMotors.getConfigurator());
 
-    private final MotorSpeed activeIdleSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed",
-            DEFAULT_ACTIVE_IDLE_SPEED);
-    private final MotorSpeed inactiveIdleSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed",
-            DEFAULT_INACTIVE_IDLE_SPEED);
-    private final MotorSpeed manualSpeed = new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
+    private final MotorSpeed activeIdleSpeed =
+            new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE_SPEED);
+    private final MotorSpeed inactiveIdleSpeed =
+            new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE_SPEED);
+    private final MotorSpeed manualSpeed =
+            new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
 
-    private final DashboardField[] dashboardFields = { currentLimit, rampUpPeriod, shootSpeed,
-            activeIdleSpeed, inactiveIdleSpeed, manualSpeed };
+    private final DashboardField[] dashboardFields = {currentLimit, rampUpPeriod, shootSpeed,
+            activeIdleSpeed, inactiveIdleSpeed, manualSpeed};
 
     /**
      * The launcher subsystem.
      */
-    public Launcher() {
+    LauncherImpl() {
         DashboardField.initAll(dashboardFields);
     }
 
