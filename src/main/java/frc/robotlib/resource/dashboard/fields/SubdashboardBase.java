@@ -2,7 +2,7 @@ package frc.robotlib.resource.dashboard.fields;
 
 import frc.robotlib.resource.dashboard.Subdashboard;
 
-abstract class SubdashboardBase implements Subdashboard {
+public abstract class SubdashboardBase implements Subdashboard {
     private final String superdashboardName;
     private final String subdashboardName;
 
