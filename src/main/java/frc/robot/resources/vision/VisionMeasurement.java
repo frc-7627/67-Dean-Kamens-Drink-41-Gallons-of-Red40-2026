@@ -14,6 +14,10 @@ public interface VisionMeasurement {
      */
     Pose2d getPose();
 
+    /**
+     * get the estimated time the frame used to derive the robot pose was taken and convert it to a timestamp
+     * @return timestamp of when robot pose was calculated
+     */
     double getTimestamp();
 
     Vector<N3> getStdDevs();
