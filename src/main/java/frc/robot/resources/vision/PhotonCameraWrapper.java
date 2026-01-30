@@ -125,7 +125,7 @@ class PhotonCameraWrapper {
     }
 
     private void updateEstimationStdDevs(StandardDeviations standardDeviations, List<PhotonTrackedTarget> targets) {
-        final double singleTagStdDev = standardDeviations.getSingleTagStdDev();
+        final double singleTagStdDev = standardDeviations.singleTagStdDev();
 
         if (estimatedRobotPoseOptional.isEmpty()) {
             // No pose input. Default to single-tag std devs
@@ -160,7 +160,7 @@ class PhotonCameraWrapper {
                 avgDist /= numTags;
                 // Decrease std devs if multiple targets are visible
                 if (numTags > 1) {
-                    estimatedStdDev = standardDeviations.getMultiTagStdDev();
+                    estimatedStdDev = standardDeviations.multiTagStdDev();
                 }
                 // Increase std devs based on (average) distance
                 if (numTags == 1 && avgDist > 3) // Assuming Max Distance before tag was

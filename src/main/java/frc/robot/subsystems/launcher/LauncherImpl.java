@@ -27,21 +27,41 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
 
-    private final PullingDouble currentLimit = new PullingDouble(DASHBOARD_NAME, "Current Limit",
-            launcherMotors.getConfigurator()::applyCurrentLimit, DEFAULT_CURRENT_LIMIT);
+    private final PullingDouble currentLimit = new PullingDouble(
+        DASHBOARD_NAME, 
+        "Current Limit",
+        launcherMotors.getConfigurator()::applyCurrentLimit, 
+        DEFAULT_CURRENT_LIMIT
+    );
 
-    private final PullingDouble rampUpPeriod = new PullingDouble(DASHBOARD_NAME, "Ramp Up Period",
-            launcherMotors.getConfigurator()::applyRampUpPeriod, DEFAULT_RAMP_UP_PERIOD);
+    private final PullingDouble rampUpPeriod = new PullingDouble(
+        DASHBOARD_NAME, 
+        "Ramp Up Period",
+        launcherMotors.getConfigurator()::applyRampUpPeriod, 
+        DEFAULT_RAMP_UP_PERIOD
+    );
 
-    private final PullingDouble shootSpeed =
-            new PullingDouble(DASHBOARD_NAME, "Shoot Speed", CHECK_SIMPLE_MOTOR_SPEED,
-                    launcherMotors.getConfigurator()::applyShootSpeed, DEFAULT_SHOOT_SPEED);
+    private final PullingDouble shootSpeed = new PullingDouble(
+        DASHBOARD_NAME, 
+        "Shoot Speed", 
+        CHECK_SIMPLE_MOTOR_SPEED,
+        launcherMotors.getConfigurator()::applyShootSpeed, 
+        DEFAULT_SHOOT_SPEED
+    );
 
-    private final PullingDouble activeIdleSpeed = new PullingDouble(DASHBOARD_NAME,
-            "Active Idle Speed", CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_ACTIVE_IDLE_SPEED);
+    private final PullingDouble activeIdleSpeed = new PullingDouble(
+        DASHBOARD_NAME,
+        "Active Idle Speed", 
+        CHECK_SIMPLE_MOTOR_SPEED, 
+        DEFAULT_ACTIVE_IDLE_SPEED
+    );
 
-    private final PullingDouble inactiveIdleSpeed = new PullingDouble(DASHBOARD_NAME,
-            "Inactive Idle Speed", CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_INACTIVE_IDLE_SPEED);
+    private final PullingDouble inactiveIdleSpeed = new PullingDouble(
+        DASHBOARD_NAME,
+        "Inactive Idle Speed", 
+        CHECK_SIMPLE_MOTOR_SPEED, 
+        DEFAULT_INACTIVE_IDLE_SPEED
+    );
 
     private final PullingDouble manualSpeed = new PullingDouble(DASHBOARD_NAME, "Manual Speed",
             CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_MANUAL_SPEED);

@@ -3,26 +3,22 @@ package frc.robot.resources.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import frc.robot.subsystems.util.dashboard.DashboardField;
 import frc.robotlib.resource.SharedResourceBase;
+import frc.robotlib.resource.dashboard.Dashboard;
 
 class PhotonCameras extends SharedResourceBase implements Vision {
+    private static final String DASHBOARD_NAME = Vision.class.getSimpleName();
+
     private final List<PhotonCameraWrapper> photonCameraWrappers;
 
-    private final StandardDeviations standardDeviations = new StandardDeviations();
-
-    private final DashboardField[] dashboardFields = {standardDeviations,};
+    private final StandardDeviationsSubdashboard standardDeviations =
+            new StandardDeviationsSubdashboard(DASHBOARD_NAME);
 
     PhotonCameras() {
         this.photonCameraWrappers = List.of(PhotonCameraInfo.values()).stream()
                 .map(photonCameraInfo -> new PhotonCameraWrapper(photonCameraInfo)).toList();
 
-        DashboardField.initAll(dashboardFields);
-    }
-
-    @Override
-    public void periodic() {
-        DashboardField.updateAll(dashboardFields);
+        Dashboard.create(DASHBOARD_NAME, List.of(standardDeviations));
     }
 
     /**
@@ -45,7 +41,7 @@ class PhotonCameras extends SharedResourceBase implements Vision {
     @Override
     public Stream<VisionMeasurement> getVisionMeasurements() {
         return photonCameraWrappers.stream().flatMap(photonCameraWrapper -> photonCameraWrapper
-                .getVisionMeasurement(standardDeviations).stream());
+                .getVisionMeasurement(standardDeviations.get()).stream());
     }
 
 }
