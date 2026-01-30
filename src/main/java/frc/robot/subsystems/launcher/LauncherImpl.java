@@ -11,7 +11,7 @@ import frc.robot.subsystems.util.dashboard.DashboardField;
 import frc.robot.subsystems.util.dashboard.MotorSpeed;
 
 // Colloquially known as Miles after bad Chinese
-public class LauncherImpl extends SubsystemBase {
+public class LauncherImpl extends SubsystemBase implements Launcher {
 
     // 2 krakens
 
@@ -56,49 +56,42 @@ public class LauncherImpl extends SubsystemBase {
     }
 
     /**
-     * Plays the horn frequency as a note on the motors.
+     * {@inheritDoc}
      * 
      * @see frc.robot.Constants.LauncherConstants#HORN_FREQ
      * @see LauncherMotors#playNote(int)
-     * @apiNote Motors enter music mode.
      */
+    @Override
     public void playHornOnMotors() {
         launcherMotors.playNote(HORN_FREQ);
     }
 
     /**
-     * Plays the provided song from its file on the motors.
+     * {@inheritDoc}
      * 
-     * @param song the provided song.
      * @see LauncherMotors#playSongFromFile(String)
      * @see Song
-     * @apiNote Motors enter music mode.
      */
+    @Override
     public void playSongOnMotors(Song song) {
         launcherMotors.playSongFromFile(song.filePath);
     }
 
     /**
-     * Exit music mode on the motors.
-     */
-    public void exitMusicModeOnMotors() {
-        launcherMotors.exitMusicMode();
-    }
-
-    /**
-     * Shoot out.
+     * {@inheritDoc}
      * 
      * Sets the commander motor to the shoot speed.
      * 
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
+    @Override
     public void shootOut() {
         launcherMotors.setCommanderSpeed(shootSpeed.getInnerValue());
     }
 
     /**
-     * Shoot in.
+     * {@inheritDoc}
      * 
      * Sets the commander motor to the negative shoot speed.
      * 
@@ -106,6 +99,7 @@ public class LauncherImpl extends SubsystemBase {
      * @see #shootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
+    @Override
     public void shootIn() {
         // TODO: why shouldn't this method be used unless in extraneous circumstances?
         // Justify in
@@ -114,36 +108,39 @@ public class LauncherImpl extends SubsystemBase {
     }
 
     /**
-     * Manually shoot out.
+     * {@inheritDoc}
      * 
      * Sets both motors to the manual speed.
      * 
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
+    @Override
     public void manualOutBoth() {
         launcherMotors.setBothSpeeds(manualSpeed.getInnerValue());
     }
 
     /**
-     * Manually shoot in.
+     * {@inheritDoc}
      * 
      * Sets both motors to the negative manual speed.
      * 
      * @see #manualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
+    @Override
     public void manualInBoth() {
         launcherMotors.setBothSpeeds(-manualSpeed.getInnerValue());
     }
 
     /**
-     * Stop the launcher.
+     * {@inheritDoc}
      * 
      * Stops both motors.
      * 
      * @see LauncherMotors#stopBoth()
      */
+    @Override
     public void stop() {
         launcherMotors.stopBoth();
     }
