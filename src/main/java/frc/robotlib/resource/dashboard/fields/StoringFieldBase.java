@@ -52,6 +52,7 @@ abstract class StoringFieldBase<Stored> extends SubdashboardBase implements Stor
             onStore(stored);
             return stored;
         } else {
+            push(currentStored);
             return currentStored;
         }
     }

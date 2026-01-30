@@ -52,6 +52,7 @@ abstract class PullingFieldBase<Pulled> extends SubdashboardBase implements Pull
             onPull(pulled);
             return pulled;
         } else {
+            push(currentPulled);
             return currentPulled;
         }
     }
