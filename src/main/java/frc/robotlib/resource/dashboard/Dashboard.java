@@ -7,7 +7,7 @@ public interface Dashboard extends Resource {
     String getDashboardName();
 
     static Dashboard create(String dashboardName,
-            Collection<? extends Subdashboard> dashboardFields) {
-        return new DashboardImpl(dashboardName, dashboardFields);
+            Collection<? extends Subdashboard> subdashboards) {
+        return new DashboardImpl(dashboardName, subdashboards);
     }
 }
