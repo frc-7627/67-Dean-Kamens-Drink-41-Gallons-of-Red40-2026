@@ -1,14 +1,12 @@
 package frc.robot.subsystems.launcher;
 
+import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
-
+import java.util.List;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.launcher.dashboard.CurrentLimit;
-import frc.robot.subsystems.launcher.dashboard.RampUpPeriod;
-import frc.robot.subsystems.launcher.dashboard.ShootSpeed;
-import frc.robot.subsystems.util.dashboard.DashboardField;
-import frc.robot.subsystems.util.dashboard.MotorSpeed;
+import frc.robotlib.resource.dashboard.Dashboard;
+import frc.robotlib.resource.dashboard.fields.PullingDouble;
 
 // Colloquially known as Miles after bad Chinese
 public class LauncherImpl extends SubsystemBase implements Launcher {
@@ -25,34 +23,35 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         }
     }
 
-    private static final String SUBSYSTEM_NAME = LauncherImpl.class.getSimpleName();
+    private static final String DASHBOARD_NAME = Launcher.class.getSimpleName();
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
 
-    private final CurrentLimit currentLimit = new CurrentLimit(launcherMotors.getConfigurator());
-    private final RampUpPeriod rampUpPeriod = new RampUpPeriod(launcherMotors.getConfigurator());
-    private final ShootSpeed shootSpeed = new ShootSpeed(launcherMotors.getConfigurator());
+    private final PullingDouble currentLimit = new PullingDouble(DASHBOARD_NAME, "Current Limit",
+            launcherMotors.getConfigurator()::applyCurrentLimit, DEFAULT_CURRENT_LIMIT);
 
-    private final MotorSpeed activeIdleSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Active Idle Speed", DEFAULT_ACTIVE_IDLE_SPEED);
-    private final MotorSpeed inactiveIdleSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Inactive Idle Speed", DEFAULT_INACTIVE_IDLE_SPEED);
-    private final MotorSpeed manualSpeed =
-            new MotorSpeed(SUBSYSTEM_NAME, "Manual Speed", DEFAULT_MANUAL_SPEED);
+    private final PullingDouble rampUpPeriod = new PullingDouble(DASHBOARD_NAME, "Ramp Up Period",
+            launcherMotors.getConfigurator()::applyRampUpPeriod, DEFAULT_RAMP_UP_PERIOD);
 
-    private final DashboardField[] dashboardFields = {currentLimit, rampUpPeriod, shootSpeed,
-            activeIdleSpeed, inactiveIdleSpeed, manualSpeed};
+    private final PullingDouble shootSpeed =
+            new PullingDouble(DASHBOARD_NAME, "Shoot Speed", CHECK_SIMPLE_MOTOR_SPEED,
+                    launcherMotors.getConfigurator()::applyShootSpeed, DEFAULT_SHOOT_SPEED);
+
+    private final PullingDouble activeIdleSpeed = new PullingDouble(DASHBOARD_NAME,
+            "Active Idle Speed", CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_ACTIVE_IDLE_SPEED);
+
+    private final PullingDouble inactiveIdleSpeed = new PullingDouble(DASHBOARD_NAME,
+            "Inactive Idle Speed", CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_INACTIVE_IDLE_SPEED);
+
+    private final PullingDouble manualSpeed = new PullingDouble(DASHBOARD_NAME, "Manual Speed",
+            CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_MANUAL_SPEED);
 
     /**
      * The launcher subsystem.
      */
     LauncherImpl() {
-        DashboardField.initAll(dashboardFields);
-    }
-
-    @Override
-    public void periodic() {
-        DashboardField.updateAll(dashboardFields);
+        Dashboard.create(DASHBOARD_NAME, List.of(currentLimit,
+            rampUpPeriod, shootSpeed, activeIdleSpeed, inactiveIdleSpeed, manualSpeed));
     }
 
     /**
@@ -82,12 +81,12 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      * 
      * Sets the commander motor to the shoot speed.
      * 
-     * @see #shootSpeed
+     * @see #oldShootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
     @Override
     public void shootOut() {
-        launcherMotors.setCommanderSpeed(shootSpeed.getInnerValue());
+        launcherMotors.setCommanderSpeed(shootSpeed.getPulled());
     }
 
     /**
@@ -96,7 +95,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      * Sets the commander motor to the negative shoot speed.
      * 
      * @apiNote Do not use unless in extraneous circumstances.
-     * @see #shootSpeed
+     * @see #oldShootSpeed
      * @see LauncherMotors#setCommanderSpeed(double)
      */
     @Override
@@ -104,7 +103,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         // TODO: why shouldn't this method be used unless in extraneous circumstances?
         // Justify in
         // the api note.
-        launcherMotors.setCommanderSpeed(-shootSpeed.getInnerValue());
+        launcherMotors.setCommanderSpeed(-shootSpeed.getPulled());
     }
 
     /**
@@ -112,12 +111,12 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      * 
      * Sets both motors to the manual speed.
      * 
-     * @see #manualSpeed
+     * @see #oldManualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
     @Override
     public void manualOutBoth() {
-        launcherMotors.setBothSpeeds(manualSpeed.getInnerValue());
+        launcherMotors.setBothSpeeds(manualSpeed.getPulled());
     }
 
     /**
@@ -125,12 +124,12 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      * 
      * Sets both motors to the negative manual speed.
      * 
-     * @see #manualSpeed
+     * @see #oldManualSpeed
      * @see LauncherMotors#setBothSpeeds(double)
      */
     @Override
     public void manualInBoth() {
-        launcherMotors.setBothSpeeds(-manualSpeed.getInnerValue());
+        launcherMotors.setBothSpeeds(-manualSpeed.getPulled());
     }
 
     /**

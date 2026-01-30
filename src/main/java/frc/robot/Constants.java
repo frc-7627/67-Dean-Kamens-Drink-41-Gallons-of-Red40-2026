@@ -7,7 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.Hertz;
 import static edu.wpi.first.units.Units.Meter;
 import java.io.File;
-
+import java.util.function.Predicate;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Frequency;
 
@@ -58,6 +58,10 @@ public final class Constants {
             new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(2);
+
+    public static final Predicate<Double> CHECK_SIMPLE_MOTOR_SPEED =
+                    simpleMotorSpeed -> -1.0 <= simpleMotorSpeed && simpleMotorSpeed <= 1.0;
+
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 
     // public static final class AutonConstants
