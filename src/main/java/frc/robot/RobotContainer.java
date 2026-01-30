@@ -18,6 +18,7 @@ import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.teleop.command.TeleopCommands;
@@ -51,6 +52,8 @@ public class RobotContainer {
 
     private final Intake intake;
 
+    private final GlobalControlState globalControlState;
+
     // Establish a Sendable Chooser that will be able to be sent to the
     // SmartDashboard, allowing
     // selection of desired auto
@@ -71,6 +74,8 @@ public class RobotContainer {
         this.intake = null;
 
         this.vision = Vision.create();
+
+        this.globalControlState = GlobalControlState.create();
 
         try {
             this.drivebase = Drivebase.create(vision, gameInfoSupplier);
