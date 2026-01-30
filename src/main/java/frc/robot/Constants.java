@@ -12,11 +12,19 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Frequency;
 
 import org.photonvision.simulation.SimCameraProperties;
+
+import com.ctre.phoenix6.configs.AudioConfigs;
+import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -227,15 +235,37 @@ public final class Constants {
     }
 
     public static class LauncherConstants {
-        public static double ShootSpeed = 0.7;
-        public static double ActiveIdle = 0.5;
-        public static double InactiveIdle = 0.3;
-        public static double ManualSpeed = 0.3;
+        public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static double rampUpPeriod = 0.5;
+        public static final double DEFAULT_SHOOT_SPEED = 0.7;
+        public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
+        public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;
+        public static final double DEFAULT_MANUAL_SPEED = 0.3;
 
-        public static double currentLimit = 40;
+        public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
 
+        public static final double DEFAULT_CURRENT_LIMIT = 40;
+
+        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS =
+                new CurrentLimitsConfigs().withStatorCurrentLimitEnable(true)
+                        .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+
+        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS =
+                new MotorOutputConfigs().withPeakForwardDutyCycle(DEFAULT_SHOOT_SPEED)
+                        .withPeakReverseDutyCycle(-DEFAULT_SHOOT_SPEED)
+                        .withNeutralMode(NeutralModeValue.Coast);
+
+        public static final OpenLoopRampsConfigs DEFAULT_OPEN_LOOP_RAMPS_CONFIGS =
+                new OpenLoopRampsConfigs().withDutyCycleOpenLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
+
+        public static final ClosedLoopRampsConfigs DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS =
+                new ClosedLoopRampsConfigs()
+                        .withDutyCycleClosedLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
+
+        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
+                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
+
+        public static final int HORN_FREQ = 440;
     }
 
     public static class Directories {
