@@ -18,6 +18,7 @@ import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.controlstate.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
@@ -54,6 +55,8 @@ public class RobotContainer {
 
     private final GlobalControlState globalControlState;
 
+    private final TeleopCommands teleopCommands;
+
     // Establish a Sendable Chooser that will be able to be sent to the
     // SmartDashboard, allowing
     // selection of desired auto
@@ -83,6 +86,8 @@ public class RobotContainer {
             throw new RobotInitException("Could not initialize drivebase!", cause);
         }
 
+        this.teleopCommands = new TeleopCommands(indicator, drivebase, intake);
+
         // Configure
         setupTeleop();
 
@@ -102,11 +107,12 @@ public class RobotContainer {
         drivebase.setDefaultCommand(
                 new DriveWithInput(drivebase, driverController.getInput(drivebase)));
 
-        final TeleopCommands teleopCommands = new TeleopCommands(indicator, drivebase, intake);
+        globalControlState.onNewControlState(this::bindControllers);
+    }
 
-        teleopCommands.bindToController(driverController);
-        teleopCommands.bindToController(operatorController);
-
+    private void bindControllers(ControlState controlState) {
+        teleopCommands.bindToController(driverController, controlState);
+        teleopCommands.bindToController(operatorController, controlState);
     }
 
     /**

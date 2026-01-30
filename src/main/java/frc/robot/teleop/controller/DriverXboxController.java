@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.controlstate.ControlState;
 import frc.robot.subsystems.drivebase.InputSupplier;
 import frc.robot.teleop.command.TeleopCommandFactory;
 
@@ -13,7 +14,7 @@ public class DriverXboxController implements DriverController {
 
     @Override
     public void bindCommand(TeleopCommandFactory factory,
-            Consumer<Consumer<Command>> binderConsumer) {
+            Consumer<Consumer<Command>> binderConsumer, ControlState controlState) {
         switch (factory) {
             case LOCK -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
             case ZERO_GYRO -> binderConsumer.accept(xboxController.a()::whileTrue);
