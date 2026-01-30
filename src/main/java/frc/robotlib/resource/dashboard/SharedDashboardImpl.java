@@ -6,9 +6,10 @@ import frc.robotlib.resource.SharedResourceBase;
 
 final class SharedDashboardImpl extends SharedResourceBase implements SharedDashboard {
     private final String name;
-    private final List<SharedDashboardField> dashboardFields = List.of();
+    private final List<SharedSubdashboard> dashboardFields = List.of();
 
-    SharedDashboardImpl(String dashboardName, Collection<? extends SharedDashboardField> dashboardFields) {
+    SharedDashboardImpl(String dashboardName,
+            Collection<? extends SharedSubdashboard> dashboardFields) {
         super(dashboardFields);
 
         this.name = dashboardName;
@@ -23,6 +24,6 @@ final class SharedDashboardImpl extends SharedResourceBase implements SharedDash
 
     @Override
     public void periodic() {
-        dashboardFields.forEach(SharedDashboardField::periodic);
+        dashboardFields.forEach(SharedSubdashboard::periodic);
     }
 }

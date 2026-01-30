@@ -5,7 +5,7 @@ import frc.robotlib.resource.SharedResource;
 
 public interface SharedDashboard extends Dashboard, SharedResource {
     static SharedDashboard create(String dashboardName,
-            Collection<? extends SharedDashboardField> dashboardFields) {
+            Collection<? extends SharedSubdashboard> dashboardFields) {
         return new SharedDashboardImpl(dashboardName, dashboardFields);
     }
 }

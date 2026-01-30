@@ -6,9 +6,9 @@ import frc.robotlib.resource.ResourceBase;
 
 final class DashboardImpl extends ResourceBase implements Dashboard {
     private final String dashboardName;
-    private final List<DashboardField> dashboardFields = List.of();
+    private final List<Subdashboard> dashboardFields = List.of();
 
-    DashboardImpl(String dashboardName, Collection<? extends DashboardField> dashboardFields) {
+    DashboardImpl(String dashboardName, Collection<? extends Subdashboard> dashboardFields) {
         super(dashboardFields);
 
         this.dashboardName = dashboardName;
@@ -23,6 +23,6 @@ final class DashboardImpl extends ResourceBase implements Dashboard {
 
     @Override
     public void periodic() {
-        dashboardFields.forEach(DashboardField::periodic);
+        dashboardFields.forEach(Subdashboard::periodic);
     }
 }

@@ -44,9 +44,11 @@
     "RGBW",
     "Rizzler",
     "robotlib",
+    "Subdashboard",
     "Subresource",
     "subresources",
     "subtable",
+    "Superdashboard",
     "swervedrive",
     "Teleop"
   ],
