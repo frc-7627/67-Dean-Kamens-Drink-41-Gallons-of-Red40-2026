@@ -4,9 +4,9 @@ import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public interface BestTargetSupplier {
-    Target getBestTarget();
+    Optional<Target> getBestTarget();
 
     default Optional<Pose2d> getBestTargetPose() {
-        return getBestTarget().getPose();
+        return getBestTarget().flatMap(Target::getPose);
     }
 }
