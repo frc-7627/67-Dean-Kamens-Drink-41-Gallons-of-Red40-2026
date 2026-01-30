@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import frc.robot.Constants;
-import frc.robot.resources.Resource;
+import frc.robot.resources.ResourceBase;
 
-final class GameInfoSupplierImpl extends Resource implements GameInfoSupplier {
+final class GameInfoSupplierImpl extends ResourceBase implements GameInfoSupplier {
     private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getSimpleName());
 
     private final EventLoop eventLoop = new EventLoop();

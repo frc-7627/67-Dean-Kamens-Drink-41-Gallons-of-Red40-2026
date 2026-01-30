@@ -3,10 +3,10 @@ package frc.robot.resources.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import frc.robot.resources.Resource;
+import frc.robot.resources.ResourceBase;
 import frc.robot.subsystems.util.dashboard.DashboardField;
 
-class PhotonCameras extends Resource implements Vision {
+class PhotonCameras extends ResourceBase implements Vision {
     private final List<PhotonCameraWrapper> photonCameraWrappers;
 
     private final StandardDeviations standardDeviations = new StandardDeviations();

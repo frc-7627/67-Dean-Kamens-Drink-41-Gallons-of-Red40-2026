@@ -1,9 +1,9 @@
 package frc.robot.resources.offset;
 
 import edu.wpi.first.math.geometry.Translation2d;
-import frc.robot.resources.Resource;
+import frc.robot.resources.ResourceBase;
 
-class OffsetSupplierImpl extends Resource implements OffsetSupplier {
+class OffsetSupplierImpl extends ResourceBase implements OffsetSupplier {
     @Override
     public Translation2d getOffset() {
         // TODO Auto-generated method stub
