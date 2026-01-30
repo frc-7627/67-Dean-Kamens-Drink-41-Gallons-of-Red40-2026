@@ -10,5 +10,5 @@ package frc.robotlib.resource;
  * @see Periodic
  * @see Subresource
  */
-public sealed interface Resource extends Periodic permits ExclusiveResource, SharedResource {
+public non-sealed interface Resource extends Periodic {
 }

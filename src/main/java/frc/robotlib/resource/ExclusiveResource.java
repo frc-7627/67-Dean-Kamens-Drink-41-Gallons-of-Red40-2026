@@ -1,5 +1,5 @@
 package frc.robotlib.resource;
 
-public non-sealed interface ExclusiveResource extends Resource {
+public  interface ExclusiveResource extends Resource {
     
 }
