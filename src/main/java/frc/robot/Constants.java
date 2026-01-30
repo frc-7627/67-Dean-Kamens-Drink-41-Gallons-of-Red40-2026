@@ -44,7 +44,7 @@ public final class Constants {
     // Logging mode for advantage kit logs. Switch between, REAL , SIM , and REPLAY
     // based on whatever
     // mode you need
-    // public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY
+        public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY
     // TIME YOU DEPLOY OR
     // ELSE THE CODE WILL NOT THE CODE
     // TODO: Fix this at some point ^^^^
@@ -185,4 +185,18 @@ public final class Constants {
         public static final String STARTUP_BANNER_FILE_PATH =
                 String.format("%s/startup-banner.txt", Directories.DEPLOY_DIRECTORY);
     }
+    
+    public enum Mode {
+    // Running on a real robot
+
+    REAL,
+
+    // Running in the sim
+
+    SIM,
+
+    // Replaying from a log file
+
+    REPLAY
+  }
 }
