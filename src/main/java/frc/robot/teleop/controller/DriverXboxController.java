@@ -6,6 +6,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
+import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.InputSupplier;
 import frc.robot.teleop.command.TeleopCommandFactory;
 
@@ -19,7 +20,7 @@ public class DriverXboxController implements DriverController {
             case LOCK -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
             case ZERO_GYRO -> binderConsumer.accept(xboxController.a()::whileTrue);
             case ROTATE_CCW_90_DEG -> binderConsumer.accept(xboxController.y()::onTrue);
-            case ROTATE_TO_HUB -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
+            case DRIVE_AND_ROTATE_TO_HUB -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
             default -> {
             }
         }
