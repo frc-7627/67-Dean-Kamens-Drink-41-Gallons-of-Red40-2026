@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
-public interface SemiautoDrivebase extends TeleopDrivebase, AutoDrivebase {
+public interface SemidirectDrivebase extends DirectDrivebase {
     /**
      * Gets a controller that returns chassis speeds that rotate the robot to the target rotation.
      * 
@@ -13,6 +13,13 @@ public interface SemiautoDrivebase extends TeleopDrivebase, AutoDrivebase {
      * @return a rotation controller.
      */
     Supplier<ChassisSpeeds> getRotationControl(Rotation2d targetRotation);
+
+    /**
+     * @param targetRotation the target rotation from the initial pose when called.
+     * @return a supplier that checks whether the orientation of the robot has converged to the
+     *         target rotation.
+     */
+    BooleanSupplier getRotationConvergenceSupplier(Rotation2d targetRotation);
 
     /**
      * Gets a controller that returns chassis speeds that rotate the robot to the target
@@ -29,12 +36,6 @@ public interface SemiautoDrivebase extends TeleopDrivebase, AutoDrivebase {
      *         target orientation.
      */
     BooleanSupplier getOrientationConvergenceSupplier(
-            Supplier<Rotation2d> targetOrientationSupplier);
-
-    /**
-     * @param targetRotation the target rotation from the initial pose when called.
-     * @return a supplier that checks whether the orientation of the robot has converged to the
-     *         target rotation.
-     */
-    BooleanSupplier getRotationConvergenceSupplier(Rotation2d targetRotation);
+        Supplier<Rotation2d> targetOrientationSupplier
+    );
 }

@@ -5,7 +5,7 @@ import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 
-public interface Drivebase extends SemiautoDrivebase, InputSupplier {
+public interface Drivebase extends TeleopDrivebase, AutoDrivebase, InputSupplier {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 
     /**
