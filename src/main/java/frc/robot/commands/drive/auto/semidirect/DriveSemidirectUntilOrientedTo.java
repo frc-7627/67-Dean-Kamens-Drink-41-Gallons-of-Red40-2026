@@ -7,7 +7,8 @@ public class DriveSemidirectUntilOrientedTo extends DriveSemidirectUntilOriented
     public DriveSemidirectUntilOrientedTo(SemidirectDrivebase drivebase, Translation2d targetPosition) {
         super(
             drivebase,
-            () -> targetPosition.minus(drivebase.getPose().getTranslation()).getAngle()
+            () -> targetPosition.minus(drivebase.getPose().getTranslation()).getAngle(),
+            DriveSemidirectUntilOrientedTo.class
         );
     }
 }

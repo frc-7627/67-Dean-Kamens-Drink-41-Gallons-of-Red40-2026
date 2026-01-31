@@ -6,6 +6,9 @@ import frc.robot.subsystems.drivebase.DirectDrivebase;
 
 public class ZeroGyro extends LoggingWrapperCommand {
     public ZeroGyro(DirectDrivebase drivebase) {
-        super(new InstantCommand(drivebase::zeroGyro, drivebase));
+        super(
+            new InstantCommand(drivebase::zeroGyro, drivebase), 
+            ZeroGyro.class
+        );
     }
 }

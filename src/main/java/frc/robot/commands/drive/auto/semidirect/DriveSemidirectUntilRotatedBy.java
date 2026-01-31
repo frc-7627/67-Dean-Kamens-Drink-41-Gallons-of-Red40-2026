@@ -9,7 +9,8 @@ public class DriveSemidirectUntilRotatedBy extends DriveDirectUntil {
         super(
             drivebase,
             drivebase.getRotationControl(targetRotation),
-            drivebase.getRotationConvergenceSupplier(targetRotation)
+            drivebase.getRotationConvergenceSupplier(targetRotation),
+            DriveSemidirectUntilRotatedBy.class
         );
     }
 }
