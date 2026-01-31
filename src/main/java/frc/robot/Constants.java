@@ -132,7 +132,7 @@ public final class Constants {
 
                 public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
 
-                public static final Translation2d HubOffset =
+                public static final Translation2d HUB_LOCATION =
                                 new Translation2d(Inches.of(182.56), Inches.of(0));
         }
 
