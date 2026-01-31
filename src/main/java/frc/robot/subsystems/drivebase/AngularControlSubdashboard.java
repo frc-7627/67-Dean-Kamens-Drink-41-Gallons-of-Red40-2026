@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drivebase;
 
+import edu.wpi.first.math.controller.PIDController;
 import frc.robotlib.resource.dashboard.fields.PullingDouble;
 import frc.robotlib.resource.dashboard.fields.SubdashboardBase;
 
@@ -16,15 +17,19 @@ final class AngularControlSubdashboard extends SubdashboardBase {
         this.kd = new PullingDouble(getKeyName(), "D", 0.0);
     }
 
-    double getKp() {
+    PIDController getController() {
+        return new PIDController(getKp(), getKi(), getKd());
+    }
+
+    private double getKp() {
         return kp.getPulled();
     }
 
-    double getKi() {
+    private double getKi() {
         return ki.getPulled();
     }
 
-    double getKd() {
+    private double getKd() {
         return kd.getPulled();
     }
 }
