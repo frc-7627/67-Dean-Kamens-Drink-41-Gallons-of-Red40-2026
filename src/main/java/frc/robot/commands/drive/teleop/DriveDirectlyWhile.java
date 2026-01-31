@@ -1,0 +1,23 @@
+package frc.robot.commands.drive.teleop;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import frc.robot.subsystems.drivebase.TeleopDrivebase;
+
+public class DriveDirectlyWhile extends FunctionalCommand {
+    public DriveDirectlyWhile(
+        TeleopDrivebase drivebase, 
+        Supplier<ChassisSpeeds> input, 
+        BooleanSupplier isFinishedSupplier
+    ) {
+        super(
+            () -> {}, 
+            () -> drivebase.driveWithSpeeds(input.get()), 
+            interrupted -> {}, 
+            isFinishedSupplier, 
+            drivebase
+        );
+    }
+}
