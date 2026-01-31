@@ -1,14 +1,11 @@
 package frc.robot.commands;
 
-import java.util.logging.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class LoggingCommandWrapper extends LoggingCommand {
     private final Command command;
 
     public LoggingCommandWrapper(Command command) {
-        super(Logger.getLogger(command.getClass().getSimpleName()));
-
         this.command = command;
     }
 
