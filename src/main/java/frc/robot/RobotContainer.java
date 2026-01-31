@@ -12,11 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.auto.AutoChooser;
 import frc.robot.commands.drive.auto.direct.DriveDirect;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
+import frc.robot.setup.auto.AutoChooser;
+import frc.robot.setup.teleop.CommandContext;
+import frc.robot.setup.teleop.DriverController;
+import frc.robot.setup.teleop.OperatorController;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
 import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
@@ -25,9 +28,6 @@ import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.hopper.Hopper;
-import frc.robot.teleop.CommandContext;
-import frc.robot.teleop.DriverController;
-import frc.robot.teleop.OperatorController;
 import org.littletonrobotics.junction.Logger;
 
 /**

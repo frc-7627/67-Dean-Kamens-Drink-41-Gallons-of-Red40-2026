@@ -1,4 +1,4 @@
-package frc.robot.auto;
+package frc.robot.setup.auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;

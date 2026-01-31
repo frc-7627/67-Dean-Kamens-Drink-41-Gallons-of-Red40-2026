@@ -1,4 +1,4 @@
-package frc.robot.teleop;
+package frc.robot.setup.teleop;
 
 import java.util.function.Consumer;
 import edu.wpi.first.wpilibj2.command.Command;

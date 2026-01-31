@@ -1,4 +1,4 @@
-package frc.robot.teleop;
+package frc.robot.setup.teleop;
 
 import frc.robot.subsystems.indication.Indicator;
 import java.util.function.Supplier;

@@ -1,4 +1,4 @@
-package frc.robot.teleop;
+package frc.robot.setup.teleop;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;

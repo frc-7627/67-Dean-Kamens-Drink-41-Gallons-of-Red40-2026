@@ -1,4 +1,4 @@
-package frc.robot.teleop;
+package frc.robot.setup.teleop;
 
 public interface OperatorController extends TeleopController {
     static OperatorController create() {
