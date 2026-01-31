@@ -6,7 +6,6 @@ package frc.robot;
 
 import static frc.robot.Constants.Directories.DEPLOY_DIRECTORY;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.logging.LogManager;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;

@@ -5,6 +5,7 @@ import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.auto.direct.Lock;
 import frc.robot.commands.drive.auto.semidirect.DriveSemidirectUntilOrientedTo;
@@ -66,6 +67,6 @@ enum TeleopCommandFactory {
     }
 
     Consumer<Consumer<Command>> getBinderConsumer(CommandContext context) {
-        return binder -> binder.accept(commandSupplier.apply(context));
+        return binder -> binder.accept(new LoggingWrapperCommand(commandSupplier.apply(context)));
     }
 }

@@ -10,8 +10,7 @@ public class DriveIndirectToBestTarget extends LoggingWrapperCommand {
     public DriveIndirectToBestTarget(IndirectDrivebase drivebase, BestTargetSupplier vision) {
         super(vision.getBestTargetPose()
             .map(targetPose -> (Command) new DriveIndirectToPose(drivebase, targetPose))
-            .orElse(Commands.none()),
-            DriveIndirectToBestTarget.class
+            .orElse(Commands.none())
         );
     }
 }
