@@ -7,9 +7,7 @@ class GlobalControlStateImpl extends SubsystemBase implements GlobalControlState
     private ControlState controlState = ControlState.NORMAL;
 
     @Override
-    public void toggleControlState() {
-        this.controlState = controlState;
-    }
+    public void toggleControlState() {}
 
     @Override
     public void onNewControlState(Consumer<ControlState> action) {
