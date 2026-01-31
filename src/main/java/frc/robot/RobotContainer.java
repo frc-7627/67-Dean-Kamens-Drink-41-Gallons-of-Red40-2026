@@ -93,13 +93,13 @@ public class RobotContainer {
         this.commandContext = new CommandContext(indicator, drivebase, intake,
                 globalControlState, gameInfoSupplier, driverController.getInput(drivebase));
 
-        setupTeleop();
-
         try {
             this.autoChooser = AutoChooser.create(drivebase.getPathPlannerConfigurator().get());
         } catch (PathPlannerConfigException cause) {
             throw new RobotInitException("Could not configure autos!", cause);
         }
+
+        setupTeleop();
 
         indicator.indicateStartup();
     }
