@@ -15,4 +15,10 @@ public interface DirectDrivebase extends Subsystem, PoseSupplier {
      * Forces the robot to keep the current pose.
      */
     void lock();
+
+    /**
+     * Resets the gyro angle to zero and resets odometry to the same position, but facing toward 0
+     * (red alliance station).
+     */
+    void zeroGyro();
 }
