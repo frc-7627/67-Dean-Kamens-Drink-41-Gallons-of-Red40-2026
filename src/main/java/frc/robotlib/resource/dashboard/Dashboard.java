@@ -3,9 +3,7 @@ package frc.robotlib.resource.dashboard;
 import java.util.Collection;
 import frc.robotlib.resource.Resource;
 
-public interface Dashboard extends Resource {
-    String getDashboardName();
-
+public interface Dashboard extends Resource, Subdashboard {
     @Override
     default String getName() {
         return getDashboardName() + ".Dashboard";

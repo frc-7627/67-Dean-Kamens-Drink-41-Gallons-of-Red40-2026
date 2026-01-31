@@ -2,6 +2,7 @@ package frc.robotlib.resource.dashboard;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import frc.robotlib.resource.ResourceBase;
 
 final class DashboardImpl extends ResourceBase implements Dashboard {
@@ -17,8 +18,13 @@ final class DashboardImpl extends ResourceBase implements Dashboard {
     }
 
     @Override
-    public String getDashboardName() {
-        return dashboardName;
+    public Optional<String> getDashboardName() {
+        return Optional.of(dashboardName);
+    }
+
+    @Override
+    public Optional<String> getSuperdashboardName() {
+        return Optional.empty();
     }
 
     @Override
