@@ -18,9 +18,9 @@ final class AutoChooserImpl extends SubdashboardBase implements AutoChooser {
     AutoChooserImpl(PathPlannerConfigurator configurator) throws PathPlannerConfigException {
         super(FIELD_NAME);
 
-        this.chooser = AutoBuilder.buildAutoChooser();
-
         configurator.configureAndInit();
+
+        this.chooser = AutoBuilder.buildAutoChooser();
 
         setupChooser();
         setupNamedCommands();
