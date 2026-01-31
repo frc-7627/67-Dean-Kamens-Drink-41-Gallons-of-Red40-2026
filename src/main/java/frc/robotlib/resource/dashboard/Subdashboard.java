@@ -1,13 +1,29 @@
 package frc.robotlib.resource.dashboard;
 
+import java.util.Optional;
 import frc.robotlib.resource.Subresource;
 
 public interface Subdashboard extends Subresource {
-    String getSuperdashboardName();
+    Optional<String> getSuperdashboardName();
 
-    String getSubdashboardName();
+    Optional<String> getDashboardName();
 
     default String getKeyName() {
-        return getSuperdashboardName() + "/" + getSubdashboardName();
+        final Optional<String> superdashboardNameOptional = getSuperdashboardName();
+        final Optional<String> dashboardNameOptional = getDashboardName();
+
+        if (superdashboardNameOptional.isPresent()) {
+            if (dashboardNameOptional.isPresent()) {
+                return superdashboardNameOptional.get() + "/" + dashboardNameOptional.get();
+            } else {
+                return superdashboardNameOptional.get();
+            }
+        } else {
+            if (dashboardNameOptional.isPresent()) {
+                return dashboardNameOptional.get();
+            } else {
+                throw new AssertionError("Superdashboard or subdashboard needs name");
+            }
+        }
     }
 }

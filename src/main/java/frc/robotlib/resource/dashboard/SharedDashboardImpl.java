@@ -2,24 +2,30 @@ package frc.robotlib.resource.dashboard;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import frc.robotlib.resource.SharedResourceBase;
 
 final class SharedDashboardImpl extends SharedResourceBase implements SharedDashboard {
-    private final String name;
+    private final String dashboardName;
     private final List<SharedSubdashboard> dashboardFields = List.of();
 
     SharedDashboardImpl(String dashboardName,
             Collection<? extends SharedSubdashboard> dashboardFields) {
         super(dashboardFields);
 
-        this.name = dashboardName;
+        this.dashboardName = dashboardName;
 
         this.dashboardFields.addAll(dashboardFields);
     }
 
+     @Override
+    public Optional<String> getDashboardName() {
+        return Optional.of(dashboardName);
+    }
+
     @Override
-    public String getDashboardName() {
-        return name;
+    public Optional<String> getSuperdashboardName() {
+        return Optional.empty();
     }
 
     @Override

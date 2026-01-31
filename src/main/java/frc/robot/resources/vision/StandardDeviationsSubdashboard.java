@@ -10,7 +10,7 @@ public class StandardDeviationsSubdashboard extends SubdashboardBase implements 
     private final PullingDouble multiTagStdDev;
 
     StandardDeviationsSubdashboard(String dashboardName) {
-        super(dashboardName, "");
+        super(dashboardName);
 
         this.singleTagStdDev = new PullingDouble(dashboardName, "Single Tag Standard Deviation",
                 DEFAULT_SINGLE_TAG_STD_DEV);
