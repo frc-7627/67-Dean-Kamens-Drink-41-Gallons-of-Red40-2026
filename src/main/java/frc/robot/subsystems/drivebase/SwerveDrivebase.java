@@ -168,6 +168,10 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public Supplier<ChassisSpeeds> getOrientationControl(
             Supplier<Rotation2d> targetOrientationSupplier) {
+
+        System.out.println("Curernt rotation (radians): " + getPose().getRotation().getRadians()
+                + "Target rotation (radians): " + targetOrientationSupplier.get().getRadians());
+                
         return () -> new ChassisSpeeds(0, 0,
                 angularControlSubdashboard.getController().calculate(
                         getPose().getRotation().getRadians(),

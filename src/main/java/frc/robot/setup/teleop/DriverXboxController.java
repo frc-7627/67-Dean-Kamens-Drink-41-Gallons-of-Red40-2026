@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
@@ -24,6 +25,7 @@ class DriverXboxController implements DriverController {
             case ZERO_GYRO -> binderConsumer.accept(xboxController.a()::whileTrue);
             case ROTATE_CCW_90_DEG -> binderConsumer.accept(xboxController.y()::onTrue);
             case DRIVE_ORIENTING_TO_HUB -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
+            case ORIENT_TO_HUB -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
             default -> {
             }
         }
