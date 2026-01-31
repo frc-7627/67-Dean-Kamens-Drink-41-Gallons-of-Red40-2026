@@ -1,7 +1,6 @@
 package frc.robot.subsystems.drivebase;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
-import frc.robotlib.resource.dashboard.Dashboard;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -55,8 +53,6 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         } catch (IOException cause) {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
-
-        Dashboard.create(DASHBOARD_NAME, List.of(angularControlSubdashboard));
     }
 
     private void updateVisionMeasurements() {
