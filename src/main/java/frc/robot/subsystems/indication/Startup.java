@@ -19,6 +19,8 @@ class Startup {
     public void startup() {
         displayStartupBanner();
         hitGriddyOnTheOps();
+
+        LOGGER.info("Robot initialized.");
     }
 
     /**
