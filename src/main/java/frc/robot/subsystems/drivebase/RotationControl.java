@@ -1,11 +1,11 @@
 package frc.robot.subsystems.drivebase;
 
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
-final class RotationControl implements BiFunction<Rotation2d, Double, ChassisSpeeds> {
+final class RotationControl implements Function<Rotation2d, ChassisSpeeds> {
     private final PIDController controller;
 
     RotationControl(double kp, double ki, double kd) {
@@ -13,8 +13,8 @@ final class RotationControl implements BiFunction<Rotation2d, Double, ChassisSpe
     }
 
     @Override
-    public ChassisSpeeds apply(Rotation2d deltaRot, Double radius) {
+    public ChassisSpeeds apply(Rotation2d deltaRot) {
         return new ChassisSpeeds(0, 0,
-                controller.calculate(deltaRot.getRadians() * radius) / radius);
+                controller.calculate(deltaRot.getRadians()));
     }
 }

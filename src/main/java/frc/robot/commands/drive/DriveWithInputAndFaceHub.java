@@ -11,8 +11,6 @@ public class DriveWithInputAndFaceHub extends DriveWithInput {
             Supplier<ChassisSpeeds> input) {
         super(drivebase, () -> input.get().plus(drivebase.getRotationControl().apply(
             gameInfoSupplier.getHubPosition().minus(drivebase.getPose().getTranslation())
-                .getAngle().minus(drivebase.getPose().getRotation()),
-            gameInfoSupplier.getHubPosition()
-                .minus(drivebase.getPose().getTranslation()).getNorm())));
+                .getAngle().minus(drivebase.getPose().getRotation()))));
     }
 }

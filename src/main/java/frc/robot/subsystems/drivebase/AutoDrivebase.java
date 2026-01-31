@@ -1,6 +1,6 @@
 package frc.robot.subsystems.drivebase;
 
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,5 +23,5 @@ public interface AutoDrivebase extends Subsystem {
      * 
      * @return a rotation controller.
      */
-    BiFunction<Rotation2d, Double, ChassisSpeeds> getRotationControl();
+    Function<Rotation2d, ChassisSpeeds> getRotationControl();
 }

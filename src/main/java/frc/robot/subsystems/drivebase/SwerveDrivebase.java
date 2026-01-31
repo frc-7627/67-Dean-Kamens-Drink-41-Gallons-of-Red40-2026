@@ -3,8 +3,8 @@ package frc.robot.subsystems.drivebase;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.DoubleSupplier;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -152,7 +152,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public BiFunction<Rotation2d, Double, ChassisSpeeds> getRotationControl() {
+    public Function<Rotation2d, ChassisSpeeds> getRotationControl() {
         final double kp = rotationControlSubdashboard.getKp();
         final double ki = rotationControlSubdashboard.getKi();
         final double kd = rotationControlSubdashboard.getKd();
