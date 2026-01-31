@@ -13,8 +13,8 @@ final class AngularControlSubdashboard extends SubdashboardBase {
         super(superdashboardName, "Rotation Control Constants");
 
         this.kp = new PullingDouble(getKeyName(), "P", 5.0);
-        this.ki = new PullingDouble(getKeyName(), "I", 0.0);
-        this.kd = new PullingDouble(getKeyName(), "D", 0.0);
+        this.ki = new PullingDouble(getKeyName(), "I", 1.0);
+        this.kd = new PullingDouble(getKeyName(), "D", 1.0);
     }
 
     PIDController getController() {
