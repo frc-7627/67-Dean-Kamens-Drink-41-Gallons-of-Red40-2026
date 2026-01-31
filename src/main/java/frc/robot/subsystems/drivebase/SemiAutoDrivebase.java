@@ -30,4 +30,11 @@ public interface SemiautoDrivebase extends TeleopDrivebase, AutoDrivebase {
      */
     BooleanSupplier getOrientationConvergenceSupplier(
             Supplier<Rotation2d> targetOrientationSupplier);
+
+    /**
+     * @param targetRotation the target rotation from the initial pose when called.
+     * @return a supplier that checks whether the orientation of the robot has converged to the
+     *         target rotation.
+     */
+    BooleanSupplier getRotationConvergenceSupplier(Rotation2d targetRotation);
 }

@@ -169,6 +169,12 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
+    public BooleanSupplier getRotationConvergenceSupplier(Rotation2d targetRotation) {
+        final Rotation2d targetOrientation = getPose().getRotation().plus(targetRotation);
+        return getOrientationConvergenceSupplier(() -> targetOrientation);
+    }
+
+    @Override
     public BooleanSupplier getOrientationConvergenceSupplier(
             Supplier<Rotation2d> targetOrientationSupplier) {
         final Timer timer = new Timer();
