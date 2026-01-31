@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.Directories.DEPLOY_DIRECTORY;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.logging.LogManager;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -67,6 +71,12 @@ public class Robot extends LoggedRobot {
      */
     @Override
     public void robotInit() {
+        try (FileInputStream is = new FileInputStream(DEPLOY_DIRECTORY + "/logging.properties")) {
+            LogManager.getLogManager().readConfiguration(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Configure PathFinder for driveToPose
 
         // Instantiate our RobotContainer. This will perform all our button bindings,
