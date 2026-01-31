@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj2.command.WrapperCommand;
 import frc.robot.resources.vision.BestTargetSupplier;
 import frc.robot.subsystems.drivebase.IndirectDrivebase;
 
-public class DriveIndirectlyToBestTarget extends WrapperCommand {
-    public DriveIndirectlyToBestTarget(IndirectDrivebase drivebase, BestTargetSupplier vision) {
+public class DriveIndirectToBestTarget extends WrapperCommand {
+    public DriveIndirectToBestTarget(IndirectDrivebase drivebase, BestTargetSupplier vision) {
         super(vision.getBestTargetPose()
-            .map(targetPose -> (Command) new DriveIndirectlyToPose(drivebase, targetPose))
+            .map(targetPose -> (Command) new DriveIndirectToPose(drivebase, targetPose))
             .orElse(Commands.none())
         );
     }

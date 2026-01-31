@@ -5,8 +5,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.drivebase.DirectDrivebase;
 
-public class DriveDirectly extends RunCommand {
-    public DriveDirectly(DirectDrivebase drivebase, Supplier<ChassisSpeeds> input) {
+public class DriveDirect extends RunCommand {
+    public DriveDirect(DirectDrivebase drivebase, Supplier<ChassisSpeeds> input) {
         super(() -> drivebase.driveWithSpeeds(input.get()), drivebase);
     }
 }

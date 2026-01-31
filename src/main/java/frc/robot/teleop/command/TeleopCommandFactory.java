@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.auto.direct.Lock;
-import frc.robot.commands.drive.auto.semidirect.DriveUntilOrientedTo;
-import frc.robot.commands.drive.auto.semidirect.DriveUntilRotatedBy;
+import frc.robot.commands.drive.auto.semidirect.DriveSemidirectUntilOrientedTo;
+import frc.robot.commands.drive.auto.semidirect.DriveSemidirectUntilRotatedBy;
 import frc.robot.commands.drive.teleop.direct.ZeroGyro;
-import frc.robot.commands.drive.teleop.semidirect.DriveDirectlyOrientingTo;
+import frc.robot.commands.drive.teleop.semidirect.DriveSemidirectOrientingTo;
 import frc.robot.commands.intake.LoadIntake;
 
 public enum TeleopCommandFactory {
@@ -37,14 +37,14 @@ public enum TeleopCommandFactory {
     /**
      * 
      */
-    ROTATE_CCW_90_DEG(context -> new DriveUntilRotatedBy(
+    ROTATE_CCW_90_DEG(context -> new DriveSemidirectUntilRotatedBy(
         context.drivebase(), 
         Rotation2d.kCCW_90deg
     )),
     /**
      * 
      */
-    ORIENT_TO_HUB(context -> new DriveUntilOrientedTo(
+    ORIENT_TO_HUB(context -> new DriveSemidirectUntilOrientedTo(
         context.drivebase(), 
         context.gameInfoSupplier().getHubPosition()
     )),
@@ -52,7 +52,7 @@ public enum TeleopCommandFactory {
     /**
      * 
      */
-    DRIVE_ORIENTING_TO_HUB(context -> new DriveDirectlyOrientingTo(
+    DRIVE_ORIENTING_TO_HUB(context -> new DriveSemidirectOrientingTo(
         context.drivebase(), 
         context.input(), 
         context.gameInfoSupplier().getHubPosition()

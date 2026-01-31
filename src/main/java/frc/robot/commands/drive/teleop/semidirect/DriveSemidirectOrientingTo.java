@@ -5,8 +5,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
-public class DriveDirectlyOrientingTo extends DriveDirectlyOrienting {
-    public DriveDirectlyOrientingTo(
+public class DriveSemidirectOrientingTo extends DriveSemidirectOrienting {
+    public DriveSemidirectOrientingTo(
         SemidirectDrivebase drivebase, 
         Supplier<ChassisSpeeds> input,
         Translation2d targetPosition

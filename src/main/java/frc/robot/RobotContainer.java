@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.commands.drive.auto.direct.DriveDirectly;
+import frc.robot.commands.drive.auto.direct.DriveDirect;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
@@ -108,7 +108,7 @@ public class RobotContainer {
      */
     private void setupTeleop() {
         drivebase.setDefaultCommand(
-                new DriveDirectly(drivebase, driverController.getInput(drivebase)));
+                new DriveDirect(drivebase, driverController.getInput(drivebase)));
 
         globalControlState.onNewControlState(this::bindControllers);
     }
