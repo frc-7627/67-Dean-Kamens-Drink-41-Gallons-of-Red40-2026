@@ -94,9 +94,9 @@ public class RobotContainer {
             throw new RobotInitException("Could not configure autos!", cause);
         }
 
-        setupTeleop();
-
         indicator.indicateStartup();
+
+        setupTeleop();
     }
 
     /**
