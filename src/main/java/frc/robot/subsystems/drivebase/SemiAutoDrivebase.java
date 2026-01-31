@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
-public interface SemiAutoDrivebase extends TeleopDrivebase, AutoDrivebase {
+public interface SemiautoDrivebase extends TeleopDrivebase, AutoDrivebase {
     /**
      * Gets a controller that returns chassis speeds that rotate the robot to the target rotation.
      * 
