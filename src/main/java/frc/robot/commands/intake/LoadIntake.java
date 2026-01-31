@@ -1,13 +1,9 @@
 package frc.robot.commands.intake;
 
-import java.util.logging.Logger;
-
-import frc.robot.commands.IndicatingCommand;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.indication.Indicator;
 
-public class LoadIntake extends IndicatingCommand {
-    private static final Logger LOGGER = Logger.getLogger(LoadIntake.class.getSimpleName());
+public class LoadIntake extends Command {
     private Intake intake;
 
     /**
@@ -15,12 +11,9 @@ public class LoadIntake extends IndicatingCommand {
      * 
      * Loads the intake while running, then stops the intake when done.
      * 
-     * @param indicator
      * @param intake
      */
-    public LoadIntake(Indicator indicator, Intake intake) {
-        super(LOGGER, indicator);
-
+    public LoadIntake(Intake intake) {
         this.intake = intake;
 
         addRequirements(intake);
@@ -43,7 +36,6 @@ public class LoadIntake extends IndicatingCommand {
      */
     @Override
     public void end(boolean interrupted) {
-        super.end(interrupted);
         intake.stop();
     }
 }
