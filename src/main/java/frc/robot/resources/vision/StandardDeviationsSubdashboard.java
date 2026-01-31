@@ -17,6 +17,9 @@ public class StandardDeviationsSubdashboard extends SubdashboardBase implements 
 
         this.multiTagStdDev = new PullingDouble(dashboardName, "Multiple Tag Standard Deviation",
                 DEFAULT_MULTI_TAG_STD_DEV);
+
+        addSubresource(singleTagStdDev);
+        addSubresource(multiTagStdDev);
     }
 
     public StandardDeviations get() {

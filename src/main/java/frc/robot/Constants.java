@@ -10,7 +10,6 @@ import static edu.wpi.first.units.Units.Meter;
 import java.io.File;
 import java.util.function.Predicate;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Frequency;
 
 import com.ctre.phoenix6.configs.AudioConfigs;

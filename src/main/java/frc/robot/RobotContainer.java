@@ -18,7 +18,7 @@ import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.vision.Vision;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.controlstate.ControlState;
+import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
@@ -34,12 +34,9 @@ import frc.robot.teleop.controller.TeleopController;
 import org.littletonrobotics.junction.Logger;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -60,7 +57,7 @@ public class RobotContainer {
     private final Intake intake;
 
     private final Feeder feeder;
-    
+
     private final Hopper hopper;
 
     private final GlobalControlState globalControlState;
@@ -98,7 +95,8 @@ public class RobotContainer {
 
         this.globalControlState = GlobalControlState.create();
 
-        this.teleopCommands = new TeleopCommands(new CommandContext(indicator, drivebase, intake, globalControlState, gameInfoSupplier));
+        this.teleopCommands = new TeleopCommands(new CommandContext(indicator, drivebase, intake,
+                globalControlState, gameInfoSupplier));
 
         // Configure
         setupTeleop();

@@ -2,8 +2,6 @@ package frc.robot.resources.gameinfo;
 
 import java.util.Optional;
 import java.util.logging.Logger;
-import com.fasterxml.jackson.core.TreeNode;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
@@ -86,7 +84,7 @@ final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoS
     }
 
     @Override
-    public Translation2d getHubPose() {
+    public Translation2d getHubPosition() {
         return switch (alliance) {
             case Red -> Constants.VisionConstants.HUB_LOCATION.unaryMinus();
             case Blue -> Constants.VisionConstants.HUB_LOCATION;

@@ -1,7 +1,7 @@
 package frc.robot.teleop.command;
 
 import java.util.List;
-import frc.robot.subsystems.controlstate.ControlState;
+import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.teleop.controller.TeleopController;
 
 public class TeleopCommands {

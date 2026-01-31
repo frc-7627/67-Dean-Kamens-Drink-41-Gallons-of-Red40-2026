@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.controlstate.ControlState;
+import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.InputSupplier;
 import frc.robot.teleop.command.TeleopCommandFactory;
 

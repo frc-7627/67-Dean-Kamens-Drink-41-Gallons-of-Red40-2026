@@ -8,9 +8,10 @@ import frc.robot.subsystems.drivebase.AutoDrivebase;
 public class FaceHub extends DriveToTransformed {
     public FaceHub(AutoDrivebase drivebase, SpecificGameInfoSupplier gameInfoSupplier) {
         super(drivebase,
-            new Transform2d(Translation2d.kZero,
-                gameInfoSupplier.getHubPose().minus(drivebase.getPose().getTranslation()).getAngle()
-                .minus(drivebase.getPose().getRotation())));
+                new Transform2d(Translation2d.kZero,
+                        gameInfoSupplier.getHubPosition()
+                                .minus(drivebase.getPose().getTranslation()).getAngle()
+                                .minus(drivebase.getPose().getRotation())));
     }
 
 
