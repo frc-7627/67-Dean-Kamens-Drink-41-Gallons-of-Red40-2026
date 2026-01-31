@@ -15,4 +15,12 @@ class PeriodicBase {
     protected void periodic() {
         subresources.forEach(Subresource::periodic);
     }
+
+    protected void addSubresource(Subresource subresource) {
+        subresources.add(subresource);
+    }
+
+    protected void addAllSubresources(Collection<? extends Subresource> allSubresources) {
+        subresources.addAll(allSubresources);
+    }
 }
