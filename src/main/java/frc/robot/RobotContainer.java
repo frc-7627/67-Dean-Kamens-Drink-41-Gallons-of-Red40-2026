@@ -63,18 +63,10 @@ public class RobotContainer {
     private final GlobalControlState globalControlState;
 
     private final TeleopCommands teleopCommands;
-
-    // Establish a Sendable Chooser that will be able to be sent to the
-    // SmartDashboard, allowing
-    // selection of desired auto
-    private final SendableChooser<Command> autoChooser;
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() throws RobotInitException {
-        this.autoChooser = AutoBuilder.buildAutoChooser();
-
         this.vision = Vision.create();
 
         this.gameInfoSupplier = GameInfoSupplier.create();
@@ -131,6 +123,9 @@ public class RobotContainer {
     private void setupAuto() throws PathPlannerConfigException {
         drivebase.getPathPlannerConfigurator().get().configureAndInit();
 
+        // TODO: move to class
+        final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+
         DriverStation.silenceJoystickConnectionWarning(true);
 
         // Create the NamedCommands that will be used in PathPlanner
@@ -156,7 +151,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // Pass in the selected auto from the SmartDashboard as our desired autnomous
         // commmand
-        return autoChooser.getSelected();
+        // return autoChooser.getSelected();
+        // TODO: move to class
+        return Commands.none();
     }
 
     public void setBrake(boolean brake) {
