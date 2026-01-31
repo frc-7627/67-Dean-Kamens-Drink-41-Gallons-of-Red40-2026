@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drivebase;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -14,6 +15,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
@@ -22,6 +24,7 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
+import static edu.wpi.first.units.Units.Hertz;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
@@ -29,7 +32,9 @@ import static frc.robot.Constants.OperatorConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
+    private static final Frequency visionUpdateFrequency = Hertz.of(1);
 
+    private final Timer visionUpdateThrottler = new Timer();
     private final AngularControlSubdashboard angularControlSubdashboard =
             new AngularControlSubdashboard(DASHBOARD_NAME);
     private final GeneralGameInfoSupplier gameInfoSupplier;
@@ -53,6 +58,9 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         } catch (IOException cause) {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
+
+        swerveDrive.stopOdometryThread();
+        visionUpdateThrottler.start();
     }
 
     private void updateVisionMeasurements() {
@@ -64,7 +72,10 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     @Override
     public void periodic() {
-        updateVisionMeasurements();
+        if (visionUpdateThrottler.hasElapsed(visionUpdateFrequency.asPeriod())) {
+            updateVisionMeasurements();
+            visionUpdateThrottler.reset();
+        }
     }
 
     /**
