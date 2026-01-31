@@ -32,11 +32,11 @@ class PhotonCameraWrapper {
 
     private final PhotonPoseEstimator poseEstimator;
 
-    private Optional<EstimatedRobotPose> estimatedRobotPoseOptional;
+    private Optional<EstimatedRobotPose> estimatedRobotPoseOptional = Optional.empty();
 
     private double lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
 
-    private double currentStdDev;
+    private double currentStdDev = 0.0;
 
     PhotonCameraWrapper(PhotonCameraInfo cameraInfo) {
         this.transform = cameraInfo.getTransform();
