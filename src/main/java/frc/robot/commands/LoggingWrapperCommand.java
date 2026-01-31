@@ -2,10 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class LoggingCommandWrapper extends LoggingCommand {
+public class LoggingWrapperCommand extends LoggingCommand {
     private final Command command;
 
-    public LoggingCommandWrapper(Command command) {
+    public LoggingWrapperCommand(Command command) {
         this.command = command;
     }
 
