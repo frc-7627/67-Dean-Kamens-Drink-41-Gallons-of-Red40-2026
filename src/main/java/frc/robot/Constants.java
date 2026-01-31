@@ -4,14 +4,19 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Hertz;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meter;
+import static edu.wpi.first.units.Units.Milliseconds;
+import static edu.wpi.first.units.Units.Second;
 import java.io.File;
 import java.util.function.Predicate;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Frequency;
-
+import edu.wpi.first.units.measure.Time;
 import com.ctre.phoenix6.configs.AudioConfigs;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -83,15 +88,11 @@ public final class Constants {
         public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE =
                 new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)), Rotation2d.fromDegrees(0));
 
-        public static double x_offset = Units.inchesToMeters(16.6220472441);
 
-        public static double y_offset = 0.0;
-        public static double y_offset_left = Units.inchesToMeters(-4.268); // add inches to
-                                                                           // center
-        // //TODO: these ^^^ will need to be retuned
-        public static double y_offset_right = Units.inchesToMeters(8.268); // add inches
-                                                                           // away from
-                                                                           // center
+        // These are for checking whether the robot has settled to an orientation.
+        public static final Angle ANGULAR_EPSILON = Degrees.of(1.);
+        public static final AngularVelocity ANGULAR_VELOCITY_EPSILON = Degrees.of(1.).per(Second);
+        public static final Time CONVERGENCE_PERIOD = Milliseconds.of(20);
 
         // Hold time on motor brakes when disabled
         public static final double WHEEL_LOCK_TIME = 10; // seconds

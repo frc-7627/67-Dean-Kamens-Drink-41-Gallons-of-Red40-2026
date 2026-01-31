@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivebase;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import com.pathplanner.lib.config.PIDConstants;
@@ -14,6 +15,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
@@ -22,6 +24,7 @@ import frc.robotlib.resource.dashboard.Dashboard;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
@@ -157,8 +160,38 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public Supplier<ChassisSpeeds> getOrientationControl(Supplier<Rotation2d> targetOrientationSupplier) {
-        return () -> new ChassisSpeeds(0, 0, angularControlSubdashboard.getController()
-            .calculate(getPose().getRotation().getRadians(), targetOrientationSupplier.get().getRadians()));
+    public Supplier<ChassisSpeeds> getOrientationControl(
+            Supplier<Rotation2d> targetOrientationSupplier) {
+        return () -> new ChassisSpeeds(0, 0,
+                angularControlSubdashboard.getController().calculate(
+                        getPose().getRotation().getRadians(),
+                        targetOrientationSupplier.get().getRadians()));
+    }
+
+    @Override
+    public BooleanSupplier getOrientationConvergenceSupplier(
+            Supplier<Rotation2d> targetOrientationSupplier) {
+        final Timer timer = new Timer();
+
+        // Check whether we are currently within tolerance.
+        final BooleanSupplier checkWithinTolerance = () -> getPose().getRotation().getMeasure()
+                .isNear(targetOrientationSupplier.get().getMeasure(), ANGULAR_EPSILON)
+                && RadiansPerSecond.of(getSpeeds().omegaRadiansPerSecond)
+                        .isNear(RadiansPerSecond.zero(), ANGULAR_VELOCITY_EPSILON);
+
+        // Check that we are currently within tolerance AND have been for the required amount of
+        // time.
+        return () -> {
+            if (checkWithinTolerance.getAsBoolean()) {
+                timer.start();
+
+                return timer.hasElapsed(CONVERGENCE_PERIOD);
+            } else {
+                timer.stop();
+                timer.reset();
+
+                return false;
+            }
+        };
     }
 }

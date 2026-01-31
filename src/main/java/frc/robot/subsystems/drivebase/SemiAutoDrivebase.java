@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drivebase;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -21,4 +22,12 @@ public interface SemiAutoDrivebase extends TeleopDrivebase, AutoDrivebase {
      * @return a rotation controller.
      */
     Supplier<ChassisSpeeds> getOrientationControl(Supplier<Rotation2d> targetOrientationSupplier);
+
+    /**
+     * @param targetOrientationSupplier gets the target orientation.
+     * @return a supplier that checks whether the orientation of the robot has converged to the
+     *         target orientation.
+     */
+    BooleanSupplier getOrientationConvergenceSupplier(
+            Supplier<Rotation2d> targetOrientationSupplier);
 }
