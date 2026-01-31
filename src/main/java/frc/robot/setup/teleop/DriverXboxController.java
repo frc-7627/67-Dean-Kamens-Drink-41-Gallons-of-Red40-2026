@@ -17,7 +17,7 @@ class DriverXboxController implements DriverController {
     @Override
     public void bindCommand(TeleopCommandFactory factory,
             Consumer<Consumer<Command>> binderConsumer, ControlState controlState) {
-        logger.fine("Binding driver command...");
+        logger.fine("Binding operator command '" + factory.toString() + "'");
 
         switch (factory) {
             case LOCK -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);

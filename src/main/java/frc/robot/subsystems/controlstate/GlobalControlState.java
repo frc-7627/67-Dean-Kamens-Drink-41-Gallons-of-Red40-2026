@@ -12,6 +12,8 @@ public interface GlobalControlState extends ControlStateToggler {
         }
     }
 
+    void trigger();
+
     void onNewControlState(Consumer<ControlState> action);
 
     static GlobalControlState create() {

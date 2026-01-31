@@ -14,8 +14,8 @@ class OperatorXboxController implements OperatorController {
     @Override
     public void bindCommand(TeleopCommandFactory factory,
             Consumer<Consumer<Command>> binderConsumer, ControlState controlState) {
-        logger.fine("Binding operator command...");
-        
+        logger.fine("Binding operator command '" + factory.toString() + "'");
+
         switch (factory) {
             case LOAD_INTAKE -> binderConsumer.accept(xboxController.b()::whileTrue);
             case LAUNCH_FUEL -> binderConsumer.accept(xboxController.x()::whileTrue);

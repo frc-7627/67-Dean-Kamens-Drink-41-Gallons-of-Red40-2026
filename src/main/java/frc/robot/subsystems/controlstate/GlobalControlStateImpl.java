@@ -11,13 +11,18 @@ class GlobalControlStateImpl extends SubsystemBase implements GlobalControlState
     private ControlState controlState = ControlState.NORMAL;
 
     @Override
+    public void trigger() {
+        listeners.forEach(listener -> listener.accept(controlState));
+    }
+
+    @Override
     public void toggleControlState() {
         switch (controlState) {
             case NORMAL -> controlState = ControlState.MANUAL;
             case MANUAL -> controlState = ControlState.NORMAL;
         }
 
-        listeners.forEach(listener -> listener.accept(controlState));
+        trigger();
     }
 
     @Override

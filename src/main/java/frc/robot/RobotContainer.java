@@ -109,6 +109,7 @@ public class RobotContainer {
                 new DriveDirect(drivebase, driverController.getInput(drivebase)));
 
         globalControlState.onNewControlState(this::bindControllers);
+        globalControlState.trigger();
     }
 
     private void bindControllers(ControlState controlState) {
