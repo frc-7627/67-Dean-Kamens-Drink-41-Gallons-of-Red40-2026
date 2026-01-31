@@ -4,9 +4,11 @@ import java.util.logging.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class LoggingCommand extends Command {
-    private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+    private final Logger logger;
 
-    protected LoggingCommand() {}
+    protected LoggingCommand(Logger logger) {
+        this.logger = logger;
+    }
 
     @Override
     public void initialize() {
