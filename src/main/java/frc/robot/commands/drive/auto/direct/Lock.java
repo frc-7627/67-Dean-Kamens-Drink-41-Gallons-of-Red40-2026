@@ -6,6 +6,9 @@ import frc.robot.subsystems.drivebase.DirectDrivebase;
 
 public class Lock extends LoggingWrapperCommand {
     public Lock(DirectDrivebase drivebase) {
-        super(new RunCommand(drivebase::lock, drivebase));
+        super(
+            new RunCommand(drivebase::lock, drivebase), 
+            Lock.class
+        );
     }
 }

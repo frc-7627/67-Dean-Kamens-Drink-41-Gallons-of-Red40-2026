@@ -11,7 +11,8 @@ public class DriveDirectUntil extends LoggingWrapperCommand {
     public DriveDirectUntil(
         DirectDrivebase drivebase, 
         Supplier<ChassisSpeeds> input, 
-        BooleanSupplier isFinishedSupplier
+        BooleanSupplier isFinishedSupplier,
+        Class<?> cls
     ) {
         super(new FunctionalCommand(
             () -> {}, 
@@ -19,6 +20,6 @@ public class DriveDirectUntil extends LoggingWrapperCommand {
             interrupted -> {}, 
             isFinishedSupplier, 
             drivebase
-        ));
+        ), cls);
     }
 }

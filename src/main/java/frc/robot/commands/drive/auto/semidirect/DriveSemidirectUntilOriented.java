@@ -8,12 +8,21 @@ import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 class DriveSemidirectUntilOriented extends DriveDirectUntil {
     DriveSemidirectUntilOriented(
         SemidirectDrivebase drivebase, 
-        Supplier<Rotation2d> targetOrientationSupplier
+        Supplier<Rotation2d> targetOrientationSupplier,
+        Class<?> cls
     ) {
         super(
             drivebase, 
             drivebase.getOrientationControl(targetOrientationSupplier), 
-            drivebase.getOrientationConvergenceSupplier(targetOrientationSupplier)
+            drivebase.getOrientationConvergenceSupplier(targetOrientationSupplier),
+            cls
         );
+    }
+
+    DriveSemidirectUntilOriented(
+        SemidirectDrivebase drivebase, 
+        Supplier<Rotation2d> targetOrientationSupplier
+    ) {
+        this(drivebase, targetOrientationSupplier, DriveSemidirectUntilOriented.class);
     }
 }

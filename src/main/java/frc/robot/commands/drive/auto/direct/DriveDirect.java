@@ -5,7 +5,11 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.drivebase.DirectDrivebase;
 
 public class DriveDirect extends DriveDirectUntil {
+    public DriveDirect(DirectDrivebase drivebase, Supplier<ChassisSpeeds> input, Class<?> cls) {
+        super(drivebase, input, () -> false, cls);
+    }
+
     public DriveDirect(DirectDrivebase drivebase, Supplier<ChassisSpeeds> input) {
-        super(drivebase, input, () -> false);
+        this(drivebase, input, DriveDirect.class);
     }
 }
