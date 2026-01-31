@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.auto.AutoChooser;
 import frc.robot.commands.drive.auto.direct.DriveDirect;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
@@ -60,6 +61,8 @@ public class RobotContainer {
 
     private final CommandContext commandContext;
 
+    private final AutoChooser autoChooser;
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -90,11 +93,10 @@ public class RobotContainer {
         this.commandContext = new CommandContext(indicator, drivebase, intake,
                 globalControlState, gameInfoSupplier, driverController.getInput(drivebase));
 
-        // Configure
         setupTeleop();
 
         try {
-            setupAuto();
+            this.autoChooser = AutoChooser.create(drivebase.getPathPlannerConfigurator().get());
         } catch (PathPlannerConfigException cause) {
             throw new RobotInitException("Could not configure autos!", cause);
         }
@@ -106,6 +108,8 @@ public class RobotContainer {
      * Setup teleop stuff.
      */
     private void setupTeleop() {
+        DriverStation.silenceJoystickConnectionWarning(true);
+
         drivebase.setDefaultCommand(
                 new DriveDirect(drivebase, driverController.getInput(drivebase)));
 
@@ -118,32 +122,6 @@ public class RobotContainer {
     }
 
     /**
-     * Setup auto stuff.
-     */
-    private void setupAuto() throws PathPlannerConfigException {
-        drivebase.getPathPlannerConfigurator().get().configureAndInit();
-
-        // TODO: move to class
-        final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
-
-        DriverStation.silenceJoystickConnectionWarning(true);
-
-        // Create the NamedCommands that will be used in PathPlanner
-        NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-
-        // Set the default auto (do nothing)
-        autoChooser.setDefaultOption("Do Nothing", Commands.none());
-
-        // Add a simple auto option to have the robot drive forward for 1 second then
-        // stop
-        // TODO: replace
-        // autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
-
-        // Put the autoChooser on the SmartDashboard
-        SmartDashboard.putData("Auto Chooser", autoChooser);
-    }
-
-    /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
      * @return the command to run in autonomous
@@ -151,9 +129,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // Pass in the selected auto from the SmartDashboard as our desired autnomous
         // commmand
-        // return autoChooser.getSelected();
-        // TODO: move to class
-        return Commands.none();
+        return autoChooser.getPulled();
     }
 
     public void setBrake(boolean brake) {
