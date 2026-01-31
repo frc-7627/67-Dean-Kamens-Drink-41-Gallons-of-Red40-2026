@@ -30,8 +30,8 @@ import static frc.robot.Constants.OperatorConstants.*;
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
 
-    private final RotationControlSubdashboard rotationControlSubdashboard =
-            new RotationControlSubdashboard(DASHBOARD_NAME);
+    private final AngularControlSubdashboard angularControlSubdashboard =
+            new AngularControlSubdashboard(DASHBOARD_NAME);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
@@ -54,7 +54,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
 
-        Dashboard.create(DASHBOARD_NAME, List.of(rotationControlSubdashboard));
+        Dashboard.create(DASHBOARD_NAME, List.of(angularControlSubdashboard));
     }
 
     private void updateVisionMeasurements() {
@@ -153,9 +153,9 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     @Override
     public Function<Rotation2d, ChassisSpeeds> getRotationControl() {
-        final double kp = rotationControlSubdashboard.getKp();
-        final double ki = rotationControlSubdashboard.getKi();
-        final double kd = rotationControlSubdashboard.getKd();
+        final double kp = angularControlSubdashboard.getKp();
+        final double ki = angularControlSubdashboard.getKi();
+        final double kd = angularControlSubdashboard.getKd();
         return new RotationControl(kp, ki, kd);
     }
 }
