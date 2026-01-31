@@ -1,6 +1,5 @@
 package frc.robot.subsystems.indication;
 
-import java.util.logging.Logger;
 import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -48,8 +47,7 @@ class IndicatorImpl extends SubsystemBase implements Indicator {
      * Logs initialization and sets the LEDs to the default color.
      */
     @Override
-    public void indicateInit(Logger logger) {
-        logger.info("Initializing.");
+    public void indicateInit() {
         led.setSolidColor(getDefaultColor());
     }
 
@@ -59,8 +57,7 @@ class IndicatorImpl extends SubsystemBase implements Indicator {
      * Logs completion and sets the LEDs to the completion color.
      */
     @Override
-    public void indicateCompletion(Logger logger) {
-        logger.info("Completed.");
+    public void indicateCompletion() {
         led.setSolidColor(getCompletionColor());
     }
 
@@ -70,8 +67,7 @@ class IndicatorImpl extends SubsystemBase implements Indicator {
      * Logs interruption and sets the LEDs to the interruption color.
      */
     @Override
-    public void indicateInterruption(Logger logger) {
-        logger.info("Interrupted!");
+    public void indicateInterruption() {
         led.setSolidColor(getInterruptionColor());
     }
 
@@ -83,11 +79,7 @@ class IndicatorImpl extends SubsystemBase implements Indicator {
      * default color.
      */
     @Override
-    public <CommandProgress extends Progress> void indicateProgress(Logger logger,
-            CommandProgress currentProgress) {
-        // Log the current step and progress fraction.
-        logger.fine(String.format("Now on step: \"{0}\". ({1}/{2})", currentProgress,
-                currentProgress.getStepsProgressed(), currentProgress.getTotalSteps()));
+    public <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress) {
         // Fill the LEDs to the fraction of steps progressed to total steps.
         led.setProgress(currentProgress.getStepsProgressed(), currentProgress.getTotalSteps(),
                 getProgressBarColor(), getDefaultColor());

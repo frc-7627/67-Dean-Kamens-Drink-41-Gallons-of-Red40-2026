@@ -1,6 +1,5 @@
 package frc.robot.subsystems.indication;
 
-import java.util.logging.Logger;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.util.Progress;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
@@ -12,35 +11,27 @@ public interface Indicator extends Subsystem {
     void indicateStartup();
 
     /**
-     * Indicate that a command was initialized with the provided logger.
-     * 
-     * @param logger The provided logger.
+     * Indicate that a command was initialized.
      */
-    void indicateInit(Logger logger);
+    void indicateInit();
 
     /**
-     * Indicate that a command was completed with the provided logger.
-     * 
-     * @param logger The provided logger.
+     * Indicate that a command was completed.
      */
-    void indicateCompletion(Logger logger);
+    void indicateCompletion();
 
     /**
-     * Indicate that a command was interrupted with the provided logger.
-     * 
-     * @param logger The provided logger.
+     * Indicate that a command was interrupted.
      */
-    void indicateInterruption(Logger logger);
+    void indicateInterruption();
 
     /**
-     * Indicate the progress of a command with the provided logger and current progress.
+     * Indicate the progress of a command with the current progress.
      * 
      * @param <CommandProgress> an amount of progress.
-     * @param logger the provided logger.
      * @param currentProgress the current progress.
      */
-    <CommandProgress extends Progress> void indicateProgress(Logger logger,
-            CommandProgress currentProgress);
+    <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress);
 
     static Indicator create(GameInfoSupplier gameInfoSupplier) {
         return new IndicatorImpl(gameInfoSupplier);
