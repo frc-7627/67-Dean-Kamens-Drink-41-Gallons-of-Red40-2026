@@ -9,20 +9,6 @@ public abstract class SubdashboardBase extends SubresourceBase implements Subdas
     private final String superdashboardName;
     private final Optional<String> subdashboardName;
 
-    protected SubdashboardBase(Collection<? extends Subdashboard> subdashboards,
-            String superdashboardName) {
-        super(subdashboards);
-        this.superdashboardName = superdashboardName;
-        this.subdashboardName = Optional.empty();
-    }
-
-    protected SubdashboardBase(Collection<? extends Subdashboard> subdashboards,
-            String superdashboardName, String subdashboardName) {
-        super(subdashboards);
-        this.superdashboardName = superdashboardName;
-        this.subdashboardName = Optional.of(subdashboardName);
-    }
-
     protected SubdashboardBase(String superdashboardName, String subdashboardName) {
         this.superdashboardName = superdashboardName;
         this.subdashboardName = Optional.of(subdashboardName);
