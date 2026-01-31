@@ -14,7 +14,8 @@ public class DriveSemidirectOrientingTo extends DriveSemidirectOrienting {
         super(
             drivebase, 
             input,
-            () -> targetPosition.minus(drivebase.getPose().getTranslation()).getAngle()
+            () -> targetPosition.minus(drivebase.getPose().getTranslation()).getAngle(),
+            DriveSemidirectOrientingTo.class
         );
     }
 }

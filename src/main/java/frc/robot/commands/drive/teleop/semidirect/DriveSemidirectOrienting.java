@@ -10,9 +10,10 @@ class DriveSemidirectOrienting extends DriveDirect {
     DriveSemidirectOrienting(
         SemidirectDrivebase drivebase, 
         Supplier<ChassisSpeeds> input, 
-        Supplier<Rotation2d> targetOrientationSupplier
+        Supplier<Rotation2d> targetOrientationSupplier,
+        Class<?> cls
     ) {
-        super(drivebase, getCombinedInput(drivebase, input, targetOrientationSupplier));
+        super(drivebase, getCombinedInput(drivebase, input, targetOrientationSupplier), cls);
     }
 
     private static Supplier<ChassisSpeeds> getCombinedInput(

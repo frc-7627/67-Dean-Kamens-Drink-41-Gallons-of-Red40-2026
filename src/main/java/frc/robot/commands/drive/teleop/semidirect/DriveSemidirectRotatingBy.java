@@ -12,7 +12,7 @@ public class DriveSemidirectRotatingBy extends DriveDirect {
         Supplier<ChassisSpeeds> input,
         Rotation2d targetRotation
     ) {
-        super(drivebase, getCombinedInput(drivebase, input, targetRotation));
+        super(drivebase, getCombinedInput(drivebase, input, targetRotation), DriveSemidirectRotatingBy.class);
     }
 
     private static Supplier<ChassisSpeeds> getCombinedInput(
