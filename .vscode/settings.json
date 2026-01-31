@@ -32,6 +32,7 @@
     "Brushless",
     "chrp",
     "controlstate",
+    "DEADBAND",
     "drivebase",
     "Feedforwards",
     "gameinfo",
