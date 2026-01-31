@@ -1,4 +1,4 @@
-package frc.robot.teleop.controller;
+package frc.robot.teleop;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.InputSupplier;
-import frc.robot.teleop.command.TeleopCommandFactory;
 
-public class DriverXboxController implements DriverController {
+class DriverXboxController implements DriverController {
     private final CommandXboxController xboxController = new CommandXboxController(0);
 
     @Override

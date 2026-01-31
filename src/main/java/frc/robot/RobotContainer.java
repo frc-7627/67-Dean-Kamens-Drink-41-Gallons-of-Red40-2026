@@ -24,13 +24,9 @@ import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.hopper.Hopper;
-import frc.robot.teleop.command.CommandContext;
-import frc.robot.teleop.command.TeleopCommands;
-import frc.robot.teleop.controller.DriverController;
-import frc.robot.teleop.controller.DriverXboxController;
-import frc.robot.teleop.controller.OperatorXboxController;
-import frc.robot.teleop.controller.TeleopController;
-
+import frc.robot.teleop.CommandContext;
+import frc.robot.teleop.DriverController;
+import frc.robot.teleop.OperatorController;
 import org.littletonrobotics.junction.Logger;
 
 /**
@@ -42,8 +38,8 @@ import org.littletonrobotics.junction.Logger;
 public class RobotContainer {
     // Rizz up the ops
 
-    private final DriverController driverController = new DriverXboxController();
-    private final TeleopController operatorController = new OperatorXboxController();
+    private final DriverController driverController;
+    private final OperatorController operatorController;
 
     // The robot's subsystems and resources are defined here...
     private final Vision vision;
@@ -62,12 +58,15 @@ public class RobotContainer {
 
     private final GlobalControlState globalControlState;
 
-    private final TeleopCommands teleopCommands;
+    private final CommandContext commandContext;
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() throws RobotInitException {
+        this.driverController = DriverController.create();
+        this.operatorController = OperatorController.create();
+
         this.vision = Vision.create();
 
         this.gameInfoSupplier = GameInfoSupplier.create();
@@ -88,8 +87,8 @@ public class RobotContainer {
 
         this.globalControlState = GlobalControlState.create();
 
-        this.teleopCommands = new TeleopCommands(new CommandContext(indicator, drivebase, intake,
-                globalControlState, gameInfoSupplier, driverController.getInput(drivebase)));
+        this.commandContext = new CommandContext(indicator, drivebase, intake,
+                globalControlState, gameInfoSupplier, driverController.getInput(drivebase));
 
         // Configure
         setupTeleop();
@@ -114,8 +113,8 @@ public class RobotContainer {
     }
 
     private void bindControllers(ControlState controlState) {
-        teleopCommands.bindToController(driverController, controlState);
-        teleopCommands.bindToController(operatorController, controlState);
+        driverController.bindAll(commandContext, controlState);
+        operatorController.bindAll(commandContext, controlState);
     }
 
     /**

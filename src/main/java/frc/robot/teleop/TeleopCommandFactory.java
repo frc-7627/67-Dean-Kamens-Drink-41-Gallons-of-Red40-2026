@@ -1,4 +1,4 @@
-package frc.robot.teleop.command;
+package frc.robot.teleop;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -13,7 +13,7 @@ import frc.robot.commands.drive.teleop.direct.ZeroGyro;
 import frc.robot.commands.drive.teleop.semidirect.DriveSemidirectOrientingTo;
 import frc.robot.commands.intake.LoadIntake;
 
-public enum TeleopCommandFactory {
+enum TeleopCommandFactory {
     /**
      * 
      */
