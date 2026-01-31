@@ -1,0 +1,26 @@
+package frc.robot.subsystems.drivebase;
+
+import java.util.function.Supplier;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+
+public interface CommonDrivebase extends Subsystem {
+    /**
+     * Gets a controller that returns chassis speeds that rotate the robot to the target
+     * rotation.
+     * 
+     * @param targetRotation the target rotation from the initial pose when called.
+     * @return a rotation controller.
+     */
+    Supplier<ChassisSpeeds> getRotationControl(Rotation2d targetRotation);
+
+    /**
+     * Gets a controller that returns chassis speeds that rotate the robot to the target
+     * orientation.
+     * 
+     * @param targetOrientationSupplier gets the target orientation.
+     * @return a rotation controller.
+     */
+    Supplier<ChassisSpeeds> getOrientationControl(Supplier<Rotation2d> targetOrientationSupplier);
+}

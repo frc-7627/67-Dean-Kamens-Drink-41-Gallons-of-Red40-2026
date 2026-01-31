@@ -9,8 +9,15 @@ import frc.robot.subsystems.drivebase.Drivebase;
 public class DriveWithInputAndFaceHub extends DriveWithInput {
     public DriveWithInputAndFaceHub(Drivebase drivebase, SpecificGameInfoSupplier gameInfoSupplier,
             Supplier<ChassisSpeeds> input) {
-        super(drivebase, () -> input.get().plus(drivebase.getRotationControl().apply(
-            gameInfoSupplier.getHubPosition().minus(drivebase.getPose().getTranslation())
-                .getAngle().minus(drivebase.getPose().getRotation()))));
+        super(drivebase, getCombinedInput(drivebase, gameInfoSupplier, input));
+    }
+
+    private static Supplier<ChassisSpeeds> getCombinedInput(Drivebase drivebase,
+            SpecificGameInfoSupplier gameInfoSupplier, Supplier<ChassisSpeeds> input) {
+        final Supplier<ChassisSpeeds> orientationControl =
+            drivebase.getOrientationControl(() -> gameInfoSupplier.getHubPosition()
+                .minus(drivebase.getPose().getTranslation()).getAngle());
+        
+        return () -> input.get().plus(orientationControl.get());
     }
 }

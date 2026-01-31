@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -152,10 +151,14 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public Function<Rotation2d, ChassisSpeeds> getRotationControl() {
-        final double kp = angularControlSubdashboard.getKp();
-        final double ki = angularControlSubdashboard.getKi();
-        final double kd = angularControlSubdashboard.getKd();
-        return new RotationControl(kp, ki, kd);
+    public Supplier<ChassisSpeeds> getRotationControl(Rotation2d targetRotation) {
+        final Rotation2d targetOrientation = getPose().getRotation().plus(targetRotation);
+        return getOrientationControl(() -> targetOrientation);
+    }
+
+    @Override
+    public Supplier<ChassisSpeeds> getOrientationControl(Supplier<Rotation2d> targetOrientationSupplier) {
+        return () -> new ChassisSpeeds(0, 0, angularControlSubdashboard.getController()
+            .calculate(getPose().getRotation().getRadians(), targetOrientationSupplier.get().getRadians()));
     }
 }
