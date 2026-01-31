@@ -1,6 +1,5 @@
 package frc.robotlib.resource.dashboard.fields;
 
-import java.util.Collection;
 import java.util.Optional;
 import frc.robotlib.resource.SubresourceBase;
 import frc.robotlib.resource.dashboard.Subdashboard;
