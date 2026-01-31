@@ -1,12 +1,12 @@
 package frc.robot.resources.gameinfo;
 
 import edu.wpi.first.math.geometry.Pose2d;
-
+import edu.wpi.first.math.geometry.Translation2d;
 import frc.robotlib.resource.SharedResource;
 
 /**
- * Interface for supplying specific details during the game.
- * Contains information about the phase of the game and the status of the hub.
+ * Interface for supplying specific details during the game. Contains information about the phase of
+ * the game and the status of the hub.
  */
 public interface SpecificGameInfoSupplier extends SharedResource {
     public static enum Phase {
@@ -23,5 +23,5 @@ public interface SpecificGameInfoSupplier extends SharedResource {
      */
     boolean isHubActive();
 
-    Pose2d getHubPose();
+    Translation2d getHubPose();
 }

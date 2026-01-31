@@ -12,7 +12,7 @@ public class DriveWithInputAndFaceHub extends DriveWithInput {
         super(drivebase,
                 () -> input.get()
                         .plus(drivebase.getRotationControl()
-                                .apply(gameInfoSupplier.getHubPose().getTranslation()
+                                .apply(gameInfoSupplier.getHubPose()
                                         .minus(drivebase.getPose().getTranslation()).getAngle()
                                         .minus(drivebase.getPose().getRotation()))));
     }
