@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivebase;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -10,6 +11,7 @@ import com.pathplanner.lib.controllers.PathFollowingController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -40,7 +42,8 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         };
 
         try {
-            this.swerveDrive = new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
+            this.swerveDrive =
+                    new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
         } catch (IOException cause) {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
@@ -139,5 +142,11 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public void setBrake(boolean brake) {
         swerveDrive.setMotorIdleMode(brake);
+    }
+
+    @Override
+    public Function<Rotation2d, ChassisSpeeds> getRotationControl() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRotationControl'");
     }
 }
