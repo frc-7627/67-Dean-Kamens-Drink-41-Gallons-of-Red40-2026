@@ -5,6 +5,7 @@ import java.util.function.Function;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.control.ToggleControlState;
+import frc.robot.commands.drive.DriveWithInputAndFaceHub;
 import frc.robot.commands.drive.auto.FaceHub;
 import frc.robot.commands.drive.auto.RotateCCW90Deg;
 import frc.robot.commands.drive.teleop.Lock;
@@ -37,7 +38,16 @@ public enum TeleopCommandFactory {
      */
     LAUNCH_FUEL(context -> new PrintCommand("launch fuel")),
 
+    /**
+     * 
+     */
     TOGGLE_CONTROL_STATE(context -> new ToggleControlState(context.controlStateToggler())),
+
+    /**
+     * 
+     */
+    DRIVE_AND_ROTATE_TO_HUB(context -> new DriveWithInputAndFaceHub(context.drivebase(),
+            context.gameInfoSupplier(), context.input()));
 
     ;
 

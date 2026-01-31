@@ -96,7 +96,7 @@ public class RobotContainer {
         this.globalControlState = GlobalControlState.create();
 
         this.teleopCommands = new TeleopCommands(new CommandContext(indicator, drivebase, intake,
-                globalControlState, gameInfoSupplier));
+                globalControlState, gameInfoSupplier, driverController.getInput(drivebase)));
 
         // Configure
         setupTeleop();
