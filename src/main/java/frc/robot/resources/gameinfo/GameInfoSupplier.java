@@ -14,6 +14,6 @@ public interface GameInfoSupplier extends GeneralGameInfoSupplier, SpecificGameI
     void onAllianceSet(Runnable action);
 
     static GameInfoSupplier create() {
-        throw new UnsupportedOperationException("Game info supplier not implemented!");
+        return new GameInfoSupplierImpl();
     }
 }
