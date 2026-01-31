@@ -1,10 +1,11 @@
 package frc.robotlib.resource;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 class PeriodicBase {
-    private final List<Subresource> subresources = List.of();
+    private final List<Subresource> subresources = new ArrayList<>();
 
     protected PeriodicBase() {}
 

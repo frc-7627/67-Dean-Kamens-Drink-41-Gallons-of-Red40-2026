@@ -1,5 +1,6 @@
 package frc.robotlib.resource;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -8,7 +9,7 @@ import edu.wpi.first.wpilibj.Watchdog;
 final class ResourceSchedulerImpl implements ResourceScheduler {
     private static final ResourceSchedulerImpl INSTANCE = new ResourceSchedulerImpl();
 
-    private final List<Resource> resources = List.of();
+    private final List<Resource> resources = new ArrayList<>();
 
     private final Watchdog watchdog = new Watchdog(TimedRobot.kDefaultPeriod, () -> {});
 
