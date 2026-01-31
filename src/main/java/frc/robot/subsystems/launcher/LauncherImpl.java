@@ -3,9 +3,7 @@ package frc.robot.subsystems.launcher;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
-import java.util.List;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robotlib.resource.dashboard.Dashboard;
 import frc.robotlib.resource.dashboard.fields.PullingDouble;
 
 // Colloquially known as Miles after bad Chinese
@@ -65,14 +63,6 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
 
     private final PullingDouble manualSpeed = new PullingDouble(DASHBOARD_NAME, "Manual Speed",
             CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_MANUAL_SPEED);
-
-    /**
-     * The launcher subsystem.
-     */
-    LauncherImpl() {
-        Dashboard.create(DASHBOARD_NAME, List.of(currentLimit,
-            rampUpPeriod, shootSpeed, activeIdleSpeed, inactiveIdleSpeed, manualSpeed));
-    }
 
     /**
      * {@inheritDoc}

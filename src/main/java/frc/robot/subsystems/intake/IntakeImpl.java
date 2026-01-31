@@ -4,14 +4,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import java.util.List;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID;
 import static frc.robot.Constants.IntakeConstants.*;
-import frc.robotlib.resource.dashboard.Dashboard;
 import frc.robotlib.resource.dashboard.fields.PullingDouble;
 
 // Colloquially known as Miles at lunch
@@ -35,8 +33,6 @@ final class IntakeImpl extends SubsystemBase implements Intake {
 
         motor.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
-
-        Dashboard.create(DASHBOARD_NAME, List.of(loadSpeed));
     }
 
     /**

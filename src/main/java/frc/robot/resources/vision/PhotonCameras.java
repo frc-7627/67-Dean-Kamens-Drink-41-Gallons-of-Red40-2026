@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import frc.robotlib.resource.SharedResourceBase;
-import frc.robotlib.resource.dashboard.Dashboard;
 
 class PhotonCameras extends SharedResourceBase implements Vision {
     private static final String DASHBOARD_NAME = Vision.class.getSimpleName();
@@ -17,8 +16,6 @@ class PhotonCameras extends SharedResourceBase implements Vision {
     PhotonCameras() {
         this.photonCameraWrappers = List.of(PhotonCameraInfo.values()).stream()
                 .map(photonCameraInfo -> new PhotonCameraWrapper(photonCameraInfo)).toList();
-
-        Dashboard.create(DASHBOARD_NAME, List.of(standardDeviations));
     }
 
     /**
