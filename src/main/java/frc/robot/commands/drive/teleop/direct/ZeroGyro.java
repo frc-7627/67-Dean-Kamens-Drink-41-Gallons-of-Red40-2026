@@ -1,4 +1,4 @@
-package frc.robot.commands.drive.teleop;
+package frc.robot.commands.drive.teleop.direct;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.drivebase.TeleopDrivebase;

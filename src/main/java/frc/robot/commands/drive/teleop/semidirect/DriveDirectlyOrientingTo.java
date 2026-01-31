@@ -1,4 +1,4 @@
-package frc.robot.commands.drive.semidirect;
+package frc.robot.commands.drive.teleop.semidirect;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Translation2d;

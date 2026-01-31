@@ -1,4 +1,4 @@
-package frc.robot.commands.drive.semidirect;
+package frc.robot.commands.drive.auto.semidirect;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;

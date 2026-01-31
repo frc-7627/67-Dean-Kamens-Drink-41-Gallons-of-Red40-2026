@@ -1,4 +1,4 @@
-package frc.robot.commands.drive.direct;
+package frc.robot.commands.drive.auto.direct;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.drivebase.DirectDrivebase;

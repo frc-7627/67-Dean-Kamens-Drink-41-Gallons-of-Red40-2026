@@ -6,11 +6,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.control.ToggleControlState;
-import frc.robot.commands.drive.direct.Lock;
-import frc.robot.commands.drive.semidirect.DriveDirectlyOrientingTo;
-import frc.robot.commands.drive.semidirect.DriveUntilOrientedTo;
-import frc.robot.commands.drive.semidirect.DriveUntilRotatedBy;
-import frc.robot.commands.drive.teleop.ZeroGyro;
+import frc.robot.commands.drive.auto.direct.Lock;
+import frc.robot.commands.drive.auto.semidirect.DriveUntilOrientedTo;
+import frc.robot.commands.drive.auto.semidirect.DriveUntilRotatedBy;
+import frc.robot.commands.drive.teleop.direct.ZeroGyro;
+import frc.robot.commands.drive.teleop.semidirect.DriveDirectlyOrientingTo;
 import frc.robot.commands.intake.LoadIntake;
 
 public enum TeleopCommandFactory {

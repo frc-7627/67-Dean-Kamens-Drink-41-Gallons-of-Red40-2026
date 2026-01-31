@@ -1,4 +1,4 @@
-package frc.robot.commands.drive.direct;
+package frc.robot.commands.drive.auto.direct;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;

@@ -1,8 +1,8 @@
-package frc.robot.commands.drive.semidirect;
+package frc.robot.commands.drive.auto.semidirect;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.commands.drive.direct.DriveDirectlyWhile;
+import frc.robot.commands.drive.auto.direct.DriveDirectlyWhile;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
 class DriveUntilOriented extends DriveDirectlyWhile {
