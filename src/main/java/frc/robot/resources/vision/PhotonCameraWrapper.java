@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.Seconds;
 import static frc.robot.Constants.VisionConstants.FIELD_LAYOUT;
 import static frc.robot.Constants.VisionConstants.MAX_CONNECTION_RETRIES;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -23,6 +24,8 @@ class PhotonCameraWrapper {
     private static final Logger LOGGER =
             Logger.getLogger(PhotonCameraWrapper.class.getSimpleName());
 
+    private final List<PhotonPipelineResult> results = new ArrayList<>();
+
     private final Transform3d transform;
 
     private final PhotonCamera photonCamera;
@@ -30,8 +33,6 @@ class PhotonCameraWrapper {
     private final PhotonPoseEstimator poseEstimator;
 
     private Optional<EstimatedRobotPose> estimatedRobotPoseOptional;
-
-    private List<PhotonPipelineResult> results;
 
     private double lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
 
