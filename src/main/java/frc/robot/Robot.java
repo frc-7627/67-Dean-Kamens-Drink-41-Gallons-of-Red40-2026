@@ -26,6 +26,13 @@ import frc.robotlib.resource.ResourceScheduler;
  * project.
  */
 public class Robot extends LoggedRobot {
+    static {
+        try (FileInputStream is = new FileInputStream(DEPLOY_DIRECTORY + "/logging.properties")) {
+            LogManager.getLogManager().readConfiguration(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private static Robot instance;
     private Command m_autonomousCommand;
@@ -70,12 +77,6 @@ public class Robot extends LoggedRobot {
      */
     @Override
     public void robotInit() {
-        try (FileInputStream is = new FileInputStream(DEPLOY_DIRECTORY + "/logging.properties")) {
-            LogManager.getLogManager().readConfiguration(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         // Configure PathFinder for driveToPose
 
         // Instantiate our RobotContainer. This will perform all our button bindings,
