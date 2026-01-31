@@ -2,7 +2,7 @@ package frc.robot.commands.drive;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.commands.drive.teleop.DriveDirectly;
+import frc.robot.commands.drive.direct.DriveDirectly;
 import frc.robot.resources.gameinfo.SpecificGameInfoSupplier;
 import frc.robot.subsystems.drivebase.Drivebase;
 

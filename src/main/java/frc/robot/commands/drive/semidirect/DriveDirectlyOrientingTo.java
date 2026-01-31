@@ -1,13 +1,13 @@
-package frc.robot.commands.drive.semiauto;
+package frc.robot.commands.drive.semidirect;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.subsystems.drivebase.SemiautoDrivebase;
+import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
 public class DriveDirectlyOrientingTo extends DriveDirectlyOrienting {
     public DriveDirectlyOrientingTo(
-        SemiautoDrivebase drivebase, 
+        SemidirectDrivebase drivebase, 
         Supplier<ChassisSpeeds> input,
         Translation2d targetPosition
     ) {

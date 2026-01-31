@@ -1,11 +1,11 @@
-package frc.robot.commands.drive.semiauto;
+package frc.robot.commands.drive.semidirect;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.commands.drive.teleop.DriveDirectlyWhile;
-import frc.robot.subsystems.drivebase.SemiautoDrivebase;
+import frc.robot.commands.drive.direct.DriveDirectlyWhile;
+import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
 public class DriveUntilRotatedBy extends DriveDirectlyWhile {
-    public DriveUntilRotatedBy(SemiautoDrivebase drivebase, Rotation2d targetRotation) {
+    public DriveUntilRotatedBy(SemidirectDrivebase drivebase, Rotation2d targetRotation) {
         super(
             drivebase,
             drivebase.getRotationControl(targetRotation),

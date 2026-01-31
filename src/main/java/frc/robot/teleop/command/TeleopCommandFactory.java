@@ -8,7 +8,7 @@ import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.DriveWithInputAndFaceHub;
 import frc.robot.commands.drive.auto.FaceHub;
 import frc.robot.commands.drive.auto.RotateCCW90Deg;
-import frc.robot.commands.drive.teleop.Lock;
+import frc.robot.commands.drive.direct.Lock;
 import frc.robot.commands.drive.teleop.ZeroGyro;
 import frc.robot.commands.intake.LoadIntake;
 
