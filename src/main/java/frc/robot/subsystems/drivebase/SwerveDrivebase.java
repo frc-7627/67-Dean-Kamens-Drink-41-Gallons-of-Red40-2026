@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drivebase;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
+import frc.robotlib.resource.dashboard.Dashboard;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -26,6 +28,10 @@ import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
+    private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
+
+    private final RotationControlSubdashboard rotationControlSubdashboard =
+            new RotationControlSubdashboard(DASHBOARD_NAME);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
@@ -48,6 +54,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
 
+        Dashboard.create(DASHBOARD_NAME, List.of(rotationControlSubdashboard));
     }
 
     private void updateVisionMeasurements() {
@@ -146,7 +153,9 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     @Override
     public Function<Rotation2d, ChassisSpeeds> getRotationControl() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRotationControl'");
+        final double kp = rotationControlSubdashboard.getKp();
+        final double ki = rotationControlSubdashboard.getKi();
+        final double kd = rotationControlSubdashboard.getKd();
+        return new RotationControl(kp, ki, kd);
     }
 }
