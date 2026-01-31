@@ -3,7 +3,7 @@ package frc.robot.teleop.controller;
 import java.util.function.Consumer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.controlstate.ControlState;
+import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.teleop.command.TeleopCommandFactory;
 
 public class OperatorXboxController implements TeleopController {

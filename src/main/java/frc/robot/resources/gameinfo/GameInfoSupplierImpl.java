@@ -86,7 +86,7 @@ final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoS
     }
 
     @Override
-    public Translation2d getHubPose() {
+    public Translation2d getHubPosition() {
         return switch (alliance) {
             case Red -> Constants.VisionConstants.HUB_LOCATION.unaryMinus();
             case Blue -> Constants.VisionConstants.HUB_LOCATION;

@@ -23,5 +23,8 @@ public interface SpecificGameInfoSupplier extends SharedResource {
      */
     boolean isHubActive();
 
-    Translation2d getHubPose();
+    /**
+     * @return the hub position.
+     */
+    Translation2d getHubPosition();
 }
