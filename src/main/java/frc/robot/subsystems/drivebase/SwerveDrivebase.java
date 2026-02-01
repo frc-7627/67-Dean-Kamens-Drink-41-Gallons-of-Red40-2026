@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
+import java.util.logging.Logger;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.controllers.PathFollowingController;
@@ -30,6 +31,7 @@ import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
+    private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getSimpleName());
     private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
     private static final Frequency visionUpdateFrequency = Hertz.of(1);
 
@@ -168,14 +170,18 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public Supplier<ChassisSpeeds> getOrientationControl(
             Supplier<Rotation2d> targetOrientationSupplier) {
-
-        System.out.println("Curernt rotation (radians): " + getPose().getRotation().getRadians()
-                + "Target rotation (radians): " + targetOrientationSupplier.get().getRadians());
-                
-        return () -> new ChassisSpeeds(0, 0,
+        return () -> {
+            LOGGER.finer("Current angular velocity(per second): " + 
+                new Rotation2d(getSpeeds().omegaRadiansPerSecond).toString());
+            LOGGER.finer("Current orientation: " + getPose().getRotation().toString());
+            LOGGER.finer("Target orientation: " + targetOrientationSupplier.get().toString());
+            return new ChassisSpeeds(0, 0,
                 angularControlSubdashboard.getController().calculate(
-                        getPose().getRotation().getRadians(),
-                        targetOrientationSupplier.get().getRadians()));
+                    getPose().getRotation().getRadians(),
+                    targetOrientationSupplier.get().getRadians()
+                )
+            );
+        };
     }
 
     @Override
