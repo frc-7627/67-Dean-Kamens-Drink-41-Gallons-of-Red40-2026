@@ -15,7 +15,7 @@ abstract class PullingFieldBase<Pulled> extends SubdashboardBase implements Pull
     protected PullingFieldBase(String superdashboardName, String fieldName,
             Function<String, Transport<Pulled>> transportConstructor,
             Predicate<Pulled> checkPulled, Consumer<Pulled> onPull, Pulled initialPulled) {
-        super(superdashboardName, superdashboardName);
+        super(superdashboardName, fieldName);
 
         this.transport = transportConstructor.apply(getKeyName());
         this.checkPulled = Objects.requireNonNull(checkPulled);
