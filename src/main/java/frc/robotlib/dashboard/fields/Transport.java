@@ -1,4 +1,4 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 interface Transport<Value> {
     Value pull(Value currentValue);

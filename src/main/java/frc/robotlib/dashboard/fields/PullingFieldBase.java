@@ -1,10 +1,10 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import frc.robotlib.resource.dashboard.PullingField;
+import frc.robotlib.dashboard.PullingField;
 
 abstract class PullingFieldBase<Pulled> extends SubdashboardBase implements PullingField<Pulled> {
     private final Transport<Pulled> transport;

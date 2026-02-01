@@ -1,6 +1,7 @@
 package frc.robot.subsystems.intake;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robotlib.dashboard.fields.PullingDouble;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -10,7 +11,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID;
 import static frc.robot.Constants.IntakeConstants.*;
-import frc.robotlib.resource.dashboard.fields.PullingDouble;
 
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements Intake {

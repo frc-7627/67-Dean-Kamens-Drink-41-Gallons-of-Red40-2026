@@ -1,4 +1,4 @@
-package frc.robotlib.resource.dashboard;
+package frc.robotlib.dashboard;
 
 import frc.robotlib.resource.SharedSubresource;
 

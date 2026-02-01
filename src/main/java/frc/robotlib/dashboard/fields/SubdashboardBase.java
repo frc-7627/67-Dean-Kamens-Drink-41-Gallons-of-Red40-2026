@@ -1,8 +1,8 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 import java.util.Optional;
+import frc.robotlib.dashboard.Subdashboard;
 import frc.robotlib.resource.SubresourceBase;
-import frc.robotlib.resource.dashboard.Subdashboard;
 
 public abstract class SubdashboardBase extends SubresourceBase implements Subdashboard {
     private final String superdashboardName;

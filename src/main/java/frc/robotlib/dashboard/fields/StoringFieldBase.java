@@ -1,10 +1,10 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import frc.robotlib.resource.dashboard.StoringField;
+import frc.robotlib.dashboard.StoringField;
 
 abstract class StoringFieldBase<Stored> extends SubdashboardBase implements StoringField<Stored> {
     private final Transport<Stored> transport;

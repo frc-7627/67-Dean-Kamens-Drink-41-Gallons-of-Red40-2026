@@ -1,4 +1,4 @@
-package frc.robotlib.resource.dashboard;
+package frc.robotlib.dashboard;
 
 public interface PullingField<Pulled> extends SharedSubdashboard, Pulling<Pulled> {
 }

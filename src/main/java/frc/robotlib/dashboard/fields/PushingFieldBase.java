@@ -1,10 +1,10 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import frc.robotlib.resource.dashboard.PushingField;
+import frc.robotlib.dashboard.PushingField;
 
 abstract class PushingFieldBase<Pushed> extends SubdashboardBase
         implements PushingField<Pushed> {

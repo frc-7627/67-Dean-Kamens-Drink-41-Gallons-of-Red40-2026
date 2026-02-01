@@ -1,4 +1,4 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 abstract class TransportBase<Value> implements Transport<Value> {
     private final String key;

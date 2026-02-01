@@ -1,8 +1,8 @@
 package frc.robot.resources.vision;
 
-import frc.robotlib.resource.dashboard.SharedSubdashboard;
-import frc.robotlib.resource.dashboard.fields.PullingDouble;
-import frc.robotlib.resource.dashboard.fields.SubdashboardBase;
+import frc.robotlib.dashboard.SharedSubdashboard;
+import frc.robotlib.dashboard.fields.PullingDouble;
+import frc.robotlib.dashboard.fields.SubdashboardBase;
 import static frc.robot.Constants.VisionConstants.*;
 
 public class StandardDeviationsSubdashboard extends SubdashboardBase implements SharedSubdashboard {

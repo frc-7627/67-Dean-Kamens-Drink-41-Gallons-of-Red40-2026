@@ -1,8 +1,8 @@
 package frc.robot.subsystems.drivebase;
 
 import edu.wpi.first.math.controller.PIDController;
-import frc.robotlib.resource.dashboard.fields.PullingDouble;
-import frc.robotlib.resource.dashboard.fields.SubdashboardBase;
+import frc.robotlib.dashboard.fields.PullingDouble;
+import frc.robotlib.dashboard.fields.SubdashboardBase;
 
 final class AngularControlSubdashboard extends SubdashboardBase {
     private final PullingDouble kp;

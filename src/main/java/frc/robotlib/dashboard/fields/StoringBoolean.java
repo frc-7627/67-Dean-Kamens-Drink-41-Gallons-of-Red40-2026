@@ -1,4 +1,4 @@
-package frc.robotlib.resource.dashboard.fields;
+package frc.robotlib.dashboard.fields;
 
 import java.util.function.Consumer;
 
