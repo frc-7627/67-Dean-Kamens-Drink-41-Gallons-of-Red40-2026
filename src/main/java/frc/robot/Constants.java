@@ -100,13 +100,13 @@ public final class Constants {
     }
 
     public static final class VisionConstants {
-        //public static final String LEFT_CAMERA_NAME = "PC_Camera SIG";
+        public static final String LEFT_CAMERA_NAME = "PC_Camera SIG";
         public static final String RIGHT_CAMERA_NAME = "PC_Camera_MA";
 
-        // public static final Transform3d LEFT_CAMERA_TRANSFORM = new Transform3d(
-        //         new Translation3d(Units.inchesToMeters(8),
-        //                 Units.inchesToMeters(1) /* This is forward. */, Units.inchesToMeters(8)),
-        //         new Rotation3d(0, Units.degreesToRadians(30), 25));
+        public static final Transform3d LEFT_CAMERA_TRANSFORM = new Transform3d(
+                new Translation3d(Units.inchesToMeters(8),
+                        Units.inchesToMeters(1) /* This is forward. */, Units.inchesToMeters(8)),
+                new Rotation3d(0, Units.degreesToRadians(30), 25));
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(Units.inchesToMeters(5.840),
                         Units.inchesToMeters(-10.776) /* This is forward. */,
