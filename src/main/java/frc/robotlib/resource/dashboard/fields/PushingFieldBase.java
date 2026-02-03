@@ -16,7 +16,7 @@ abstract class PushingFieldBase<Pushed> extends SubdashboardBase
     protected PushingFieldBase(String superdashboardName, String fieldName,
             Function<String, Transport<Pushed>> transportConstructor,
             Predicate<Pushed> checkPushed, Consumer<Pushed> onPush, Pushed initialPushed) {
-        super(superdashboardName, superdashboardName);
+        super(superdashboardName, fieldName);
 
         this.transport = transportConstructor.apply(getKeyName());
         this.checkPushed = Objects.requireNonNull(checkPushed);
