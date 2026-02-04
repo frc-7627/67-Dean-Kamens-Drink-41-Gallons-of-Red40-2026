@@ -14,6 +14,7 @@ import frc.robotlib.resource.SharedResourceBase;
 final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoSupplier {
     private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getSimpleName());
 
+    String gameData = DriverStation.getGameSpecificMessage();
     private final EventLoop eventLoop = new EventLoop();
     private final BooleanEvent allianceSetEvent;
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
@@ -37,6 +38,10 @@ final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoS
 
     @Override
     public Phase getPhase() {
+
+
+
+
         return phase;
     }
 
