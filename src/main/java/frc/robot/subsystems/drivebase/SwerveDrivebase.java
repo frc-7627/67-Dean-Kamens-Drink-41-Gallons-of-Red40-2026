@@ -36,8 +36,8 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final Frequency visionUpdateFrequency = Hertz.of(1);
 
     private final Timer visionUpdateThrottler = new Timer();
-    private final AngularControlSubdashboard angularControlSubdashboard =
-            new AngularControlSubdashboard(DASHBOARD_NAME);
+    private final AngularControl angularControl =
+            new AngularControl(DASHBOARD_NAME, this);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
@@ -96,7 +96,8 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
         swerveDrive.resetOdometry(pose);
     }
 
-    private ChassisSpeeds getSpeeds() {
+    @Override
+    public ChassisSpeeds getSpeeds() {
         return swerveDrive.getRobotVelocity();
     }
 
@@ -162,58 +163,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public Supplier<ChassisSpeeds> getRotationControl(Rotation2d targetRotation) {
-        final Rotation2d targetOrientation = getPose().getRotation().plus(targetRotation);
-        return getOrientationControl(() -> targetOrientation);
-    }
-
-    @Override
-    public Supplier<ChassisSpeeds> getOrientationControl(
-            Supplier<Rotation2d> targetOrientationSupplier) {
-        return () -> {
-            LOGGER.finer("Current angular velocity(per second): " + 
-                new Rotation2d(getSpeeds().omegaRadiansPerSecond).toString());
-            LOGGER.finer("Current orientation: " + getPose().getRotation().toString());
-            LOGGER.finer("Target orientation: " + targetOrientationSupplier.get().toString());
-            return new ChassisSpeeds(0, 0,
-                angularControlSubdashboard.getController().calculate(
-                    getPose().getRotation().getRadians(),
-                    targetOrientationSupplier.get().getRadians()
-                )
-            );
-        };
-    }
-
-    @Override
-    public BooleanSupplier getRotationConvergenceSupplier(Rotation2d targetRotation) {
-        final Rotation2d targetOrientation = getPose().getRotation().plus(targetRotation);
-        return getOrientationConvergenceSupplier(() -> targetOrientation);
-    }
-
-    @Override
-    public BooleanSupplier getOrientationConvergenceSupplier(
-            Supplier<Rotation2d> targetOrientationSupplier) {
-        final Timer timer = new Timer();
-
-        // Check whether we are currently within tolerance.
-        final BooleanSupplier checkWithinTolerance = () -> getPose().getRotation().getMeasure()
-                .isNear(targetOrientationSupplier.get().getMeasure(), ANGULAR_EPSILON)
-                && RadiansPerSecond.of(getSpeeds().omegaRadiansPerSecond)
-                        .isNear(RadiansPerSecond.zero(), ANGULAR_VELOCITY_EPSILON);
-
-        // Check that we are currently within tolerance AND have been for the required amount of
-        // time.
-        return () -> {
-            if (checkWithinTolerance.getAsBoolean()) {
-                timer.start();
-
-                return timer.hasElapsed(CONVERGENCE_PERIOD);
-            } else {
-                timer.stop();
-                timer.reset();
-
-                return false;
-            }
-        };
+    public AngularControl getAngularControl() {
+        return angularControl;
     }
 }
