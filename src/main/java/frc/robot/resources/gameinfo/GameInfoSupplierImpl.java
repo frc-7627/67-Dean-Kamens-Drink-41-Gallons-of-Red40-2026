@@ -90,7 +90,7 @@ final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoS
 
     @Override
     public Translation2d getHubPosition() {
-        System.out.println("Getting the Hub pose for the respective Alliance");
+        //System.out.println("Getting the Hub pose for the respective Alliance");
         return switch (alliance) {
             case Red -> Constants.VisionConstants.HUB_LOCATION.unaryMinus();
             case Blue -> Constants.VisionConstants.HUB_LOCATION;
