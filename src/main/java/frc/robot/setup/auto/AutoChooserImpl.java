@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
-import frc.robotlib.resource.dashboard.fields.SubdashboardBase;
+import frc.robotlib.dashboard.fields.SubdashboardBase;
 
 final class AutoChooserImpl extends SubdashboardBase implements AutoChooser {
     private static final String FIELD_NAME = "Auto Chooser";
