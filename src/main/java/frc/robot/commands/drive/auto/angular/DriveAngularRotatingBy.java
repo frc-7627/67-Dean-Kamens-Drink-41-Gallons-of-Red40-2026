@@ -2,9 +2,6 @@ package frc.robot.commands.drive.auto.angular;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.subsystems.drivebase.AngularControl;
-import frc.robot.subsystems.drivebase.DirectDrivebase;
-import frc.robot.subsystems.drivebase.KinematicSupplier;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
 public class DriveAngularRotatingBy extends DriveAngularOrienting {
