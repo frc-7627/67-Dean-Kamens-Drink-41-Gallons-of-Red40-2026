@@ -4,6 +4,10 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
+/**
+ * Interface for converting the input axes from the joystick controller into
+ * robot motion.
+ */
 public interface InputSupplier {
 
     /**

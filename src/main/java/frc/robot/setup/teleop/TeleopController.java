@@ -5,15 +5,17 @@ import java.util.stream.Stream;
 import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 
+/**
+ * Interface that binds teleop controls to commands to be done by the robot.
+ */
 interface TeleopController {
     void bindCommand(TeleopCommandFactory factory, Consumer<Consumer<Command>> binderConsumer,
             ControlState controlState);
 
     default void bindAll(CommandContext context, ControlState controlState) {
         Stream.of(TeleopCommandFactory.values()).forEach(factory -> bindCommand(
-            factory, 
-            factory.getBinderConsumer(context), 
-            controlState
-        ));
+                factory,
+                factory.getBinderConsumer(context),
+                controlState));
     }
 }
