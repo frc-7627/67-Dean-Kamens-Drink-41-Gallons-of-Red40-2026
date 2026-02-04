@@ -19,11 +19,13 @@ import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
 import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
+import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.hopper.Hopper;
 import org.littletonrobotics.junction.Logger;
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -41,6 +43,8 @@ public class RobotContainer {
     private final Vision vision;
 
     private final GameInfoSupplier gameInfoSupplier;
+
+    Pigeon2 pigeon = new Pigeon2(1); 
 
     private final Drivebase drivebase;
 
@@ -159,6 +163,8 @@ public class RobotContainer {
     public void teleopPeriodic() {
         Pose2d currentPose = drivebase.getPose();
         Logger.recordOutput("MyPose2d", currentPose);
+
+        System.out.println("Current Robot Gyro Angle: " + pigeon.getYaw());
     }
 
     /**
