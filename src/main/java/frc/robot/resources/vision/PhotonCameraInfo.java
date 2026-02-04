@@ -4,8 +4,8 @@ import static frc.robot.Constants.VisionConstants.*;
 import edu.wpi.first.math.geometry.Transform3d;
 
 enum PhotonCameraInfo {
-    //LEFT("PC_Camera SIG", LEFT_CAMERA_TRANSFORM),
-    RIGHT("PC_Camera MA", RIGHT_CAMERA_TRANSFORM);
+    LEFT("PC_Camera SIG", LEFT_CAMERA_TRANSFORM),
+    RIGHT("PC_Camera_MA", RIGHT_CAMERA_TRANSFORM);
 
     private final String name;
 
