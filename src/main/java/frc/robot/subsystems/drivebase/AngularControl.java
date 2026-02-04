@@ -1,8 +1,12 @@
 package frc.robot.subsystems.drivebase;
 
+import static edu.wpi.first.units.Units.Degree;
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static frc.robot.Constants.DrivebaseConstants.*;
+import java.util.logging.Logger;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
@@ -11,6 +15,8 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robotlib.dashboard.fields.PullingDouble;
 
 public final class AngularControl {
+    private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getSimpleName());
+
     private final PullingDouble kp;
     private final PullingDouble ki;
     private final PullingDouble kd;
@@ -83,5 +89,17 @@ public final class AngularControl {
 
     public void reset() {
         controller.reset();
+    }
+
+    public void logData(  
+        Angle targetOrientationAngle,
+        AngularVelocity setRotationRate
+    ) {
+        final Angle currentOrientationAngle = getCurrentOrientation().getMeasure();
+        final AngularVelocity currentRotationRate = getCurrentRotationRate();
+        LOGGER.finer("Current orientation angle: " + currentOrientationAngle.in(Degrees) + " deg");
+        LOGGER.finer("Target orientation angle: " + targetOrientationAngle.in(Degrees) + " deg");
+        LOGGER.finer("Current rotation rate: " + currentRotationRate.in(DegreesPerSecond) + " deg/sec");
+        LOGGER.finer("Set rotation rate: " + setRotationRate.in(DegreesPerSecond) + " deg/sec");
     }
 }

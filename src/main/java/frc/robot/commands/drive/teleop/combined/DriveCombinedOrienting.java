@@ -3,6 +3,8 @@ package frc.robot.commands.drive.teleop.combined;
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 import frc.robot.util.SpeedsCombiner;
@@ -29,12 +31,16 @@ class DriveCombinedOrienting extends Command {
 
     @Override
     public void execute() {
+        final Angle targetOrientationAngle = targetOrientationSupplier.get().getMeasure();
+        final AngularVelocity setRotationRate = drivebase.getAngularControl()
+            .getRotationRate(targetOrientationAngle);
+        
         drivebase.driveWithSpeeds(
             speedsCombiner.getCombinedSpeeds(
-                drivebase.getAngularControl().getRotationRate(
-                    targetOrientationSupplier.get().getMeasure()
-                )
+                setRotationRate
             )
         );
+
+        drivebase.getAngularControl().logData(targetOrientationAngle, setRotationRate);
     }
 }

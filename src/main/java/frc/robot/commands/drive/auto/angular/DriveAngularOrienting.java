@@ -4,6 +4,8 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
@@ -27,10 +29,13 @@ class DriveAngularOrienting extends Command {
 
     @Override
     public void execute() {
-        speeds.omegaRadiansPerSecond = drivebase.getAngularControl()
-            .getRotationRate(targetOrientationSupplier.get().getMeasure())
+        final Angle targetOrientationAngle = targetOrientationSupplier.get().getMeasure();
+        final AngularVelocity setRotationRate = drivebase.getAngularControl()
+            .getRotationRate(targetOrientationAngle);
+        speeds.omegaRadiansPerSecond = setRotationRate
             .in(RadiansPerSecond);
         drivebase.driveWithSpeeds(speeds);
+        drivebase.getAngularControl().logData(targetOrientationAngle, setRotationRate);
     }
 
     @Override
