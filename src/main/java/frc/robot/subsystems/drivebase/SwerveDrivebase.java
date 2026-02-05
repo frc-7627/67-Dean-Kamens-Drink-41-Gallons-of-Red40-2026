@@ -66,7 +66,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private void updateVisionMeasurements() {
         vision.getVisionMeasurements().forEach(visionMeasurement -> {
             swerveDrive.addVisionMeasurement(
-                visionMeasurement.getPose(),
+                visionMeasurement.getEstimatedPose(),
                 visionMeasurement.getTimestamp(), 
                 visionMeasurement.getStdDevs()
             );

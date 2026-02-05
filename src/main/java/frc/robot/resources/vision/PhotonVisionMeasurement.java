@@ -33,7 +33,7 @@ final class PhotonVisionMeasurement implements VisionMeasurement {
     }
 
     @Override
-    public Pose2d getPose() {
+    public Pose2d getEstimatedPose() {
         return estimatedPose;
     }
 

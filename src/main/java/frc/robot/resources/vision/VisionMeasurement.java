@@ -15,7 +15,7 @@ public interface VisionMeasurement {
      *
      * @return The robot's pose
      */
-    Pose2d getPose();
+    Pose2d getEstimatedPose();
 
     /**
      * get the estimated time the frame used to derive the robot pose was taken and
