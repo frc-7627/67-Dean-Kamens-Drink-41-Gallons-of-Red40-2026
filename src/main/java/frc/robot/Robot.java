@@ -38,8 +38,6 @@ public class Robot extends LoggedRobot {
     private static Robot instance;
     private Command m_autonomousCommand;
 
-    Pigeon2 pigeon = new Pigeon2(1); 
-
     private RobotContainer m_robotContainer;
 
     private Timer disabledTimer;
@@ -186,9 +184,6 @@ public class Robot extends LoggedRobot {
      */
     @Override
     public void teleopPeriodic() {
-
-        System.out.println("Current Robot Gyro Angle: " + pigeon.getYaw());
-
     }
 
     @Override
