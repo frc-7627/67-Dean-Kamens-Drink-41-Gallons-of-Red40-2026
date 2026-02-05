@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robotlib.resource.ResourceScheduler;
+import frc.bofalib.resource.ResourceScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,8 +37,6 @@ public class Robot extends LoggedRobot {
 
     private static Robot instance;
     private Command m_autonomousCommand;
-
-    Pigeon2 pigeon = new Pigeon2(1); 
 
     private RobotContainer m_robotContainer;
 
@@ -186,9 +184,6 @@ public class Robot extends LoggedRobot {
      */
     @Override
     public void teleopPeriodic() {
-
-        System.out.println("Current Robot Gyro Angle: " + pigeon.getYaw());
-
     }
 
     @Override

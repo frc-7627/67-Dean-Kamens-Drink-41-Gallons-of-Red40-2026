@@ -1,9 +1,9 @@
 package frc.robot.setup.auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.bofalib.dashboard.PullingField;
 import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
-import frc.robotlib.dashboard.PullingField;
 
 /**
  * Interface for selecting the autonomous commands

@@ -1,8 +1,8 @@
 package frc.robot.resources.vision;
 
-import frc.robotlib.dashboard.fields.PullingDouble;
-import frc.robotlib.dashboard.fields.SubdashboardBase;
 import static frc.robot.Constants.VisionConstants.*;
+import frc.bofalib.dashboard.fields.PullingDouble;
+import frc.bofalib.dashboard.fields.SubdashboardBase;
 
 public class StandardDeviationsSubdashboard extends SubdashboardBase {
     private final PullingDouble singleTagStdDev;

@@ -1,7 +1,7 @@
 package frc.robot.resources.gameinfo;
 
 import edu.wpi.first.math.geometry.Translation2d;
-import frc.robotlib.resource.SharedResource;
+import frc.bofalib.resource.SharedResource;
 
 /**
  * Interface for supplying specific details during the game. Contains information about the phase of
