@@ -163,8 +163,6 @@ public class RobotContainer {
     public void teleopPeriodic() {
         Pose2d currentPose = drivebase.getPose();
         Logger.recordOutput("MyPose2d", currentPose);
-
-        System.out.println("Current Robot Gyro Angle: " + pigeon.getYaw());
     }
 
     /**
