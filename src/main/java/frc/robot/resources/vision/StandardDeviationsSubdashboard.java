@@ -7,6 +7,7 @@ import frc.bofalib.dashboard.fields.SubdashboardBase;
 public class StandardDeviationsSubdashboard extends SubdashboardBase {
     private final PullingDouble singleTagStdDev;
     private final PullingDouble multiTagStdDev;
+    private final StandardDeviations workingStandardDeviations = new StandardDeviations();
 
     StandardDeviationsSubdashboard(String dashboardName) {
         super(dashboardName);
@@ -22,6 +23,8 @@ public class StandardDeviationsSubdashboard extends SubdashboardBase {
     }
 
     public StandardDeviations get() {
-        return new StandardDeviations(singleTagStdDev.getPulled(), multiTagStdDev.getPulled());
+        workingStandardDeviations.setSingleTagStdDev(singleTagStdDev.getPulled());
+        workingStandardDeviations.setMultiTagStdDev(multiTagStdDev.getPulled());
+        return workingStandardDeviations;
     }
 }
