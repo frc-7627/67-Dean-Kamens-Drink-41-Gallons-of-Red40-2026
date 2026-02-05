@@ -12,7 +12,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robotlib.dashboard.fields.PullingDouble;
+import frc.bofalib.dashboard.fields.PullingDouble;
 
 public final class AngularControl {
     private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getSimpleName());

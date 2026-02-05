@@ -1,7 +1,7 @@
 package frc.robot.resources.vision;
 
 import java.util.stream.Stream;
-import frc.robotlib.resource.SharedResource;
+import frc.bofalib.resource.SharedResource;
 
 /**
  * Interface that supplies the vision measurements used to update odemetry.
