@@ -1,4 +1,4 @@
-package frc.robot.commands.drive.auto.indirect;
+package frc.robot.commands.drive.indirect;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
