@@ -5,10 +5,12 @@ import frc.robot.resources.pathplanner.PathPlannerConfigException;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robotlib.dashboard.PullingField;
 
+/**
+ * Interface for selecting the autonomous commands
+ */
 public interface AutoChooser extends PullingField<Command> {
     static AutoChooser create(
-        PathPlannerConfigurator configurator
-    ) throws PathPlannerConfigException {
+            PathPlannerConfigurator configurator) throws PathPlannerConfigException {
         return new AutoChooserImpl(configurator);
     }
 }

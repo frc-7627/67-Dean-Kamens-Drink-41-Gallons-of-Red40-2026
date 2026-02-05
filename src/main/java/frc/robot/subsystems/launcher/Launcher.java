@@ -3,6 +3,9 @@ package frc.robot.subsystems.launcher;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.launcher.LauncherImpl.Song;
 
+/**
+ * Interface for the launcher mechanism of the robot.
+ */
 public interface Launcher extends Subsystem {
     /**
      * Plays the horn frequency as a note on the motors.

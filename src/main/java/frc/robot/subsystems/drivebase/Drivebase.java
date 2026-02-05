@@ -5,6 +5,9 @@ import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.resources.pathplanner.PathPlannerConfigurator;
 import frc.robot.resources.vision.VisionMeasurementsSupplier;
 
+/**
+ * Interface keeping track of all of the robot's driving functions and parts.
+ */
 public interface Drivebase extends IndirectDrivebase, SemidirectDrivebase, MiscDrivebase, InputSupplier {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 

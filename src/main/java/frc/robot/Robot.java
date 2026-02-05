@@ -13,6 +13,7 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,6 +37,8 @@ public class Robot extends LoggedRobot {
 
     private static Robot instance;
     private Command m_autonomousCommand;
+
+    Pigeon2 pigeon = new Pigeon2(1); 
 
     private RobotContainer m_robotContainer;
 
@@ -182,7 +185,11 @@ public class Robot extends LoggedRobot {
      * This function is called periodically during operator control.
      */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+
+        System.out.println("Current Robot Gyro Angle: " + pigeon.getYaw());
+
+    }
 
     @Override
     public void testInit() {

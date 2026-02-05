@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.util.Progress;
 import frc.robot.resources.gameinfo.GameInfoSupplier;
 
+/**
+ * Interface for the feedback and status of the robot, signaling the state and
+ * events.
+ */
 public interface Indicator extends Subsystem {
     /**
      * Indicate that the robot is starting up.
@@ -29,7 +33,7 @@ public interface Indicator extends Subsystem {
      * Indicate the progress of a command with the current progress.
      * 
      * @param <CommandProgress> an amount of progress.
-     * @param currentProgress the current progress.
+     * @param currentProgress   the current progress.
      */
     <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress);
 
