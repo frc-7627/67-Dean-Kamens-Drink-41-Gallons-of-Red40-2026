@@ -24,6 +24,8 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
@@ -52,12 +54,26 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
             case Blue -> BLUE_ALLIANCE_INITIAL_POSE;
         };
 
+        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+
         try {
             this.swerveDrive =
                     new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
         } catch (IOException cause) {
             throw new DrivebaseInitException("Could not create swerve drive!", cause);
         }
+
+        swerveDrive.setHeadingCorrection(false);
+        swerveDrive.setCosineCompensator(false);
+        swerveDrive.setAngularVelocityCompensation(
+            true, 
+            true, 
+            0.1
+        );
+        swerveDrive.setModuleEncoderAutoSynchronize(
+            false, 
+            1.0
+        );
 
         swerveDrive.stopOdometryThread();
         visionUpdateThrottler.start();
