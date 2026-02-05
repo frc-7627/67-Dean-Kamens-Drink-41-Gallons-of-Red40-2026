@@ -1,10 +1,10 @@
-package frc.robot.commands.drive.teleop.direct;
+package frc.robot.commands.drive.misc;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.drivebase.DirectDrivebase;
+import frc.robot.subsystems.drivebase.MiscDrivebase;
 
 public class ZeroGyro extends InstantCommand {
-    public ZeroGyro(DirectDrivebase drivebase) {
+    public ZeroGyro(MiscDrivebase drivebase) {
         super(drivebase::zeroGyro, drivebase);
     }
 }

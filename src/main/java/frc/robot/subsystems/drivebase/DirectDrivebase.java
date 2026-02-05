@@ -10,15 +10,4 @@ public interface DirectDrivebase extends Subsystem, PoseSupplier {
      * @param chassisSpeeds the provided robot-relative speeds.
      */
     void driveWithSpeeds(ChassisSpeeds chassisSpeeds);
-
-    /**
-     * Forces the robot to keep the current pose.
-     */
-    void lock();
-
-    /**
-     * Resets the gyro angle to zero and resets odometry to the same position, but facing toward 0
-     * (red alliance station).
-     */
-    void zeroGyro();
 }

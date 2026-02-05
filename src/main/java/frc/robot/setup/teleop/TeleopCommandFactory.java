@@ -10,9 +10,9 @@ import frc.robot.commands.MockCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.auto.angular.DriveAngularOrientingTo;
 import frc.robot.commands.drive.auto.angular.DriveAngularRotatingBy;
-import frc.robot.commands.drive.auto.direct.Lock;
+import frc.robot.commands.drive.misc.Lock;
+import frc.robot.commands.drive.misc.ZeroGyro;
 import frc.robot.commands.drive.teleop.combined.DriveCombinedOrientingTo;
-import frc.robot.commands.drive.teleop.direct.ZeroGyro;
 import frc.robot.commands.intake.LoadIntake;
 
 enum TeleopCommandFactory {
