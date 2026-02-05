@@ -31,6 +31,8 @@ class PhotonCameraWrapper {
     private final PhotonCamera photonCamera;
 
     private final PhotonPoseEstimator poseEstimator;
+    
+    private final PhotonVisionMeasurement workingVisionMeasurement = new PhotonVisionMeasurement();
 
     private Optional<EstimatedRobotPose> estimatedRobotPoseOptional = Optional.empty();
 
@@ -84,8 +86,19 @@ class PhotonCameraWrapper {
 
     Optional<VisionMeasurement> getVisionMeasurement(StandardDeviations standardDeviations) {
         return getEstimatedPose(standardDeviations)
-                .map(estimatedRobotPose -> new PhotonVisionMeasurement(estimatedRobotPose,
-                        currentStdDev));
+            .map(estimatedRobotPose -> {
+                workingVisionMeasurement.setEstimatedPose(
+                    estimatedRobotPose.estimatedPose.toPose2d()
+                );
+                workingVisionMeasurement.setTimestamp(
+                    estimatedRobotPose.timestampSeconds
+                );
+                workingVisionMeasurement.setStdDev(
+                    currentStdDev
+                );
+
+                return workingVisionMeasurement;
+        });
     }
 
     Optional<EstimatedRobotPose> getEstimatedPose(StandardDeviations standardDeviations) {
@@ -126,7 +139,7 @@ class PhotonCameraWrapper {
     }
 
     private void updateEstimationStdDevs(StandardDeviations standardDeviations, List<PhotonTrackedTarget> targets) {
-        final double singleTagStdDev = standardDeviations.singleTagStdDev();
+        final double singleTagStdDev = standardDeviations.getSingleTagStdDev();
 
         if (estimatedRobotPoseOptional.isEmpty()) {
             // No pose input. Default to single-tag std devs
@@ -161,7 +174,7 @@ class PhotonCameraWrapper {
                 avgDist /= numTags;
                 // Decrease std devs if multiple targets are visible
                 if (numTags > 1) {
-                    estimatedStdDev = standardDeviations.multiTagStdDev();
+                    estimatedStdDev = standardDeviations.getMultiTagStdDev();
                 }
                 // Increase std devs based on (average) distance
                 if (numTags == 1 && avgDist > 3) // Assuming Max Distance before tag was
