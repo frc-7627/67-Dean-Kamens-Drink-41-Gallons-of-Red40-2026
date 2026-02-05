@@ -1,11 +1,10 @@
 package frc.robot.resources.vision;
 
-import frc.robotlib.dashboard.SharedSubdashboard;
 import frc.robotlib.dashboard.fields.PullingDouble;
 import frc.robotlib.dashboard.fields.SubdashboardBase;
 import static frc.robot.Constants.VisionConstants.*;
 
-public class StandardDeviationsSubdashboard extends SubdashboardBase implements SharedSubdashboard {
+public class StandardDeviationsSubdashboard extends SubdashboardBase {
     private final PullingDouble singleTagStdDev;
     private final PullingDouble multiTagStdDev;
 

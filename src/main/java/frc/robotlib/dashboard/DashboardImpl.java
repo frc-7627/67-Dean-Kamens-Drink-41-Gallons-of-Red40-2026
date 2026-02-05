@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import frc.robotlib.resource.ResourceBase;
 
-final class DashboardImpl extends ResourceBase implements Dashboard {
+final class DashboardImpl implements Dashboard {
     private final String dashboardName;
     private final List<Subdashboard> subdashboards = new ArrayList<>();
 
     DashboardImpl(String dashboardName, Collection<? extends Subdashboard> subdashboards) {
-        super(subdashboards);
-
         this.dashboardName = dashboardName;
 
         this.subdashboards.addAll(subdashboards);
@@ -26,10 +24,5 @@ final class DashboardImpl extends ResourceBase implements Dashboard {
     @Override
     public Optional<String> getSuperdashboardName() {
         return Optional.empty();
-    }
-
-    @Override
-    public void periodic() {
-        subdashboards.forEach(Subdashboard::periodic);
     }
 }

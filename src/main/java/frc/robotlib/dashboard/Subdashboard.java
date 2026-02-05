@@ -1,9 +1,8 @@
 package frc.robotlib.dashboard;
 
 import java.util.Optional;
-import frc.robotlib.resource.Subresource;
 
-public interface Subdashboard extends Subresource {
+public interface Subdashboard {
     Optional<String> getSuperdashboardName();
 
     Optional<String> getDashboardName();
