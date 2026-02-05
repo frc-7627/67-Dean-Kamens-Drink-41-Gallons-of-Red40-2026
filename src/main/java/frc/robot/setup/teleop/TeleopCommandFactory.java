@@ -8,11 +8,11 @@ import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.MockCommand;
 import frc.robot.commands.control.ToggleControlState;
-import frc.robot.commands.drive.auto.angular.DriveAngularOrientingTo;
-import frc.robot.commands.drive.auto.angular.DriveAngularRotatingBy;
+import frc.robot.commands.drive.direct.DriveAngularOrientingTo;
+import frc.robot.commands.drive.direct.DriveAngularRotatingBy;
+import frc.robot.commands.drive.direct.DriveCombinedOrientingTo;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
-import frc.robot.commands.drive.teleop.combined.DriveCombinedOrientingTo;
 import frc.robot.commands.intake.LoadIntake;
 
 enum TeleopCommandFactory {
@@ -51,16 +51,16 @@ enum TeleopCommandFactory {
      */
     ORIENT_TO_HUB(context -> new DriveAngularOrientingTo(
         context.drivebase(), 
-        context.gameInfoSupplier()::getHubPosition
+        context.gameInfoSupplier().getHubPosition()
     )),
 
     /**
      * 
      */
     DRIVE_WHILE_ORIENTING_TO_HUB(context -> new DriveCombinedOrientingTo(
-        context.drivebase(),
-        context.input(),
-        context.gameInfoSupplier()::getHubPosition
+        context.drivebase(), 
+        context.gameInfoSupplier().getHubPosition(), 
+        context.input()
     )),
     ;
 
