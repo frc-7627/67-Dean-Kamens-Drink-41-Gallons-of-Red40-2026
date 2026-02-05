@@ -16,7 +16,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
@@ -25,7 +24,6 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
-import static edu.wpi.first.units.Units.Hertz;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
@@ -33,7 +31,6 @@ import static frc.robot.Constants.OperatorConstants.*;
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getSimpleName());
     private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
-    private static final Frequency visionUpdateFrequency = Hertz.of(1);
     
     Pigeon2 pigeon = new Pigeon2(1); 
 
@@ -68,17 +65,17 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     private void updateVisionMeasurements() {
         vision.getVisionMeasurements().forEach(visionMeasurement -> {
-            swerveDrive.addVisionMeasurement(visionMeasurement.getPose(),
-                    visionMeasurement.getTimestamp(), visionMeasurement.getStdDevs());
+            swerveDrive.addVisionMeasurement(
+                visionMeasurement.getPose(),
+                visionMeasurement.getTimestamp(), 
+                visionMeasurement.getStdDevs()
+            );
         });
     }
 
     @Override
     public void periodic() {
-        if (visionUpdateThrottler.hasElapsed(visionUpdateFrequency.asPeriod())) {
-            updateVisionMeasurements();
-            visionUpdateThrottler.reset();
-        }
+        updateVisionMeasurements();
     }
 
     /**
