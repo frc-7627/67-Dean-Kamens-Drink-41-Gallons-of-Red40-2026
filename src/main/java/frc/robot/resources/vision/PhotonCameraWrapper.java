@@ -31,6 +31,8 @@ class PhotonCameraWrapper {
     private final PhotonCamera photonCamera;
 
     private final PhotonPoseEstimator poseEstimator;
+    
+    private final PhotonVisionMeasurement workingVisionMeasurement = new PhotonVisionMeasurement();
 
     private Optional<EstimatedRobotPose> estimatedRobotPoseOptional = Optional.empty();
 
@@ -84,8 +86,19 @@ class PhotonCameraWrapper {
 
     Optional<VisionMeasurement> getVisionMeasurement(StandardDeviations standardDeviations) {
         return getEstimatedPose(standardDeviations)
-                .map(estimatedRobotPose -> new PhotonVisionMeasurement(estimatedRobotPose,
-                        currentStdDev));
+            .map(estimatedRobotPose -> {
+                workingVisionMeasurement.setEstimatedPose(
+                    estimatedRobotPose.estimatedPose.toPose2d()
+                );
+                workingVisionMeasurement.setTimestamp(
+                    estimatedRobotPose.timestampSeconds
+                );
+                workingVisionMeasurement.setStdDev(
+                    currentStdDev
+                );
+
+                return workingVisionMeasurement;
+        });
     }
 
     Optional<EstimatedRobotPose> getEstimatedPose(StandardDeviations standardDeviations) {
