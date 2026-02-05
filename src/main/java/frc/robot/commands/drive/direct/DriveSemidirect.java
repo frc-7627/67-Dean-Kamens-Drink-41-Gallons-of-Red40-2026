@@ -1,17 +1,18 @@
 package frc.robot.commands.drive.direct;
 
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import frc.robot.subsystems.drivebase.AngularControl;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
-import frc.robot.util.SpeedsCombiner;
 
 abstract class DriveSemidirect extends DriveDirect {
     private final AngularControl angularControl;
-    private final SpeedsCombiner speedsCombiner;
+    private final Supplier<ChassisSpeeds> input;
     private final OrientationTarget target;
+    private final ChassisSpeeds workingSpeeds = new ChassisSpeeds();
 
     protected DriveSemidirect(
         SemidirectDrivebase drivebase, 
@@ -21,7 +22,7 @@ abstract class DriveSemidirect extends DriveDirect {
         super(drivebase);
 
         this.angularControl = drivebase.getAngularControl();
-        this.speedsCombiner = new SpeedsCombiner(input);
+        this.input = input;
         this.target = target;
     }
 
@@ -50,7 +51,13 @@ abstract class DriveSemidirect extends DriveDirect {
 
         angularControl.logData(getTargetOrientationAngle(), rotationRate);
 
-        return speedsCombiner.getCombinedSpeeds(rotationRate);
+        final ChassisSpeeds inputSpeeds = input.get();
+
+        workingSpeeds.vxMetersPerSecond = inputSpeeds.vxMetersPerSecond;
+        workingSpeeds.vyMetersPerSecond = inputSpeeds.vyMetersPerSecond;
+        workingSpeeds.omegaRadiansPerSecond = rotationRate.in(RadiansPerSecond);
+
+        return workingSpeeds;
     }
 
     @Override
