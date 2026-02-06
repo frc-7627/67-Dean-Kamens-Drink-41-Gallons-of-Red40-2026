@@ -35,9 +35,9 @@ public final class AngularControl {
 
         final String key = superdashboardName + "/Angular Control";
 
-        this.kp = new PullingDouble(key, "P", this::updateKp, 5.0);
-        this.ki = new PullingDouble(key, "I", this::updateKi, 1.0);
-        this.kd = new PullingDouble(key, "D", this::updateKd, 1.0);
+        this.kp = new PullingDouble(key, "P", this::updateKp, 3.5);
+        this.ki = new PullingDouble(key, "I", this::updateKi, 0.0);
+        this.kd = new PullingDouble(key, "D", this::updateKd, 0.0);
     }
 
     private void updateKp(double kp) {
@@ -63,16 +63,15 @@ public final class AngularControl {
     private static double normalizedAngleDiff(double current, double target) {
         final double angleDiff = target - current;
         
-        // TODO: normalize angle difference
-        return angleDiff;
+        return Math.atan2(Math.sin(angleDiff), Math.cos(angleDiff));
     }
     
     public AngularVelocity getRotationRate(Angle targetOrientation) {
         return workingAngularVelocity.mut_replace(
-            controller.calculate(normalizedAngleDiff(
+            controller.calculate(
                 getCurrentOrientation().getRadians(),
                 targetOrientation.in(Radians)
-            )), RadiansPerSecond);
+            ), RadiansPerSecond);
     }
 
     private boolean hasConvergedImmediate(Angle targetOrientation) {
