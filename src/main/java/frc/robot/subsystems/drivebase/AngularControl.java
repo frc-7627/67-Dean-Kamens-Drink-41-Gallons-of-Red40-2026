@@ -38,6 +38,8 @@ public final class AngularControl {
         this.kp = new PullingDouble(key, "P", this::updateKp, 3.5);
         this.ki = new PullingDouble(key, "I", this::updateKi, 0.0);
         this.kd = new PullingDouble(key, "D", this::updateKd, 0.0);
+
+        controller.enableContinuousInput(-Math.PI, Math.PI);
     }
 
     private void updateKp(double kp) {
@@ -58,12 +60,6 @@ public final class AngularControl {
 
     private AngularVelocity getCurrentRotationRate() {
         return RadiansPerSecond.of(kinematicSupplier.getSpeeds().omegaRadiansPerSecond);
-    }
-
-    private static double normalizedAngleDiff(double current, double target) {
-        final double angleDiff = target - current;
-        
-        return Math.atan2(Math.sin(angleDiff), Math.cos(angleDiff));
     }
     
     public AngularVelocity getRotationRate(Angle targetOrientation) {
