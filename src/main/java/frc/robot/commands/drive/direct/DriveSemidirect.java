@@ -62,9 +62,4 @@ abstract class DriveSemidirect extends DriveDirect {
         angularControl.reset();
         target.reset();
     }
-
-    @Override
-    public final boolean isFinished() {
-        return false;
-    }
 }

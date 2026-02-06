@@ -19,4 +19,9 @@ abstract class DriveDirect extends Command {
     public final void execute() {
         drivebase.driveWithSpeeds(getSpeeds());
     }
+
+    @Override
+    public final boolean isFinished() {
+        return false;
+    }
 }
