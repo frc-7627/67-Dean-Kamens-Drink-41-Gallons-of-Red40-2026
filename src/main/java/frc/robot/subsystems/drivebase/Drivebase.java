@@ -8,7 +8,13 @@ import frc.robot.resources.vision.VisionMeasurementsSupplier;
 /**
  * Interface keeping track of all of the robot's driving functions and parts.
  */
-public interface Drivebase extends IndirectDrivebase, SemidirectDrivebase, MiscDrivebase, InputSupplier {
+public interface Drivebase extends 
+    IndirectDrivebase, 
+    SemidirectDrivebase, 
+    MiscDrivebase, 
+    FieldRelativeDrivebase, 
+    InputSupplier 
+{
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
 
     /**

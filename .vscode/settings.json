@@ -35,6 +35,7 @@
     "DEADBAND",
     "drivebase",
     "Feedforwards",
+    "fieldrel",
     "gameinfo",
     "gamepiece",
     "griddy",
