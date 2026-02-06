@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 class PhotonCameraWrapper {
     private static final Logger LOGGER =
-            Logger.getLogger(PhotonCameraWrapper.class.getSimpleName());
+            Logger.getLogger(PhotonCameraWrapper.class.getName());
 
     private final List<PhotonPipelineResult> results = new ArrayList<>();
 

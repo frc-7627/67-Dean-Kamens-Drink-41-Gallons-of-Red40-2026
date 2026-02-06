@@ -21,7 +21,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         }
     }
 
-    private static final String DASHBOARD_NAME = Launcher.class.getSimpleName();
+    private static final String DASHBOARD_NAME = Launcher.class.getName();
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
 

@@ -16,7 +16,7 @@ import static frc.robot.Constants.IntakeConstants.*;
 final class IntakeImpl extends SubsystemBase implements Intake {
     // Neos
 
-    private static final String DASHBOARD_NAME = Intake.class.getSimpleName();
+    private static final String DASHBOARD_NAME = Intake.class.getName();
 
     private final SparkMax motor = new SparkMax(PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 

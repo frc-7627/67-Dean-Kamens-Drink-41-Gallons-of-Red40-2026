@@ -15,7 +15,7 @@ class FeederImpl extends SubsystemBase implements Feeder {
 
     // 1 kraken
 
-    private static final String DASHBOARD_NAME = Feeder.class.getSimpleName();
+    private static final String DASHBOARD_NAME = Feeder.class.getName();
     private final TalonFX feederMotor = new TalonFX(0);
 
     private final CurrentLimitsConfigs currentLimitsConfigs = DEFAULT_CURRENT_LIMITS_CONFIGS;

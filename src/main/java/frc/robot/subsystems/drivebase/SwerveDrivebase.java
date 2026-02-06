@@ -28,8 +28,8 @@ import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
-    private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getSimpleName());
-    private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
+    private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getName());
+    private static final String DASHBOARD_NAME = Drivebase.class.getName();
 
     private final Timer visionUpdateThrottler = new Timer();
     private final AngularControl angularControl =

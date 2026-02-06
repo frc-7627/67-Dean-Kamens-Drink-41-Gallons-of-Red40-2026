@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 
 class OperatorXboxController implements OperatorController {
-    private static final Logger logger = Logger.getLogger(OperatorController.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(OperatorController.class.getName());
 
     private final CommandXboxController xboxController = new CommandXboxController(1);
 

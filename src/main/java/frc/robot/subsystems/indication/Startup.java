@@ -9,7 +9,7 @@ import static frc.robot.Constants.StartupConstants.*;
 
 // Colloquially known as Rizzler.
 class Startup {
-    private static final Logger LOGGER = Logger.getLogger(Startup.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(Startup.class.getName());
 
     /**
      * Startup messages.

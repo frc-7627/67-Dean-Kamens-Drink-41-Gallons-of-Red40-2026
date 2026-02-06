@@ -13,7 +13,7 @@ import edu.wpi.first.units.measure.MutAngularVelocity;
 import frc.bofalib.dashboard.fields.PullingDouble;
 
 public final class AngularControl {
-    private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getName());
 
     private final PullingDouble kp;
     private final PullingDouble ki;

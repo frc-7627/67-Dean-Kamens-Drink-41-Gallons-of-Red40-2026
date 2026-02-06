@@ -12,7 +12,7 @@ import frc.bofalib.resource.SharedResourceBase;
 import frc.robot.Constants;
 
 final class GameInfoSupplierImpl extends SharedResourceBase implements GameInfoSupplier {
-    private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getName());
 
     String gameData = DriverStation.getGameSpecificMessage();
     private final EventLoop eventLoop = new EventLoop();

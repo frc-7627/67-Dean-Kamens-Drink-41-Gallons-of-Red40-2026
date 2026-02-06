@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WrapperCommand;
 
 public class LoggingWrapperCommand extends WrapperCommand {
-    private final Logger logger = Logger.getLogger(getName());
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     public LoggingWrapperCommand(Command command) {
         super(command);

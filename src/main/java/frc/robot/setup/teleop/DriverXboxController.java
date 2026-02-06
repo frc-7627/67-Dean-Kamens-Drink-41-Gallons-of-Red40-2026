@@ -10,7 +10,7 @@ import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.InputSupplier;
 
 class DriverXboxController implements DriverController {
-    private static final Logger logger = Logger.getLogger(DriverController.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(DriverController.class.getName());
 
     private final CommandXboxController xboxController = new CommandXboxController(0);
 

@@ -13,6 +13,6 @@ public sealed interface Periodic permits Resource, Subresource {
     default void periodic() {}
 
     default String getName() {
-        return getClass().getSimpleName();
+        return getClass().getName();
     }
 }

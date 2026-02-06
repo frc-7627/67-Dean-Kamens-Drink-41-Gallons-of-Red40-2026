@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import frc.bofalib.resource.SharedResourceBase;
 
 class PhotonCameras extends SharedResourceBase implements Vision {
-    private static final String DASHBOARD_NAME = Vision.class.getSimpleName();
+    private static final String DASHBOARD_NAME = Vision.class.getName();
 
     private final List<PhotonCameraWrapper> photonCameraWrappers;
 
