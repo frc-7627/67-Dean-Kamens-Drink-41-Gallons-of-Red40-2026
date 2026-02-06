@@ -1,6 +1,5 @@
 package frc.robot.subsystems.drivebase;
 
-import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Radians;
@@ -11,6 +10,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.MutAngularVelocity;
 import edu.wpi.first.wpilibj.Timer;
 import frc.bofalib.dashboard.fields.PullingDouble;
 
@@ -23,6 +23,11 @@ public final class AngularControl {
     private final PIDController controller;
     private final KinematicSupplier kinematicSupplier;
     private final Timer convergenceTimer = new Timer();
+    private final MutAngularVelocity workingAngularVelocity = new MutAngularVelocity(
+        0.0, 
+        0.0, 
+        RadiansPerSecond
+    );
 
     AngularControl(String superdashboardName, KinematicSupplier kinematicSupplier) {
         this.controller = new PIDController(0, 0, 0);
@@ -56,12 +61,11 @@ public final class AngularControl {
     }
     
     public AngularVelocity getRotationRate(Angle targetOrientation) {
-        return RadiansPerSecond.of(
+        return workingAngularVelocity.mut_replace(
             controller.calculate(
                 getCurrentOrientation().getRadians(),
                 targetOrientation.in(Radians)
-            )
-        );
+            ), RadiansPerSecond);
     }
 
     private boolean hasConvergedImmediate(Angle targetOrientation) {
