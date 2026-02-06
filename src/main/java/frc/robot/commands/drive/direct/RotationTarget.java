@@ -5,12 +5,18 @@ import edu.wpi.first.units.measure.Angle;
 import frc.robot.subsystems.drivebase.PoseSupplier;
 
 final class RotationTarget extends OrientationTarget {
-    private final Rotation2d initialOrientation;
+    private final PoseSupplier drivebase;
     private final Rotation2d targetRotation;
+    private Rotation2d initialOrientation = new Rotation2d();
 
     RotationTarget(PoseSupplier drivebase, Rotation2d targetRotation) {
-        this.initialOrientation = drivebase.getPose().getRotation();
+        this.drivebase = drivebase;
         this.targetRotation = targetRotation;
+    }
+
+    @Override
+    void reset() {
+        initialOrientation = drivebase.getPose().getRotation();
     }
 
     @Override
