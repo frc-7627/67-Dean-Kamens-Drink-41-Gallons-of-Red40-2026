@@ -143,11 +143,6 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public void driveWithFieldRelativeSpeeds(ChassisSpeeds fieldRelativeSpeeds) {
-        swerveDrive.driveFieldOriented(fieldRelativeSpeeds);
-    }
-
-    @Override
     public PathConstraints getPathConstraints() {
         return new PathConstraints(swerveDrive.getMaximumChassisVelocity(), 4.0,
                 swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));

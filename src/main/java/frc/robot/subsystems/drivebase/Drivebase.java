@@ -12,7 +12,6 @@ public interface Drivebase extends
     IndirectDrivebase, 
     SemidirectDrivebase, 
     MiscDrivebase, 
-    FieldRelativeDrivebase, 
     InputSupplier 
 {
     Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
