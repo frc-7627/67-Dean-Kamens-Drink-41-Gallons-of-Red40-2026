@@ -14,4 +14,6 @@ public interface DirectDrivebase extends Subsystem, PoseSupplier {
      * @param chassisSpeeds the provided robot-relative speeds.
      */
     void driveWithSpeeds(ChassisSpeeds chassisSpeeds);
+
+    void driveWithFieldRelativeSpeeds(ChassisSpeeds fieldRelativeSpeeds);
 }

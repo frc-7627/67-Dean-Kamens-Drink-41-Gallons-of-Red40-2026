@@ -2,19 +2,20 @@ package frc.robot.commands.drive.direct;
 
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivebase.DirectDrivebase;
 
-public final class DriveWithInput extends DriveDirect {
+public final class DriveWithInput extends Command {
+    private final DirectDrivebase drivebase;
     private final Supplier<ChassisSpeeds> input;
 
     public DriveWithInput(DirectDrivebase drivebase, Supplier<ChassisSpeeds> input) {
-        super(drivebase);
-
+        this.drivebase = drivebase;
         this.input = input;
     }
 
     @Override
-    protected ChassisSpeeds getSpeeds() {
-        return input.get();
+    public void execute() {
+        drivebase.driveWithFieldRelativeSpeeds(input.get());
     }
 }
