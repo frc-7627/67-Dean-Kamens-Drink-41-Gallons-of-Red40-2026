@@ -59,13 +59,20 @@ public final class AngularControl {
     private AngularVelocity getCurrentRotationRate() {
         return RadiansPerSecond.of(kinematicSupplier.getSpeeds().omegaRadiansPerSecond);
     }
+
+    private static double normalizedAngleDiff(double current, double target) {
+        final double angleDiff = target - current;
+        
+        // TODO: normalize angle difference
+        return angleDiff;
+    }
     
     public AngularVelocity getRotationRate(Angle targetOrientation) {
         return workingAngularVelocity.mut_replace(
-            controller.calculate(
+            controller.calculate(normalizedAngleDiff(
                 getCurrentOrientation().getRadians(),
                 targetOrientation.in(Radians)
-            ), RadiansPerSecond);
+            )), RadiansPerSecond);
     }
 
     private boolean hasConvergedImmediate(Angle targetOrientation) {
