@@ -144,7 +144,7 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     @Override
     public void driveWithSpeeds(ChassisSpeeds chassisSpeeds) {
-        swerveDrive.drive(chassisSpeeds);
+        swerveDrive.driveFieldOriented(chassisSpeeds);
     }
 
     @Override
