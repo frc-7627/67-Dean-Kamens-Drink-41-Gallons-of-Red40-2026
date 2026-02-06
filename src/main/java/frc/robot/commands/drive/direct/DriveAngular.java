@@ -6,9 +6,4 @@ abstract class DriveAngular extends DriveSemidirect {
     protected DriveAngular(SemidirectDrivebase drivebase, OrientationTarget target) {
         super(drivebase, target);
     }
-
-    @Override
-    public final boolean isFinished() {
-        return hasConverged();
-    }
 }

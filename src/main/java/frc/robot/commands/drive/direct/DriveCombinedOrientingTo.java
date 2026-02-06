@@ -5,7 +5,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
-public final class DriveCombinedOrientingTo extends DriveCombined {
+public final class DriveCombinedOrientingTo extends DriveSemidirect {
     public DriveCombinedOrientingTo(
         SemidirectDrivebase drivebase, 
         Translation2d targetLocation, 

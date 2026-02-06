@@ -5,7 +5,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
-public final class DriveCombinedRotatingBy extends DriveCombined {
+public final class DriveCombinedRotatingBy extends DriveSemidirect {
     public DriveCombinedRotatingBy(
         SemidirectDrivebase drivebase, 
         Rotation2d targetRotation, 
