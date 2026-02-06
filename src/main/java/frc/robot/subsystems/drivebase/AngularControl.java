@@ -4,14 +4,12 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
-import static frc.robot.Constants.DrivebaseConstants.*;
 import java.util.logging.Logger;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.MutAngularVelocity;
-import edu.wpi.first.wpilibj.Timer;
 import frc.bofalib.dashboard.fields.PullingDouble;
 
 public final class AngularControl {
@@ -22,7 +20,6 @@ public final class AngularControl {
     private final PullingDouble kd;
     private final PIDController controller;
     private final KinematicSupplier kinematicSupplier;
-    private final Timer convergenceTimer = new Timer();
     private final MutAngularVelocity workingAngularVelocity = new MutAngularVelocity(
         0.0, 
         0.0, 
@@ -68,29 +65,6 @@ public final class AngularControl {
                 getCurrentOrientation().getRadians(),
                 targetOrientation.in(Radians)
             ), RadiansPerSecond);
-    }
-
-    private boolean hasConvergedImmediate(Angle targetOrientation) {
-        return 
-            getCurrentOrientation().getMeasure().isNear(targetOrientation, ANGULAR_EPSILON) &&
-            getCurrentRotationRate().isNear(RadiansPerSecond.zero(), ANGULAR_VELOCITY_EPSILON);
-    }
-
-    public boolean hasConverged(Angle targetOrientation) {
-        if (hasConvergedImmediate(targetOrientation)) {
-            convergenceTimer.start();
-
-            if (convergenceTimer.hasElapsed(CONVERGENCE_PERIOD)) {
-                convergenceTimer.stop();
-                convergenceTimer.reset();
-                return true;
-            }
-        } else {
-            convergenceTimer.stop();
-            convergenceTimer.reset();
-        }
-
-        return false;
     }
 
     public void reset() {

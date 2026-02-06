@@ -39,10 +39,6 @@ abstract class DriveSemidirect extends DriveDirect {
         return target.getOrientationAngle();
     }
 
-    protected final boolean hasConverged() {
-        return angularControl.hasConverged(getTargetOrientationAngle());
-    }
-
     @Override
     protected final ChassisSpeeds getSpeeds() {
         final Angle targetOrientationAngle = getTargetOrientationAngle();
