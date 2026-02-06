@@ -15,6 +15,8 @@ public final class DriveWithInput extends Command {
     ) {
         this.drivebase = drivebase;
         this.input = input;
+
+        addRequirements(drivebase);
     }
 
     @Override
