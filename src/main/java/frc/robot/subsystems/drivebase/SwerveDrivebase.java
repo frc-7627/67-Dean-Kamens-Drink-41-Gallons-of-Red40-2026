@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
-import com.ctre.phoenix6.StatusSignal;
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.controllers.PathFollowingController;
@@ -15,7 +13,6 @@ import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
@@ -33,8 +30,6 @@ import static frc.robot.Constants.OperatorConstants.*;
 class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getSimpleName());
     private static final String DASHBOARD_NAME = Drivebase.class.getSimpleName();
-    
-    Pigeon2 pigeon = new Pigeon2(1); 
 
     private final Timer visionUpdateThrottler = new Timer();
     private final AngularControl angularControl =
@@ -161,10 +156,6 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public Pose2d getPose() {
         return swerveDrive.getPose();
-    }
-
-    public StatusSignal<Angle> getPigeonAngle() {
-        return pigeon.getYaw();
     }
 
     @Override
