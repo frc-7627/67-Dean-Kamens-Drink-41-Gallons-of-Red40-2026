@@ -80,6 +80,8 @@ class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     private void updateVisionMeasurements() {
+        swerveDrive.updateOdometry();
+        
         vision.getVisionMeasurements().forEach(visionMeasurement -> {
             swerveDrive.addVisionMeasurement(
                 visionMeasurement.getEstimatedPose(),
