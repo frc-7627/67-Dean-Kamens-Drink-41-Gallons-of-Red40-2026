@@ -101,9 +101,9 @@ public final class AngularControl {
     ) {
         final Angle currentOrientationAngle = getCurrentOrientation().getMeasure();
         final AngularVelocity currentRotationRate = getCurrentRotationRate();
-        LOGGER.info("Current orientation angle: " + currentOrientationAngle.in(Degrees) + " deg");
-        LOGGER.info("Target orientation angle: " + targetOrientationAngle.in(Degrees) + " deg");
-        LOGGER.info("Current rotation rate: " + currentRotationRate.in(DegreesPerSecond) + " deg/sec");
-        LOGGER.info("Set rotation rate: " + setRotationRate.in(DegreesPerSecond) + " deg/sec");
+        LOGGER.finest("Current orientation angle: " + currentOrientationAngle.in(Degrees) + " deg");
+        LOGGER.finest("Target orientation angle: " + targetOrientationAngle.in(Degrees) + " deg");
+        LOGGER.finest("Current rotation rate: " + currentRotationRate.in(DegreesPerSecond) + " deg/sec");
+        LOGGER.finest("Set rotation rate: " + setRotationRate.in(DegreesPerSecond) + " deg/sec");
     }
 }
