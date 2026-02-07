@@ -263,7 +263,8 @@ public final class Constants {
 
     public static class FeederConstants {
         // TODO: find values for feeder
-        public static final double DEFAULT_FEED_SPEED = -1; 
+        // TODO: we've run on prototype at 0.5, all good, no stretch in the wheel.
+        public static final double DEFAULT_FEED_SPEED = -0.2; 
 
         //TODO: PROTO FEEDER NEGITIVE IS INTAKE, FINAL WILL BE OPPOSIMG
 

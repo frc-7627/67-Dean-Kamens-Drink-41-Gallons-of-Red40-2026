@@ -97,7 +97,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        launcherMotors.setSpeed(Constants.LauncherConstants.DEFAULT_SHOOT_SPEED);
+        launcherMotors.setSpeed(shootSpeed.getPulled());
     }
 
     /**

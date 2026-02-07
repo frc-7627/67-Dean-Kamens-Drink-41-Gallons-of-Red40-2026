@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.fields.PullingDouble;
+import static frc.robot.Constants.CanIDs.*;
 
 // Colloquially known as The Berlin Wall.
 class FeederImpl extends SubsystemBase implements Feeder {
@@ -16,7 +17,7 @@ class FeederImpl extends SubsystemBase implements Feeder {
     // 1 kraken
 
     private static final String DASHBOARD_NAME = Feeder.class.getName();
-    private final TalonFX feederMotor = new TalonFX(0);
+    private final TalonFX feederMotor = new TalonFX(FEEDER_CAN_ID);
 
     private final CurrentLimitsConfigs currentLimitsConfigs = DEFAULT_CURRENT_LIMITS_CONFIGS;
     private final MotorOutputConfigs motorOutputConfigs = DEFAULT_MOTOR_OUTPUT_CONFIGS;
