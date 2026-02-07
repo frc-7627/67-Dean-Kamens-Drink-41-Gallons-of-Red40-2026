@@ -1,14 +1,21 @@
 package frc.robot.subsystems.launcher;
 
+import static edu.wpi.first.units.Units.Minute;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
+import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.dashboard.fields.PullingDouble;
-import frc.robot.Constants;
+import frc.bofalib.Throttler;
+import frc.bofalib.dashboard.DashboardItems;
+import frc.bofalib.dashboard.KeyBuilder;
 
 // Colloquially known as Miles after bad Chinese
-public class LauncherImpl extends SubsystemBase implements Launcher {
+public final class LauncherImpl extends SubsystemBase implements Launcher {
 
     // 2 krakens
 
@@ -22,48 +29,65 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         }
     }
 
-    private static final String DASHBOARD_NAME = Launcher.class.getName();
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
 
-    private final PullingDouble currentLimit = new PullingDouble(
-        DASHBOARD_NAME, 
-        "Current Limit",
-        launcherMotors.getConfigurator()::applyCurrentLimit, 
+    private final DoubleSupplier currentLimitSupplier = DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Current Limit"), 
         DEFAULT_CURRENT_LIMIT
     );
 
-    private final PullingDouble rampUpPeriod = new PullingDouble(
-        DASHBOARD_NAME, 
-        "Ramp Up Period",
-        launcherMotors.getConfigurator()::applyRampUpPeriod, 
+    private final DoubleSupplier rampUpPeriodSupplier = DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
         DEFAULT_RAMP_UP_PERIOD
     );
 
-    private final PullingDouble shootSpeed = new PullingDouble(
-        DASHBOARD_NAME, 
-        "Shoot Speed", 
-        CHECK_SIMPLE_MOTOR_SPEED,
-        launcherMotors.getConfigurator()::applyShootSpeed, 
-        DEFAULT_SHOOT_SPEED
+    private final DoubleSupplier shootSpeedSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Shoot Speed"), 
+        DEFAULT_SHOOT_SPEED, 
+        CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final PullingDouble activeIdleSpeed = new PullingDouble(
-        DASHBOARD_NAME,
-        "Active Idle Speed", 
-        CHECK_SIMPLE_MOTOR_SPEED, 
-        DEFAULT_ACTIVE_IDLE_SPEED
+    private final DoubleSupplier activeIdleSpeedSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Active Idle Speed"), 
+        DEFAULT_ACTIVE_IDLE_SPEED,
+        CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final PullingDouble inactiveIdleSpeed = new PullingDouble(
-        DASHBOARD_NAME,
-        "Inactive Idle Speed", 
-        CHECK_SIMPLE_MOTOR_SPEED, 
-        DEFAULT_INACTIVE_IDLE_SPEED
+    private final DoubleSupplier inactiveIdleSpeedSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Inactive Idle Speed"), 
+        DEFAULT_INACTIVE_IDLE_SPEED,
+        CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final PullingDouble manualSpeed = new PullingDouble(DASHBOARD_NAME, "Manual Speed",
-            CHECK_SIMPLE_MOTOR_SPEED, DEFAULT_MANUAL_SPEED);
+    private final DoubleSupplier manualSpeedSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Manual Speed"), 
+        DEFAULT_MANUAL_SPEED,
+        CHECK_SIMPLE_MOTOR_SPEED
+    );
+
+    private final DoubleConsumer rpmConsumer = DashboardItems.createDoublePusher(
+        KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+    );
+
+    private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
+
+    @Override
+    public void periodic() {
+        final MotorsConfigurator configurator = launcherMotors.getConfigurator();
+
+        throttler.execute(() -> configurator.apply(
+            currentLimitSupplier.getAsDouble(), 
+            rampUpPeriodSupplier.getAsDouble(),
+            shootSpeedSupplier.getAsDouble()
+        ));
+
+        rpmConsumer.accept(
+            (Rotations.per(Minute))
+                .convertFrom(launcherMotors.getCommanderVelocity(), RotationsPerSecond)
+        );
+    }
 
     /**
      * {@inheritDoc}
@@ -97,7 +121,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        launcherMotors.setSpeed(shootSpeed.getPulled());
+        launcherMotors.setSpeed(shootSpeedSupplier.getAsDouble());
     }
 
     /**
@@ -114,7 +138,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         // TODO: why shouldn't this method be used unless in extraneous circumstances?
         // Justify in
         // the api note.
-        launcherMotors.setSpeed(-shootSpeed.getPulled());
+        launcherMotors.setSpeed(-shootSpeedSupplier.getAsDouble());
     }
 
     /**

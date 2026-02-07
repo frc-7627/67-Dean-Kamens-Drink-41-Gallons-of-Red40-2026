@@ -6,7 +6,7 @@ import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.RGBWColor;
 
-class LED {
+final class LED {
     private final CANdle candle = new CANdle(Constants.CanIDs.CANDLE_CAN_ID);
 
     /**

@@ -11,7 +11,7 @@ import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.Second;
 import java.io.File;
-import java.util.function.Predicate;
+import java.util.function.DoublePredicate;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -39,7 +39,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.resources.gameinfo.GameInfoSupplier;
+import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 import swervelib.math.Matter;
 
 /**
@@ -68,8 +68,10 @@ public final class Constants {
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(2);
 
-    public static final Predicate<Double> CHECK_SIMPLE_MOTOR_SPEED = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
+    public static final DoublePredicate CHECK_SIMPLE_MOTOR_SPEED = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
             && simpleMotorSpeed <= 1.0;
+
+    public static final Frequency MOTOR_CONFIGURE_FREQUENCY = Hertz.of(5);
 
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 

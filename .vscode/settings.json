@@ -29,6 +29,8 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
+    "Bofa",
+    "bofalib",
     "Brushless",
     "chrp",
     "controlstate",

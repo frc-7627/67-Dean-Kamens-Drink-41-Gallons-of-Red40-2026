@@ -13,12 +13,11 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.bofalib.resource.ResourceScheduler;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -117,11 +116,7 @@ public class Robot extends LoggedRobot {
         // and running subsystem periodic() methods. This must be called from the
         // robot's periodic
         // block in order for anything in the Command-based framework to work.
-        CommandScheduler.getInstance().run();
-        /*
-         * Runs the resource scheduler. 
-         */
-        ResourceScheduler.getInstance().run();
+        CommandSchedulerWrapper.getInstance().run();
     }
 
     /**

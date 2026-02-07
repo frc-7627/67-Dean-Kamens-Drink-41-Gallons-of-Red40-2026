@@ -8,21 +8,20 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.drive.direct.DriveWithInput;
-import frc.robot.resources.gameinfo.GameInfoSupplier;
-import frc.robot.resources.pathplanner.PathPlannerConfigException;
-import frc.robot.resources.vision.Vision;
 import frc.robot.setup.auto.AutoChooser;
 import frc.robot.setup.teleop.CommandContext;
 import frc.robot.setup.teleop.DriverController;
 import frc.robot.setup.teleop.OperatorController;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
-import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
+import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
+import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
+import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.launcher.Launcher;
 import org.littletonrobotics.junction.Logger;
@@ -147,7 +146,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // Pass in the selected auto from the SmartDashboard as our desired autnomous
         // commmand
-        return autoChooser.getPulled();
+        return autoChooser.get();
     }
 
     public void setBrake(boolean brake) {

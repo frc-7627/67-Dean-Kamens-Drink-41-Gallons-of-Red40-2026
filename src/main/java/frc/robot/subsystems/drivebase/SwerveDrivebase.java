@@ -15,9 +15,10 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
-import frc.robot.resources.pathplanner.PathPlannerConfigurator;
-import frc.robot.resources.vision.VisionMeasurementsSupplier;
+import frc.bofalib.dashboard.KeyBuilder;
+import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
+import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
+import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -27,13 +28,13 @@ import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
-class SwerveDrivebase extends SubsystemBase implements Drivebase {
+final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getName());
-    private static final String DASHBOARD_NAME = Drivebase.class.getName();
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
 
     private final Timer visionUpdateThrottler = new Timer();
     private final AngularControl angularControl =
-            new AngularControl(DASHBOARD_NAME, this);
+            new AngularControl(KEY_BUILDER, this);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;

@@ -6,18 +6,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.bofalib.dashboard.fields.SubdashboardBase;
-import frc.robot.resources.pathplanner.PathPlannerConfigException;
-import frc.robot.resources.pathplanner.PathPlannerConfigurator;
+import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
+import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
 
-final class AutoChooserImpl extends SubdashboardBase implements AutoChooser {
-    private static final String FIELD_NAME = "Auto Chooser";
-
+final class AutoChooserImpl implements AutoChooser {
     private final SendableChooser<Command> chooser;
 
     AutoChooserImpl(PathPlannerConfigurator configurator) throws PathPlannerConfigException {
-        super(FIELD_NAME);
-
         configurator.configureAndInit();
 
         this.chooser = AutoBuilder.buildAutoChooser();
@@ -40,12 +35,7 @@ final class AutoChooserImpl extends SubdashboardBase implements AutoChooser {
     }
 
     @Override
-    public boolean checkPulled(Command pulled) {
-        return true;
-    }
-
-    @Override
-    public Command getPulled() {
+    public Command get() {
         return chooser.getSelected();
     }
     
