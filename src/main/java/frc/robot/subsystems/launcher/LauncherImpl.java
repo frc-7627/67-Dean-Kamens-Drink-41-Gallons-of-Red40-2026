@@ -39,25 +39,25 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
         DEFAULT_RAMP_UP_PERIOD
     );
 
-    private final DoubleSupplier shootSpeedSupplier = DashboardItems.createDoublePuller(
+    private final DoubleSupplier shootSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Speed"), 
         DEFAULT_SHOOT_SPEED, 
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final DoubleSupplier activeIdleSpeedSupplier = DashboardItems.createDoublePuller(
+    private final DoubleSupplier activeIdleSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Active Idle Speed"), 
         DEFAULT_ACTIVE_IDLE_SPEED,
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final DoubleSupplier inactiveIdleSpeedSupplier = DashboardItems.createDoublePuller(
+    private final DoubleSupplier inactiveIdleSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Inactive Idle Speed"), 
         DEFAULT_INACTIVE_IDLE_SPEED,
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final DoubleSupplier manualSpeedSupplier = DashboardItems.createDoublePuller(
+    private final DoubleSupplier manualSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Manual Speed"), 
         DEFAULT_MANUAL_SPEED,
         CHECK_SIMPLE_MOTOR_SPEED

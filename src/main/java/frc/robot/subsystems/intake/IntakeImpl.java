@@ -21,7 +21,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
 
     private final SparkMax motor = new SparkMax(PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 
-    private final DoubleSupplier loadSpeedSupplier = DashboardItems.createDoublePuller(
+    private final DoubleSupplier loadSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Load Speed"), 
         DEFAULT_LOAD_SPEED,
         CHECK_SIMPLE_MOTOR_SPEED

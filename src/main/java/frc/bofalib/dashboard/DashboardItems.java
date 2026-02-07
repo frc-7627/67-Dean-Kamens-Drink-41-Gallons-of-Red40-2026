@@ -44,7 +44,7 @@ public final class DashboardItems {
         return topic.subscribe(defaultValue);
     }
 
-    public static DoubleSupplier createDoublePuller(
+    public static DoubleSupplier createCheckedDoublePuller(
         String key, 
         double defaultValue, 
         DoublePredicate predicate

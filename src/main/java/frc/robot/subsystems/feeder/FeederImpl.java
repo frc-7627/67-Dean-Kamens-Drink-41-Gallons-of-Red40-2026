@@ -28,7 +28,7 @@ final class FeederImpl extends SubsystemBase implements Feeder {
         DEFAULT_CURRENT_LIMIT
     );
 
-    private final DoubleSupplier feedSpeedSupplier = DashboardItems.createDoublePuller(
+    private final DoubleSupplier feedSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Speed"), 
         DEFAULT_FEED_SPEED,
         CHECK_SIMPLE_MOTOR_SPEED
