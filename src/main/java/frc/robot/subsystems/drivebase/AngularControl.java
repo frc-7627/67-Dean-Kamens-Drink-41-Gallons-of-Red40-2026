@@ -4,19 +4,22 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
+import java.util.function.DoubleSupplier;
 import java.util.logging.Logger;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.MutAngularVelocity;
+import frc.bofalib.dashboard.DashboardItems;
+import frc.bofalib.dashboard.KeyBuilder;
 
 public final class AngularControl {
     private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getName());
 
-    private final PullingDouble kp;
-    private final PullingDouble ki;
-    private final PullingDouble kd;
+    private final DoubleSupplier pSupplier;
+    private final DoubleSupplier iSupplier;
+    private final DoubleSupplier dSupplier;
     private final PIDController controller;
     private final KinematicSupplier kinematicSupplier;
     private final MutAngularVelocity workingAngularVelocity = new MutAngularVelocity(
@@ -25,29 +28,35 @@ public final class AngularControl {
         RadiansPerSecond
     );
 
-    AngularControl(String superdashboardName, KinematicSupplier kinematicSupplier) {
+    AngularControl(String root, KinematicSupplier kinematicSupplier) {
         this.controller = new PIDController(0, 0, 0);
         this.kinematicSupplier = kinematicSupplier;
 
-        final String key = superdashboardName + "/Angular Control";
+        final KeyBuilder keyBuilder = new KeyBuilder(root)
+            .addedWith("Angular Control");
 
-        this.kp = new PullingDouble(key, "P", this::updateKp, 3.5);
-        this.ki = new PullingDouble(key, "I", this::updateKi, 0.0);
-        this.kd = new PullingDouble(key, "D", this::updateKd, 0.0);
+        this.pSupplier = DashboardItems.createDoublePuller(
+            keyBuilder.toStringAddedWith("P"), 
+            3.5
+        );
+        this.iSupplier = DashboardItems.createDoublePuller(
+            keyBuilder.toStringAddedWith("I"), 
+            0.0
+        );
+        this.dSupplier = DashboardItems.createDoublePuller(
+            keyBuilder.toStringAddedWith("D"), 
+            0.0
+        );
 
         controller.enableContinuousInput(-Math.PI, Math.PI);
     }
 
-    private void updateKp(double kp) {
-        controller.setP(kp);
-    }
-
-    private void updateKi(double ki) {
-        controller.setI(ki);
-    }
-
-    private void updateKd(double kd) {
-        controller.setD(kd);
+    void periodic() {
+        controller.setPID(
+            pSupplier.getAsDouble(), 
+            iSupplier.getAsDouble(),
+            dSupplier.getAsDouble()
+        );
     }
 
     private Rotation2d getCurrentOrientation() {
