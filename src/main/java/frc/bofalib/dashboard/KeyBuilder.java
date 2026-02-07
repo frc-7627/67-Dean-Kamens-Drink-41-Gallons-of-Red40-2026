@@ -10,12 +10,12 @@ public final class KeyBuilder {
         this.stringBuilder = stringBuilder;
     }
 
-    public KeyBuilder() {
-        this(new StringBuilder());
+    public static KeyBuilder empty() {
+        return new KeyBuilder(new StringBuilder());
     }
 
-    public KeyBuilder(String root) {
-        this(new StringBuilder(root));
+    public static KeyBuilder of(String root) {
+        return new KeyBuilder(new StringBuilder(root));
     }
 
     public void add(String extension) {
