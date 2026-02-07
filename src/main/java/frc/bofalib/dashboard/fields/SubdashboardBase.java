@@ -2,9 +2,8 @@ package frc.bofalib.dashboard.fields;
 
 import java.util.Optional;
 import frc.bofalib.dashboard.Subdashboard;
-import frc.bofalib.resource.SubresourceBase;
 
-public abstract class SubdashboardBase extends SubresourceBase implements Subdashboard {
+public abstract class SubdashboardBase implements Subdashboard {
     private final String superdashboardName;
     private final Optional<String> subdashboardName;
 

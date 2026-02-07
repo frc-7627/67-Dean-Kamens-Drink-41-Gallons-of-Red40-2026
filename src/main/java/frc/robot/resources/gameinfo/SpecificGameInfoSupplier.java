@@ -1,13 +1,12 @@
 package frc.robot.resources.gameinfo;
 
 import edu.wpi.first.math.geometry.Translation2d;
-import frc.bofalib.resource.SharedResource;
 
 /**
  * Interface for supplying specific details during the game. Contains information about the phase of
  * the game and the status of the hub.
  */
-public interface SpecificGameInfoSupplier extends SharedResource {
+public interface SpecificGameInfoSupplier {
     public static enum Phase {
         AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
     }

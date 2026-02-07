@@ -13,6 +13,8 @@ public interface GameInfoSupplier extends GeneralGameInfoSupplier, SpecificGameI
      */
     void onAllianceSet(Runnable action);
 
+    void periodic();
+
     static GameInfoSupplier create() {
         return new GameInfoSupplierImpl();
     }

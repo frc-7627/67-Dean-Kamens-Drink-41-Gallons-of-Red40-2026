@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import frc.bofalib.resource.ResourceBase;
 
 final class DashboardImpl implements Dashboard {
     private final String dashboardName;

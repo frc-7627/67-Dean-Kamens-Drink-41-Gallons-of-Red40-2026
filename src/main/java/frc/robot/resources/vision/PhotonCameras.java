@@ -3,9 +3,8 @@ package frc.robot.resources.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import frc.bofalib.resource.SharedResourceBase;
 
-class PhotonCameras extends SharedResourceBase implements Vision {
+class PhotonCameras implements Vision {
     private static final String DASHBOARD_NAME = Vision.class.getName();
 
     private final List<PhotonCameraWrapper> photonCameraWrappers;
