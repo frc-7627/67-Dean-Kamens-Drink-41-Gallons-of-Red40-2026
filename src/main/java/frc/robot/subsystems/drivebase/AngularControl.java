@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.MutAngularVelocity;
-import frc.bofalib.dashboard.fields.PullingDouble;
 
 public final class AngularControl {
     private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getName());

@@ -4,7 +4,6 @@ import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.dashboard.fields.PullingDouble;
 
 // Colloquially known as Miles after bad Chinese
 public class LauncherImpl extends SubsystemBase implements Launcher {

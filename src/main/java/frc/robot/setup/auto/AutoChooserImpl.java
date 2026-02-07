@@ -6,11 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.bofalib.dashboard.fields.SubdashboardBase;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
 
-final class AutoChooserImpl extends SubdashboardBase implements AutoChooser {
+final class AutoChooserImpl implements AutoChooser {
     private static final String FIELD_NAME = "Auto Chooser";
 
     private final SendableChooser<Command> chooser;
