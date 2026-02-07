@@ -1,6 +1,7 @@
 package frc.bofalib;
 
 import java.util.function.DoubleConsumer;
+import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import java.util.function.DoubleUnaryOperator;
 
@@ -37,5 +38,35 @@ public final class Util {
     public static DoubleSupplier composeReturning(DoubleConsumer consumer, DoubleSupplier supplier) {
         return () -> returning(consumer)
             .applyAsDouble(supplier.getAsDouble());
+    }
+
+    public static Runnable composeConditional(
+        DoubleConsumer consumer, 
+        DoubleSupplier supplier, 
+        DoublePredicate predicate
+    ) {
+        return () -> {
+            final double value = supplier.getAsDouble();
+
+            if (predicate.test(value)) {
+                consumer.accept(value);
+            }
+        };
+    }
+
+    public static DoublePredicate hasChanged() {
+        return new DoublePredicate() {
+            private double currentValue = Double.NaN;
+
+            @Override
+            public boolean test(double value) {
+                if (value == currentValue) {
+                    return false;
+                }
+
+                currentValue = value;
+                return true;
+            }
+        };
     }
 }

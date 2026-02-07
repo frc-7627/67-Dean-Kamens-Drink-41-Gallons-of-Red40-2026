@@ -33,4 +33,8 @@ public final class Throttler {
             reset();
         }
     }
+
+    public Runnable executing(Runnable action) {
+        return () -> execute(action);
+    }
 }
