@@ -163,9 +163,6 @@ final class PhotonCameraWrapper {
                         .getDistance(estimatedRobotPoseOptional.get().estimatedPose.toPose2d().getTranslation());
             }
 
-            // Debug
-            SmartDashboard.putNumber("Vision/Tags Seen", numTags);
-
             if (numTags == 0) {
                 // No tags visible. Default to single-tag std devs
                 currentStdDev = singleTagStdDev;
