@@ -11,8 +11,8 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
 
     private final List<PhotonCameraWrapper> photonCameraWrappers;
 
-    private final StandardDeviationsSubdashboard standardDeviations =
-            new StandardDeviationsSubdashboard(KEY_BUILDER);
+    private final StandardDeviations standardDeviations =
+            new StandardDeviations(KEY_BUILDER);
 
     PhotonCameras() {
         this.photonCameraWrappers = List.of(PhotonCameraInfo.values()).stream()
@@ -39,6 +39,6 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
     @Override
     public Stream<VisionMeasurement> getVisionMeasurements() {
         return photonCameraWrappers.stream().flatMap(photonCameraWrapper -> photonCameraWrapper
-                .getVisionMeasurement(standardDeviations.get()).stream());
+                .getVisionMeasurement(standardDeviations).stream());
     }
 }
