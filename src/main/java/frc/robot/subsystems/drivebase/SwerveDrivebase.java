@@ -28,7 +28,7 @@ import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
-class SwerveDrivebase extends SubsystemBase implements Drivebase {
+final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getName());
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
 

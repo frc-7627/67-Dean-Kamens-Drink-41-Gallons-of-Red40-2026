@@ -5,7 +5,7 @@ import java.util.function.DoubleSupplier;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
-public class StandardDeviationsSubdashboard {
+final class StandardDeviationsSubdashboard {
     private final DoubleSupplier singleTagStdDevSupplier;
     private final DoubleSupplier multiTagStdDevSupplier;
     private final StandardDeviations workingStandardDeviations = new StandardDeviations();

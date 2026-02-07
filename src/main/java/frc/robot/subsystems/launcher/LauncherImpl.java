@@ -11,7 +11,7 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
 // Colloquially known as Miles after bad Chinese
-public class LauncherImpl extends SubsystemBase implements Launcher {
+public final class LauncherImpl extends SubsystemBase implements Launcher {
 
     // 2 krakens
 

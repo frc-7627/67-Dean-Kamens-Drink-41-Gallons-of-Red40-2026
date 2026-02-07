@@ -14,7 +14,7 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
 // Colloquially known as The Berlin Wall.
-class FeederImpl extends SubsystemBase implements Feeder {
+final class FeederImpl extends SubsystemBase implements Feeder {
 
     // 1 kraken
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());

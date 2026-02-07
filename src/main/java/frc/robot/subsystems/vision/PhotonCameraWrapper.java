@@ -20,7 +20,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-class PhotonCameraWrapper {
+final class PhotonCameraWrapper {
     private static final Logger LOGGER =
             Logger.getLogger(PhotonCameraWrapper.class.getName());
 

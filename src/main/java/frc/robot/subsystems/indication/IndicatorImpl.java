@@ -6,7 +6,7 @@ import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 
-class IndicatorImpl extends SubsystemBase implements Indicator {
+final class IndicatorImpl extends SubsystemBase implements Indicator {
     private final Startup startup = new Startup();
     private final LED led = new LED();
     private final GameInfoSupplier gameInfoSupplier;

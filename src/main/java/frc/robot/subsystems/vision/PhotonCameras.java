@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.subsystem.SharedSubsystemBase;
 
-class PhotonCameras extends SharedSubsystemBase implements Vision {
+final class PhotonCameras extends SharedSubsystemBase implements Vision {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Vision");
 
     private final List<PhotonCameraWrapper> photonCameraWrappers;
