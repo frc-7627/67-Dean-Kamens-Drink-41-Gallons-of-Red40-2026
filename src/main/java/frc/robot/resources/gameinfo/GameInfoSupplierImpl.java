@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
+import frc.bofalib.subsystem.SharedSubsystemBase;
 import frc.robot.Constants;
 
-final class GameInfoSupplierImpl implements GameInfoSupplier {
+final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfoSupplier {
     private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getName());
 
     String gameData = DriverStation.getGameSpecificMessage();
