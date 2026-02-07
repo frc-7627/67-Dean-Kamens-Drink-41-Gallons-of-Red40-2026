@@ -32,8 +32,8 @@ public final class AngularControl {
         this.controller = new PIDController(0, 0, 0);
         this.kinematicSupplier = kinematicSupplier;
 
-        final KeyBuilder keyBuilder = rootKeyBuilder.copy()
-            .extended("Angular Control");
+        final KeyBuilder keyBuilder = rootKeyBuilder
+            .copyExtended("Angular Control");
 
         this.pSupplier = DashboardItems.createDoublePuller(
             keyBuilder.copyExtendedToString("P"), 
