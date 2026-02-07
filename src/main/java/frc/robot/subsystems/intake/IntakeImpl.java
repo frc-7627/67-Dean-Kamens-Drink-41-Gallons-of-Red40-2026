@@ -17,9 +17,7 @@ import java.util.function.DoubleSupplier;
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements Intake {
     // Neos
-
-    private static final String DASHBOARD_NAME = Intake.class.getName();
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Intake.class.getSimpleName());
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
 
     private final SparkMax motor = new SparkMax(PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
 

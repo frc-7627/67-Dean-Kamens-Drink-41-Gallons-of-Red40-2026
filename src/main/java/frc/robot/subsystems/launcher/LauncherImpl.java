@@ -27,7 +27,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         }
     }
 
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Launcher.class.getSimpleName());
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
 
