@@ -36,6 +36,16 @@ public final class KeyBuilder {
         extensions.forEach(this::add);
     }
 
+    public KeyBuilder addedWith(String extension) {
+        add(extension);
+        return this;
+    }
+
+    public KeyBuilder addedWithAll(Collection<String> extensions) {
+        addAll(extensions);
+        return this;
+    }
+
     public KeyBuilder copy() {
         return new KeyBuilder(new StringBuilder(stringBuilder));
     }
@@ -43,5 +53,13 @@ public final class KeyBuilder {
     @Override
     public String toString() {
         return stringBuilder.toString();
+    }
+
+    public String toStringAddedWith(String extension) {
+        return copy().addedWith(extension).toString();
+    }
+
+    public String toStringAddedWithAll(Collection<String> extensions) {
+        return copy().addedWithAll(extensions).toString();
     }
 }

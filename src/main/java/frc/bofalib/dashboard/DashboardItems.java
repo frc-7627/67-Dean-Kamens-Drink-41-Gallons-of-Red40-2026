@@ -42,6 +42,13 @@ public final class DashboardItems {
 
     public static DoubleSupplier createDoublePuller(
         String key, 
+        double defaultValue
+    ) {
+        return createDoublePuller(key, defaultValue, value -> true);
+    }
+
+    public static DoubleSupplier createDoublePuller(
+        String key, 
         double defaultValue, 
         DoublePredicate predicate
     ) {
