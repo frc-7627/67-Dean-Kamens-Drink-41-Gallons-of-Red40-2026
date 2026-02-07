@@ -6,12 +6,16 @@ import java.util.Objects;
 public final class KeyBuilder {
     private final StringBuilder stringBuilder;
 
+    private KeyBuilder(StringBuilder stringBuilder) {
+        this.stringBuilder = stringBuilder;
+    }
+
     public KeyBuilder() {
-        this.stringBuilder = new StringBuilder();
+        this(new StringBuilder());
     }
 
     public KeyBuilder(String root) {
-        this.stringBuilder = new StringBuilder(root);
+        this(new StringBuilder(root));
     }
 
     public void add(String extension) {
@@ -30,6 +34,10 @@ public final class KeyBuilder {
 
     public void addAll(Collection<String> extensions) {
         extensions.forEach(this::add);
+    }
+
+    public KeyBuilder copy() {
+        return new KeyBuilder(new StringBuilder(stringBuilder));
     }
 
     @Override
