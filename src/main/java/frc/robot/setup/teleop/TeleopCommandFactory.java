@@ -12,6 +12,7 @@ import frc.robot.commands.drive.direct.DriveAngularRotatingBy;
 import frc.robot.commands.drive.direct.DriveCombinedOrientingTo;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
+import frc.robot.commands.feeder.FeedIn;
 import frc.robot.commands.intake.LoadIntake;
 import frc.robot.commands.launcher.ShootOut;
 
@@ -62,7 +63,14 @@ enum TeleopCommandFactory {
         context.gameInfoSupplier().getHubPosition(), 
         context.input()
     )),
+
+    FEED_AND_SHOOT(context -> new ShootOut(context.launcher()).alongWith(new FeedIn(context.feeder()))),
+    
+    SHOOT(context -> new ShootOut(context.launcher())),
+
+    FEED(context -> new FeedIn(context.feeder()))
     ;
+    
 
     private final Function<CommandContext, Command> commandSupplier;
 

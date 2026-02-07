@@ -83,12 +83,16 @@ public class RobotContainer {
 
         this.indicator = Indicator.create(gameInfoSupplier);
 
+        // intake fuel
         this.intake = Intake.create();
 
+        // serialize fuel into launcher
         this.feeder = Feeder.create();
 
+        // agitate fuel in robot
         this.hopper = Hopper.create();
 
+        // release and score fuel
         this.launcher = Launcher.create();
 
         this.globalControlState = GlobalControlState.create();

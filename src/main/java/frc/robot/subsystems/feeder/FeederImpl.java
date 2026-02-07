@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.Throttler;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import static frc.robot.Constants.CanIDs.*;
 
 // Colloquially known as The Berlin Wall.
 final class FeederImpl extends SubsystemBase implements Feeder {
 
     // 1 kraken
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());
-    private final TalonFX feederMotor = new TalonFX(0);
+    private final TalonFX feederMotor = new TalonFX(FEEDER_CAN_ID);
 
     private final CurrentLimitsConfigs currentLimitsConfigs = DEFAULT_CURRENT_LIMITS_CONFIGS;
     private final MotorOutputConfigs motorOutputConfigs = DEFAULT_MOTOR_OUTPUT_CONFIGS;

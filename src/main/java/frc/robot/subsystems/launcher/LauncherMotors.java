@@ -4,6 +4,8 @@ import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MusicTone;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
+
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
@@ -30,7 +32,7 @@ final class LauncherMotors {
      */
     private void resetControl() {
         commander.setControl(TARGET_DEFAULT_POSITION.withPosition(getCommanderPosition()));
-        minion.setControl(new Follower(commander.getDeviceID(), null));
+        minion.setControl(new Follower(commander.getDeviceID(), MotorAlignmentValue.Aligned));
     }
 
     /**
