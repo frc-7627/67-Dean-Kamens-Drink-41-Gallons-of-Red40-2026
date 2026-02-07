@@ -3,15 +3,17 @@ package frc.robot.subsystems.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.subsystem.SharedSubsystemBase;
 
 class PhotonCameras extends SharedSubsystemBase implements Vision {
     private static final String DASHBOARD_NAME = Vision.class.getName();
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Vision");
 
     private final List<PhotonCameraWrapper> photonCameraWrappers;
 
     private final StandardDeviationsSubdashboard standardDeviations =
-            new StandardDeviationsSubdashboard(DASHBOARD_NAME);
+            new StandardDeviationsSubdashboard(KEY_BUILDER);
 
     PhotonCameras() {
         this.photonCameraWrappers = List.of(PhotonCameraInfo.values()).stream()
