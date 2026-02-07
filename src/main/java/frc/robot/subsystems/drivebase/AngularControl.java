@@ -33,18 +33,18 @@ public final class AngularControl {
         this.kinematicSupplier = kinematicSupplier;
 
         final KeyBuilder keyBuilder = KeyBuilder.of(root)
-            .addedWith("Angular Control");
+            .extended("Angular Control");
 
         this.pSupplier = DashboardItems.createDoublePuller(
-            keyBuilder.toStringAddedWith("P"), 
+            keyBuilder.copyExtendedToString("P"), 
             3.5
         );
         this.iSupplier = DashboardItems.createDoublePuller(
-            keyBuilder.toStringAddedWith("I"), 
+            keyBuilder.copyExtendedToString("I"), 
             0.0
         );
         this.dSupplier = DashboardItems.createDoublePuller(
-            keyBuilder.toStringAddedWith("D"), 
+            keyBuilder.copyExtendedToString("D"), 
             0.0
         );
 

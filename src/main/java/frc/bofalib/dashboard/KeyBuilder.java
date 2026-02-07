@@ -18,7 +18,7 @@ public final class KeyBuilder {
         return new KeyBuilder(new StringBuilder(root));
     }
 
-    public void add(String extension) {
+    public void extend(String extension) {
         if (!Objects.requireNonNull(extension).isEmpty()) {
             if (extension.contains("/")) {
                 throw new AssertionError("Extension '" + extension + "' can't contain '/'!");
@@ -32,17 +32,17 @@ public final class KeyBuilder {
         }
     }
 
-    public void addAll(Collection<String> extensions) {
-        extensions.forEach(this::add);
+    public void extend(Collection<String> extensions) {
+        extensions.forEach(this::extend);
     }
 
-    public KeyBuilder addedWith(String extension) {
-        add(extension);
+    public KeyBuilder extended(String extension) {
+        extend(extension);
         return this;
     }
 
-    public KeyBuilder addedWithAll(Collection<String> extensions) {
-        addAll(extensions);
+    public KeyBuilder extended(Collection<String> extensions) {
+        extend(extensions);
         return this;
     }
 
@@ -55,11 +55,19 @@ public final class KeyBuilder {
         return stringBuilder.toString();
     }
 
-    public String toStringAddedWith(String extension) {
-        return copy().addedWith(extension).toString();
+    public String extendedToString(String extension) {
+        return extended(extension).toString();
     }
 
-    public String toStringAddedWithAll(Collection<String> extensions) {
-        return copy().addedWithAll(extensions).toString();
+    public String extendedToString(Collection<String> extensions) {
+        return extended(extensions).toString();
+    }
+
+    public String copyExtendedToString(String extension) {
+        return copy().extendedToString(extension);
+    }
+
+    public String copyExtendedToString(Collection<String> extensions) {
+        return copy().extendedToString(extensions);
     }
 }
