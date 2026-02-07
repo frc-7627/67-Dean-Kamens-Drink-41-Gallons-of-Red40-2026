@@ -9,7 +9,7 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.Util;
+import frc.bofalib.Throttler;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
@@ -34,14 +34,16 @@ final class FeederImpl extends SubsystemBase implements Feeder {
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
+    private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
+
     @Override
     public void periodic() {
-        Util.throttle(() -> {
+        throttler.execute(() -> {
             apply(
                 currentLimitSupplier.getAsDouble(), 
                 feedSpeedSupplier.getAsDouble()
             );
-        }, MOTOR_CONFIGURE_FREQUENCY);
+        });
     }
 
     private void apply(double currentLimit, double feedSpeed) {

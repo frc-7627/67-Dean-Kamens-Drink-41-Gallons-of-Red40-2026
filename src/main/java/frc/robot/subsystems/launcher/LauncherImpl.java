@@ -6,7 +6,7 @@ import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.Util;
+import frc.bofalib.Throttler;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
@@ -63,15 +63,17 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
+    private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
+
     @Override
     public void periodic() {
         final MotorsConfigurator configurator = launcherMotors.getConfigurator();
 
-        Util.throttle(() -> configurator.apply(
+        throttler.execute(() -> configurator.apply(
             currentLimitSupplier.getAsDouble(), 
             rampUpPeriodSupplier.getAsDouble(),
             shootSpeedSupplier.getAsDouble()
-        ), MOTOR_CONFIGURE_FREQUENCY);
+        ));
     }
 
     /**
