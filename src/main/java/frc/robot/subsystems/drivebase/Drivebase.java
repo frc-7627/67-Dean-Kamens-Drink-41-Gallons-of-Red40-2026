@@ -1,9 +1,9 @@
 package frc.robot.subsystems.drivebase;
 
 import java.util.Optional;
-import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
-import frc.robot.resources.pathplanner.PathPlannerConfigurator;
-import frc.robot.resources.vision.VisionMeasurementsSupplier;
+import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
+import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
+import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 
 /**
  * Interface keeping track of all of the robot's driving functions and parts.

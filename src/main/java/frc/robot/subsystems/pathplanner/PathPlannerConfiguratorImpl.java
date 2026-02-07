@@ -1,4 +1,4 @@
-package frc.robot.resources.pathplanner;
+package frc.robot.subsystems.pathplanner;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;
@@ -14,7 +14,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.bofalib.subsystem.PseudoSubsystemBase;
-import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
+import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
 
 class PathPlannerConfiguratorImpl extends PseudoSubsystemBase implements PathPlannerConfigurator {
     private static final Alliance ORIGIN_ALLIANCE = Alliance.Blue;

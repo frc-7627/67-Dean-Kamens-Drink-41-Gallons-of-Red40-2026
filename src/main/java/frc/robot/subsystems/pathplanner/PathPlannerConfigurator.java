@@ -1,4 +1,4 @@
-package frc.robot.resources.pathplanner;
+package frc.robot.subsystems.pathplanner;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -9,7 +9,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.bofalib.subsystem.SharedSubsystem;
-import frc.robot.resources.gameinfo.GeneralGameInfoSupplier;
+import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
 
 /**
  * Interface that plans and creates the path for the robot given its current

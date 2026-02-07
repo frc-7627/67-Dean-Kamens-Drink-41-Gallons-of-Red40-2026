@@ -4,7 +4,7 @@ import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
-import frc.robot.resources.gameinfo.GameInfoSupplier;
+import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 
 class IndicatorImpl extends SubsystemBase implements Indicator {
     private final Startup startup = new Startup();

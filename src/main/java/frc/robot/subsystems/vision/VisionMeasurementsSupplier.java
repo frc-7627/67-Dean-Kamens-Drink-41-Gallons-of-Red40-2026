@@ -1,4 +1,4 @@
-package frc.robot.resources.vision;
+package frc.robot.subsystems.vision;
 
 import java.util.stream.Stream;
 

@@ -39,7 +39,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.resources.gameinfo.GameInfoSupplier;
+import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 import swervelib.math.Matter;
 
 /**

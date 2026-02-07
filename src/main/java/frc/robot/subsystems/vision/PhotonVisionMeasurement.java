@@ -1,4 +1,4 @@
-package frc.robot.resources.vision;
+package frc.robot.subsystems.vision;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;

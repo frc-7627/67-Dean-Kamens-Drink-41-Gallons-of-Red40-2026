@@ -1,4 +1,4 @@
-package frc.robot.resources.vision;
+package frc.robot.subsystems.vision;
 
 public final class StandardDeviations {
     private double singleTagStdDev; 

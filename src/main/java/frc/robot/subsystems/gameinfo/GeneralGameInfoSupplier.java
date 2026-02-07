@@ -1,4 +1,4 @@
-package frc.robot.resources.gameinfo;
+package frc.robot.subsystems.gameinfo;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 

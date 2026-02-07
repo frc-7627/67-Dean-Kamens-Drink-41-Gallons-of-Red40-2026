@@ -1,4 +1,4 @@
-package frc.robot.resources.vision;
+package frc.robot.subsystems.vision;
 
 import static frc.robot.Constants.VisionConstants.FIELD_LAYOUT;
 import java.util.Optional;

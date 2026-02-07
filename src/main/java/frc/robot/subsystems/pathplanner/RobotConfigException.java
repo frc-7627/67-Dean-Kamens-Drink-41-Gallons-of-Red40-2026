@@ -1,4 +1,4 @@
-package frc.robot.resources.pathplanner;
+package frc.robot.subsystems.pathplanner;
 
 import frc.robot.RobotException;
 
