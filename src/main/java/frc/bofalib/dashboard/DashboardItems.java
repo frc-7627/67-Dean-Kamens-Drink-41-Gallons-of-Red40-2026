@@ -11,16 +11,21 @@ import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.DoubleTopic;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.util.function.BooleanConsumer;
 import frc.bofalib.Util;
 
 public final class DashboardItems {
-    static final Frequency PUSH_FREQUENCY = Hertz.of(10);
+    private static final Frequency PUSH_FREQUENCY = Hertz.of(10);
+
+    private static final NetworkTable DASHBOARD_TABLE = NetworkTableInstance
+        .getDefault().getTable("SmartDashboard");
 
     public static DoubleConsumer createDoublePusher(String key) {
         return new DoubleConsumer() {
-            private final DoublePublisher pub = DashboardUtil.getDashboardTable()
+            private final DoublePublisher pub = DASHBOARD_TABLE
                 .getDoubleTopic(key).publish();
 
             @Override
@@ -32,7 +37,7 @@ public final class DashboardItems {
 
     public static BooleanConsumer createBooleanPusher(String key) {
         return new BooleanConsumer() {
-            private final BooleanPublisher pub = DashboardUtil.getDashboardTable()
+            private final BooleanPublisher pub = DASHBOARD_TABLE
                 .getBooleanTopic(key).publish();
 
             @Override
@@ -64,7 +69,7 @@ public final class DashboardItems {
                     throw new BadInitialValueError(defaultValue);
                 }
 
-                final DoubleTopic topic = DashboardUtil.getDashboardTable()
+                final DoubleTopic topic = DASHBOARD_TABLE
                     .getDoubleTopic(key);
 
                 if (!topic.exists()) {
@@ -101,7 +106,7 @@ public final class DashboardItems {
             private final BooleanSubscriber sub;
 
             {
-                final BooleanTopic topic = DashboardUtil.getDashboardTable()
+                final BooleanTopic topic = DASHBOARD_TABLE
                     .getBooleanTopic(key);
 
                 if (!topic.exists()) {
