@@ -12,7 +12,6 @@ import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.Second;
 import java.io.File;
 import java.util.function.DoublePredicate;
-import java.util.function.Predicate;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;

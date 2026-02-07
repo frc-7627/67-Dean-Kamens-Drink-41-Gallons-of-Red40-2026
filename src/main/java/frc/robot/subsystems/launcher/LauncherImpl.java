@@ -1,17 +1,14 @@
 package frc.robot.subsystems.launcher;
 
-import static edu.wpi.first.units.Units.Hertz;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.function.DoubleSupplier;
-import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.Util;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.robot.Constants;
 
 // Colloquially known as Miles after bad Chinese
 public class LauncherImpl extends SubsystemBase implements Launcher {
