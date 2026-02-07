@@ -7,8 +7,10 @@ import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.BooleanSubscriber;
+import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.util.function.BooleanConsumer;
 import frc.bofalib.Util;
@@ -53,8 +55,7 @@ public final class DashboardItems {
         DoublePredicate predicate
     ) {
         return new DoubleSupplier() {
-            private final DoubleSubscriber sub = DashboardUtil.getDashboardTable()
-                .getDoubleTopic(key).subscribe(defaultValue);
+            private final DoubleSubscriber sub;
 
             private double currentValue = defaultValue;
 
@@ -62,6 +63,17 @@ public final class DashboardItems {
                 if (!predicate.test(defaultValue)) {
                     throw new BadInitialValueError(defaultValue);
                 }
+
+                final DoubleTopic topic = DashboardUtil.getDashboardTable()
+                    .getDoubleTopic(key);
+
+                if (!topic.exists()) {
+                    try (DoublePublisher pub = topic.publish()) {
+                        pub.set(defaultValue);
+                    }
+                }
+
+                this.sub = topic.subscribe(defaultValue);
             }
 
             @Override
@@ -70,6 +82,10 @@ public final class DashboardItems {
 
                 if (predicate.test(newValue)) {
                     currentValue = newValue;
+                } else {
+                    try (DoublePublisher pub = sub.getTopic().publish()) {
+                        pub.set(currentValue);
+                    }
                 }
 
                 return currentValue;
@@ -82,8 +98,20 @@ public final class DashboardItems {
         boolean defaultValue
     ) {
         return new BooleanSupplier() {
-            private final BooleanSubscriber sub = DashboardUtil.getDashboardTable()
-                .getBooleanTopic(key).subscribe(defaultValue);
+            private final BooleanSubscriber sub;
+
+            {
+                final BooleanTopic topic = DashboardUtil.getDashboardTable()
+                    .getBooleanTopic(key);
+
+                if (!topic.exists()) {
+                    try (BooleanPublisher pub = topic.publish()) {
+                        pub.set(defaultValue);
+                    }
+                }
+
+                this.sub = topic.subscribe(defaultValue);
+            }
 
             @Override
             public boolean getAsBoolean() {
