@@ -15,7 +15,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.util.function.BooleanConsumer;
-import frc.bofalib.Util;
 
 public final class DashboardItems {
     private static final Frequency PUSH_FREQUENCY = Hertz.of(10);
@@ -30,7 +29,7 @@ public final class DashboardItems {
 
             @Override
             public void accept(double value) {
-                Util.throttle(() -> pub.set(value), PUSH_FREQUENCY);
+                pub.set(value);
             }
         };
     }
@@ -42,7 +41,7 @@ public final class DashboardItems {
 
             @Override
             public void accept(boolean value) {
-                Util.throttle(() -> pub.set(value), PUSH_FREQUENCY);
+                pub.set(value);
             }
         };
     }
