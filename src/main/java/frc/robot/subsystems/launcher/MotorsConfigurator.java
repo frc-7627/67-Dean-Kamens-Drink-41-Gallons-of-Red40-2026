@@ -53,19 +53,6 @@ final class MotorsConfigurator {
     }
 
     /**
-     * Update the configuration with the new shoot speed.
-     * 
-     * @param shootSpeed the new shoot speed.
-     */
-    void applyShootSpeed(double shootSpeed) {
-        motorOutputConfigs.withPeakForwardDutyCycle(shootSpeed);
-        motorOutputConfigs.withPeakReverseDutyCycle(-shootSpeed);
-
-        commanderConfigurator.apply(motorOutputConfigs);
-        minionConfigurator.apply(motorOutputConfigs);
-    }
-
-    /**
      * Update the configuration with the new ramp up period.
      * 
      * @param rampUpPeriod the new ramp up period.
@@ -79,5 +66,24 @@ final class MotorsConfigurator {
 
         minionConfigurator.apply(openLoopRampsConfigs);
         minionConfigurator.apply(closedLoopRampsConfigs);
+    }
+
+    /**
+     * Update the configuration with the new shoot speed.
+     * 
+     * @param shootSpeed the new shoot speed.
+     */
+    void applyShootSpeed(double shootSpeed) {
+        motorOutputConfigs.withPeakForwardDutyCycle(shootSpeed);
+        motorOutputConfigs.withPeakReverseDutyCycle(-shootSpeed);
+
+        commanderConfigurator.apply(motorOutputConfigs);
+        minionConfigurator.apply(motorOutputConfigs);
+    }
+
+    void apply(double currentLimit, double rampUpPeriod, double shootSpeed) {
+        applyCurrentLimit(currentLimit);
+        applyRampUpPeriod(rampUpPeriod);
+        applyShootSpeed(shootSpeed);
     }
 }
