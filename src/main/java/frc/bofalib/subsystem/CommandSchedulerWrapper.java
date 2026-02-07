@@ -22,11 +22,10 @@ public final class CommandSchedulerWrapper {
         commandScheduler.run();
 
         sharedSubsystems.stream()
-            .filter(SharedSubsystem::isPeriodic)
             .forEach(SharedSubsystem::periodic);
     }
 
-    public void schedulePseudoSubsystem(SharedSubsystem subsystem) {
+    public void registerSharedSubsystem(SharedSubsystem subsystem) {
         if (subsystem == null) {
             DriverStation.reportWarning("Tried to register a null subsystem", true);
             return;

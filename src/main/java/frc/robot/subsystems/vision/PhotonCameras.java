@@ -3,9 +3,9 @@ package frc.robot.subsystems.vision;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import frc.bofalib.subsystem.PseudoSubsystemBase;
+import frc.bofalib.subsystem.SharedSubsystemBase;
 
-class PhotonCameras extends PseudoSubsystemBase implements Vision {
+class PhotonCameras extends SharedSubsystemBase implements Vision {
     private static final String DASHBOARD_NAME = Vision.class.getName();
 
     private final List<PhotonCameraWrapper> photonCameraWrappers;

@@ -13,10 +13,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.bofalib.subsystem.PseudoSubsystemBase;
+import frc.bofalib.subsystem.SharedSubsystemBase;
 import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
 
-class PathPlannerConfiguratorImpl extends PseudoSubsystemBase implements PathPlannerConfigurator {
+class PathPlannerConfiguratorImpl extends SharedSubsystemBase implements PathPlannerConfigurator {
     private static final Alliance ORIGIN_ALLIANCE = Alliance.Blue;
 
     private final Supplier<Pose2d> getPose;
