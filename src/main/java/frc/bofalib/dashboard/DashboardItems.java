@@ -6,7 +6,6 @@ import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.networktables.BooleanPublisher;
-import edu.wpi.first.networktables.BooleanSubscriber;
 import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleSubscriber;
@@ -23,34 +22,26 @@ public final class DashboardItems {
         .getDefault().getTable("SmartDashboard");
 
     public static DoubleConsumer createDoublePusher(String key) {
-        return new DoubleConsumer() {
-            private final DoublePublisher pub = DASHBOARD_TABLE
-                .getDoubleTopic(key).publish();
-
-            @Override
-            public void accept(double value) {
-                pub.set(value);
-            }
-        };
+        return DASHBOARD_TABLE.getDoubleTopic(key).publish();
     }
 
     public static BooleanConsumer createBooleanPusher(String key) {
-        return new BooleanConsumer() {
-            private final BooleanPublisher pub = DASHBOARD_TABLE
-                .getBooleanTopic(key).publish();
-
-            @Override
-            public void accept(boolean value) {
-                pub.set(value);
-            }
-        };
+        return DASHBOARD_TABLE.getBooleanTopic(key).publish();
     }
 
     public static DoubleSupplier createDoublePuller(
         String key, 
         double defaultValue
     ) {
-        return createDoublePuller(key, defaultValue, value -> true);
+        final DoubleTopic topic = DASHBOARD_TABLE.getDoubleTopic(key);
+
+        if (!topic.exists()) {
+            try (DoublePublisher pub = topic.publish()) {
+                pub.set(defaultValue);
+            }
+        }
+        
+        return topic.subscribe(defaultValue);
     }
 
     public static DoubleSupplier createDoublePuller(
@@ -101,26 +92,14 @@ public final class DashboardItems {
         String key, 
         boolean defaultValue
     ) {
-        return new BooleanSupplier() {
-            private final BooleanSubscriber sub;
+        final BooleanTopic topic = DASHBOARD_TABLE.getBooleanTopic(key);
 
-            {
-                final BooleanTopic topic = DASHBOARD_TABLE
-                    .getBooleanTopic(key);
-
-                if (!topic.exists()) {
-                    try (BooleanPublisher pub = topic.publish()) {
-                        pub.set(defaultValue);
-                    }
-                }
-
-                this.sub = topic.subscribe(defaultValue);
+        if (!topic.exists()) {
+            try (BooleanPublisher pub = topic.publish()) {
+                pub.set(defaultValue);
             }
-
-            @Override
-            public boolean getAsBoolean() {
-                return sub.get();
-            }
-        };
+        }
+        
+        return topic.subscribe(defaultValue);
     }
 }
