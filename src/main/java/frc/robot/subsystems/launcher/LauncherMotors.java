@@ -89,7 +89,7 @@ class LauncherMotors {
      * 
      * @param speed the provided speed.
      */
-    public void setCommanderSpeed(double speed) {
+    public void setSpeed(double speed) {
         if (inMusicMode) {
             exitMusicMode();
         }
@@ -98,29 +98,18 @@ class LauncherMotors {
     }
 
     /**
-     * Set both motors' speed to the provided speed.
      * 
-     * @param speed the provided speed.
      */
-    public void setBothSpeeds(double speed) {
-        if (inMusicMode) {
-            exitMusicMode();
-        }
-
-        commander.set(speed);
-        minion.set(speed);
-    }
-
+    
     /**
      * Stop both motors.
      */
-    public void stopBoth() {
+    public void stop() {
         if (inMusicMode) {
             exitMusicMode();
         }
 
         commander.set(0.0);
-        minion.set(0.0);
     }
 
     /**

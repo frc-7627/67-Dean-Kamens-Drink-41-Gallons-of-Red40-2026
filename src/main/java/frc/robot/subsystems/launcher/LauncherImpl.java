@@ -5,6 +5,7 @@ import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.fields.PullingDouble;
+import frc.robot.Constants;
 
 // Colloquially known as Miles after bad Chinese
 public class LauncherImpl extends SubsystemBase implements Launcher {
@@ -96,7 +97,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        launcherMotors.setCommanderSpeed(shootSpeed.getPulled());
+        launcherMotors.setSpeed(Constants.LauncherConstants.DEFAULT_SHOOT_SPEED);
     }
 
     /**
@@ -113,33 +114,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         // TODO: why shouldn't this method be used unless in extraneous circumstances?
         // Justify in
         // the api note.
-        launcherMotors.setCommanderSpeed(-shootSpeed.getPulled());
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * Sets both motors to the manual speed.
-     * 
-     * @see #oldManualSpeed
-     * @see LauncherMotors#setBothSpeeds(double)
-     */
-    @Override
-    public void manualOutBoth() {
-        launcherMotors.setBothSpeeds(manualSpeed.getPulled());
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * Sets both motors to the negative manual speed.
-     * 
-     * @see #oldManualSpeed
-     * @see LauncherMotors#setBothSpeeds(double)
-     */
-    @Override
-    public void manualInBoth() {
-        launcherMotors.setBothSpeeds(-manualSpeed.getPulled());
+        launcherMotors.setSpeed(-shootSpeed.getPulled());
     }
 
     /**
@@ -151,6 +126,6 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void stop() {
-        launcherMotors.stopBoth();
+        launcherMotors.stop();
     }
 }

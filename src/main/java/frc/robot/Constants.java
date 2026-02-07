@@ -212,8 +212,10 @@ public final class Constants {
         public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
         public static final int LAUNCHER_MINION_CAN_ID = 17;
 
+
+
         // TODO: configure can_id for feeder
-        public static final int FEEDER_CAN_ID = -1;
+        public static final int FEEDER_CAN_ID = 18;
     }
 
     public static class IntakeConstants {
@@ -226,7 +228,10 @@ public final class Constants {
     public static class LauncherConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final double DEFAULT_SHOOT_SPEED = 0.7;
+        public static final double FLYWHEEL_RADIUS = 4; //inches
+        public static final double LINIEAR_FTpS = 6700; //feet per sec
+
+        public static final double DEFAULT_SHOOT_SPEED = 0.1;
         public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
         public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;
         public static final double DEFAULT_MANUAL_SPEED = 0.3;
@@ -258,7 +263,9 @@ public final class Constants {
 
     public static class FeederConstants {
         // TODO: find values for feeder
-        public static final double DEFAULT_FEED_SPEED = -1;
+        public static final double DEFAULT_FEED_SPEED = -1; 
+
+        //TODO: PROTO FEEDER NEGITIVE IS INTAKE, FINAL WILL BE OPPOSIMG
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 
