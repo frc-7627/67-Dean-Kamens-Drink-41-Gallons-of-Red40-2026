@@ -50,6 +50,14 @@ public final class KeyBuilder {
         return new KeyBuilder(new StringBuilder(stringBuilder));
     }
 
+    public KeyBuilder copyExtended(String extension) {
+        return copy().extended(extension);
+    }
+
+    public KeyBuilder copyExtended(Collection<String> extensions) {
+        return copy().extended(extensions);
+    }
+
     @Override
     public String toString() {
         return stringBuilder.toString();
