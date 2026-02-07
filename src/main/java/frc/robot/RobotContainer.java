@@ -24,6 +24,7 @@ import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.hopper.Hopper;
+import frc.robot.subsystems.launcher.Launcher;
 import org.littletonrobotics.junction.Logger;
 import com.ctre.phoenix6.hardware.Pigeon2;
 
@@ -56,6 +57,8 @@ public class RobotContainer {
 
     private final Hopper hopper;
 
+    private final Launcher launcher;
+
     private final GlobalControlState globalControlState;
 
     private final CommandContext commandContext;
@@ -87,10 +90,21 @@ public class RobotContainer {
 
         this.hopper = Hopper.create();
 
+        this.launcher = Launcher.create();
+
         this.globalControlState = GlobalControlState.create();
 
-        this.commandContext = new CommandContext(indicator, drivebase, intake,
-                globalControlState, gameInfoSupplier, driverController.getInput(drivebase));
+        this.commandContext = new CommandContext(
+            indicator,
+            drivebase,
+            intake,
+            launcher,
+            feeder,
+            hopper,
+            globalControlState,
+            gameInfoSupplier,
+            driverController.getInput(drivebase)
+        );
 
         try {
             this.autoChooser = AutoChooser.create(drivebase.getPathPlannerConfigurator().get());
