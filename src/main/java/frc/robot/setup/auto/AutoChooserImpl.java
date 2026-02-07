@@ -10,13 +10,9 @@ import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
 
 final class AutoChooserImpl implements AutoChooser {
-    private static final String FIELD_NAME = "Auto Chooser";
-
     private final SendableChooser<Command> chooser;
 
     AutoChooserImpl(PathPlannerConfigurator configurator) throws PathPlannerConfigException {
-        super(FIELD_NAME);
-
         configurator.configureAndInit();
 
         this.chooser = AutoBuilder.buildAutoChooser();
@@ -39,12 +35,7 @@ final class AutoChooserImpl implements AutoChooser {
     }
 
     @Override
-    public boolean checkPulled(Command pulled) {
-        return true;
-    }
-
-    @Override
-    public Command getPulled() {
+    public Command get() {
         return chooser.getSelected();
     }
     
