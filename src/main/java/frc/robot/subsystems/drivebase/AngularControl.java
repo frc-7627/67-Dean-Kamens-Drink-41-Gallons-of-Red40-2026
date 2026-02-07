@@ -32,7 +32,7 @@ public final class AngularControl {
         this.controller = new PIDController(0, 0, 0);
         this.kinematicSupplier = kinematicSupplier;
 
-        final KeyBuilder keyBuilder = new KeyBuilder(root)
+        final KeyBuilder keyBuilder = KeyBuilder.of(root)
             .addedWith("Angular Control");
 
         this.pSupplier = DashboardItems.createDoublePuller(
