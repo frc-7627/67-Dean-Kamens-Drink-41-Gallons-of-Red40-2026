@@ -15,16 +15,28 @@ public final class Util {
         return name + " (mock)";
     }
 
-    public static Runnable compose(DoubleSupplier supplier, DoubleConsumer consumer) {
-        return () -> consumer.accept(supplier.getAsDouble());
+    public static DoubleSupplier addConsumer(DoubleSupplier supplier, DoubleConsumer consumer) {
+        return () -> {
+            final double value = supplier.getAsDouble();
+            consumer.accept(value);
+            return value;
+        };
     }
 
-    public static Runnable createUpdater(BooleanSupplier supplier, BooleanConsumer consumer) {
-        return () -> consumer.accept(supplier.getAsBoolean());
+    public static BooleanSupplier addConsumer(BooleanSupplier supplier, BooleanConsumer consumer) {
+        return () -> {
+            final boolean value = supplier.getAsBoolean();
+            consumer.accept(value);
+            return value;
+        };
     }
 
-    public static <Value> Runnable createUpdater(Supplier<Value> supplier, Consumer<Value> consumer) {
-        return () -> consumer.accept(supplier.get());
+    public static <Value> Supplier<Value> addConsumer(Supplier<Value> supplier, Consumer<Value> consumer) {
+        return () -> {
+            final Value value = supplier.get();
+            consumer.accept(value);
+            return value;
+        };
     }
 
     public static Runnable throttle(Runnable action, Frequency frequency) {
