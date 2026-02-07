@@ -72,6 +72,8 @@ public final class Constants {
     public static final DoublePredicate CHECK_SIMPLE_MOTOR_SPEED = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
             && simpleMotorSpeed <= 1.0;
 
+    public static final Frequency MOTOR_CONFIGURE_FREQUENCY = Hertz.of(5);
+
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 
     // public static final class AutonConstants

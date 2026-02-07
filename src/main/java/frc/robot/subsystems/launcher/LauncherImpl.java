@@ -2,6 +2,7 @@ package frc.robot.subsystems.launcher;
 
 import static edu.wpi.first.units.Units.Hertz;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
+import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.function.DoubleSupplier;
@@ -26,7 +27,6 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
         }
     }
 
-    private static final Frequency CONFIGURE_FREQUENCY = Hertz.of(5);
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Launcher.class.getSimpleName());
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
@@ -73,7 +73,7 @@ public class LauncherImpl extends SubsystemBase implements Launcher {
             currentLimitSupplier.getAsDouble(), 
             rampUpPeriodSupplier.getAsDouble(),
             shootSpeedSupplier.getAsDouble()
-        ), CONFIGURE_FREQUENCY);
+        ), MOTOR_CONFIGURE_FREQUENCY);
     }
 
     /**
