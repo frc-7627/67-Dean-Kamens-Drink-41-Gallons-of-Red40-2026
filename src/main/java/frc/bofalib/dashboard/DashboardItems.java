@@ -9,27 +9,30 @@ import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.DoubleTopic;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.function.BooleanConsumer;
 
 public final class DashboardItems {
-    private static final NetworkTable DASHBOARD_TABLE = NetworkTableInstance
-        .getDefault().getTable("SmartDashboard");
+    private static String convertToTopicName(String key) {
+        return "/SmartDashboard/" + key;
+    }
 
     public static DoubleConsumer createDoublePusher(String key) {
-        return DASHBOARD_TABLE.getDoubleTopic(key).publish();
+        return NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key)).publish();
     }
 
     public static BooleanConsumer createBooleanPusher(String key) {
-        return DASHBOARD_TABLE.getBooleanTopic(key).publish();
+        return NetworkTableInstance.getDefault()
+            .getBooleanTopic(convertToTopicName(key)).publish();
     }
 
     public static DoubleSupplier createDoublePuller(
         String key, 
         double defaultValue
     ) {
-        final DoubleTopic topic = DASHBOARD_TABLE.getDoubleTopic(key);
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
 
         try (DoublePublisher pub = topic.publish()) {
             pub.set(defaultValue);
@@ -47,7 +50,8 @@ public final class DashboardItems {
             throw new BadInitialValueError(defaultValue);
         }
 
-        final DoubleTopic topic = DASHBOARD_TABLE.getDoubleTopic(key);
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
 
         try (DoublePublisher pub = topic.publish()) {
             pub.set(defaultValue);
@@ -79,7 +83,8 @@ public final class DashboardItems {
         String key, 
         boolean defaultValue
     ) {
-        final BooleanTopic topic = DASHBOARD_TABLE.getBooleanTopic(key);
+        final BooleanTopic topic = NetworkTableInstance.getDefault()
+            .getBooleanTopic(convertToTopicName(key));
 
         try (BooleanPublisher pub = topic.publish()) {
             pub.set(defaultValue);
