@@ -12,12 +12,9 @@ import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.util.function.BooleanConsumer;
 
 public final class DashboardItems {
-    private static final Frequency PUSH_FREQUENCY = Hertz.of(10);
-
     private static final NetworkTable DASHBOARD_TABLE = NetworkTableInstance
         .getDefault().getTable("SmartDashboard");
 
@@ -49,27 +46,22 @@ public final class DashboardItems {
         double defaultValue, 
         DoublePredicate predicate
     ) {
+        if (!predicate.test(defaultValue)) {
+            throw new BadInitialValueError(defaultValue);
+        }
+
+        final DoubleTopic topic = DASHBOARD_TABLE.getDoubleTopic(key);
+
+        if (!topic.exists()) {
+            try (DoublePublisher pub = topic.publish()) {
+                pub.set(defaultValue);
+            }
+        }
+
         return new DoubleSupplier() {
-            private final DoubleSubscriber sub;
+            private final DoubleSubscriber sub = topic.subscribe(defaultValue);
 
             private double currentValue = defaultValue;
-
-            {
-                if (!predicate.test(defaultValue)) {
-                    throw new BadInitialValueError(defaultValue);
-                }
-
-                final DoubleTopic topic = DASHBOARD_TABLE
-                    .getDoubleTopic(key);
-
-                if (!topic.exists()) {
-                    try (DoublePublisher pub = topic.publish()) {
-                        pub.set(defaultValue);
-                    }
-                }
-
-                this.sub = topic.subscribe(defaultValue);
-            }
 
             @Override
             public double getAsDouble() {
