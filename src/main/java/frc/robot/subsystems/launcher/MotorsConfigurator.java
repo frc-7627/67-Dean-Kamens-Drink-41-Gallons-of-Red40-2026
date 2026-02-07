@@ -4,7 +4,6 @@ import static frc.robot.Constants.LauncherConstants.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 
@@ -13,7 +12,6 @@ final class MotorsConfigurator {
     private final TalonFXConfigurator minionConfigurator;
 
     private final CurrentLimitsConfigs currentLimitsConfigs = DEFAULT_CURRENT_LIMITS_CONFIGS;
-    private final MotorOutputConfigs motorOutputConfigs = DEFAULT_MOTOR_OUTPUT_CONFIGS;
     private final OpenLoopRampsConfigs openLoopRampsConfigs = DEFAULT_OPEN_LOOP_RAMPS_CONFIGS;
     private final ClosedLoopRampsConfigs closedLoopRampsConfigs = DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS;
 
@@ -28,15 +26,15 @@ final class MotorsConfigurator {
         this.minionConfigurator = minionConfigurator;
 
         commanderConfigurator.apply(currentLimitsConfigs);
-        commanderConfigurator.apply(motorOutputConfigs);
         commanderConfigurator.apply(openLoopRampsConfigs);
         commanderConfigurator.apply(closedLoopRampsConfigs);
+        commanderConfigurator.apply(DEFAULT_MOTOR_OUTPUT_CONFIGS);
         commanderConfigurator.apply(AUDIO_CONFIGS);
 
         minionConfigurator.apply(currentLimitsConfigs);
-        minionConfigurator.apply(motorOutputConfigs);
         minionConfigurator.apply(openLoopRampsConfigs);
         minionConfigurator.apply(closedLoopRampsConfigs);
+        minionConfigurator.apply(DEFAULT_MOTOR_OUTPUT_CONFIGS);
         minionConfigurator.apply(AUDIO_CONFIGS);
     }
 
@@ -68,22 +66,8 @@ final class MotorsConfigurator {
         minionConfigurator.apply(closedLoopRampsConfigs);
     }
 
-    /**
-     * Update the configuration with the new shoot speed.
-     * 
-     * @param shootSpeed the new shoot speed.
-     */
-    private void applyShootSpeed(double shootSpeed) {
-        motorOutputConfigs.withPeakForwardDutyCycle(shootSpeed);
-        motorOutputConfigs.withPeakReverseDutyCycle(-shootSpeed);
-
-        commanderConfigurator.apply(motorOutputConfigs);
-        minionConfigurator.apply(motorOutputConfigs);
-    }
-
-    void apply(double currentLimit, double rampUpPeriod, double shootSpeed) {
+    void apply(double currentLimit, double rampUpPeriod) {
         applyCurrentLimit(currentLimit);
         applyRampUpPeriod(rampUpPeriod);
-        applyShootSpeed(shootSpeed);
     }
 }

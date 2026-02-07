@@ -79,8 +79,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
 
         throttler.execute(() -> configurator.apply(
             currentLimitSupplier.getAsDouble(), 
-            rampUpPeriodSupplier.getAsDouble(),
-            shootSpeedSupplier.getAsDouble()
+            rampUpPeriodSupplier.getAsDouble()
         ));
 
         rpmConsumer.accept(

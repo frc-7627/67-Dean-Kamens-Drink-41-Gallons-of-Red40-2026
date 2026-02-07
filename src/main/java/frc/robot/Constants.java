@@ -247,8 +247,6 @@ public final class Constants {
                 .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
         public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-                .withPeakForwardDutyCycle(DEFAULT_SHOOT_SPEED)
-                .withPeakReverseDutyCycle(-DEFAULT_SHOOT_SPEED)
                 .withNeutralMode(NeutralModeValue.Coast);
 
         public static final OpenLoopRampsConfigs DEFAULT_OPEN_LOOP_RAMPS_CONFIGS = new OpenLoopRampsConfigs()
