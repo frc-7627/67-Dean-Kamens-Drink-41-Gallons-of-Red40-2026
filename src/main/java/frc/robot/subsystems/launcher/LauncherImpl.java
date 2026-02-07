@@ -1,9 +1,13 @@
 package frc.robot.subsystems.launcher;
 
+import static edu.wpi.first.units.Units.Minute;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
+import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.Throttler;
@@ -63,6 +67,10 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
+    private final DoubleConsumer rpmConsumer = DashboardItems.createDoublePusher(
+        KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+    );
+
     private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
 
     @Override
@@ -74,6 +82,11 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
             rampUpPeriodSupplier.getAsDouble(),
             shootSpeedSupplier.getAsDouble()
         ));
+
+        rpmConsumer.accept(
+            (Rotations.per(Minute))
+                .convertFrom(launcherMotors.getCommanderVelocity(), RotationsPerSecond)
+        );
     }
 
     /**
