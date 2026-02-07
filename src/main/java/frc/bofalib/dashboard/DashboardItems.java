@@ -31,10 +31,8 @@ public final class DashboardItems {
     ) {
         final DoubleTopic topic = DASHBOARD_TABLE.getDoubleTopic(key);
 
-        if (!topic.exists()) {
-            try (DoublePublisher pub = topic.publish()) {
-                pub.set(defaultValue);
-            }
+        try (DoublePublisher pub = topic.publish()) {
+            pub.set(defaultValue);
         }
         
         return topic.subscribe(defaultValue);
@@ -51,10 +49,8 @@ public final class DashboardItems {
 
         final DoubleTopic topic = DASHBOARD_TABLE.getDoubleTopic(key);
 
-        if (!topic.exists()) {
-            try (DoublePublisher pub = topic.publish()) {
-                pub.set(defaultValue);
-            }
+        try (DoublePublisher pub = topic.publish()) {
+            pub.set(defaultValue);
         }
 
         return new DoubleSupplier() {
@@ -85,10 +81,8 @@ public final class DashboardItems {
     ) {
         final BooleanTopic topic = DASHBOARD_TABLE.getBooleanTopic(key);
 
-        if (!topic.exists()) {
-            try (BooleanPublisher pub = topic.publish()) {
-                pub.set(defaultValue);
-            }
+        try (BooleanPublisher pub = topic.publish()) {
+            pub.set(defaultValue);
         }
         
         return topic.subscribe(defaultValue);
