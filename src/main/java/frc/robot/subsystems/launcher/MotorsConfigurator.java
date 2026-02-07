@@ -43,7 +43,7 @@ final class MotorsConfigurator {
      * 
      * @param currentLimit the new current limit.
      */
-    private void applyCurrentLimit(double currentLimit) {
+    void applyCurrentLimit(double currentLimit) {
         currentLimitsConfigs.withStatorCurrentLimit(currentLimit);
 
         commanderConfigurator.apply(currentLimitsConfigs);
@@ -55,7 +55,7 @@ final class MotorsConfigurator {
      * 
      * @param rampUpPeriod the new ramp up period.
      */
-    private void applyRampUpPeriod(double rampUpPeriod) {
+    void applyRampUpPeriod(double rampUpPeriod) {
         openLoopRampsConfigs.withDutyCycleOpenLoopRampPeriod(rampUpPeriod);
         closedLoopRampsConfigs.withDutyCycleClosedLoopRampPeriod(rampUpPeriod);
 
