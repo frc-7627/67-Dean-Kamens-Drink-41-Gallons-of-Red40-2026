@@ -16,7 +16,6 @@ import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
 import frc.robot.subsystems.vision.Vision;
-import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
@@ -129,7 +128,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // Pass in the selected auto from the SmartDashboard as our desired autnomous
         // commmand
-        return autoChooser.getPulled();
+        return autoChooser.get();
     }
 
     public void setBrake(boolean brake) {
