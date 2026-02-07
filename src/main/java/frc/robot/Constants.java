@@ -11,6 +11,7 @@ import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.Second;
 import java.io.File;
+import java.util.function.DoublePredicate;
 import java.util.function.Predicate;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
@@ -68,7 +69,7 @@ public final class Constants {
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(2);
 
-    public static final Predicate<Double> CHECK_SIMPLE_MOTOR_SPEED = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
+    public static final DoublePredicate CHECK_SIMPLE_MOTOR_SPEED = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
             && simpleMotorSpeed <= 1.0;
 
     // Maximum speed of the robot in meters per second, used to limit acceleration.
