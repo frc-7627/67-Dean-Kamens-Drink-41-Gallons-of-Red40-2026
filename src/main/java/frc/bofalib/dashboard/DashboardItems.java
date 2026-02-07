@@ -1,6 +1,5 @@
 package frc.bofalib.dashboard;
 
-import static edu.wpi.first.units.Units.Hertz;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
