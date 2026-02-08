@@ -28,12 +28,11 @@ public final class AngularControl {
         RadiansPerSecond
     );
 
-    AngularControl(KeyBuilder rootKeyBuilder, KinematicSupplier kinematicSupplier) {
+    AngularControl(KeyBuilder keyBuilder, KinematicSupplier kinematicSupplier) {
         this.controller = new PIDController(0, 0, 0);
         this.kinematicSupplier = kinematicSupplier;
 
-        final KeyBuilder keyBuilder = rootKeyBuilder
-            .copyExtended("Angular Control");
+        keyBuilder.extend("Angular Control");
 
         this.pSupplier = DashboardItems.createDoublePuller(
             keyBuilder.copyExtendedToString("P"), 

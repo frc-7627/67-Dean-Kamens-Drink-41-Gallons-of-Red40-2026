@@ -34,7 +34,7 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
 
     private final Timer visionUpdateThrottler = new Timer();
     private final AngularControl angularControl =
-            new AngularControl(KEY_BUILDER, this);
+            new AngularControl(KEY_BUILDER.copy(), this);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
