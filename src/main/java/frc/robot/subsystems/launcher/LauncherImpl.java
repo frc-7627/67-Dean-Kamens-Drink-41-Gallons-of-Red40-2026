@@ -12,7 +12,7 @@ import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.Throttler;
-import frc.bofalib.Util;
+import frc.bofalib.BofaUtil;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
@@ -62,23 +62,23 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
 
     public LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
-            Util.composeConditional(
+            BofaUtil.composeConditional(
                 launcherMotors.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
                 ), 
-                Util.hasChangedDoublePredicate()
+                BofaUtil.hasChangedDoublePredicate()
             ),
-            Util.composeConditional(
+            BofaUtil.composeConditional(
                 launcherMotors.getConfigurator()::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
                     DEFAULT_RAMP_UP_PERIOD
                 ), 
-                Util.hasChangedDoublePredicate()
+                BofaUtil.hasChangedDoublePredicate()
             ),
-            Util.compose(
+            BofaUtil.compose(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
                 ), 

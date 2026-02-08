@@ -5,7 +5,7 @@ import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import java.util.function.DoubleUnaryOperator;
 
-public final class Util {
+public final class BofaUtil {
     public static String mockName(String name) {
         return name + " (mock)";
     }
