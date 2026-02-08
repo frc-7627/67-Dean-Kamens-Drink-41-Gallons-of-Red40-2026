@@ -66,7 +66,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
                 KEY_BUILDER.copyExtendedToString("Current Limit"), 
                 DEFAULT_CURRENT_LIMIT
             ), 
-            Util.hasChanged()
+            Util.hasChangedDoublePredicate()
         ),
         Util.composeConditional(
             launcherMotors.getConfigurator()::applyRampUpPeriod, 
@@ -74,7 +74,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
                 KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
                 DEFAULT_RAMP_UP_PERIOD
             ), 
-            Util.hasChanged()
+            Util.hasChangedDoublePredicate()
         ),
         Util.compose(
             DashboardItems.createDoublePusher(

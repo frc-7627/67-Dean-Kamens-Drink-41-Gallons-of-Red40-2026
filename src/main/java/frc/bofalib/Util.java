@@ -54,7 +54,7 @@ public final class Util {
         };
     }
 
-    public static DoublePredicate hasChanged() {
+    public static DoublePredicate hasChangedDoublePredicate() {
         return new DoublePredicate() {
             private double currentValue = Double.NaN;
 
