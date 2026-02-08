@@ -13,7 +13,6 @@ import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
-import java.util.function.DoubleConsumer;
 
 final class LauncherMotors {
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
