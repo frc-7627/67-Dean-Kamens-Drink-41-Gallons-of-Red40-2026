@@ -33,8 +33,8 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
 
     private final Timer visionUpdateThrottler = new Timer();
-    private final AngularControl angularControl =
-            new AngularControl(KEY_BUILDER.copy(), this);
+    private final AngularControlImpl angularControl =
+            new AngularControlImpl(KEY_BUILDER.copy(), this);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
     private final SwerveDrive swerveDrive;
@@ -173,10 +173,5 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public void setBrake(boolean brake) {
         swerveDrive.setMotorIdleMode(brake);
-    }
-
-    @Override
-    public AngularControl getAngularControl() {
-        return angularControl;
     }
 }

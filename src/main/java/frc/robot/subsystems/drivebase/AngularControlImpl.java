@@ -14,8 +14,8 @@ import edu.wpi.first.units.measure.MutAngularVelocity;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
-public final class AngularControl {
-    private static final Logger LOGGER = Logger.getLogger(AngularControl.class.getName());
+public final class AngularControlImpl {
+    private static final Logger LOGGER = Logger.getLogger(AngularControlImpl.class.getName());
 
     private final DoubleSupplier pSupplier;
     private final DoubleSupplier iSupplier;
@@ -28,7 +28,7 @@ public final class AngularControl {
         RadiansPerSecond
     );
 
-    AngularControl(KeyBuilder keyBuilder, KinematicSupplier kinematicSupplier) {
+    AngularControlImpl(KeyBuilder keyBuilder, KinematicSupplier kinematicSupplier) {
         this.controller = new PIDController(0, 0, 0);
         this.kinematicSupplier = kinematicSupplier;
 
