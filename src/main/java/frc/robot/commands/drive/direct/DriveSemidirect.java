@@ -21,7 +21,7 @@ abstract class DriveSemidirect extends DriveDirect {
     ) {
         super(drivebase);
 
-        this.angularControl = drivebase.getAngularControl();
+        this.angularControl = drivebase;
         this.input = input;
         this.target = target;
     }
@@ -42,11 +42,9 @@ abstract class DriveSemidirect extends DriveDirect {
     @Override
     protected final ChassisSpeeds getSpeeds() {
         final Angle targetOrientationAngle = getTargetOrientationAngle();
-        final AngularVelocity rotationRate = angularControl.getRotationRate(
+        final AngularVelocity rotationRate = angularControl.calculateRotationRate(
             targetOrientationAngle
         );
-
-        angularControl.logData(targetOrientationAngle, rotationRate);
 
         final ChassisSpeeds inputSpeeds = input.get();
 
@@ -59,7 +57,7 @@ abstract class DriveSemidirect extends DriveDirect {
 
     @Override
     public final void initialize() {
-        angularControl.reset();
+        angularControl.resetAngularControl();
         target.reset();
     }
 }
