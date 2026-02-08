@@ -13,6 +13,8 @@ import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
@@ -33,7 +35,7 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
 
     private final Timer visionUpdateThrottler = new Timer();
-    private final AngularControlImpl angularControl =
+    private final AngularControl angularControl =
             new AngularControlImpl(KEY_BUILDER.copy(), this);
     private final GeneralGameInfoSupplier gameInfoSupplier;
     private final VisionMeasurementsSupplier vision;
@@ -173,5 +175,15 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public void setBrake(boolean brake) {
         swerveDrive.setMotorIdleMode(brake);
+    }
+
+    @Override
+    public AngularVelocity calculateRotationRate(Angle targetOrientationAngle) {
+        return angularControl.calculateRotationRate(targetOrientationAngle);
+    }
+
+    @Override
+    public void resetAngularControl() {
+        angularControl.resetAngularControl();
     }
 }
