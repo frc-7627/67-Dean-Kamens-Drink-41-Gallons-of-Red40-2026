@@ -14,7 +14,7 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
-final class LauncherMotors {
+final class Motors {
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
     private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(commander.getConfigurator(),
@@ -25,7 +25,7 @@ final class LauncherMotors {
     /**
      * The launcher motors.
      */
-    public LauncherMotors() {
+    public Motors() {
         resetControl();
     }
 

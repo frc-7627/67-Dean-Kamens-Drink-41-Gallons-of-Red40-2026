@@ -29,7 +29,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
 
-    private final LauncherMotors launcherMotors = new LauncherMotors();
+    private final Motors motors = new Motors();
 
     private final DoubleSupplier shootSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Speed"), 
@@ -58,7 +58,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
     public LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             BofaUtil.composeConditional(
-                launcherMotors::applyCurrentLimit, 
+                motors::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
@@ -66,7 +66,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
                 BofaUtil.hasChangedDoublePredicate()
             ),
             BofaUtil.composeConditional(
-                launcherMotors::applyRampUpPeriod, 
+                motors::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
                     DEFAULT_RAMP_UP_PERIOD
@@ -77,7 +77,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
                 ), 
-                () -> launcherMotors.getCommanderVelocity().in(RPM)
+                () -> motors.getCommanderVelocity().in(RPM)
             )
         ));
     }
@@ -86,22 +86,22 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
      * {@inheritDoc}
      * 
      * @see frc.robot.Constants.LauncherConstants#HORN_FREQ
-     * @see LauncherMotors#playNote(int)
+     * @see Motors#playNote(int)
      */
     @Override
     public void playHornOnMotors() {
-        launcherMotors.playNote(HORN_FREQ);
+        motors.playNote(HORN_FREQ);
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @see LauncherMotors#playSongFromFile(String)
+     * @see Motors#playSongFromFile(String)
      * @see Song
      */
     @Override
     public void playSongOnMotors(Song song) {
-        launcherMotors.playSongFromFile(song.filePath);
+        motors.playSongFromFile(song.filePath);
     }
 
     /**
@@ -110,11 +110,11 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
      * Sets the commander motor to the shoot speed.
      * 
      * @see #oldShootSpeed
-     * @see LauncherMotors#setCommanderSpeed(double)
+     * @see Motors#setCommanderSpeed(double)
      */
     @Override
     public void shootOut() {
-        launcherMotors.setSpeed(shootSpeedSupplier.getAsDouble());
+        motors.setSpeed(shootSpeedSupplier.getAsDouble());
     }
 
     /**
@@ -124,14 +124,14 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
      * 
      * @apiNote Do not use unless in extraneous circumstances.
      * @see #oldShootSpeed
-     * @see LauncherMotors#setCommanderSpeed(double)
+     * @see Motors#setCommanderSpeed(double)
      */
     @Override
     public void shootIn() {
         // TODO: why shouldn't this method be used unless in extraneous circumstances?
         // Justify in
         // the api note.
-        launcherMotors.setSpeed(-shootSpeedSupplier.getAsDouble());
+        motors.setSpeed(-shootSpeedSupplier.getAsDouble());
     }
 
     /**
@@ -139,10 +139,10 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
      * 
      * Stops both motors.
      * 
-     * @see LauncherMotors#stopBoth()
+     * @see Motors#stopBoth()
      */
     @Override
     public void stop() {
-        launcherMotors.stop();
+        motors.stop();
     }
 }
