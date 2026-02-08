@@ -7,10 +7,12 @@ import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
+import java.util.List;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.Throttler;
+import frc.bofalib.Util;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 
@@ -32,16 +34,6 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
 
     private final LauncherMotors launcherMotors = new LauncherMotors();
-
-    private final DoubleSupplier currentLimitSupplier = DashboardItems.createDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Current Limit"), 
-        DEFAULT_CURRENT_LIMIT
-    );
-
-    private final DoubleSupplier rampUpPeriodSupplier = DashboardItems.createDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
-        DEFAULT_RAMP_UP_PERIOD
-    );
 
     private final DoubleSupplier shootSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Speed"), 
@@ -67,25 +59,37 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final DoubleConsumer rpmConsumer = DashboardItems.createDoublePusher(
-        KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+    private final List<Runnable> toUpdate = List.of(
+        Util.composeConditional(
+            launcherMotors.getConfigurator()::applyCurrentLimit, 
+            DashboardItems.createDoublePuller(
+                KEY_BUILDER.copyExtendedToString("Current Limit"), 
+                DEFAULT_CURRENT_LIMIT
+            ), 
+            Util.hasChanged()
+        ),
+        Util.composeConditional(
+            launcherMotors.getConfigurator()::applyRampUpPeriod, 
+            DashboardItems.createDoublePuller(
+                KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
+                DEFAULT_RAMP_UP_PERIOD
+            ), 
+            Util.hasChanged()
+        ),
+        Util.compose(
+            DashboardItems.createDoublePusher(
+                KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+            ), 
+            () -> (Rotations.per(Minute)).convertFrom(
+                launcherMotors.getCommanderVelocity(), 
+                RotationsPerSecond
+            )
+        )
     );
-
-    private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
 
     @Override
     public void periodic() {
-        final MotorsConfigurator configurator = launcherMotors.getConfigurator();
-
-        throttler.execute(() -> configurator.apply(
-            currentLimitSupplier.getAsDouble(), 
-            rampUpPeriodSupplier.getAsDouble()
-        ));
-
-        rpmConsumer.accept(
-            (Rotations.per(Minute))
-                .convertFrom(launcherMotors.getCommanderVelocity(), RotationsPerSecond)
-        );
+        toUpdate.forEach(Runnable::run);
     }
 
     /**
