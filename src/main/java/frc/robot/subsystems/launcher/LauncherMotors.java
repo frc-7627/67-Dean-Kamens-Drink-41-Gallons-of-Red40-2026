@@ -13,6 +13,7 @@ import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
+import java.util.function.DoubleConsumer;
 
 final class LauncherMotors {
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
@@ -161,10 +162,11 @@ final class LauncherMotors {
         return RotationsPerSecond.of(minion.getVelocity().getValueAsDouble());
     }
 
-    /**
-     * @return the configurator for the motors.
-     */
-    public MotorsConfigurator getConfigurator() {
-        return motorsConfigurator;
+    public void applyCurrentLimit(double currentLimit) {
+        motorsConfigurator.applyCurrentLimit(currentLimit);
+    }
+
+    public void applyRampUpPeriod(double rampUpPeriod) {
+        motorsConfigurator.applyRampUpPeriod(rampUpPeriod);
     }
 }
