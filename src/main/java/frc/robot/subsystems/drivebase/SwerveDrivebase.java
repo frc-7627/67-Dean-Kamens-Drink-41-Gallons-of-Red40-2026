@@ -77,9 +77,7 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
         visionUpdateThrottler.start();
     }
 
-    private void updateVisionMeasurements() {
-        swerveDrive.updateOdometry();
-        
+    private void updateOdometry() {
         vision.getVisionMeasurements().forEach(visionMeasurement -> {
             swerveDrive.addVisionMeasurement(
                 visionMeasurement.getEstimatedPose(),
@@ -87,11 +85,13 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
                 visionMeasurement.getStdDevs()
             );
         });
+
+        swerveDrive.updateOdometry();
     }
 
     @Override
     public void periodic() {
-        updateVisionMeasurements();
+        updateOdometry();
     }
 
     /**
