@@ -1,18 +1,12 @@
 package frc.robot.subsystems.launcher;
 
-import static edu.wpi.first.units.Units.Minute;
 import static edu.wpi.first.units.Units.RPM;
-import static edu.wpi.first.units.Units.Rotations;
-import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
-import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.List;
-import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.Throttler;
 import frc.bofalib.BofaUtil;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
