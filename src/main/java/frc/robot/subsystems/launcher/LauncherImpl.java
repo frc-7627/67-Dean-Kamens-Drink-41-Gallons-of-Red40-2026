@@ -1,6 +1,7 @@
 package frc.robot.subsystems.launcher;
 
 import static edu.wpi.first.units.Units.Minute;
+import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
@@ -82,10 +83,7 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
                 ), 
-                () -> (Rotations.per(Minute)).convertFrom(
-                    launcherMotors.getCommanderVelocity(), 
-                    RotationsPerSecond
-                )
+                () -> launcherMotors.getCommanderVelocity().in(RPM)
             )
         ));
     }
