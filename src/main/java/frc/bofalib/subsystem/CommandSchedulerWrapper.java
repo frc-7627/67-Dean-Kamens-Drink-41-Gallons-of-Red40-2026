@@ -1,5 +1,7 @@
 package frc.bofalib.subsystem;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,14 +17,17 @@ public final class CommandSchedulerWrapper {
     private final CommandScheduler commandScheduler = CommandScheduler.getInstance();
 
     private final Set<SharedSubsystem> sharedSubsystems = new LinkedHashSet<>();
+
+    private final Collection<Runnable> periodicActions = new ArrayList<>();
     
     private CommandSchedulerWrapper() {}
 
     public void run() {
-        commandScheduler.run();
+        commandScheduler.run();;
 
-        sharedSubsystems.stream()
-            .forEach(SharedSubsystem::periodic);
+        sharedSubsystems.forEach(SharedSubsystem::periodic);
+
+        periodicActions.forEach(Runnable::run);
     }
 
     public void registerSharedSubsystem(SharedSubsystem subsystem) {
@@ -37,5 +42,13 @@ public final class CommandSchedulerWrapper {
         }
 
         sharedSubsystems.add(subsystem);
+    }
+
+    public void registerPeriodicAction(Runnable periodicAction) {
+        this.periodicActions.add(periodicAction);
+    }
+
+    public void registerPeriodicActions(Collection<? extends Runnable> periodicActions) {
+        this.periodicActions.addAll(periodicActions);
     }
 }
