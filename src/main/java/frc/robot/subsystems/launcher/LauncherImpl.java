@@ -15,6 +15,7 @@ import frc.bofalib.Throttler;
 import frc.bofalib.Util;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
 
 // Colloquially known as Miles after bad Chinese
 public final class LauncherImpl extends SubsystemBase implements Launcher {
@@ -59,37 +60,34 @@ public final class LauncherImpl extends SubsystemBase implements Launcher {
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
-    private final List<Runnable> toUpdate = List.of(
-        Util.composeConditional(
-            launcherMotors.getConfigurator()::applyCurrentLimit, 
-            DashboardItems.createDoublePuller(
-                KEY_BUILDER.copyExtendedToString("Current Limit"), 
-                DEFAULT_CURRENT_LIMIT
-            ), 
-            Util.hasChangedDoublePredicate()
-        ),
-        Util.composeConditional(
-            launcherMotors.getConfigurator()::applyRampUpPeriod, 
-            DashboardItems.createDoublePuller(
-                KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
-                DEFAULT_RAMP_UP_PERIOD
-            ), 
-            Util.hasChangedDoublePredicate()
-        ),
-        Util.compose(
-            DashboardItems.createDoublePusher(
-                KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
-            ), 
-            () -> (Rotations.per(Minute)).convertFrom(
-                launcherMotors.getCommanderVelocity(), 
-                RotationsPerSecond
+    public LauncherImpl() {
+        CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
+            Util.composeConditional(
+                launcherMotors.getConfigurator()::applyCurrentLimit, 
+                DashboardItems.createDoublePuller(
+                    KEY_BUILDER.copyExtendedToString("Current Limit"), 
+                    DEFAULT_CURRENT_LIMIT
+                ), 
+                Util.hasChangedDoublePredicate()
+            ),
+            Util.composeConditional(
+                launcherMotors.getConfigurator()::applyRampUpPeriod, 
+                DashboardItems.createDoublePuller(
+                    KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
+                    DEFAULT_RAMP_UP_PERIOD
+                ), 
+                Util.hasChangedDoublePredicate()
+            ),
+            Util.compose(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                ), 
+                () -> (Rotations.per(Minute)).convertFrom(
+                    launcherMotors.getCommanderVelocity(), 
+                    RotationsPerSecond
+                )
             )
-        )
-    );
-
-    @Override
-    public void periodic() {
-        toUpdate.forEach(Runnable::run);
+        ));
     }
 
     /**
