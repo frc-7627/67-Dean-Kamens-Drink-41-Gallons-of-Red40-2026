@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
+import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.logging.Logger;
 import edu.wpi.first.math.controller.PIDController;
@@ -13,13 +14,12 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.MutAngularVelocity;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.bofalib.BofaUtil;
 
-public final class AngularControlImpl {
+final class AngularControlImpl implements AngularControl {
     private static final Logger LOGGER = Logger.getLogger(AngularControlImpl.class.getName());
-
-    private final DoubleSupplier pSupplier;
-    private final DoubleSupplier iSupplier;
-    private final DoubleSupplier dSupplier;
+    
     private final PIDController controller;
     private final KinematicSupplier kinematicSupplier;
     private final MutAngularVelocity workingAngularVelocity = new MutAngularVelocity(
@@ -34,28 +34,31 @@ public final class AngularControlImpl {
 
         keyBuilder.extend("Angular Control");
 
-        this.pSupplier = DashboardItems.createDoublePuller(
-            keyBuilder.copyExtendedToString("P"), 
-            3.5
-        );
-        this.iSupplier = DashboardItems.createDoublePuller(
-            keyBuilder.copyExtendedToString("I"), 
-            0.0
-        );
-        this.dSupplier = DashboardItems.createDoublePuller(
-            keyBuilder.copyExtendedToString("D"), 
-            0.0
-        );
+        CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
+            BofaUtil.compose(
+                controller::setP, 
+                DashboardItems.createDoublePuller(
+                    keyBuilder.copyExtendedToString("P"), 
+                    3.5
+                )
+            ),
+            BofaUtil.compose(
+                controller::setI,
+                DashboardItems.createDoublePuller(
+                    keyBuilder.copyExtendedToString("I"), 
+                    0.0
+                )
+            ),
+            BofaUtil.compose(
+                controller::setD,
+                DashboardItems.createDoublePuller(
+                    keyBuilder.copyExtendedToString("D"),
+                    0.0
+                )
+            )
+        ));
 
         controller.enableContinuousInput(-Math.PI, Math.PI);
-    }
-
-    void periodic() {
-        controller.setPID(
-            pSupplier.getAsDouble(), 
-            iSupplier.getAsDouble(),
-            dSupplier.getAsDouble()
-        );
     }
 
     private Rotation2d getCurrentOrientation() {
@@ -66,27 +69,43 @@ public final class AngularControlImpl {
         return RadiansPerSecond.of(kinematicSupplier.getSpeeds().omegaRadiansPerSecond);
     }
     
-    public AngularVelocity getRotationRate(Angle targetOrientation) {
-        return workingAngularVelocity.mut_replace(
-            controller.calculate(
-                getCurrentOrientation().getRadians(),
-                targetOrientation.in(Radians)
-            ), RadiansPerSecond);
-    }
-
-    public void reset() {
-        controller.reset();
-    }
-
-    public void logData(  
-        Angle targetOrientationAngle,
-        AngularVelocity setRotationRate
-    ) {
-        final Angle currentOrientationAngle = getCurrentOrientation().getMeasure();
+    @Override
+    public AngularVelocity calculateRotationRate(Angle targetOrientationAngle) {
+        final Rotation2d currentOrientation = getCurrentOrientation();
         final AngularVelocity currentRotationRate = getCurrentRotationRate();
-        LOGGER.finest("Current orientation angle: " + currentOrientationAngle.in(Degrees) + " deg");
-        LOGGER.finest("Target orientation angle: " + targetOrientationAngle.in(Degrees) + " deg");
-        LOGGER.finest("Current rotation rate: " + currentRotationRate.in(DegreesPerSecond) + " deg/sec");
-        LOGGER.finest("Set rotation rate: " + setRotationRate.in(DegreesPerSecond) + " deg/sec");
+
+        final AngularVelocity calculatedRotationRate = workingAngularVelocity.mut_replace(
+            controller.calculate(
+                currentOrientation.getRadians(),
+                targetOrientationAngle.in(Radians)
+            ), RadiansPerSecond);
+
+        LOGGER.finest(
+            "Current orientation angle: " + 
+            currentOrientation.getDegrees() + 
+            " deg"
+        );
+        LOGGER.finest(
+            "Target orientation angle: " + 
+            targetOrientationAngle.in(Degrees) + 
+            " deg"
+        );
+        LOGGER.finest(
+            "Current rotation rate: " + 
+            currentRotationRate.in(DegreesPerSecond) + 
+            " deg/sec"
+        );
+        LOGGER.finest(
+            "Calculated rotation rate: " + 
+            calculatedRotationRate.in(DegreesPerSecond) + 
+            " deg/sec"
+        );
+
+        return calculatedRotationRate;
+    }
+
+    @Override
+    public void resetAngularControl() {
+        controller.reset();
     }
 }
