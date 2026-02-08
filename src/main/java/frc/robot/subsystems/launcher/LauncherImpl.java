@@ -13,10 +13,11 @@ import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 
 // Colloquially known as Miles after bad Chinese
-public final class LauncherImpl extends SubsystemBase implements Launcher {
+final class LauncherImpl extends SubsystemBase implements Launcher {
 
     // 2 krakens
 
+    // TODO: extract music interface
     public static enum Song {
         ;
 
