@@ -5,7 +5,12 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MusicTone;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
-
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Current;
+import static edu.wpi.first.units.Units.Amps;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
@@ -117,43 +122,43 @@ final class LauncherMotors {
     /**
      * @return the position of the commander motor.
      */
-    public double getCommanderPosition() {
-        return commander.getPosition().getValueAsDouble();
+    public Angle getCommanderPosition() {
+        return Rotations.of(commander.getPosition().getValueAsDouble());
     }
 
     /**
      * @return the supply current of the commander motor.
      */
-    public double getCommanderCurrent() {
-        return commander.getSupplyCurrent(false).getValueAsDouble();
+    public Current getCommanderCurrent() {
+        return Amps.of(commander.getSupplyCurrent(false).getValueAsDouble());
     }
 
     /**
      * @return the velocity of the commander motor.
      */
-    public double getCommanderVelocity() {
-        return commander.getVelocity().getValueAsDouble();
+    public AngularVelocity getCommanderVelocity() {
+        return RotationsPerSecond.of(commander.getVelocity().getValueAsDouble());
     }
 
     /**
      * @return the position of the minion motor.
      */
-    public double getMinionPosition() {
-        return minion.getPosition().getValueAsDouble();
+    public Angle getMinionPosition() {
+        return Rotations.of(minion.getPosition().getValueAsDouble());
     }
 
     /**
      * @return the supply current of the minion motor.
      */
-    public double getMinionCurrent() {
-        return minion.getSupplyCurrent(false).getValueAsDouble();
+    public Current getMinionCurrent() {
+        return Amps.of(minion.getSupplyCurrent(false).getValueAsDouble());
     }
 
     /**
      * @return the velocity of the minion motor.
      */
-    public double getMinionVelocity() {
-        return minion.getVelocity().getValueAsDouble();
+    public AngularVelocity getMinionVelocity() {
+        return RotationsPerSecond.of(minion.getVelocity().getValueAsDouble());
     }
 
     /**
