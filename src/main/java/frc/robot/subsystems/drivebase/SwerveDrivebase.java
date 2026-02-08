@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
-import java.util.logging.Logger;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.controllers.PathFollowingController;
@@ -30,7 +29,6 @@ import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.*;
 
 final class SwerveDrivebase extends SubsystemBase implements Drivebase {
-    private static final Logger LOGGER = Logger.getLogger(SwerveDrivebase.class.getName());
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
 
     private final AngularControl angularControl =
