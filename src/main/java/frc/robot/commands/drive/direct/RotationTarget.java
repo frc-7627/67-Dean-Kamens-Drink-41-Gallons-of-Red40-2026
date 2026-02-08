@@ -15,7 +15,7 @@ final class RotationTarget extends OrientationTarget {
     }
 
     @Override
-    void reset() {
+    void initialize() {
         initialOrientation = drivebase.getPose().getRotation();
     }
 

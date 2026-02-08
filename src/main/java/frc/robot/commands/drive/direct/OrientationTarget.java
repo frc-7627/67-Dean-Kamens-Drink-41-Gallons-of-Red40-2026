@@ -5,5 +5,5 @@ import edu.wpi.first.units.measure.Angle;
 abstract class OrientationTarget {
     abstract Angle getOrientationAngle();
 
-    void reset() {}
+    void initialize() {}
 }

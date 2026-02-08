@@ -58,6 +58,6 @@ abstract class DriveSemidirect extends DriveDirect {
     @Override
     public final void initialize() {
         angularControl.resetAngularControl();
-        target.reset();
+        target.initialize();
     }
 }
