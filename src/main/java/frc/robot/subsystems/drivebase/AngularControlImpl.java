@@ -5,7 +5,6 @@ import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import java.util.List;
-import java.util.function.DoubleSupplier;
 import java.util.logging.Logger;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,7 +18,7 @@ import frc.bofalib.BofaUtil;
 
 final class AngularControlImpl implements AngularControl {
     private static final Logger LOGGER = Logger.getLogger(AngularControlImpl.class.getName());
-    
+
     private final PIDController controller;
     private final KinematicSupplier kinematicSupplier;
     private final MutAngularVelocity workingAngularVelocity = new MutAngularVelocity(
