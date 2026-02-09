@@ -5,11 +5,11 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
-import frc.robot.subsystems.drivebase.AngularControl;
+import frc.robot.subsystems.drivebase.AngularDrivebase;
 import frc.robot.subsystems.drivebase.SemidirectDrivebase;
 
 abstract class DriveSemidirect extends DriveDirect {
-    private final AngularControl angularControl;
+    private final AngularDrivebase angularControl;
     private final Supplier<ChassisSpeeds> input;
     private final OrientationTarget target;
     private final ChassisSpeeds workingSpeeds = new ChassisSpeeds();
