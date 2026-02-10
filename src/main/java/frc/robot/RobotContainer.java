@@ -83,7 +83,7 @@ public class RobotContainer {
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
-    public RobotContainer() throws RobotInitException {
+    public RobotContainer() {
         indicator.indicateStartup();
 
         setupTeleop();

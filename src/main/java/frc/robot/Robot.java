@@ -82,11 +82,7 @@ public class Robot extends LoggedRobot {
         // Instantiate our RobotContainer. This will perform all our button bindings,
         // and put our
         // autonomous chooser on the dashboard.
-        try {
-            m_robotContainer = new RobotContainer();
-        } catch (RobotException e) {
-            throw new RuntimeException(e);
-        }
+        m_robotContainer = new RobotContainer();
 
         // Create a timer to disable motor brake a few seconds after disable. This will
         // let the robot
