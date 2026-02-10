@@ -6,16 +6,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.setup.teleop.CommandContext;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
 
 final class AutoChooserImpl implements AutoChooser {
     private final SendableChooser<Command> chooser;
+    private final CommandContext commandContext;
 
-    AutoChooserImpl(PathPlannerConfigurator configurator) throws PathPlannerConfigException {
+    AutoChooserImpl(CommandContext commandContext, PathPlannerConfigurator configurator) throws PathPlannerConfigException {
         configurator.configureAndInit();
 
         this.chooser = AutoBuilder.buildAutoChooser();
+        this.commandContext = commandContext;
 
         setupChooser();
         setupNamedCommands();

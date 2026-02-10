@@ -110,7 +110,7 @@ public class RobotContainer {
         );
 
         try {
-            this.autoChooser = AutoChooser.create(drivebase.getPathPlannerConfigurator().get());
+            this.autoChooser = AutoChooser.create(commandContext, drivebase.getPathPlannerConfigurator().get());
         } catch (PathPlannerConfigException cause) {
             throw new RobotInitException("Could not configure autos!", cause);
         }
