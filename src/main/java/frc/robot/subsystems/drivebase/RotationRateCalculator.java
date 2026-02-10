@@ -12,6 +12,13 @@ final class RotationRateCalculator {
     private final PIDController controller;
     private final DoubleSupplier orientationRadiansSupplier;
 
+    /**
+     * Create a rotation rate calculator, with the dashboard key builder and the robot
+     * orientation(in radians) supplier.
+     * 
+     * @param keyBuilder the dashboard key builder
+     * @param orientationRadiansSupplier the robot orientation(in radians) supplier
+     */
     RotationRateCalculator(KeyBuilder keyBuilder, DoubleSupplier orientationRadiansSupplier) {
         this.controller = new PIDController(0, 0, 0);
         this.orientationRadiansSupplier = orientationRadiansSupplier;
@@ -45,6 +52,10 @@ final class RotationRateCalculator {
         controller.enableContinuousInput(-Math.PI, Math.PI);
     }
     
+    /**
+     * @param targetRadians the target robot orientation(in radians)
+     * @return a rotation rate(in radians per second) to achieve the target orientation(in radians)
+     */
     double calculateRadiansPerSecond(double targetRadians) {
         return controller.calculate(
             orientationRadiansSupplier.getAsDouble(), 
@@ -52,6 +63,9 @@ final class RotationRateCalculator {
         );
     }
 
+    /**
+     * 
+     */
     void reset() {
         controller.reset();
     }

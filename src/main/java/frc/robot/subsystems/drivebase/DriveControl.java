@@ -2,12 +2,22 @@ package frc.robot.subsystems.drivebase;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
-public interface DriveControl
-{
+public interface DriveControl {
+    /**
+     * Initialize.
+     */
     default void initialize() {}
 
+    /**
+     * @return the target speeds
+     */
     ChassisSpeeds getSpeeds();
 
+    /**
+     * @param rotationControl the provided strategy for rotation
+     * @return a drive control strategy using this strategy for translation and the provided
+     *         strategy for rotation
+     */
     default DriveControl withRotationControl(DriveControl rotationControl) {
         final DriveControl translationControl = this;
 
