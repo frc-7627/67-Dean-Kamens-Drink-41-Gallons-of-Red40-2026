@@ -66,7 +66,7 @@ enum TeleopCommandFactory {
      */
     DRIVE_WHILE_ORIENTING_TO_HUB(context -> new ControlCommand<>(
         context.drivebase(),
-        context.inputControl().withRotationControl(
+        context.inputDriveControl().withRotationControl(
             context.drivebase().getAngularDriveControl(
                 context.drivebase().getLocationAngleTargetter(
                     context.gameInfoSupplier().getHubPosition()

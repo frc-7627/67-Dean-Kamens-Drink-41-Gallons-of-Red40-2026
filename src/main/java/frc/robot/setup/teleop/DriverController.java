@@ -9,7 +9,7 @@ import frc.robot.subsystems.drivebase.DriveControl;
  * robot motion.
  */
 public interface DriverController extends TeleopController {
-    DriveControl getInputControl(
+    DriveControl getInputDriveControl(
         TriFunction<
             DoubleSupplier, 
             DoubleSupplier, 

@@ -62,7 +62,7 @@ public class RobotContainer {
 
     private final GlobalControlState globalControlState = GlobalControlState.create();
 
-    private final DriveControl inputControl = driverController.getInputControl(
+    private final DriveControl inputDriveControl = driverController.getInputDriveControl(
         drivebase::getInputDriveControl
     );
 
@@ -75,7 +75,7 @@ public class RobotContainer {
             hopper,
             globalControlState,
             gameInfoSupplier,
-            inputControl
+            inputDriveControl
         );
 
     private final AutoChooser autoChooser = AutoChooser.create();
@@ -95,7 +95,7 @@ public class RobotContainer {
     private void setupTeleop() {
         DriverStation.silenceJoystickConnectionWarning(true);
 
-        drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputControl));
+        drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputDriveControl));
 
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);

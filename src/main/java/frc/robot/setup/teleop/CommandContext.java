@@ -19,5 +19,5 @@ public record CommandContext(
         Hopper hopper,
         ControlStateToggler controlStateToggler,
         GameInfoSupplier gameInfoSupplier,
-        DriveControl inputControl
+        DriveControl inputDriveControl
 ) {}

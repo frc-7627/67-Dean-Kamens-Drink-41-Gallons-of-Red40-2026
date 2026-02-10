@@ -36,7 +36,7 @@ class DriverXboxController implements DriverController {
     }
 
     @Override
-    public DriveControl getInputControl(
+    public DriveControl getInputDriveControl(
         TriFunction<
             DoubleSupplier,
             DoubleSupplier,
