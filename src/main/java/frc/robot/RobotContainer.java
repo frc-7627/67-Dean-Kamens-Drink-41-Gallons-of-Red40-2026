@@ -4,27 +4,24 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.drive.direct.DriveWithInput;
+import frc.robot.commands.ControlCommand;
 import frc.robot.setup.auto.AutoChooser;
 import frc.robot.setup.teleop.CommandContext;
 import frc.robot.setup.teleop.DriverController;
 import frc.robot.setup.teleop.OperatorController;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
+import frc.robot.subsystems.drivebase.DriveControl;
 import frc.robot.subsystems.drivebase.Drivebase;
-import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.launcher.Launcher;
-import org.littletonrobotics.junction.Logger;
 import com.ctre.phoenix6.hardware.Pigeon2;
 
 /**
@@ -36,68 +33,40 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 public class RobotContainer {
     // Rizz up the ops
 
-    private final DriverController driverController;
-    private final OperatorController operatorController;
+    private final DriverController driverController = DriverController.create();
+    private final OperatorController operatorController = OperatorController.create();
 
     // The robot's subsystems and resources are defined here...
-    private final Vision vision;
+    private final Vision vision = Vision.create();
 
-    private final GameInfoSupplier gameInfoSupplier;
+    private final GameInfoSupplier gameInfoSupplier = GameInfoSupplier.create();
 
     Pigeon2 pigeon = new Pigeon2(1); 
 
-    private final Drivebase drivebase;
+    private final Drivebase drivebase = Drivebase.create(
+        vision, 
+        gameInfoSupplier::getAlliance
+    );
 
-    private final Indicator indicator;
+    private final Indicator indicator = Indicator.create(
+        gameInfoSupplier
+    );
 
-    private final Intake intake;
+    private final Intake intake = Intake.create();
 
-    private final Feeder feeder;
+    private final Feeder feeder = Feeder.create();
 
-    private final Hopper hopper;
+    private final Hopper hopper = Hopper.create();
 
-    private final Launcher launcher;
+    private final Launcher launcher = Launcher.create();
 
-    private final GlobalControlState globalControlState;
+    private final GlobalControlState globalControlState = GlobalControlState.create();
 
-    private final CommandContext commandContext;
+    private final DriveControl inputControl = driverController.getInputControl(
+        drivebase::getInputDriveControl
+    );
 
-    private final AutoChooser autoChooser;
-
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
-    public RobotContainer() throws RobotInitException {
-        this.driverController = DriverController.create();
-        this.operatorController = OperatorController.create();
-
-        this.vision = Vision.create();
-
-        this.gameInfoSupplier = GameInfoSupplier.create();
-
-        try {
-            this.drivebase = Drivebase.create(vision, gameInfoSupplier);
-        } catch (DrivebaseInitException cause) {
-            throw new RobotInitException("Could not initialize drivebase!", cause);
-        }
-
-        this.indicator = Indicator.create(gameInfoSupplier);
-
-        // intake fuel
-        this.intake = Intake.create();
-
-        // serialize fuel into launcher
-        this.feeder = Feeder.create();
-
-        // agitate fuel in robot
-        this.hopper = Hopper.create();
-
-        // release and score fuel
-        this.launcher = Launcher.create();
-
-        this.globalControlState = GlobalControlState.create();
-
-        this.commandContext = new CommandContext(
+    private final CommandContext commandContext = new CommandContext(
             indicator,
             drivebase,
             intake,
@@ -106,15 +75,15 @@ public class RobotContainer {
             hopper,
             globalControlState,
             gameInfoSupplier,
-            driverController.getInput(drivebase)
+            inputControl
         );
 
-        try {
-            this.autoChooser = AutoChooser.create(drivebase.getPathPlannerConfigurator().get());
-        } catch (PathPlannerConfigException cause) {
-            throw new RobotInitException("Could not configure autos!", cause);
-        }
+    private final AutoChooser autoChooser = AutoChooser.create();
 
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() throws RobotInitException {
         indicator.indicateStartup();
 
         setupTeleop();
@@ -126,8 +95,7 @@ public class RobotContainer {
     private void setupTeleop() {
         DriverStation.silenceJoystickConnectionWarning(true);
 
-        drivebase.setDefaultCommand(
-                new DriveWithInput(drivebase, driverController.getInput(drivebase)));
+        drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputControl));
 
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);
@@ -178,8 +146,6 @@ public class RobotContainer {
 
     // Periodically do things during teleop
     public void teleopPeriodic() {
-        Pose2d currentPose = drivebase.getPose();
-        Logger.recordOutput("MyPose2d", currentPose);
     }
 
     /**
