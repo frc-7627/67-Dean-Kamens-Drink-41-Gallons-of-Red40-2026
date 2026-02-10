@@ -1,7 +1,11 @@
 package frc.bofalib.subsystem;
 
-public interface ControllableSubsystem<Control> {
-    void setControl(Control control);
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
-    void resetControl();
+public interface ControllableSubsystem<Control> extends Subsystem {
+    void beginControl(Control control);
+
+    void runControl();
+
+    void endControl();
 }

@@ -7,5 +7,4 @@ import frc.bofalib.subsystem.ControllableSubsystem;
  * system and acting as the robot's body.
  */
 public interface DirectDrivebase extends ControllableSubsystem<DriveControl> {
-    void drive();
 }

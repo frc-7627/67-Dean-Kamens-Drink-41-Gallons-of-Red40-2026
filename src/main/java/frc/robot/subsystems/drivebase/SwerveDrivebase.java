@@ -136,16 +136,6 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public void setControl(DriveControl driveControl) {
-        this.driveControl = Objects.requireNonNull(driveControl);
-    }
-
-    @Override
-    public void resetControl() {
-        this.driveControl = ZERO_DRIVE_CONTROL;
-    }
-
-    @Override
     public void lock() {
         swerveDriveWrapper.lock();
     }
@@ -171,9 +161,19 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public void drive() {
+    public void beginControl(DriveControl driveControl) {
+        this.driveControl = Objects.requireNonNull(driveControl);
+    }
+
+    @Override
+    public void runControl() {
         swerveDriveWrapper.driveFieldRelative(
             driveControl.getSpeeds()
         );
+    }
+
+    @Override
+    public void endControl() {
+        
     }
 }
