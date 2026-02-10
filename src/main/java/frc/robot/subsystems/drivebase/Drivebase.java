@@ -42,7 +42,7 @@ public interface Drivebase extends
 
     /**
      * @param targetLocation the target location
-     * @return an angle targeting strategy for achieving the target location
+     * @return an angle targeting strategy for looking at the target location
      */
     AngleTargetter getLocationAngleTargetter(Translation2d targetLocation);
 
