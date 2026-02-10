@@ -123,12 +123,11 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public AngleTargetter getLocationAngleTargetter(
-            Supplier<Translation2d> targetLocationSupplier) {
+    public AngleTargetter getLocationAngleTargetter(Translation2d targetLocation) {
         return new AngleTargetter() {
             @Override
             public double getTargetRadians() {
-                return targetLocationSupplier.get().minus(
+                return targetLocation.minus(
                     swerveDriveWrapper.getPose().getTranslation()
                 ).getAngle().getRadians();
             }

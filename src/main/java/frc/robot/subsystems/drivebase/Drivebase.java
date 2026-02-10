@@ -25,7 +25,7 @@ public interface Drivebase extends
 
     AngleTargetter getRotationAngleTargetter(Rotation2d targetRotation);
 
-    AngleTargetter getLocationAngleTargetter(Supplier<Translation2d> targetLocationSupplier);
+    AngleTargetter getLocationAngleTargetter(Translation2d targetLocation);
 
     /**
      * Sets the motor mode to brake
