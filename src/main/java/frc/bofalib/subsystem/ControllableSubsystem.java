@@ -7,5 +7,5 @@ public interface ControllableSubsystem<Control> extends Subsystem {
 
     void runControl();
 
-    void endControl();
+    default void endControl() {}
 }

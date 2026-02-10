@@ -173,9 +173,4 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
             driveControl.getSpeeds()
         );
     }
-
-    @Override
-    public void endControl() {
-        
-    }
 }
