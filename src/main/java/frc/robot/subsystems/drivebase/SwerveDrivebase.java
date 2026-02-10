@@ -1,184 +1,179 @@
 package frc.robot.subsystems.drivebase;
 
-import java.io.IOException;
-import java.util.Optional;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
+import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
+import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.pathplanner.lib.controllers.PathFollowingController;
 import com.pathplanner.lib.path.PathConstraints;
-import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
-import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
 import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
-import swervelib.SwerveDrive;
-import swervelib.SwerveInputStream;
-import swervelib.parser.SwerveParser;
-import swervelib.telemetry.SwerveDriveTelemetry;
-import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
-import static frc.robot.Constants.*;
-import static frc.robot.Constants.DrivebaseConstants.*;
-import static frc.robot.Constants.OperatorConstants.*;
 
 final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
+    private static final DriveControl ZERO_DRIVE_CONTROL = new DriveControl() {
+        private static final ChassisSpeeds ZERO_SPEEDS = new ChassisSpeeds();
 
-    private final AngularControl angularControl =
-            new AngularControlImpl(KEY_BUILDER.copy(), this);
-    private final GeneralGameInfoSupplier gameInfoSupplier;
+        @Override
+        public ChassisSpeeds getSpeeds() {
+            return ZERO_SPEEDS;
+        }
+    };
+
     private final VisionMeasurementsSupplier vision;
-    private final SwerveDrive swerveDrive;
-    private boolean gotConfigurator;
+    private final SwerveDriveWrapper swerveDriveWrapper;
+    private final RotationRateCalculator rotationRateCalculator;
+    private DriveControl driveControl = ZERO_DRIVE_CONTROL;
 
-    SwerveDrivebase(VisionMeasurementsSupplier vision, GeneralGameInfoSupplier gameInfoSupplier)
-            throws DrivebaseInitException {
-        this.gameInfoSupplier = gameInfoSupplier;
+    SwerveDrivebase(VisionMeasurementsSupplier vision, Supplier<Alliance> allianceSupplier) {
         this.vision = vision;
 
-        final Pose2d initialPose = switch (gameInfoSupplier.getAlliance()) {
+        final Pose2d initialPose = switch (allianceSupplier.get()) {
             case Red -> RED_ALLIANCE_INITIAL_POSE;
             case Blue -> BLUE_ALLIANCE_INITIAL_POSE;
         };
 
-        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+        this.swerveDriveWrapper = new SwerveDriveWrapper(initialPose);
 
-        try {
-            this.swerveDrive =
-                    new SwerveParser(SWERVE_CONFIG_FILE).createSwerveDrive(MAX_SPEED, initialPose);
-        } catch (IOException cause) {
-            throw new DrivebaseInitException("Could not create swerve drive!", cause);
-        }
-
-        swerveDrive.setHeadingCorrection(false);
-        swerveDrive.setCosineCompensator(false);
-        swerveDrive.setAngularVelocityCompensation(
-            true, 
-            true, 
-            0.1
-        );
-        swerveDrive.setModuleEncoderAutoSynchronize(
-            false, 
-            1.0
+        this.rotationRateCalculator = new RotationRateCalculator(
+            KEY_BUILDER.copy(), 
+            swerveDriveWrapper::getOrientationRadians
         );
 
-        swerveDrive.stopOdometryThread();
-    }
-
-    private void updateOdometry() {
-        vision.getVisionMeasurements().forEach(visionMeasurement -> {
-            swerveDrive.addVisionMeasurement(
-                visionMeasurement.getEstimatedPose(),
-                visionMeasurement.getTimestamp(), 
-                visionMeasurement.getStdDevs()
-            );
-        });
-
-        swerveDrive.updateOdometry();
+        PathPlannerConfig.configure(
+            swerveDriveWrapper::getPose, 
+            swerveDriveWrapper::resetOdometry, 
+            swerveDriveWrapper::getRobotRelativeSpeeds, 
+            swerveDriveWrapper::driveRobotRelativeWithFeedForwards, 
+            allianceSupplier,
+            this
+        );
     }
 
     @Override
     public void periodic() {
-        updateOdometry();
-    }
-
-    /**
-     * 
-     * @param x
-     * @param y
-     * @param rot
-     * @return
-     */
-    private SwerveInputStream getDefaultInput(DoubleSupplier x, DoubleSupplier y,
-            DoubleSupplier rot) {
-        return SwerveInputStream.of(swerveDrive, x, y).withControllerRotationAxis(rot)
-                .deadband(DEADBAND).scaleTranslation(0.8).allianceRelativeControl(true);
-    }
-
-    private void resetOdometry(Pose2d pose) {
-        swerveDrive.resetOdometry(pose);
+        swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements());
     }
 
     @Override
-    public ChassisSpeeds getSpeeds() {
-        return swerveDrive.getRobotVelocity();
+    public DriveControl getInputDriveControl(DoubleSupplier xInput, DoubleSupplier yInput,
+            DoubleSupplier rotInput) {
+        return new DriveControl() {
+            private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper.getInputStream(
+                xInput, 
+                yInput, 
+                rotInput
+            );
+
+            @Override
+            public ChassisSpeeds getSpeeds() {
+                return inputStream.get();
+            }
+        };
     }
 
-    private void driveWithSpeedsAndFeedForwards(ChassisSpeeds speeds,
-            DriveFeedforwards feedforwards) {
-        swerveDrive.drive(speeds, swerveDrive.kinematics.toSwerveModuleStates(speeds),
-                feedforwards.linearForces());
+    @Override
+    public DriveControl getAngularDriveControl(AngleTargetter angleTargetter) {
+        return new DriveControl() {
+            private final ChassisSpeeds workingSpeeds = new ChassisSpeeds();
+
+            @Override
+            public void initialize() {
+                rotationRateCalculator.reset();
+                angleTargetter.initialize();
+            }
+
+            @Override
+            public ChassisSpeeds getSpeeds() {
+                workingSpeeds.omegaRadiansPerSecond = 
+                    rotationRateCalculator.calculateRadiansPerSecond(
+                        angleTargetter.getTargetRadians()
+                    )
+                ;
+
+                return workingSpeeds;
+            }
+        };
     }
 
-    private PathFollowingController getController() {
-        return new PPHolonomicDriveController(
-                // Translation PID Constants
-                new PIDConstants(5.0, 0.0, 0.0),
-                // Rotation PID Constants
-                new PIDConstants(5.0, 0.0, 0.0));
+    @Override
+    public DriveControl getZeroDriveControl() {
+        return ZERO_DRIVE_CONTROL;
+    }
+
+    @Override
+    public AngleTargetter getRotationAngleTargetter(Rotation2d targetRotation) {
+        final double targetRotationRadians = targetRotation.getRadians();
+
+        return new AngleTargetter() {
+            private double initialOrientationRadians;
+
+            @Override
+            public void initialize() {
+                initialOrientationRadians = swerveDriveWrapper.getOrientationRadians();
+            }
+
+            @Override
+            public double getTargetRadians() {
+                return initialOrientationRadians + targetRotationRadians;
+            }
+        };
+    }
+
+    @Override
+    public AngleTargetter getLocationAngleTargetter(
+            Supplier<Translation2d> targetLocationSupplier) {
+        return new AngleTargetter() {
+            @Override
+            public double getTargetRadians() {
+                return targetLocationSupplier.get().minus(
+                    swerveDriveWrapper.getPose().getTranslation()
+                ).getAngle().getRadians();
+            }
+        };
+    }
+
+    @Override
+    public void setDriveControl(DriveControl driveControl) {
+        this.driveControl = Objects.requireNonNull(driveControl);
     }
 
     @Override
     public void lock() {
-        swerveDrive.lockPose();
+        swerveDriveWrapper.lock();
     }
 
     @Override
     public void zeroGyro() {
-        swerveDrive.zeroGyro();
-    }
-
-    @Override
-    public void driveWithSpeeds(ChassisSpeeds chassisSpeeds) {
-        swerveDrive.driveFieldOriented(chassisSpeeds);
+        swerveDriveWrapper.zeroGyro();
     }
 
     @Override
     public PathConstraints getPathConstraints() {
-        return new PathConstraints(swerveDrive.getMaximumChassisVelocity(), 4.0,
-                swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
-    }
-
-    @Override
-    public Pose2d getPose() {
-        return swerveDrive.getPose();
-    }
-
-    @Override
-    public Optional<PathPlannerConfigurator> getPathPlannerConfigurator() {
-        final boolean gotConfigurator = this.gotConfigurator;
-        this.gotConfigurator = true;
-        return gotConfigurator ? Optional.empty()
-                : Optional.of(PathPlannerConfigurator.create(this::getPose, this::resetOdometry,
-                        this::getSpeeds, this::driveWithSpeedsAndFeedForwards, getController(),
-                        gameInfoSupplier, this));
-    }
-
-    @Override
-    public Supplier<ChassisSpeeds> getInput(DoubleSupplier x, DoubleSupplier y,
-            DoubleSupplier rot) {
-        return getDefaultInput(x, y, rot);
+        return new PathConstraints(
+            swerveDriveWrapper.getMaxVelocityMetersPerSecond(), 
+            4.0,
+            swerveDriveWrapper.getMaxAngularVelocityRadPerSecond(), 
+            Units.degreesToRadians(720)
+        );
     }
 
     @Override
     public void setBrake(boolean brake) {
-        swerveDrive.setMotorIdleMode(brake);
+        swerveDriveWrapper.setBrake(brake);;
     }
 
     @Override
-    public AngularVelocity calculateRotationRate(Angle targetOrientationAngle) {
-        return angularControl.calculateRotationRate(targetOrientationAngle);
-    }
-
-    @Override
-    public void resetAngularControl() {
-        angularControl.resetAngularControl();
+    public void drive() {
+        swerveDriveWrapper.driveFieldRelative(
+            driveControl.getSpeeds()
+        );
     }
 }

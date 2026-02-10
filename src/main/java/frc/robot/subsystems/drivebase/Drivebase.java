@@ -1,8 +1,10 @@
 package frc.robot.subsystems.drivebase;
 
-import java.util.Optional;
-import frc.robot.subsystems.gameinfo.GeneralGameInfoSupplier;
-import frc.robot.subsystems.pathplanner.PathPlannerConfigurator;
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 
 /**
@@ -10,12 +12,22 @@ import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
  */
 public interface Drivebase extends 
     IndirectDrivebase, 
-    SemidirectDrivebase, 
-    MiscDrivebase, 
-    InputSupplier,
-    KinematicSupplier
+    MiscDrivebase,
+    DirectDrivebase
 {
-    Optional<PathPlannerConfigurator> getPathPlannerConfigurator();
+    DriveControl getInputDriveControl(
+        DoubleSupplier xInput, 
+        DoubleSupplier yInput, 
+        DoubleSupplier rotInput
+    );
+
+    DriveControl getAngularDriveControl(AngleTargetter angleTargetter);
+
+    DriveControl getZeroDriveControl();
+
+    AngleTargetter getRotationAngleTargetter(Rotation2d targetRotation);
+
+    AngleTargetter getLocationAngleTargetter(Supplier<Translation2d> targetLocationSupplier);
 
     /**
      * Sets the motor mode to brake
@@ -24,8 +36,10 @@ public interface Drivebase extends
      */
     void setBrake(boolean brake);
 
-    static Drivebase create(VisionMeasurementsSupplier vision,
-            GeneralGameInfoSupplier gameInfoSupplier) throws DrivebaseInitException {
-        return new SwerveDrivebase(vision, gameInfoSupplier);
+    static Drivebase create(
+        VisionMeasurementsSupplier vision,
+        Supplier<Alliance> allianceSupplier
+    ) {
+        return new SwerveDrivebase(vision, allianceSupplier);
     }
 }

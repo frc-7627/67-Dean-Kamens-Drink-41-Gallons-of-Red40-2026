@@ -6,6 +6,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 /**
  * Interface containing the constraints/limits when motion planning.
  */
-public interface IndirectDrivebase extends Subsystem, PoseSupplier {
+public interface IndirectDrivebase extends Subsystem {
     PathConstraints getPathConstraints();
 }
