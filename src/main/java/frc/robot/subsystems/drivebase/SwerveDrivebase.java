@@ -164,6 +164,7 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public void beginControl(DriveControl driveControl) {
         this.driveControl = Objects.requireNonNull(driveControl);
+        driveControl.initialize();
     }
 
     @Override
