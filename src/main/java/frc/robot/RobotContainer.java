@@ -67,16 +67,16 @@ public class RobotContainer {
     );
 
     private final CommandContext commandContext = new CommandContext(
-            indicator,
-            drivebase,
-            intake,
-            launcher,
-            feeder,
-            hopper,
-            globalControlState,
-            gameInfoSupplier,
-            inputDriveControl
-        );
+        indicator,
+        drivebase,
+        intake,
+        launcher,
+        feeder,
+        hopper,
+        globalControlState,
+        gameInfoSupplier,
+        inputDriveControl
+    );
 
     private final AutoChooser autoChooser = AutoChooser.create();
 
