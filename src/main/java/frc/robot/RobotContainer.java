@@ -22,7 +22,6 @@ import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.launcher.Launcher;
-import com.ctre.phoenix6.hardware.Pigeon2;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,8 +39,6 @@ public class RobotContainer {
     private final Vision vision = Vision.create();
 
     private final GameInfoSupplier gameInfoSupplier = GameInfoSupplier.create();
-
-    Pigeon2 pigeon = new Pigeon2(1); 
 
     private final Drivebase drivebase = Drivebase.create(
         vision, 
