@@ -4,12 +4,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ControlCommand;
 import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.control.ToggleControlState;
-import frc.robot.commands.drive.direct.DriveAngularOrientingTo;
-import frc.robot.commands.drive.direct.DriveAngularRotatingBy;
-import frc.robot.commands.drive.direct.DriveCombinedOrientingTo;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
 import frc.robot.commands.feeder.FeedIn;
@@ -43,25 +41,38 @@ enum TeleopCommandFactory {
     /**
      * 
      */
-    ROTATE_CCW_90_DEG(context -> new DriveAngularRotatingBy(
-        context.drivebase(),
-        Rotation2d.kCCW_90deg
+    ROTATE_CCW_90_DEG(context -> new ControlCommand<>(
+        context.drivebase(), 
+        context.drivebase().getAngularDriveControl(
+            context.drivebase().getRotationAngleTargetter(
+                Rotation2d.kCCW_90deg
+            )
+        )
     )),
     /**
      * 
      */
-    ORIENT_TO_HUB(context -> new DriveAngularOrientingTo(
-        context.drivebase(), 
-        context.gameInfoSupplier().getHubPosition()
+    ORIENT_TO_HUB(context -> new ControlCommand<>(
+        context.drivebase(),
+        context.drivebase().getAngularDriveControl(
+            context.drivebase().getLocationAngleTargetter(
+                context.gameInfoSupplier().getHubPosition()
+            )
+        )
     )),
 
     /**
      * 
      */
-    DRIVE_WHILE_ORIENTING_TO_HUB(context -> new DriveCombinedOrientingTo(
-        context.drivebase(), 
-        context.gameInfoSupplier().getHubPosition(), 
-        context.input()
+    DRIVE_WHILE_ORIENTING_TO_HUB(context -> new ControlCommand<>(
+        context.drivebase(),
+        context.inputControl().withRotationControl(
+            context.drivebase().getAngularDriveControl(
+                context.drivebase().getLocationAngleTargetter(
+                    context.gameInfoSupplier().getHubPosition()
+                )
+            )
+        )
     )),
 
     FEED_AND_SHOOT(context -> new ShootOut(context.launcher()).alongWith(new FeedIn(context.feeder()))),

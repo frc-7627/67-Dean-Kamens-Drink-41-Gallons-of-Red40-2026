@@ -1,13 +1,13 @@
 package frc.robot.setup.teleop;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.DoubleSupplier;
 import java.util.logging.Logger;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import com.pathplanner.lib.auto.AutoBuilder.TriFunction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
-import frc.robot.subsystems.drivebase.InputSupplier;
+import frc.robot.subsystems.drivebase.DriveControl;
 
 class DriverXboxController implements DriverController {
     private static final Logger logger = Logger.getLogger(DriverController.class.getName());
@@ -36,8 +36,18 @@ class DriverXboxController implements DriverController {
     }
 
     @Override
-    public Supplier<ChassisSpeeds> getInput(InputSupplier drivebase) {
-        return drivebase.getInput(() -> xboxController.getLeftY() * -1,
-                () -> xboxController.getLeftX() * -1, xboxController::getRightX);
+    public DriveControl getInputControl(
+        TriFunction<
+            DoubleSupplier,
+            DoubleSupplier,
+            DoubleSupplier,
+            DriveControl
+        > driveControlFactory
+    ) {
+        return driveControlFactory.apply(
+            () -> xboxController.getLeftY() * -1,
+            () -> xboxController.getLeftX() * -1, 
+            xboxController::getRightX
+        );
     }
 }
