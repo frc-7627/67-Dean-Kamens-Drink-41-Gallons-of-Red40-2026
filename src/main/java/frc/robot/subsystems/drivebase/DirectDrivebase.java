@@ -1,13 +1,11 @@
 package frc.robot.subsystems.drivebase;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.bofalib.subsystem.ControllableSubsystem;
 
 /**
  * Interface for the drivetrain subsystem, essentially the robot's movement
  * system and acting as the robot's body.
  */
-public interface DirectDrivebase extends Subsystem {
-    void setDriveControl(DriveControl driveControl);
-
+public interface DirectDrivebase extends ControllableSubsystem<DriveControl> {
     void drive();
 }

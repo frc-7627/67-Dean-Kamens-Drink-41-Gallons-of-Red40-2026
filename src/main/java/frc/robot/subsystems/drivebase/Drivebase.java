@@ -23,8 +23,6 @@ public interface Drivebase extends
 
     DriveControl getAngularDriveControl(AngleTargetter angleTargetter);
 
-    DriveControl getZeroDriveControl();
-
     AngleTargetter getRotationAngleTargetter(Rotation2d targetRotation);
 
     AngleTargetter getLocationAngleTargetter(Supplier<Translation2d> targetLocationSupplier);

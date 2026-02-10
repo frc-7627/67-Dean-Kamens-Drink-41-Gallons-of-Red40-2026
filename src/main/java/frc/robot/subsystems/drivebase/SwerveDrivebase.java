@@ -104,11 +104,6 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public DriveControl getZeroDriveControl() {
-        return ZERO_DRIVE_CONTROL;
-    }
-
-    @Override
     public AngleTargetter getRotationAngleTargetter(Rotation2d targetRotation) {
         final double targetRotationRadians = targetRotation.getRadians();
 
@@ -141,8 +136,13 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public void setDriveControl(DriveControl driveControl) {
+    public void setControl(DriveControl driveControl) {
         this.driveControl = Objects.requireNonNull(driveControl);
+    }
+
+    @Override
+    public void resetControl() {
+        this.driveControl = ZERO_DRIVE_CONTROL;
     }
 
     @Override
