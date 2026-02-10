@@ -5,6 +5,7 @@ import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
 import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
+import org.littletonrobotics.junction.Logger;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -60,6 +61,7 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public void periodic() {
         swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements());
+        Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
     }
 
     @Override
