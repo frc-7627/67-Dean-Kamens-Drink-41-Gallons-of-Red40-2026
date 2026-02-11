@@ -133,15 +133,13 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
      * 
      * Sets the commander motor to the negative shoot speed.
      * 
-     * @apiNote Do not use unless in extraneous circumstances.
+     * @apiNote Do not use unless in extraneous circumstances. CTBT WILL haunt you if you disobey or
+     *          delete this.
      * @see #oldShootSpeed
      * @see Motors#setCommanderSpeed(double)
      */
     @Override
     public void shootIn() {
-        // TODO: why shouldn't this method be used unless in extraneous circumstances?
-        // Justify in
-        // the api note.
         motors.setSpeed(-shootSpeedSupplier.getAsDouble());
     }
 
