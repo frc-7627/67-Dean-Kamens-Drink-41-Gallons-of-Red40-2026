@@ -5,7 +5,9 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.Hertz;
+import static edu.wpi.first.units.Units.Inch;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.Milliseconds;
@@ -230,9 +232,14 @@ public final class Constants {
     public static class LauncherConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final double FLYWHEEL_RADIUS = 4; //inches
-        public static final double LINIEAR_FTpS = 6700; //feet per sec
+        public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
+        
+        //LINIEAR FEET PER SEC
+        public static final double SHOOT_SPEED = 6700;
+        public static final double IDLE_SPEED = 670;
+        public static final double INACTIVE_SPEED = 67;
 
+        //MOTOR POWERS
         public static final double DEFAULT_SHOOT_SPEED = 0.1;
         public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
         public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;

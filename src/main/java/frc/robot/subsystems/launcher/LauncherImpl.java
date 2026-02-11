@@ -1,5 +1,7 @@
 package frc.robot.subsystems.launcher;
 
+import static edu.wpi.first.units.Units.Feet;
+import static edu.wpi.first.units.Units.Inch;
 import static edu.wpi.first.units.Units.RPM;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
@@ -11,6 +13,7 @@ import frc.bofalib.BofaUtil;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.robot.Constants;
 
 // Colloquially known as Miles after bad Chinese
 final class LauncherImpl extends SubsystemBase implements Launcher {
@@ -105,6 +108,13 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
         motors.playSongFromFile(song.filePath);
     }
 
+    /** 
+     * Calculates the speed in RPM for the launcher
+    */
+    private double calcRPS(double linearFPS){
+        return linearFPS / Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
+    } 
+
     /**
      * {@inheritDoc}
      * 
@@ -115,7 +125,7 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        motors.setSpeed(shootSpeedSupplier.getAsDouble());
+        motors.setAngularSpeed(calcRPS(SHOOT_SPEED));
     }
 
     /**
