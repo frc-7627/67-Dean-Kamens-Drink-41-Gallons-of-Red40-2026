@@ -1,4 +1,4 @@
-package frc.bofalib;
+package frc.bofalib.control;
 
 /**
  * Subsystems that can be controlled using a control strategy.
