@@ -123,10 +123,6 @@ final class Motors {
         orchestra.play();
     }
 
-    public void setTangentialSpeed(double speed) {
-        throw new UnsupportedOperationException("Unimplemented method 'setTangentialSpeed'");
-    }
-
     /**
      * Set the commander motor's speed to the provided speed.
      * 
