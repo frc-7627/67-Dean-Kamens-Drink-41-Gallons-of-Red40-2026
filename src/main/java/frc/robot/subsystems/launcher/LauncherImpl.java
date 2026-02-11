@@ -1,7 +1,5 @@
 package frc.robot.subsystems.launcher;
 
-import static edu.wpi.first.units.Units.Feet;
-import static edu.wpi.first.units.Units.Inch;
 import static edu.wpi.first.units.Units.RPM;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
