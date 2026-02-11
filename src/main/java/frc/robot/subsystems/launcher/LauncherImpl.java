@@ -1,6 +1,8 @@
 package frc.robot.subsystems.launcher;
 
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
@@ -106,11 +108,15 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
         motors.playSongFromFile(song.filePath);
     }
 
-    /** 
-     * Calculates the speed in RPM for the launcher
-    */
-    private double calcRPS(double linearFPS){
-        return linearFPS / Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
+    /**
+     * @param linearFeetPerSec the given linear speed, in feet per second
+     * @return the angular speed, in rotations per second, to achieve the given linear speed
+     */
+    private double getAngularSpeedRotPerSec(double linearFeetPerSec){
+        return RotationsPerSecond.convertFrom(
+            linearFeetPerSec / Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET, 
+            RadiansPerSecond
+        );
     } 
 
     /**
@@ -123,7 +129,7 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        motors.setAngularSpeed(calcRPS(SHOOT_SPEED));
+        motors.setAngularSpeed(getAngularSpeedRotPerSec(SHOOT_SPEED));
     }
 
     /**
