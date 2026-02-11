@@ -23,7 +23,7 @@ final class RotationRateCalculator {
         this.controller = new PIDController(0, 0, 0);
         this.orientationRadiansSupplier = orientationRadiansSupplier;
 
-        keyBuilder.extend("Angular Control");
+        keyBuilder.extend("Rotation Rate Calculator");
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             BofaUtil.compose(
