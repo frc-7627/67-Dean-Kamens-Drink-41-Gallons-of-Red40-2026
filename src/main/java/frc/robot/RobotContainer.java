@@ -75,7 +75,7 @@ public class RobotContainer {
         inputDriveControl
     );
 
-    private final AutoChooser autoChooser = AutoChooser.create();
+    private final AutoChooser autoChooser = AutoChooser.create(commandContext);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.

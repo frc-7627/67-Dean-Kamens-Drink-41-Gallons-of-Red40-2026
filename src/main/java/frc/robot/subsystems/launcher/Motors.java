@@ -3,6 +3,7 @@ package frc.robot.subsystems.launcher;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MusicTone;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.units.measure.Angle;
@@ -15,18 +16,34 @@ import static frc.robot.Constants.CanIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
 final class Motors {
+    private static enum ControlMode {
+        SIMPLE,
+        MUSIC,
+        VELOCITY;
+
+        boolean isMusic() {
+            return equals(MUSIC);
+        }
+    }
+
+    private static final VelocityVoltage VELOCITY_CONTROL = new VelocityVoltage(0.0);
+
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
     private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(commander.getConfigurator(),
             minion.getConfigurator());
     private final Orchestra orchestra = new Orchestra();
-    private boolean inMusicMode = false;
+    private ControlMode mode = ControlMode.SIMPLE;
 
     /**
      * The launcher motors.
      */
     public Motors() {
-        resetControl();
+        resetCommander();
+    }
+
+    private void resetMinion() {
+        minion.setControl(new Follower(commander.getDeviceID(), MotorAlignmentValue.Aligned));
     }
 
     /**
@@ -35,9 +52,8 @@ final class Motors {
      * Sets the commander to target its own position, and the minion to follow the
      * commander.
      */
-    private void resetControl() {
+    private void resetCommander() {
         commander.setControl(TARGET_DEFAULT_POSITION.withPosition(getCommanderPosition()));
-        minion.setControl(new Follower(commander.getDeviceID(), MotorAlignmentValue.Aligned));
     }
 
     /**
@@ -45,13 +61,35 @@ final class Motors {
      * 
      * Clears the orchestra and resets motor control.
      */
-    public void exitMusicMode() {
+    private void exitMusic() {
         orchestra.stop();
         orchestra.clearInstruments();
+    }
 
-        resetControl();
+    private void ensureSimple() {
+        if (mode.isMusic()) {
+            exitMusic();
+        }
 
-        inMusicMode = false;
+        resetCommander();
+        resetMinion();
+
+        mode = ControlMode.SIMPLE;
+    }
+
+    private void ensureMusic() {
+        mode = ControlMode.MUSIC;
+    }
+
+    private void ensureVelocity() {
+        if (mode.isMusic()) {
+            exitMusic();
+        }
+
+        resetCommander();
+        resetMinion();
+
+        mode = ControlMode.VELOCITY;
     }
 
     /**
@@ -63,7 +101,7 @@ final class Motors {
      * @apiNote Enters music mode.
      */
     public void playNote(int freq) {
-        inMusicMode = true;
+        ensureMusic();
 
         commander.setControl(new MusicTone(freq));
         minion.setControl(new MusicTone(freq));
@@ -79,16 +117,10 @@ final class Motors {
      * @apiNote Enters music mode.
      */
     public void playSongFromFile(String filePath) {
-        inMusicMode = true;
-
         orchestra.addInstrument(commander);
         orchestra.addInstrument(minion);
         orchestra.loadMusic(filePath);
         orchestra.play();
-    }
-
-    public void setTangentialSpeed(double speed) {
-        throw new UnsupportedOperationException("Unimplemented method 'setTangentialSpeed'");
     }
 
     /**
@@ -97,11 +129,15 @@ final class Motors {
      * @param speed the provided speed.
      */
     public void setSpeed(double speed) {
-        if (inMusicMode) {
-            exitMusicMode();
-        }
+        ensureSimple();
 
         commander.set(speed);
+    }
+
+    public void setAngularSpeed(double velocityRotationsPerSec) {
+        ensureVelocity();
+
+        commander.setControl(VELOCITY_CONTROL.withVelocity(velocityRotationsPerSec));
     }
 
     /**
@@ -112,9 +148,7 @@ final class Motors {
      * Stop both motors.
      */
     public void stop() {
-        if (inMusicMode) {
-            exitMusicMode();
-        }
+        ensureSimple();
 
         commander.set(0.0);
     }

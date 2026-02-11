@@ -6,12 +6,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.setup.teleop.CommandContext;
 
 final class AutoChooserImpl implements AutoChooser {
     private final SendableChooser<Command> chooser;
+    private final CommandContext commandContext;
 
-    AutoChooserImpl() {
+    AutoChooserImpl(CommandContext commandContext) {
         this.chooser = AutoBuilder.buildAutoChooser();
+        this.commandContext = commandContext;
 
         setupChooser();
         setupNamedCommands();
