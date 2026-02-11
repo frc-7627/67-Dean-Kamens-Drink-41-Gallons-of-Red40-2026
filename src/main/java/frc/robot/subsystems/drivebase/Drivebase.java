@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.bofalib.subsystem.ControllableSubsystem;
+import frc.bofalib.Controllable;
 import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 
 /**
@@ -14,7 +14,7 @@ import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
 public interface Drivebase extends 
     IndirectDrivebase, 
     MiscDrivebase,
-    ControllableSubsystem<DriveControl>
+    Controllable<DriveControl>
 {
     /**
      * @param xInput the x drive input

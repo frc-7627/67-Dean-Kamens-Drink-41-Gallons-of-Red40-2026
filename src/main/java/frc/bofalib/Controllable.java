@@ -1,13 +1,11 @@
-package frc.bofalib.subsystem;
-
-import edu.wpi.first.wpilibj2.command.Subsystem;
+package frc.bofalib;
 
 /**
  * Subsystems that can be controlled using a control strategy.
  * 
  * @param <Control> control strategies
  */
-public interface ControllableSubsystem<Control> extends Subsystem {
+public interface Controllable<Control> {
     /**
      * Sets the control strategy to the provided control strategy.
      * 

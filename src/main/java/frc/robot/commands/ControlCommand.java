@@ -1,7 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
-import frc.bofalib.subsystem.ControllableSubsystem;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.bofalib.Controllable;
 
 /**
  * Commands that continuously control a target subsystem using a control strategy.
@@ -11,7 +12,7 @@ import frc.bofalib.subsystem.ControllableSubsystem;
  */
 public final class ControlCommand<
     Control, 
-    TargetSubsystem extends ControllableSubsystem<Control>
+    TargetSubsystem extends Controllable<Control> & Subsystem
 > extends FunctionalCommand {
     /**
      * Create a command that continuously controls the target subsystem using the provided control
