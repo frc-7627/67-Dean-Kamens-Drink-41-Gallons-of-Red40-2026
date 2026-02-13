@@ -235,7 +235,7 @@ public final class Constants {
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
         
         //LINIEAR FEET PER SEC
-        public static final double SHOOT_SPEED = 6700;
+        public static final double SHOOT_SPEED = 4;
         public static final double IDLE_SPEED = 670;
         public static final double INACTIVE_SPEED = 67;
 

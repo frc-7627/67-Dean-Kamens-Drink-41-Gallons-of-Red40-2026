@@ -124,6 +124,7 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
     @Override
     public void shootOut() {
         motors.setAngularSpeed(calcRPS(SHOOT_SPEED));
+        System.out.printf(" Running motor at " + calcRPS(SHOOT_SPEED));
     }
 
     /**
