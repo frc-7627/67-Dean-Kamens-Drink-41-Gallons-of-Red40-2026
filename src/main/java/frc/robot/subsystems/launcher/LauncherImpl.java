@@ -8,6 +8,8 @@ import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.List;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.BofaUtil;
 import frc.bofalib.dashboard.DashboardItems;
@@ -42,6 +44,7 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
     }
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
+    private static final Logger LOGGER = Logger.getLogger(LauncherImpl.class.getName());
 
     private final Motors motors = new Motors();
 
@@ -139,7 +142,9 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        motors.setAngularSpeed(getAngularSpeedRotPerSec(SHOOT_SPEED));
+        final double shootSpeedRotPerSec = getAngularSpeedRotPerSec(SHOOT_SPEED);
+        LOGGER.finer("Shoot out speed: " + shootSpeedRotPerSec + " rot/sec");
+        motors.setAngularSpeed(shootSpeedRotPerSec);
     }
 
     /**
