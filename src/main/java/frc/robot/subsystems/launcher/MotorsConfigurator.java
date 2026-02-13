@@ -30,6 +30,7 @@ final class MotorsConfigurator {
         commanderConfigurator.apply(closedLoopRampsConfigs);
         commanderConfigurator.apply(DEFAULT_MOTOR_OUTPUT_CONFIGS);
         commanderConfigurator.apply(AUDIO_CONFIGS);
+        commanderConfigurator.apply(SLOT0_CONFIGS);
 
         minionConfigurator.apply(currentLimitsConfigs);
         minionConfigurator.apply(openLoopRampsConfigs);

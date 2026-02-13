@@ -24,9 +24,11 @@ final class Motors {
         boolean isMusic() {
             return equals(MUSIC);
         }
-    }
 
-    private static final VelocityVoltage VELOCITY_CONTROL = new VelocityVoltage(0.0);
+        boolean isSimple() {
+            return equals(SIMPLE);
+        }
+    }
 
     private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
     private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
@@ -71,8 +73,10 @@ final class Motors {
             exitMusic();
         }
 
-        resetCommander();
-        resetMinion();
+        if (!mode.isSimple()) {
+            resetCommander();
+            resetMinion();
+        }
 
         mode = ControlMode.SIMPLE;
     }
@@ -86,8 +90,10 @@ final class Motors {
             exitMusic();
         }
 
-        resetCommander();
-        resetMinion();
+        if (!mode.isSimple()) {
+            resetCommander();
+            resetMinion();
+        }
 
         mode = ControlMode.VELOCITY;
     }
@@ -137,7 +143,7 @@ final class Motors {
     public void setAngularSpeed(double velocityRotationsPerSec) {
         ensureVelocity();
 
-        commander.setControl(VELOCITY_CONTROL.withVelocity(velocityRotationsPerSec));
+        commander.setControl(new VelocityVoltage(velocityRotationsPerSec));
     }
 
     /**
