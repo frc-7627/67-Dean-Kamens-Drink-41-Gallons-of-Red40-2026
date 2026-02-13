@@ -22,7 +22,17 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
 
     // TODO: extract music interface
     public static enum Song {
-        ;
+        SUS("sus"),
+        BAD_TO_THE_BONE("Bad To the Bone"),
+        BLOODY_TEARS("bloodytears"),
+        BLUE_LOBSTER("BlueLobster"),
+        HCB("hcb"),
+        PHOTOGRAPH("photograph"),
+        RICKROLL("rickroll"),
+        UNDERGROUND("Underground"),
+        VSAUSE("vsauce"),
+        WII_SHOP("Wii Shop");
+        
 
         private final String filePath;
 

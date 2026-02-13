@@ -141,7 +141,7 @@ final class Motors {
     }
 
     public void setAngularSpeed(double velocityRotationsPerSec) {
-        ensureVelocity();
+       // ensureVelocity(); TODO: PUT THIS BACK BEFORE GIAN KILLS ME
 
         commander.setControl(new VelocityVoltage(velocityRotationsPerSec));
     }
