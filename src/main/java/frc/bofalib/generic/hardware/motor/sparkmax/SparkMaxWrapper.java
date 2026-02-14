@@ -1,10 +1,12 @@
 package frc.bofalib.generic.hardware.motor.sparkmax;
 
 import static edu.wpi.first.units.Units.RPM;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-
+import com.revrobotics.spark.config.SparkBaseConfig;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
@@ -20,6 +22,18 @@ public final class SparkMaxWrapper extends
     public SparkMaxWrapper(int deviceId, MotorType motorType) {
         this.sparkMax = new SparkMax(deviceId, motorType);
         this.configurator = new SparkMaxConfigurator(sparkMax);
+    }
+
+    public SparkMaxWrapper(
+        int deviceId, 
+        MotorType motorType, 
+        SparkBaseConfig config,
+        ResetMode resetMode,
+        PersistMode persistMode
+    ) {
+        this(deviceId, motorType);
+
+        getConfigurator().apply(config, resetMode, persistMode);
     }
 
     @Override
