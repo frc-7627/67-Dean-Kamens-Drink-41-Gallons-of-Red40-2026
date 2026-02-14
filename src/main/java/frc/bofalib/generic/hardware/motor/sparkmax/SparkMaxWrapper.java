@@ -1,0 +1,43 @@
+package frc.bofalib.generic.hardware.motor.sparkmax;
+
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import frc.bofalib.generic.hardware.motor.MotorHardware;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlDutyCycle;
+
+public final class SparkMaxWrapper extends 
+    MotorHardware<SparkMaxControl, SparkMaxConfigurator> 
+{
+    private final SparkMax sparkMax;
+    private final SparkMaxConfigurator configurator;
+    private SparkMaxControl control;
+
+    public SparkMaxWrapper(int deviceId, MotorType motorType) {
+        this.sparkMax = new SparkMax(deviceId, motorType);
+        this.configurator = new SparkMaxConfigurator(sparkMax);
+    }
+
+    @Override
+    public void beginControl(SparkMaxControl control) {
+        this.control = control;
+    }
+
+    @Override
+    public void runControl() {
+        if (control instanceof SparkMaxControlDutyCycle controlDutyCycle) {
+            sparkMax.set(controlDutyCycle.dutyCycle());
+        }
+    }
+
+    @Override
+    public void endControl() {
+        sparkMax.stopMotor();
+    }
+
+    @Override
+    public SparkMaxConfigurator getConfigurator() {
+        return configurator;
+    }
+}
