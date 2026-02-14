@@ -1,5 +1,6 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
+import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -11,9 +12,13 @@ import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
+import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXWrapper extends 
     MotorHardware<TalonFXControl, TalonFXConfigurator>
+implements
+    DoubleQueryable<TalonFXQuery>
 {
     private final TalonFX talonFX;
     private TalonFXControl control;
@@ -59,6 +64,13 @@ public final class TalonFXWrapper extends
     @Override
     public TalonFXControl getSetControl(MotorSetting motorSetting) {
         return new TalonFXControlSetting(motorSetting);
+    }
+
+    @Override
+    public DoubleSupplier queryDouble(TalonFXQuery query) {
+        return switch (query) {
+            case ANGULAR_VELOCITY_ROT_PER_SEC -> () -> talonFX.getVelocity().getValueAsDouble();
+        };
     }
     
 

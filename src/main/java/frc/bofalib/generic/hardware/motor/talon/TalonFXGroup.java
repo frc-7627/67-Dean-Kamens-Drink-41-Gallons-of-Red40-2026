@@ -1,6 +1,7 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
 import java.util.List;
+import java.util.function.DoubleSupplier;
 import java.util.stream.IntStream;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -14,9 +15,13 @@ import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSong;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talon.query.TalonFXGroupQuery;
+import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXGroup extends
     MotorHardware<TalonFXBatchControl, TalonFXGroupConfigurator> 
+implements
+    DoubleQueryable<TalonFXGroupQuery>
 {
     private final TalonFXWrapper leaderWrapper;
     private final List<Pair<TalonFXWrapper, Follower>> followerPairs;
@@ -96,5 +101,17 @@ public final class TalonFXGroup extends
     @Override
     public TalonFXBatchControl getSetControl(MotorSetting motorSetting) {
         return new TalonFXBatchSetting(new TalonFXControlSetting(motorSetting));
+    }
+
+    @Override
+    public DoubleSupplier queryDouble(TalonFXGroupQuery query) {
+        if (query.index().isEmpty()) {
+            return leaderWrapper.queryDouble(query.query());
+        } else {
+            return followerPairs
+                .get(query.index().getAsInt())
+                .getFirst()
+                .queryDouble(query.query());
+        }
     }
 }
