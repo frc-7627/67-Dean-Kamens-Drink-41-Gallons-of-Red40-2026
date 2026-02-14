@@ -6,11 +6,11 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
-import frc.bofalib.generic.hardware.Hardware;
+import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
 
-public final class TalonFXWrapper implements 
-    Hardware<TalonFXControl, TalonFXConfigurator>
+public final class TalonFXWrapper extends 
+    MotorHardware<TalonFXControl, TalonFXConfigurator>
 {
     private final TalonFX talonFX;
     private TalonFXControl control;

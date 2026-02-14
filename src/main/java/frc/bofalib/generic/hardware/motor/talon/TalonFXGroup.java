@@ -8,12 +8,12 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.Pair;
-import frc.bofalib.generic.hardware.Hardware;
+import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSong;
 
-public final class TalonFXGroup implements
-    Hardware<TalonFXBatchControl, TalonFXGroupConfigurator> 
+public final class TalonFXGroup extends
+    MotorHardware<TalonFXBatchControl, TalonFXGroupConfigurator> 
 {
     private final TalonFXWrapper leaderWrapper;
     private final List<Pair<TalonFXWrapper, Follower>> followerPairs;
