@@ -29,12 +29,10 @@ final class AgitatorImpl extends SubsystemBase implements
     );
 
     AgitatorImpl() {
-        SparkMaxConfig motorConfig = new SparkMaxConfig();
-        motorConfig.idleMode(IdleMode.kCoast);
-        motorConfig.smartCurrentLimit(AMP_LIMIT);
-
         motor.getConfigurator().apply(
-            motorConfig, 
+            new SparkMaxConfig()
+                .idleMode(IdleMode.kCoast)
+                .smartCurrentLimit(AMP_LIMIT), 
             ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters
         );
