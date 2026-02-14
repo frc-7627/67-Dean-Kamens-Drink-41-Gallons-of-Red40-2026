@@ -2,7 +2,10 @@ package frc.bofalib.generic.hardware.motor.talon;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-
+import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 
@@ -16,6 +19,34 @@ public final class TalonFXGroupConfigurator {
     ) {
         this.leaderConfigurator = leaderConfigurator;
         this.followerConfiguratorsSupplier = followerConfiguratorsSupplier;
+    }
+
+    public void apply(ClosedLoopRampsConfigs configuration) {
+        leaderConfigurator.apply(configuration);
+        followerConfiguratorsSupplier.get().forEach(
+            followerConfigurator -> followerConfigurator.apply(configuration)
+        );
+    }
+
+    public void apply(OpenLoopRampsConfigs configuration) {
+        leaderConfigurator.apply(configuration);
+        followerConfiguratorsSupplier.get().forEach(
+            followerConfigurator -> followerConfigurator.apply(configuration)
+        );
+    }
+
+    public void apply(Slot0Configs configuration) {
+        leaderConfigurator.apply(configuration);
+        followerConfiguratorsSupplier.get().forEach(
+            followerConfigurator -> followerConfigurator.apply(configuration)
+        );
+    }
+
+    public void apply(CurrentLimitsConfigs configuration) {
+        leaderConfigurator.apply(configuration);
+        followerConfiguratorsSupplier.get().forEach(
+            followerConfigurator -> followerConfigurator.apply(configuration)
+        );
     }
 
     public void apply(TalonFXConfiguration configuration) {
