@@ -11,8 +11,7 @@ import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
 import frc.robot.commands.feeder.FeedIn;
-import frc.robot.commands.intake.Eject;
-import frc.robot.commands.intake.*;
+import frc.robot.subsystems.intake.IntakeControl;
 import frc.robot.subsystems.launcher.LauncherControl;
 
 enum TeleopCommandFactory {
@@ -28,13 +27,13 @@ enum TeleopCommandFactory {
      * 
      */
     LOAD_INTAKE(context -> new IndicatingWrapperCommand(
-        new Eject(context.intake()), 
+        new ControlCommand<>(context.intake(), IntakeControl.LOAD), 
         context.indicator()
     )),
     /**
      * 
      */
-    STOW_INTAKE(context -> new FoldIn(context.intake())),
+    STOW_INTAKE(context -> new ControlCommand<>(context.intake(), IntakeControl.FOLD_IN)),
     /**
      * 
      */
