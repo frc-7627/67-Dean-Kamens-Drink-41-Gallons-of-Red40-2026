@@ -51,13 +51,13 @@ public final class TalonFXGroup extends
     @Override
     public void beginControl(TalonFXBatchControl control) {
         this.control = control;
-        leaderWrapper.beginControl(control.getLeaderControl());
+        leaderWrapper.beginControl(control.getLeaderControl(orchestra));
 
         IntStream.range(0, followerPairs.size()).forEach(
             i -> {
                 final Pair<TalonFXWrapper, Follower> followerPair = followerPairs.get(i);
                 final TalonFXWrapper wrapper = followerPair.getFirst();
-                wrapper.beginControl(control.getFollowerControl(i));
+                wrapper.beginControl(control.getFollowerControl(orchestra, i));
             }
         );
 

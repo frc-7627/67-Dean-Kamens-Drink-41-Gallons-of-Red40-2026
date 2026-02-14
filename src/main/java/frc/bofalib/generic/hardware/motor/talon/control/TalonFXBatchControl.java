@@ -1,7 +1,9 @@
 package frc.bofalib.generic.hardware.motor.talon.control;
 
-public interface TalonFXBatchControl {
-    TalonFXControl getLeaderControl();
+import com.ctre.phoenix6.Orchestra;
 
-    TalonFXControl getFollowerControl(int index);
+public interface TalonFXBatchControl {
+    TalonFXControl getLeaderControl(Orchestra orchestra);
+
+    TalonFXControl getFollowerControl(Orchestra orchestra, int index);
 }

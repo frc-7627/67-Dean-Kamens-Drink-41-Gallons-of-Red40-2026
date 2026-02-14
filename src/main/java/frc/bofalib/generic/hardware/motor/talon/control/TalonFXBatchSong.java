@@ -1,22 +1,22 @@
 package frc.bofalib.generic.hardware.motor.talon.control;
 
-import java.util.List;
+import com.ctre.phoenix6.Orchestra;
 import frc.bofalib.generic.music.Song;
 
 public final record TalonFXBatchSong(
     Song song,
-    TalonFXControlTrack leaderTrack,
-    List<TalonFXControlTrack> followerTracks
+    int leaderTrack,
+    int[] followerTracks
 ) implements TalonFXBatchControl {
     @Override
-    public TalonFXControl getLeaderControl() {
-        return leaderTrack;
+    public TalonFXControl getLeaderControl(Orchestra orchestra) {
+        return new TalonFXControlTrack(orchestra, leaderTrack);
     }
 
     @Override
-    public TalonFXControl getFollowerControl(int index) {
-        if (index < followerTracks.size()) {
-            return followerTracks.get(index);
+    public TalonFXControl getFollowerControl(Orchestra orchestra, int index) {
+        if (index < followerTracks.length) {
+            return new TalonFXControlTrack(orchestra, followerTracks[index]);
         } else {
             return TalonFXControlEmpty.getInstance();
         }
