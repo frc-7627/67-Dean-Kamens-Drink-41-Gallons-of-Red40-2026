@@ -1,11 +1,15 @@
 package frc.robot.subsystems.launcher;
 
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.List;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.BofaUtil;
 import frc.bofalib.dashboard.DashboardItems;
@@ -20,7 +24,17 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
 
     // TODO: extract music interface
     public static enum Song {
-        ;
+        SUS("sus"),
+        BAD_TO_THE_BONE("Bad To the Bone"),
+        BLOODY_TEARS("bloodytears"),
+        BLUE_LOBSTER("BlueLobster"),
+        HCB("hcb"),
+        PHOTOGRAPH("photograph"),
+        RICKROLL("rickroll"),
+        UNDERGROUND("Underground"),
+        VSAUSE("vsauce"),
+        WII_SHOP("Wii Shop");
+        
 
         private final String filePath;
 
@@ -30,6 +44,7 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
     }
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
+    private static final Logger LOGGER = Logger.getLogger(LauncherImpl.class.getName());
 
     private final Motors motors = new Motors();
 
@@ -106,11 +121,15 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
         motors.playSongFromFile(song.filePath);
     }
 
-    /** 
-     * Calculates the speed in RPM for the launcher
-    */
-    private double calcRPS(double linearFPS){
-        return linearFPS / Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
+    /**
+     * @param linearFeetPerSec the given linear speed, in feet per second
+     * @return the angular speed, in rotations per second, to achieve the given linear speed
+     */
+    private double getAngularSpeedRotPerSec(double linearFeetPerSec){
+        return RotationsPerSecond.convertFrom(
+            linearFeetPerSec / Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET, 
+            RadiansPerSecond
+        );
     } 
 
     /**
@@ -123,7 +142,9 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
      */
     @Override
     public void shootOut() {
-        motors.setAngularSpeed(calcRPS(SHOOT_SPEED));
+        final double shootSpeedRotPerSec = getAngularSpeedRotPerSec(SHOOT_SPEED);
+        LOGGER.finer("Shoot out speed: " + shootSpeedRotPerSec + " rot/sec");
+        motors.setAngularSpeed(shootSpeedRotPerSec);
     }
 
     /**

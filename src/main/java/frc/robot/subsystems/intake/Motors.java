@@ -1,4 +1,4 @@
-package frc.robot.subsystems.launcher;
+package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
@@ -13,7 +13,7 @@ import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.*;
-import static frc.robot.Constants.LauncherConstants.*;
+import static frc.robot.Constants.IntakeConstants.*;
 
 final class Motors {
     private static enum ControlMode {
@@ -30,10 +30,8 @@ final class Motors {
         }
     }
 
-    private final TalonFX commander = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
-    private final TalonFX minion = new TalonFX(LAUNCHER_MINION_CAN_ID);
-    private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(commander.getConfigurator(),
-            minion.getConfigurator());
+    private final TalonFX Kraken = new TalonFX(INTAKE_MOTOR_CAN_ID);
+    private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(Kraken.getConfigurator());
     private final Orchestra orchestra = new Orchestra();
     private ControlMode mode = ControlMode.SIMPLE;
 
@@ -41,21 +39,17 @@ final class Motors {
      * The launcher motors.
      */
     public Motors() {
-        resetCommander();
-    }
-
-    private void resetMinion() {
-        minion.setControl(new Follower(commander.getDeviceID(), MotorAlignmentValue.Aligned));
+        resetKraken();
     }
 
     /**
      * Reset motor control to ensure motors are usable.
      * 
-     * Sets the commander to target its own position, and the minion to follow the
-     * commander.
+     * Sets the Kraken to target its own position, and the minion to follow the
+     * Kraken.
      */
-    private void resetCommander() {
-        commander.setControl(TARGET_DEFAULT_POSITION.withPosition(getCommanderPosition()));
+    private void resetKraken() {
+        Kraken.setControl(TARGET_DEFAULT_POSITION.withPosition(getKrakenPosition()));
     }
 
     /**
@@ -74,8 +68,7 @@ final class Motors {
         }
 
         if (!mode.isSimple()) {
-            resetCommander();
-            resetMinion();
+            resetKraken();
         }
 
         mode = ControlMode.SIMPLE;
@@ -91,8 +84,7 @@ final class Motors {
         }
 
         if (!mode.isSimple()) {
-            resetCommander();
-            resetMinion();
+            resetKraken();
         }
 
         mode = ControlMode.VELOCITY;
@@ -108,9 +100,7 @@ final class Motors {
      */
     public void playNote(int freq) {
         ensureMusic();
-
-        commander.setControl(new MusicTone(freq));
-        minion.setControl(new MusicTone(freq));
+        Kraken.setControl(new MusicTone(freq));
     }
 
     /**
@@ -123,82 +113,54 @@ final class Motors {
      * @apiNote Enters music mode.
      */
     public void playSongFromFile(String filePath) {
-        orchestra.addInstrument(commander);
-        orchestra.addInstrument(minion);
+        orchestra.addInstrument(Kraken);
         orchestra.loadMusic(filePath);
         orchestra.play();
     }
 
     /**
-     * Set the commander motor's speed to the provided speed.
+     * Set the Kraken motor's speed to the provided speed.
      * 
      * @param speed the provided speed.
      */
     public void setSpeed(double speed) {
         ensureSimple();
-
-        commander.set(speed);
+        Kraken.set(speed);
     }
 
     public void setAngularSpeed(double velocityRotationsPerSec) {
        // ensureVelocity(); TODO: PUT THIS BACK BEFORE GIAN KILLS ME
 
-        commander.setControl(new VelocityVoltage(velocityRotationsPerSec));
+        Kraken.setControl(new VelocityVoltage(velocityRotationsPerSec));
     }
-
-    /**
-     * 
-     */
     
     /**
-     * Stop both motors.
+     * Stop Kraken motor.
      */
     public void stop() {
         ensureSimple();
-
-        commander.set(0.0);
+        Kraken.set(0.0);
     }
 
     /**
-     * @return the position of the commander motor.
+     * @return the position of the Kraken motor.
      */
-    public Angle getCommanderPosition() {
-        return Rotations.of(commander.getPosition().getValueAsDouble());
+    public Angle getKrakenPosition() {
+        return Rotations.of(Kraken.getPosition().getValueAsDouble());
     }
 
     /**
-     * @return the supply current of the commander motor.
+     * @return the supply current of the Kraken motor.
      */
-    public Current getCommanderCurrent() {
-        return Amps.of(commander.getSupplyCurrent(false).getValueAsDouble());
+    public Current getKrakenCurrent() {
+        return Amps.of(Kraken.getSupplyCurrent(false).getValueAsDouble());
     }
 
     /**
-     * @return the velocity of the commander motor.
+     * @return the velocity of the Kraken motor.
      */
-    public AngularVelocity getCommanderVelocity() {
-        return RotationsPerSecond.of(commander.getVelocity().getValueAsDouble());
-    }
-
-    /**
-     * @return the position of the minion motor.
-     */
-    public Angle getMinionPosition() {
-        return Rotations.of(minion.getPosition().getValueAsDouble());
-    }
-
-    /**
-     * @return the supply current of the minion motor.
-     */
-    public Current getMinionCurrent() {
-        return Amps.of(minion.getSupplyCurrent(false).getValueAsDouble());
-    }
-
-    /**
-     * @return the velocity of the minion motor.
-     */
-    public AngularVelocity getMinionVelocity() {
-        return RotationsPerSecond.of(minion.getVelocity().getValueAsDouble());
+    public AngularVelocity getKrakenVelocity() {
+        return RotationsPerSecond.of(Kraken.getVelocity().getValueAsDouble());
     }
 
     public void applyCurrentLimit(double currentLimit) {

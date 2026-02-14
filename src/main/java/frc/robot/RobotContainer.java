@@ -14,13 +14,13 @@ import frc.robot.setup.teleop.OperatorController;
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.agitator.Agitator;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.DriveControl;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.gameinfo.GameInfoSupplier;
-import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.launcher.Launcher;
 
 /**
@@ -53,7 +53,7 @@ public class RobotContainer {
 
     private final Feeder feeder = Feeder.create();
 
-    private final Hopper hopper = Hopper.create();
+    private final Agitator hopper = Agitator.create();
 
     private final Launcher launcher = Launcher.create();
 

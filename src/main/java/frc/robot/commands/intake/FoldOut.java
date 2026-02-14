@@ -3,17 +3,17 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.intake.Intake;
 
-public class LoadIntake extends Command {
+public class FoldOut extends Command {
     private Intake intake;
 
     /**
-     * Loads the intake.
+     * Swivels the intake.
      * 
-     * Loads the intake while running, then stops the intake when done.
+     * Swivels the intake while running, then stops the Swivels when done.
      * 
      * @param intake
      */
-    public LoadIntake(Intake intake) {
+    public FoldOut(Intake intake) {
         this.intake = intake;
 
         addRequirements(intake);
@@ -22,20 +22,20 @@ public class LoadIntake extends Command {
     /**
      * Called repeatedly while command is running.
      * 
-     * Loads the intake.
+     * Swivels the intake.
      */
     @Override
     public void execute() {
-        intake.load();
+        intake.FoldOut();
     }
 
     /**
      * Called when the command ends.
      * 
-     * Stops the intake and indicates command end.
+     * Stops the Swivels and indicates command end.
      */
     @Override
     public void end(boolean interrupted) {
-        intake.stopIntake();
+        intake.stopSwivel();
     }
 }

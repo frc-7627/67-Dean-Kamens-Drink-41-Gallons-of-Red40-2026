@@ -24,6 +24,7 @@ import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SingleFadeAnimation;
@@ -210,11 +211,14 @@ public final class Constants {
 
     public static class CanIDs {
         public static final int PROTOTYPE_MOTOR_CAN_ID = 14;
+        public static final int INTAKE_MOTOR_CAN_ID = 18;
 
         public static final int CANDLE_CAN_ID = 15;
 
         public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
         public static final int LAUNCHER_MINION_CAN_ID = 17;
+
+         
 
 
 
@@ -223,7 +227,14 @@ public final class Constants {
     }
 
     public static class IntakeConstants {
+        public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
+
+        
         public static final int AMP_LIMIT = 150;
+        
+        public static final double MANUAL_SPEED = 0.4;
+
+        public static final double FOLD_SPEED = 0.7;
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_LOAD_SPEED = 0.8;
@@ -235,7 +246,9 @@ public final class Constants {
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
         
         //LINIEAR FEET PER SEC
-        public static final double SHOOT_SPEED = 6700;
+        // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
+        // or 83.49530895144358 FPS
+        public static final double SHOOT_SPEED = 4; 
         public static final double IDLE_SPEED = 670;
         public static final double INACTIVE_SPEED = 67;
 
@@ -264,6 +277,14 @@ public final class Constants {
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
+
+        public static final Slot0Configs SLOT0_CONFIGS = new Slot0Configs()
+            .withKP(1.0)
+            .withKI(0.0)
+            .withKD(0.0)
+            .withKS(0.25)
+            .withKV(0.0)
+            .withKA(0.0);
 
         public static final int HORN_FREQ = 440;
     }

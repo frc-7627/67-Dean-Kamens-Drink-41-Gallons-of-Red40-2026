@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 
 class OperatorXboxController implements OperatorController {
@@ -17,8 +18,10 @@ class OperatorXboxController implements OperatorController {
         logger.fine("Binding operator command '" + factory.toString() + "'");
 
         switch (factory) {
-            case LOAD_INTAKE -> binderConsumer.accept(xboxController.b()::whileTrue);
-            case FEED_AND_SHOOT -> binderConsumer.accept(xboxController.x()::whileTrue);
+            case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
+            case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::onTrue);
+            case FEED_AND_SHOOT -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
+            case SHOOT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
             default -> {
             }
         }
