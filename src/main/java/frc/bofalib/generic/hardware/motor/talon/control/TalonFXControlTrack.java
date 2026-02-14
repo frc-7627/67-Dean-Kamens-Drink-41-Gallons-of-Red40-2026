@@ -9,7 +9,9 @@ public final record TalonFXControlTrack(
 ) implements TalonFXControl {
     @Override
     public void visit(
-        Consumer<TalonFXControlRequest> requestConsumer, 
+        Consumer<TalonFXControlRequest> requestConsumer,
+        Consumer<TalonFXControlDutyCycle> dutyCycleConsumer,
+        Consumer<TalonFXControlVelocity> velocityConsumer,
         Consumer<TalonFXControlTrack> trackConsumer
     ) {
         trackConsumer.accept(this);

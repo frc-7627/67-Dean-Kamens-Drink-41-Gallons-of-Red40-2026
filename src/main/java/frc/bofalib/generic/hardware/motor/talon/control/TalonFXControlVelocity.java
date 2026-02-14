@@ -1,15 +1,13 @@
 package frc.bofalib.generic.hardware.motor.talon.control;
 
 import java.util.function.Consumer;
+import edu.wpi.first.units.measure.AngularVelocity;
+import frc.bofalib.generic.hardware.motor.MotorVelocity;
 
-public final class TalonFXControlEmpty implements TalonFXControl {
-    private static final TalonFXControlEmpty INSTANCE = new TalonFXControlEmpty();
-
-    public static TalonFXControlEmpty getInstance() {
-        return INSTANCE;
+public final class TalonFXControlVelocity extends MotorVelocity implements TalonFXControl {
+    public TalonFXControlVelocity(AngularVelocity angularVelocity) {
+        super(angularVelocity);
     }
-
-    private TalonFXControlEmpty() {}
 
     @Override
     public void visit(
@@ -17,5 +15,7 @@ public final class TalonFXControlEmpty implements TalonFXControl {
         Consumer<TalonFXControlDutyCycle> dutyCycleConsumer,
         Consumer<TalonFXControlVelocity> velocityConsumer,
         Consumer<TalonFXControlTrack> trackConsumer
-    ) {}
+    ) {
+        velocityConsumer.accept(this);
+    }
 }

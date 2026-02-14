@@ -3,6 +3,7 @@ package frc.bofalib.generic.hardware.motor.talon;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
@@ -24,7 +25,9 @@ public final class TalonFXWrapper extends
         this.control = control;
 
         control.visit(
-            request -> {}, 
+            request -> {},
+            dutyCycle -> {},
+            velocity -> {},
             track -> { track.orchestra().addInstrument(talonFX, track.trackNumber()); }
         );
     }
@@ -32,7 +35,9 @@ public final class TalonFXWrapper extends
     @Override
     public void runControl() {
         control.visit(
-            request -> { talonFX.setControl(request.request()); }, 
+            request -> { talonFX.setControl(request.request()); },
+            dutyCycle -> { talonFX.set(dutyCycle.getDutyCycle()); },
+            velocity -> { talonFX.setControl(new VelocityVoltage(velocity.getAngularVelocity())); },
             track -> {}
         );
     }
