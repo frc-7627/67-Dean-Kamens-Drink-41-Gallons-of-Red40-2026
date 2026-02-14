@@ -1,17 +1,9 @@
 package frc.bofalib.generic.hardware.motor.sparkmax.control;
 
-public final class SparkMaxControlDutyCycle implements SparkMaxControl {
-    private double dutyCycle;
+import frc.bofalib.generic.hardware.motor.DutyCycle;
 
+public final class SparkMaxControlDutyCycle extends DutyCycle implements SparkMaxControl {
     public SparkMaxControlDutyCycle(double dutyCycle) {
-        this.dutyCycle = dutyCycle;
-    }
-
-    public double getDutyCycle() {
-        return dutyCycle;
-    }
-
-    public void setDutyCycle(double dutyCycle) {
-        this.dutyCycle = dutyCycle;
+        super(dutyCycle);
     }
 }
