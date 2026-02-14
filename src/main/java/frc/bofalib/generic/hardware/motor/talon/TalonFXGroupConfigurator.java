@@ -21,6 +21,25 @@ public final class TalonFXGroupConfigurator {
         this.followerConfiguratorsSupplier = followerConfiguratorsSupplier;
     }
 
+    public void applyCurrentLimit(double currentLimit) {
+        apply(
+            new CurrentLimitsConfigs()
+                .withStatorCurrentLimit(currentLimit)
+        );
+    }
+
+    public void applyRampUpPeriod(double rampUpPeriod) {
+        apply(
+            new OpenLoopRampsConfigs()
+                .withDutyCycleOpenLoopRampPeriod(rampUpPeriod)
+        );
+
+        apply(
+            new ClosedLoopRampsConfigs()
+                .withDutyCycleClosedLoopRampPeriod(rampUpPeriod)  
+        );
+    }
+
     public void apply(ClosedLoopRampsConfigs configuration) {
         leaderConfigurator.apply(configuration);
         followerConfiguratorsSupplier.get().forEach(
