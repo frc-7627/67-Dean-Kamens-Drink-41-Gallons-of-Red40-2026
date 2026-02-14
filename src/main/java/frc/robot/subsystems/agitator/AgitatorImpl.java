@@ -29,7 +29,12 @@ final class AgitatorImpl extends SubsystemBase implements
     // one neo
     private final SparkMaxWrapper motor = new SparkMaxWrapper(
         AGITATOR_MOTOR_CAN_ID,
-        MotorType.kBrushless
+        MotorType.kBrushless,
+        new SparkMaxConfig()
+            .idleMode(IdleMode.kCoast)
+            .smartCurrentLimit(AMP_LIMIT), 
+        ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters
     );
 
     public final DoubleSupplier dutyCycleSupplier = 
@@ -45,16 +50,6 @@ final class AgitatorImpl extends SubsystemBase implements
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
-
-    AgitatorImpl() {
-        motor.getConfigurator().apply(
-            new SparkMaxConfig()
-                .idleMode(IdleMode.kCoast)
-                .smartCurrentLimit(AMP_LIMIT), 
-            ResetMode.kResetSafeParameters,
-            PersistMode.kPersistParameters
-        );
-    }
 
     @Override
     public AgitatorImpl getThis() {
