@@ -67,6 +67,10 @@ public final class BofaUtil {
         };
     }
 
+    public static DoubleSupplier negativeSupplier(DoubleSupplier supplier) {
+        return () -> -supplier.getAsDouble();
+    }
+
     /**
      * @param consumer the consumer
      * @param supplier the supplier
