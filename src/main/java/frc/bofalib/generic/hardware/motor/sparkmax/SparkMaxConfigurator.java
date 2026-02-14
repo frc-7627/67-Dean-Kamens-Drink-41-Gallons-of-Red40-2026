@@ -3,7 +3,7 @@ package frc.bofalib.generic.hardware.motor.sparkmax;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 
 public final class SparkMaxConfigurator {
     private final SparkMax sparkMax;
@@ -13,7 +13,7 @@ public final class SparkMaxConfigurator {
     }
 
     public void apply(
-        SparkMaxConfig config, 
+        SparkBaseConfig config, 
         ResetMode resetMode, 
         PersistMode persistMode
     ) {
