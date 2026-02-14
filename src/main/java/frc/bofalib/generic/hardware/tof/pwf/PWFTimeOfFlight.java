@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.sensor.pwf;
+package frc.bofalib.generic.hardware.tof.pwf;
 
 import java.util.function.BooleanSupplier;
 

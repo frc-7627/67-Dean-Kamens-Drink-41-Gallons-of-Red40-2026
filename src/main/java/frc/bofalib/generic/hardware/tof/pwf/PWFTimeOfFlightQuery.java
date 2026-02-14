@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.sensor.pwf;
+package frc.bofalib.generic.hardware.tof.pwf;
 
 public record PWFTimeOfFlightQuery(double value, Side side) {
     public static enum Side {
