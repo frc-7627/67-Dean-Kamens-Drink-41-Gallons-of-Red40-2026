@@ -27,7 +27,7 @@ public final class SparkMaxWrapper extends
     @Override
     public void runControl() {
         if (control instanceof SparkMaxControlDutyCycle controlDutyCycle) {
-            sparkMax.set(controlDutyCycle.dutyCycle());
+            sparkMax.set(controlDutyCycle.getDutyCycle());
         }
     }
 
