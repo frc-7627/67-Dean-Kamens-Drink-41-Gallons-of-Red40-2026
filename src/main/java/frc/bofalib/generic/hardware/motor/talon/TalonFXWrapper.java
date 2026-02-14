@@ -1,31 +1,40 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
-import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import frc.bofalib.generic.hardware.Hardware;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
 
 public final class TalonFXWrapper implements 
-    Hardware<ControlRequest, TalonFXConfigurator>
+    Hardware<TalonFXControl, TalonFXConfigurator>
 {
     private final TalonFX talonFX;
-    private ControlRequest currentRequest;
+    private TalonFXControl control;
 
     public TalonFXWrapper(int deviceId) {
         this.talonFX = new TalonFX(deviceId);
     }
 
     @Override
-    public void beginControl(ControlRequest control) {
-        this.currentRequest = control;
+    public void beginControl(TalonFXControl control) {
+        this.control = control;
+
+        control.visit(
+            request -> {}, 
+            track -> { track.orchestra().addInstrument(talonFX, track.trackNumber()); }
+        );
     }
 
     @Override
     public void runControl() {
-        talonFX.setControl(currentRequest);
+        control.visit(
+            request -> { talonFX.setControl(request.request()); }, 
+            track -> {}
+        );
     }
 
     @Override
@@ -35,5 +44,15 @@ public final class TalonFXWrapper implements
 
     Follower getFollower(MotorAlignmentValue motorAlignmentValue) {
         return new Follower(talonFX.getDeviceID(), motorAlignmentValue);
+    }
+
+    void follow(Follower follower) {
+        talonFX.setControl(follower);
+    }
+
+    void lead() {
+        talonFX.setControl(new MotionMagicVoltage(
+            talonFX.getPosition().getValueAsDouble()
+        ));
     }
 }
