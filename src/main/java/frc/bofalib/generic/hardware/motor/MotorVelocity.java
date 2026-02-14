@@ -1,5 +1,6 @@
 package frc.bofalib.generic.hardware.motor;
 
+import java.util.function.Consumer;
 import edu.wpi.first.units.measure.AngularVelocity;
 
 public non-sealed abstract class MotorVelocity implements MotorSetting {
@@ -9,11 +10,19 @@ public non-sealed abstract class MotorVelocity implements MotorSetting {
         this.angularVelocity = angularVelocity.mutableCopy();
     }
 
-    public AngularVelocity getAngularVelocity() {
+    public final AngularVelocity getAngularVelocity() {
         return angularVelocity;
     }
 
-    public void setAngularVelocity(AngularVelocity angularVelocity) {
+    public final void setAngularVelocity(AngularVelocity angularVelocity) {
         this.angularVelocity = angularVelocity;
+    }
+
+    @Override
+    public final void visit(
+        Consumer<MotorDutyCycle> dutyCycleConsumer,
+        Consumer<MotorVelocity> velocityConsumer
+    ) {
+        velocityConsumer.accept(this);
     }
 }
