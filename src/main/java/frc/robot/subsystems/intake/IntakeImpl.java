@@ -13,7 +13,7 @@ import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
-import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
+import static frc.robot.Constants.CanIDs.INTAKE_MOTOR_CAN_ID;
 import static frc.robot.Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID;
 import static frc.robot.Constants.IntakeConstants.*;
 import java.util.function.DoubleSupplier;
@@ -23,8 +23,8 @@ final class IntakeImpl extends SubsystemBase implements Intake {
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
 
-    private final SparkMax Neo = new SparkMax(PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
-     private final TalonFX Kraken = new TalonFX(LAUNCHER_COMMANDER_CAN_ID);
+    private final SparkMax Swivel = new SparkMax(PROTOTYPE_MOTOR_CAN_ID, MotorType.kBrushless);
+     private final TalonFX Intake = new TalonFX(INTAKE_MOTOR_CAN_ID);
 
     private final DoubleSupplier loadSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Load Speed"), 
@@ -40,7 +40,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
         motorConfig.idleMode(IdleMode.kCoast);
         motorConfig.smartCurrentLimit(AMP_LIMIT);
 
-        Neo.configure(motorConfig, ResetMode.kResetSafeParameters,
+        Swivel.configure(motorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
     }
 
@@ -51,7 +51,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void load() {
-        Kraken.set(loadSpeedSupplier.getAsDouble());
+        Intake.set(loadSpeedSupplier.getAsDouble());
     }
 
     /**
@@ -61,7 +61,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void eject() {
-        Kraken.set(-loadSpeedSupplier.getAsDouble());
+        Intake.set(-loadSpeedSupplier.getAsDouble());
     }
 
     /**
@@ -69,8 +69,8 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      * Manually spins the intake at a slower speed inwards
      */
     @Override
-    public void ManualIn(){
-        Kraken.set(IntakeConstants.MANUAL_SPEED);
+    public void manualIn(){
+        Intake.set(IntakeConstants.MANUAL_SPEED);
     }
 
     /**
@@ -78,8 +78,8 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      * Manually spins the intakea ta  slower speed outwards
      */
     @Override
-    public void ManualOut(){
-        Kraken.set(-MANUAL_SPEED);
+    public void manualOut(){
+        Intake.set(-MANUAL_SPEED);
     }
 
     /**
@@ -89,9 +89,9 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void FoldOut(){
-        Neo.set(FOLD_SPEED);
-        if (Neo.getOutputCurrent() > AMP_LIMIT){
-            Neo.stopMotor();
+        Swivel.set(FOLD_SPEED);
+        if (Swivel.getOutputCurrent() > AMP_LIMIT){
+            Swivel.stopMotor();
         }
     }
 
@@ -102,9 +102,9 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void FoldIn(){
-        Neo.set(-FOLD_SPEED);
-        if (Neo.getOutputCurrent() > AMP_LIMIT){
-            Neo.stopMotor();
+        Swivel.set(-FOLD_SPEED);
+        if (Swivel.getOutputCurrent() > AMP_LIMIT){
+            Swivel.stopMotor();
         }
     }
 
@@ -115,7 +115,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void stopIntake() {
-        Kraken.stopMotor();
+        Intake.stopMotor();
     }
 
     /**
@@ -125,7 +125,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void stopSwivel(){
-        Neo.stopMotor();
+        Swivel.stopMotor();
     }
 
     /**
@@ -135,8 +135,8 @@ final class IntakeImpl extends SubsystemBase implements Intake {
      */
     @Override
     public void stop(){
-        Kraken.stopMotor();
-        Neo.stopMotor();
+        Intake.stopMotor();
+        Swivel.stopMotor();
     }
 
 }

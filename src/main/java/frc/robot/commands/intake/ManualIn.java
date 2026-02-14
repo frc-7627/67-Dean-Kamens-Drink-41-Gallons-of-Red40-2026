@@ -26,7 +26,7 @@ public class ManualIn extends Command {
      */
     @Override
     public void execute() {
-        intake.ManualIn();
+        intake.manualIn();
     }
 
     /**

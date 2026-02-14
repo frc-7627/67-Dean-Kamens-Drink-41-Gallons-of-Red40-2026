@@ -211,19 +211,14 @@ public final class Constants {
 
     public static class CanIDs {
         public static final int PROTOTYPE_MOTOR_CAN_ID = 14;
-        public static final int INTAKE_MOTOR_CAN_ID = 18;
+        public static final int INTAKE_MOTOR_CAN_ID = 15;
 
-        public static final int CANDLE_CAN_ID = 15;
+        public static final int CANDLE_CAN_ID = 16;
 
-        public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
-        public static final int LAUNCHER_MINION_CAN_ID = 17;
+        public static final int LAUNCHER_COMMANDER_CAN_ID = 17;
+        public static final int LAUNCHER_MINION_CAN_ID = 18;
 
-         
-
-
-
-        // TODO: configure can_id for feeder
-        public static final int FEEDER_CAN_ID = 18;
+        public static final int FEEDER_CAN_ID = 19;
     }
 
     public static class IntakeConstants {

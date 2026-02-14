@@ -19,12 +19,12 @@ public interface Intake extends Subsystem {
     /**
      * Manually spins the intake at a slower speed inwards
      */
-    void ManualIn();
+    void manualIn();
 
     /**
      * Manually spins the intakea ta  slower speed outwards
      */
-    void ManualOut();
+    void manualOut();
 
     /**
      * Stops the intake.
