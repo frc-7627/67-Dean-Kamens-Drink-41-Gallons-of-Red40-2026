@@ -5,20 +5,26 @@ import static frc.robot.Constants.AgitatorConstants.*;
 
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.bofalib.control.Controllable;
+import frc.bofalib.control.UniControllable;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 
 // Colloquially known as Edward Hopper
-final class AgitatorImpl extends SubsystemBase implements Agitator {
+final class AgitatorImpl extends SubsystemBase implements 
+    Agitator, 
+    UniControllable<SparkMaxControl, AgitatorControl> 
+{
 
     // one neo
     // one time of flight sensor (by playing with fusion)
-    private final SparkMax motor = new SparkMax(
-        AGITATOR_MOTOR_CAN_ID, 
+    private final SparkMaxWrapper motor = new SparkMaxWrapper(
+        AGITATOR_MOTOR_CAN_ID,
         MotorType.kBrushless
     );
 
@@ -27,7 +33,7 @@ final class AgitatorImpl extends SubsystemBase implements Agitator {
         motorConfig.idleMode(IdleMode.kCoast);
         motorConfig.smartCurrentLimit(AMP_LIMIT);
 
-        motor.configure(
+        motor.getConfigurator().apply(
             motorConfig, 
             ResetMode.kResetSafeParameters,
             PersistMode.kPersistParameters
@@ -35,27 +41,7 @@ final class AgitatorImpl extends SubsystemBase implements Agitator {
     }
 
     @Override
-    public void stop() {
-        motor.stopMotor();
-    }
-
-    @Override
-    public void toward() {
-        motor.set(AGITATOR_SPEED);
-    }
-
-    @Override
-    public void towardManual() {
-        motor.set(MANUAL_AGITATOR_SPEED);
-    }
-
-    @Override
-    public void away() {
-        motor.set(-AGITATOR_SPEED);
-    }
-
-    @Override
-    public void awayManual() {
-        motor.set(-MANUAL_AGITATOR_SPEED);
+    public Controllable<SparkMaxControl> getFirstControllable() {
+        return motor;
     }
 }
