@@ -3,17 +3,17 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.intake.Intake;
 
-public class LoadIntake extends Command {
+public class Eject extends Command {
     private Intake intake;
 
     /**
-     * Loads the intake.
+     * Ejects the intake.
      * 
-     * Loads the intake while running, then stops the intake when done.
+     * Ejects the intake while running, then stops the intake when done.
      * 
      * @param intake
      */
-    public LoadIntake(Intake intake) {
+    public Eject(Intake intake) {
         this.intake = intake;
 
         addRequirements(intake);
@@ -22,11 +22,11 @@ public class LoadIntake extends Command {
     /**
      * Called repeatedly while command is running.
      * 
-     * Loads the intake.
+     * Edject the intake.
      */
     @Override
     public void execute() {
-        intake.load();
+        intake.eject();
     }
 
     /**

@@ -13,7 +13,7 @@ import frc.robot.commands.drive.direct.DriveCombinedOrientingTo;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
 import frc.robot.commands.feeder.FeedIn;
-import frc.robot.commands.intake.LoadIntake;
+import frc.robot.commands.intake.Eject;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.launcher.ShootOut;
 
@@ -30,13 +30,13 @@ enum TeleopCommandFactory {
      * 
      */
     LOAD_INTAKE(context -> new IndicatingWrapperCommand(
-        new LoadIntake(context.intake()), 
+        new Eject(context.intake()), 
         context.indicator()
     )),
     /**
      * 
      */
-    STOW_INTAKE(context -> new StowIntake(context.intake())),
+    STOW_INTAKE(context -> new FoldIn(context.intake())),
     /**
      * 
      */

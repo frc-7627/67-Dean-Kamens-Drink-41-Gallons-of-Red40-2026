@@ -211,11 +211,14 @@ public final class Constants {
 
     public static class CanIDs {
         public static final int PROTOTYPE_MOTOR_CAN_ID = 14;
+        public static final int INTAKE_MOTOR_CAN_ID = 18;
 
         public static final int CANDLE_CAN_ID = 15;
 
         public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
         public static final int LAUNCHER_MINION_CAN_ID = 17;
+
+         
 
 
 
@@ -224,7 +227,14 @@ public final class Constants {
     }
 
     public static class IntakeConstants {
+        public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
+
+        
         public static final int AMP_LIMIT = 150;
+        
+        public static final double MANUAL_SPEED = 0.4;
+
+        public static final double FOLD_SPEED = 0.7;
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_LOAD_SPEED = 0.8;
