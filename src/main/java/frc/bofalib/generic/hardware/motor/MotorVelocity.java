@@ -2,7 +2,7 @@ package frc.bofalib.generic.hardware.motor;
 
 import edu.wpi.first.units.measure.AngularVelocity;
 
-public abstract class MotorVelocity {
+public non-sealed abstract class MotorVelocity implements MotorSetting {
     private AngularVelocity angularVelocity;
 
     public MotorVelocity(AngularVelocity angularVelocity) {

@@ -1,6 +1,6 @@
 package frc.bofalib.generic.hardware.motor;
 
-public abstract class MotorDutyCycle {
+public non-sealed abstract class MotorDutyCycle implements MotorSetting {
     private double dutyCycle;
 
     public MotorDutyCycle(double dutyCycle) {
