@@ -29,6 +29,7 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
+    "bloodytears",
     "Bofa",
     "bofalib",
     "Brushless",
@@ -48,6 +49,7 @@
     "Neos",
     "pathplanner",
     "RGBW",
+    "RICKROLL",
     "Rizzler",
     "robotlib",
     "Semiauto",
@@ -62,7 +64,9 @@
     "Superdashboard",
     "swervedrive",
     "Targetter",
-    "Teleop"
+    "Teleop",
+    "vsauce",
+    "VSAUSE"
   ],
   "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms100m -Xlog:disable",
 }

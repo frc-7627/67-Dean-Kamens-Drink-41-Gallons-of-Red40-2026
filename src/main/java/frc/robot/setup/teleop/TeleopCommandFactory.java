@@ -13,7 +13,7 @@ import frc.robot.commands.drive.misc.ZeroGyro;
 import frc.robot.commands.feeder.FeedIn;
 import frc.robot.commands.intake.Eject;
 import frc.robot.commands.intake.*;
-import frc.robot.commands.launcher.ShootOut;
+import frc.robot.subsystems.launcher.LauncherControl;
 
 enum TeleopCommandFactory {
     /**
@@ -38,7 +38,7 @@ enum TeleopCommandFactory {
     /**
      * 
      */
-    LAUNCH_FUEL(context -> new ShootOut(context.launcher())),
+    LAUNCH_FUEL(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
     /**
      * 
      */
@@ -80,9 +80,10 @@ enum TeleopCommandFactory {
         )
     )),
 
-    FEED_AND_SHOOT(context -> new ShootOut(context.launcher()).alongWith(new FeedIn(context.feeder()))),
+    FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+        .alongWith(new FeedIn(context.feeder()))),
     
-    SHOOT(context -> new ShootOut(context.launcher())),
+    SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
     FEED(context -> new FeedIn(context.feeder()))
     ;
