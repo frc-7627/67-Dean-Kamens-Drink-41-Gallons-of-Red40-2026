@@ -65,7 +65,7 @@ final class LauncherImpl extends SubsystemBase implements
     public LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             BofaUtil.composeConditional(
-                this::applyCurrentLimit, 
+                motors.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
@@ -73,7 +73,7 @@ final class LauncherImpl extends SubsystemBase implements
                 BofaUtil.hasChangedDoublePredicate()
             ),
             BofaUtil.composeConditional(
-                this::applyRampUpPeriod, 
+                motors.getConfigurator()::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
                     DEFAULT_RAMP_UP_PERIOD
@@ -90,25 +90,6 @@ final class LauncherImpl extends SubsystemBase implements
                 )
             )
         ));
-    }
-
-    private void applyCurrentLimit(double currentLimit) {
-        motors.getConfigurator().apply(
-            new CurrentLimitsConfigs()
-                .withStatorCurrentLimit(currentLimit)
-        );
-    }
-
-    private void applyRampUpPeriod(double rampUpPeriod) {
-        motors.getConfigurator().apply(
-            new OpenLoopRampsConfigs()
-                .withDutyCycleOpenLoopRampPeriod(rampUpPeriod)
-        );
-
-        motors.getConfigurator().apply(
-            new ClosedLoopRampsConfigs()
-                .withDutyCycleClosedLoopRampPeriod(rampUpPeriod)  
-        );
     }
 
     @Override
