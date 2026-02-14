@@ -1,9 +1,9 @@
 package frc.bofalib.generic.hardware.motor.talon.control;
 
 import java.util.function.Consumer;
-import frc.bofalib.generic.hardware.motor.DutyCycle;
+import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 
-public final class TalonFXControlDutyCycle extends DutyCycle implements TalonFXControl {
+public final class TalonFXControlDutyCycle extends MotorDutyCycle implements TalonFXControl {
     public TalonFXControlDutyCycle(double dutyCycle) {
         super(dutyCycle);
     }

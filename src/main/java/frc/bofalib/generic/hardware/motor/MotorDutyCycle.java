@@ -1,9 +1,9 @@
 package frc.bofalib.generic.hardware.motor;
 
-public abstract class DutyCycle {
+public abstract class MotorDutyCycle {
     private double dutyCycle;
 
-    public DutyCycle(double dutyCycle) {
+    public MotorDutyCycle(double dutyCycle) {
         this.dutyCycle = dutyCycle;
     }
 
