@@ -1,25 +1,35 @@
 package frc.robot.subsystems.agitator;
 
+import java.util.function.DoubleSupplier;
+import java.util.function.Function;
+import frc.bofalib.BofaUtil;
 import frc.bofalib.control.UniControl;
 import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
-import static frc.robot.Constants.AgitatorConstants.*;
 
-public enum AgitatorControl implements UniControl<SparkMaxControl> {
-    AWAY(AGITATOR_SPEED),
-    AWAY_MANUAL(MANUAL_AGITATOR_SPEED),
-    TOWARD(-AGITATOR_SPEED),
-    TOWARD_MANUAL(-MANUAL_AGITATOR_SPEED);
+public enum AgitatorControl implements UniControl<AgitatorImpl, SparkMaxControl> {
+    AWAY(impl -> impl.dutyCycleSupplier),
+    AWAY_MANUAL(impl -> impl.manualDutyCycleSupplier),
+    TOWARD(impl -> BofaUtil.negativeSupplier(
+        impl.dutyCycleSupplier
+    )),
+    TOWARD_MANUAL(impl -> BofaUtil.negativeSupplier(
+        impl.manualDutyCycleSupplier
+    ));
+    
+    private final Function<AgitatorImpl, SparkMaxControl> firstControlFunction;
 
-    private final SparkMaxControl sparkMaxControl;
-
-    private AgitatorControl(double dutyCycle) {
-        this.sparkMaxControl = new SparkMaxControlSetting(new MotorDutyCycle(dutyCycle));
+    AgitatorControl(Function<AgitatorImpl, DoubleSupplier> dutyCycleFunction) {
+        this.firstControlFunction = impl -> new SparkMaxControlSetting(
+            new MotorDutyCycle(
+                dutyCycleFunction.apply(impl)
+            )
+        );
     }
 
     @Override
-    public SparkMaxControl getFirstControl() {
-        return sparkMaxControl;
+    public SparkMaxControl getFirstControl(AgitatorImpl agitatorImpl) {
+        return firstControlFunction.apply(agitatorImpl);
     }
 }

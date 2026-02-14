@@ -227,8 +227,8 @@ public final class Constants {
     public static class AgitatorConstants {
         public static final int AMP_LIMIT = 150;
 
-        public static final double AGITATOR_SPEED = 0.7;
-        public static final double MANUAL_AGITATOR_SPEED = 0.4;
+        public static final double DEFAULT_DUTY_CYCLE = 0.7;
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
     }
 
     public static class IntakeConstants {
