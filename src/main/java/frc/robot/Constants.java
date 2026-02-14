@@ -71,7 +71,7 @@ public final class Constants {
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(2);
 
-    public static final DoublePredicate CHECK_SIMPLE_MOTOR_SPEED = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
+    public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
             && simpleMotorSpeed <= 1.0;
 
     public static final Frequency MOTOR_CONFIGURE_FREQUENCY = Hertz.of(5);

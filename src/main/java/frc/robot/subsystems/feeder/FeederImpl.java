@@ -2,7 +2,7 @@ package frc.robot.subsystems.feeder;
 
 import static frc.robot.Constants.FeederConstants.*;
 import java.util.function.DoubleSupplier;
-import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
+import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -32,7 +32,7 @@ final class FeederImpl extends SubsystemBase implements Feeder {
     private final DoubleSupplier feedSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Speed"), 
         DEFAULT_FEED_SPEED,
-        CHECK_SIMPLE_MOTOR_SPEED
+        CHECK_DUTY_CYCLE
     );
 
     private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);

@@ -3,7 +3,7 @@ package frc.robot.subsystems.launcher;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
-import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
+import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.List;
@@ -51,25 +51,25 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
     private final DoubleSupplier shootSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Speed"), 
         DEFAULT_SHOOT_SPEED, 
-        CHECK_SIMPLE_MOTOR_SPEED
+        CHECK_DUTY_CYCLE
     );
 
     private final DoubleSupplier activeIdleSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Active Idle Speed"), 
         DEFAULT_ACTIVE_IDLE_SPEED,
-        CHECK_SIMPLE_MOTOR_SPEED
+        CHECK_DUTY_CYCLE
     );
 
     private final DoubleSupplier inactiveIdleSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Inactive Idle Speed"), 
         DEFAULT_INACTIVE_IDLE_SPEED,
-        CHECK_SIMPLE_MOTOR_SPEED
+        CHECK_DUTY_CYCLE
     );
 
     private final DoubleSupplier manualSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Manual Speed"), 
         DEFAULT_MANUAL_SPEED,
-        CHECK_SIMPLE_MOTOR_SPEED
+        CHECK_DUTY_CYCLE
     );
 
     public LauncherImpl() {

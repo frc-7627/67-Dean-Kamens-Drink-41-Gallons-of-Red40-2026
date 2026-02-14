@@ -12,7 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import static frc.robot.Constants.CHECK_SIMPLE_MOTOR_SPEED;
+import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.CanIDs.INTAKE_MOTOR_CAN_ID;
 import static frc.robot.Constants.CanIDs.PROTOTYPE_MOTOR_CAN_ID;
 import static frc.robot.Constants.IntakeConstants.*;
@@ -29,7 +29,7 @@ final class IntakeImpl extends SubsystemBase implements Intake {
     private final DoubleSupplier loadSpeedSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Load Speed"), 
         DEFAULT_LOAD_SPEED,
-        CHECK_SIMPLE_MOTOR_SPEED
+        CHECK_DUTY_CYCLE
     );
 
     /**
