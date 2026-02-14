@@ -8,7 +8,9 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import frc.bofalib.generic.hardware.motor.MotorHardware;
+import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 
 public final class TalonFXWrapper extends 
     MotorHardware<TalonFXControl, TalonFXConfigurator>
@@ -26,8 +28,7 @@ public final class TalonFXWrapper extends
 
         control.visit(
             request -> {},
-            dutyCycle -> {},
-            velocity -> {},
+            setting -> {},
             track -> { track.orchestra().addInstrument(talonFX, track.trackNumber()); }
         );
     }
@@ -36,8 +37,16 @@ public final class TalonFXWrapper extends
     public void runControl() {
         control.visit(
             request -> { talonFX.setControl(request.request()); },
-            dutyCycle -> { talonFX.set(dutyCycle.getDutyCycle()); },
-            velocity -> { talonFX.setControl(new VelocityVoltage(velocity.getAngularVelocity())); },
+            setting -> {
+                setting.setting().visit(
+                    dutyCycle -> { talonFX.set(
+                        dutyCycle.getDutyCycle()
+                    ); },
+                    velocity -> { talonFX.setControl(new VelocityVoltage(
+                        velocity.getAngularVelocity()
+                    )); }
+                );
+            },
             track -> {}
         );
     }
@@ -46,6 +55,12 @@ public final class TalonFXWrapper extends
     public TalonFXConfigurator getConfigurator() {
         return talonFX.getConfigurator();
     }
+
+    @Override
+    public TalonFXControl getSetControl(MotorSetting motorSetting) {
+        return new TalonFXControlSetting(motorSetting);
+    }
+    
 
     Follower getFollower(MotorAlignmentValue motorAlignmentValue) {
         return new Follower(talonFX.getDeviceID(), motorAlignmentValue);

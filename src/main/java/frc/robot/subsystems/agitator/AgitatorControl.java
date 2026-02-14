@@ -1,9 +1,9 @@
 package frc.robot.subsystems.agitator;
 
 import frc.bofalib.control.UniControl;
+import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlDutyCycle;
-
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 import static frc.robot.Constants.AgitatorConstants.*;
 
 public enum AgitatorControl implements UniControl<SparkMaxControl> {
@@ -15,7 +15,7 @@ public enum AgitatorControl implements UniControl<SparkMaxControl> {
     private final SparkMaxControl sparkMaxControl;
 
     private AgitatorControl(double dutyCycle) {
-        this.sparkMaxControl = new SparkMaxControlDutyCycle(dutyCycle);
+        this.sparkMaxControl = new SparkMaxControlSetting(new MotorDutyCycle(dutyCycle));
     }
 
     @Override

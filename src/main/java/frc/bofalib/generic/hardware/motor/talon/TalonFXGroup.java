@@ -9,8 +9,11 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.Pair;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
+import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSong;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 
 public final class TalonFXGroup extends
     MotorHardware<TalonFXBatchControl, TalonFXGroupConfigurator> 
@@ -88,5 +91,10 @@ public final class TalonFXGroup extends
     @Override
     public TalonFXGroupConfigurator getConfigurator() {
         return configurator;
+    }
+
+    @Override
+    public TalonFXBatchControl getSetControl(MotorSetting motorSetting) {
+        return new TalonFXBatchSetting(new TalonFXControlSetting(motorSetting));
     }
 }

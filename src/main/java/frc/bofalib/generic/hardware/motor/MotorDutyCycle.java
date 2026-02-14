@@ -2,23 +2,23 @@ package frc.bofalib.generic.hardware.motor;
 
 import java.util.function.Consumer;
 
-public non-sealed abstract class MotorDutyCycle implements MotorSetting {
+public final class MotorDutyCycle implements MotorSetting {
     private double dutyCycle;
 
     public MotorDutyCycle(double dutyCycle) {
         this.dutyCycle = dutyCycle;
     }
 
-    public final double getDutyCycle() {
+    public double getDutyCycle() {
         return dutyCycle;
     }
 
-    public final void setDutyCycle(double dutyCycle) {
+    public void setDutyCycle(double dutyCycle) {
         this.dutyCycle = dutyCycle;
     }
 
     @Override
-    public final void visit(
+    public void visit(
         Consumer<MotorDutyCycle> dutyCycleConsumer,
         Consumer<MotorVelocity> velocityConsumer
     ) {

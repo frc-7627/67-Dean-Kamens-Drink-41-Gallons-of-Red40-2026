@@ -1,20 +1,15 @@
 package frc.bofalib.generic.hardware.motor.talon.control;
 
 import java.util.function.Consumer;
+import frc.bofalib.generic.hardware.motor.MotorSetting;
 
-public final class TalonFXControlEmpty implements TalonFXControl {
-    private static final TalonFXControlEmpty INSTANCE = new TalonFXControlEmpty();
-
-    public static TalonFXControlEmpty getInstance() {
-        return INSTANCE;
-    }
-
-    private TalonFXControlEmpty() {}
-
+public record TalonFXControlSetting(MotorSetting setting) implements TalonFXControl {
     @Override
     public void visit(
         Consumer<TalonFXControlRequest> requestConsumer,
         Consumer<TalonFXControlSetting> settingConsumer,
         Consumer<TalonFXControlTrack> trackConsumer
-    ) {}
+    ) {
+        settingConsumer.accept(this);
+    }
 }

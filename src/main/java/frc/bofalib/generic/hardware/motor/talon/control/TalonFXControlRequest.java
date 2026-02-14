@@ -10,8 +10,7 @@ public final record TalonFXControlRequest(
     @Override
     public void visit(
         Consumer<TalonFXControlRequest> requestConsumer,
-        Consumer<TalonFXControlDutyCycle> dutyCycleConsumer,
-        Consumer<TalonFXControlVelocity> velocityConsumer,
+        Consumer<TalonFXControlSetting> settingConsumer,
         Consumer<TalonFXControlTrack> trackConsumer
     ) {
         requestConsumer.accept(this);
