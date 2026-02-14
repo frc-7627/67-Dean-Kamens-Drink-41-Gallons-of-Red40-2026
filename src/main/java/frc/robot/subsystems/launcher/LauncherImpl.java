@@ -1,17 +1,13 @@
 package frc.robot.subsystems.launcher;
 
 import static edu.wpi.first.units.Units.RPM;
-import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
-import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
 import static frc.robot.Constants.CanIDs.LAUNCHER_MINION_CAN_ID;
-import static frc.robot.Constants.Directories.*;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
-import java.util.logging.Logger;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
@@ -29,9 +25,7 @@ import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talon.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
-import frc.bofalib.generic.music.Song;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
-import frc.robot.Constants;
 
 // Colloquially known as Miles after bad Chinese
 final class LauncherImpl extends SubsystemBase implements 
@@ -40,7 +34,6 @@ final class LauncherImpl extends SubsystemBase implements
 {
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
-    private static final Logger LOGGER = Logger.getLogger(LauncherImpl.class.getName());
 
     private final TalonFXGroup motors = new TalonFXGroup(
         new TalonFXConfiguration()
