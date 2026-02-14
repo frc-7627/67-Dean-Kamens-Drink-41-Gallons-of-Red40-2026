@@ -16,13 +16,13 @@ import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pathplanner.PathPlannerConfigException;
 import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.agitator.Agitator;
 import frc.robot.subsystems.controlstate.GlobalControlState;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.drivebase.DrivebaseInitException;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.gameinfo.GameInfoSupplier;
-import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.launcher.Launcher;
 import org.littletonrobotics.junction.Logger;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -54,7 +54,7 @@ public class RobotContainer {
 
     private final Feeder feeder;
 
-    private final Hopper hopper;
+    private final Agitator hopper;
 
     private final Launcher launcher;
 
@@ -90,7 +90,7 @@ public class RobotContainer {
         this.feeder = Feeder.create();
 
         // agitate fuel in robot
-        this.hopper = Hopper.create();
+        this.hopper = Agitator.create();
 
         // release and score fuel
         this.launcher = Launcher.create();

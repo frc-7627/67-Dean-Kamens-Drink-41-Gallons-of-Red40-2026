@@ -236,7 +236,9 @@ public final class Constants {
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
         
         //LINIEAR FEET PER SEC
-        public static final double SHOOT_SPEED = 4;
+        // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
+        // or 83.49530895144358 FPS
+        public static final double SHOOT_SPEED = 4; 
         public static final double IDLE_SPEED = 670;
         public static final double INACTIVE_SPEED = 67;
 
@@ -267,10 +269,10 @@ public final class Constants {
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
         public static final Slot0Configs SLOT0_CONFIGS = new Slot0Configs()
-            .withKP(0.0)
+            .withKP(1.0)
             .withKI(0.0)
             .withKD(0.0)
-            .withKS(0.0)
+            .withKS(0.25)
             .withKV(0.0)
             .withKA(0.0);
 
