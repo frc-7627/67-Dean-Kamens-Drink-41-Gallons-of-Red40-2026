@@ -1,19 +1,19 @@
-package frc.bofalib.generic.hardware.sensor.tof;
+package frc.bofalib.generic.hardware.sensor.pwf;
 
 import java.util.function.BooleanSupplier;
 
 import frc.bofalib.query.BooleanQueryable;
 
-public final class TOFWrapper implements BooleanQueryable<TOFQuery> {
+public final class PWFTimeOfFlight implements BooleanQueryable<PWFTimeOfFlightQuery> {
     // TODO: import fusion and uncomment
     // private final TimeOfFlight timeOfFlight;
     
-    public TOFWrapper(int deviceId) {
+    public PWFTimeOfFlight(int deviceId) {
         // TODO: import fusion and uncomment
         // this.timeOfFlight = new TimeOfFlight(deviceId);
     }
 
-    private boolean checkQuery(TOFQuery query) {
+    private boolean checkQuery(PWFTimeOfFlightQuery query) {
         // TODO: import fusion and uncomment
         // final double range = timeOfFlight.getRange();
 
@@ -26,7 +26,7 @@ public final class TOFWrapper implements BooleanQueryable<TOFQuery> {
     }
 
     @Override
-    public BooleanSupplier queryBoolean(TOFQuery query) {
+    public BooleanSupplier queryBoolean(PWFTimeOfFlightQuery query) {
         // TODO: import fusion and uncomment
         return () -> /* timeOfFlight.isRangeValid() && */ checkQuery(query);
     }
