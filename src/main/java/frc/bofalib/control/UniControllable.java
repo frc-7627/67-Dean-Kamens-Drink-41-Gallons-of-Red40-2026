@@ -1,14 +1,17 @@
 package frc.bofalib.control;
 
 public interface UniControllable<
+    This extends UniControllable<This, FirstControl, Control>,
     FirstControl,
-    Control extends UniControl<FirstControl>
+    Control extends UniControl<This, FirstControl>
 > extends Controllable<Control> {
     Controllable<FirstControl> getFirstControllable();
 
+    This getThis();
+
     @Override
     default void beginControl(Control control) {
-        getFirstControllable().beginControl(control.getFirstControl());
+        getFirstControllable().beginControl(control.getFirstControl(getThis()));
     }
 
     @Override

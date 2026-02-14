@@ -1,5 +1,5 @@
 package frc.bofalib.control;
 
-public interface UniControl<FirstControl> {
-    FirstControl getFirstControl();
+public interface UniControl<Target, FirstControl> {
+    FirstControl getFirstControl(Target target);
 }
