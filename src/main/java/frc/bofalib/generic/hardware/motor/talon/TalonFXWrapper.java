@@ -1,5 +1,6 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
+import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
@@ -11,6 +12,7 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
 import frc.bofalib.query.DoubleQueryable;
@@ -21,7 +23,7 @@ implements
     DoubleQueryable<TalonFXQuery>
 {
     private final TalonFX talonFX;
-    private TalonFXControl control;
+    private TalonFXControl control = TalonFXControlEmpty.getInstance();
 
     public TalonFXWrapper(int deviceId) {
         this.talonFX = new TalonFX(deviceId);
@@ -29,7 +31,7 @@ implements
 
     @Override
     public void beginControl(TalonFXControl control) {
-        this.control = control;
+        this.control = Objects.requireNonNull(control);
 
         control.visit(
             request -> {},

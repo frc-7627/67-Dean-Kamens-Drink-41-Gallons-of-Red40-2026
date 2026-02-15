@@ -1,5 +1,6 @@
 package frc.bofalib.generic.hardware.motor.sparkmax;
 
+import java.util.Objects;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
@@ -17,6 +18,10 @@ public final class SparkMaxConfigurator {
         ResetMode resetMode, 
         PersistMode persistMode
     ) {
-        sparkMax.configure(config, resetMode, persistMode);
+        sparkMax.configure(
+            Objects.requireNonNull(config), 
+            Objects.requireNonNull(resetMode), 
+            Objects.requireNonNull(persistMode)
+        );
     }
 }

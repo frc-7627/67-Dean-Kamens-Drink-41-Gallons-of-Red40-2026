@@ -1,5 +1,6 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
@@ -13,7 +14,7 @@ public final class TalonFXGroupConfigurator {
     private final TalonFXConfigurator leaderConfigurator;
     private final Supplier<Stream<TalonFXConfigurator>> followerConfiguratorsSupplier;
 
-    public TalonFXGroupConfigurator(
+    TalonFXGroupConfigurator(
         TalonFXConfigurator leaderConfigurator,
         Supplier<Stream<TalonFXConfigurator>> followerConfiguratorsSupplier
     ) {
@@ -41,35 +42,45 @@ public final class TalonFXGroupConfigurator {
     }
 
     public void apply(ClosedLoopRampsConfigs configuration) {
-        leaderConfigurator.apply(configuration);
+        leaderConfigurator.apply(
+            Objects.requireNonNull(configuration)
+        );
         followerConfiguratorsSupplier.get().forEach(
             followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(OpenLoopRampsConfigs configuration) {
-        leaderConfigurator.apply(configuration);
+        leaderConfigurator.apply(
+            Objects.requireNonNull(configuration)
+        );
         followerConfiguratorsSupplier.get().forEach(
             followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(Slot0Configs configuration) {
-        leaderConfigurator.apply(configuration);
+        leaderConfigurator.apply(
+            Objects.requireNonNull(configuration)
+        );
         followerConfiguratorsSupplier.get().forEach(
             followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(CurrentLimitsConfigs configuration) {
-        leaderConfigurator.apply(configuration);
+        leaderConfigurator.apply(
+            Objects.requireNonNull(configuration)
+        );
         followerConfiguratorsSupplier.get().forEach(
             followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(TalonFXConfiguration configuration) {
-        leaderConfigurator.apply(configuration);
+        leaderConfigurator.apply(
+            Objects.requireNonNull(configuration)
+        );
         followerConfiguratorsSupplier.get().forEach(
             followerConfigurator -> followerConfigurator.apply(configuration)
         );

@@ -1,6 +1,7 @@
 package frc.bofalib.generic.hardware.motor.sparkmax;
 
 import static edu.wpi.first.units.Units.RPM;
+import java.util.Objects;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
@@ -10,6 +11,7 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 
 public final class SparkMaxWrapper extends 
@@ -17,10 +19,10 @@ public final class SparkMaxWrapper extends
 {
     private final SparkMax sparkMax;
     private final SparkMaxConfigurator configurator;
-    private SparkMaxControl control;
+    private SparkMaxControl control = SparkMaxControlEmpty.getInstance();
 
     public SparkMaxWrapper(int deviceId, MotorType motorType) {
-        this.sparkMax = new SparkMax(deviceId, motorType);
+        this.sparkMax = new SparkMax(deviceId, Objects.requireNonNull(motorType));
         this.configurator = new SparkMaxConfigurator(sparkMax);
     }
 
@@ -38,7 +40,7 @@ public final class SparkMaxWrapper extends
 
     @Override
     public void beginControl(SparkMaxControl control) {
-        this.control = control;
+        this.control = Objects.requireNonNull(control);
     }
 
     @Override
@@ -66,6 +68,8 @@ public final class SparkMaxWrapper extends
 
     @Override
     public SparkMaxControl getSetControl(MotorSetting motorSetting) {
-        return new SparkMaxControlSetting(motorSetting);
+        return new SparkMaxControlSetting(
+            Objects.requireNonNull(motorSetting)
+        );
     }
 }

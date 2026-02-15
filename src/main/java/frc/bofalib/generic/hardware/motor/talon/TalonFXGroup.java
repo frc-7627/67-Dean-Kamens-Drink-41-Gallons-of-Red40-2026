@@ -1,6 +1,7 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import java.util.stream.IntStream;
 import com.ctre.phoenix6.Orchestra;
@@ -12,6 +13,7 @@ import edu.wpi.first.math.Pair;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchEmpty;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSong;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
@@ -27,17 +29,17 @@ implements
     private final List<Pair<TalonFXWrapper, Follower>> followerPairs;
     private final TalonFXGroupConfigurator configurator;
     private final Orchestra orchestra;
-    private TalonFXBatchControl control;
+    private TalonFXBatchControl control = TalonFXBatchEmpty.getInstance();
 
     public TalonFXGroup(
         TalonFXConfiguration configuration, 
         TalonFXWrapper leaderWrapper,
         List<Pair<TalonFXWrapper, MotorAlignmentValue>> followerPairs
     ) {
-        this.leaderWrapper = leaderWrapper;
-        this.followerPairs = followerPairs.stream().map(
+        this.leaderWrapper = Objects.requireNonNull(leaderWrapper);
+        this.followerPairs = Objects.requireNonNull(followerPairs).stream().map(
             pair -> Pair.of(
-                pair.getFirst(), 
+                Objects.requireNonNull(pair).getFirst(), 
                 leaderWrapper.getFollower(
                     pair.getSecond()
                 )
@@ -55,7 +57,7 @@ implements
 
     @Override
     public void beginControl(TalonFXBatchControl control) {
-        this.control = control;
+        this.control = Objects.requireNonNull(control);
         leaderWrapper.beginControl(control.getLeaderControl(orchestra));
 
         IntStream.range(0, followerPairs.size()).forEach(
@@ -100,11 +102,17 @@ implements
 
     @Override
     public TalonFXBatchControl getSetControl(MotorSetting motorSetting) {
-        return new TalonFXBatchSetting(new TalonFXControlSetting(motorSetting));
+        return new TalonFXBatchSetting(
+            new TalonFXControlSetting(
+                Objects.requireNonNull(motorSetting)
+            )
+        );
     }
 
     @Override
     public DoubleSupplier queryDouble(TalonFXGroupQuery query) {
+        Objects.requireNonNull(query);
+
         if (query.index().isEmpty()) {
             return leaderWrapper.queryDouble(query.query());
         } else {
