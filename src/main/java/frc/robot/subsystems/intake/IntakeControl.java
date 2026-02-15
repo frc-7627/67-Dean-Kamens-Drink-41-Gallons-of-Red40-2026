@@ -12,7 +12,11 @@ import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 
-public enum IntakeControl implements BiControl<IntakeImpl, SparkMaxControl, TalonFXControl> {
+public enum IntakeControl implements BiControl<
+    IntakeImpl, 
+    SparkMaxControl, 
+    TalonFXControl
+> {
     LOAD(
         Motor.INTAKE_MOTOR, 
         impl -> impl.intakeDutyCycle
@@ -40,7 +44,17 @@ public enum IntakeControl implements BiControl<IntakeImpl, SparkMaxControl, Talo
 
     private static enum Motor {
         PIVOT_MOTOR,
-        INTAKE_MOTOR
+        INTAKE_MOTOR;
+
+        <Out> Out visit(
+            Out pivotMotorOut,
+            Out intakeMotorOut
+        ) {
+            return switch (this) {
+                case PIVOT_MOTOR -> pivotMotorOut;
+                case INTAKE_MOTOR -> intakeMotorOut;
+            };
+        }
     }
 
     private final Function<IntakeImpl, SparkMaxControl> pivotControlFunction;
@@ -50,27 +64,23 @@ public enum IntakeControl implements BiControl<IntakeImpl, SparkMaxControl, Talo
         Motor motor,
         Function<IntakeImpl, DoubleSupplier> dutyCycleFunction
     ) {
-        switch (motor) {
-            case PIVOT_MOTOR -> {
-                this.pivotControlFunction = impl -> new SparkMaxControlSetting(
-                    new MotorDutyCycle(
-                        dutyCycleFunction.apply(impl)
-                    )
-                );
-                this.intakeControlFunction = impl -> TalonFXControlEmpty.getInstance();
-            }
-            case INTAKE_MOTOR -> {
-                this.pivotControlFunction = impl -> SparkMaxControlEmpty.getInstance();
-                this.intakeControlFunction = impl -> new TalonFXControlSetting(
-                    new MotorDutyCycle(
-                        dutyCycleFunction.apply(impl)
-                    )
-                );
-            }
-            default -> {
-                throw new IllegalArgumentException();
-            }
-        }
+        this.pivotControlFunction = motor.visit(
+            impl -> new SparkMaxControlSetting(
+                new MotorDutyCycle(
+                    dutyCycleFunction.apply(impl)
+                )
+            ), 
+            impl -> SparkMaxControlEmpty.getInstance()
+        );
+
+        this.intakeControlFunction = motor.visit(
+            impl -> TalonFXControlEmpty.getInstance(), 
+            impl -> new TalonFXControlSetting(
+                new MotorDutyCycle(
+                    dutyCycleFunction.apply(impl)
+                )
+            )
+        );
     }
 
     @Override
