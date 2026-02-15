@@ -5,11 +5,7 @@ public interface BiControllable<
     FirstControl,
     SecondControl,
     Control extends BiControl<This, FirstControl, SecondControl>
-> extends Controllable<Control> {
-    This getThis();
-
-    Controllable<FirstControl> getFirstControllable();
-
+> extends UniControllable<This, FirstControl, Control> {
     Controllable<SecondControl> getSecondControllable();
 
     @Override
