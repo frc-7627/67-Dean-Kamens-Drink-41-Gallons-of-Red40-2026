@@ -46,17 +46,17 @@ final class LauncherImpl extends SubsystemBase implements
         )
     );
 
-    public final DoubleSupplier shootSpeedFPSSupplier =
-    DashboardItems.createDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Shoot Speed Feet Per Sec"), 
-        0
-    );
-
     private final DoubleSupplier motorVelocityRotPerSecSupplier = motors.queryDouble(
         new TalonFXGroupQuery(
             OptionalInt.empty(), 
             TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
         )
+    );
+
+    final DoubleSupplier shootSpeedFPSSupplier =
+    DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Shoot Speed Feet Per Sec"), 
+        0
     );
 
     public LauncherImpl() {
