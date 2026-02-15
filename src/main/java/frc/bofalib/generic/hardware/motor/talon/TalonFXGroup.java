@@ -93,6 +93,8 @@ implements
         followerPairs.forEach(
             followerPair -> followerPair.getFirst().endControl()
         );
+
+        this.control = TalonFXBatchEmpty.getInstance();
     }
 
     @Override

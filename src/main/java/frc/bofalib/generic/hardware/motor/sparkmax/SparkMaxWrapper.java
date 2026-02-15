@@ -59,6 +59,8 @@ public final class SparkMaxWrapper extends
     @Override
     public void endControl() {
         sparkMax.stopMotor();
+
+        this.control = SparkMaxControlEmpty.getInstance();
     }
 
     @Override

@@ -59,6 +59,13 @@ implements
     }
 
     @Override
+    public void endControl() {
+        talonFX.stopMotor();
+
+        this.control = TalonFXControlEmpty.getInstance();
+    }
+
+    @Override
     public TalonFXConfigurator getConfigurator() {
         return talonFX.getConfigurator();
     }
@@ -70,8 +77,8 @@ implements
 
     @Override
     public DoubleSupplier queryDouble(TalonFXQuery query) {
-        return switch (query) {
-            case ANGULAR_VELOCITY_ROT_PER_SEC -> () -> talonFX.getVelocity().getValueAsDouble();
+        return switch (Objects.requireNonNull(query)) {
+            case ANGULAR_VELOCITY_ROT_PER_SEC -> talonFX.getVelocity()::getValueAsDouble;
         };
     }
     
