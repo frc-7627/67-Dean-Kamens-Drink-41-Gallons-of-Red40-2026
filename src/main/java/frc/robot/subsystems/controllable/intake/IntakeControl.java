@@ -2,7 +2,6 @@ package frc.robot.subsystems.controllable.intake;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
-import frc.bofalib.BofaUtil;
 import frc.bofalib.generic.control.BiControl;
 import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
@@ -11,6 +10,7 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSettin
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.util.FunctionalUtil;
 
 public enum IntakeControl implements BiControl<
     IntakeImpl, 
@@ -23,7 +23,7 @@ public enum IntakeControl implements BiControl<
     ),
     EJECT(
         Motor.INTAKE_MOTOR, 
-        impl -> BofaUtil.negativeSupplier(impl.intakeDutyCycle)
+        impl -> FunctionalUtil.negativeSupplier(impl.intakeDutyCycle)
     ),
     LOAD_MANUAL(
         Motor.INTAKE_MOTOR, 
@@ -31,7 +31,7 @@ public enum IntakeControl implements BiControl<
     ),
     EJECT_MANUAL(
         Motor.INTAKE_MOTOR, 
-        impl -> BofaUtil.negativeSupplier(impl.intakeManualDutyCycle)
+        impl -> FunctionalUtil.negativeSupplier(impl.intakeManualDutyCycle)
     ),
     FOLD_OUT(
         Motor.PIVOT_MOTOR, 
@@ -39,7 +39,7 @@ public enum IntakeControl implements BiControl<
     ),
     FOLD_IN(
         Motor.PIVOT_MOTOR, 
-        impl -> BofaUtil.negativeSupplier(impl.foldDutyCycle)
+        impl -> FunctionalUtil.negativeSupplier(impl.foldDutyCycle)
     );
 
     private static enum Motor {

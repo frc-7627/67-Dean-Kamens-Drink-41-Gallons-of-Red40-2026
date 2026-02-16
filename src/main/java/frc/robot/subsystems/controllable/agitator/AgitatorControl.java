@@ -2,7 +2,7 @@ package frc.robot.subsystems.controllable.agitator;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
-import frc.bofalib.BofaUtil;
+import frc.bofalib.util.FunctionalUtil;
 import frc.bofalib.generic.control.UniControl;
 import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
@@ -11,10 +11,10 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSettin
 public enum AgitatorControl implements UniControl<AgitatorImpl, SparkMaxControl> {
     AWAY(impl -> impl.dutyCycleSupplier),
     AWAY_MANUAL(impl -> impl.manualDutyCycleSupplier),
-    TOWARD(impl -> BofaUtil.negativeSupplier(
+    TOWARD(impl -> FunctionalUtil.negativeSupplier(
         impl.dutyCycleSupplier
     )),
-    TOWARD_MANUAL(impl -> BofaUtil.negativeSupplier(
+    TOWARD_MANUAL(impl -> FunctionalUtil.negativeSupplier(
         impl.manualDutyCycleSupplier
     ));
     

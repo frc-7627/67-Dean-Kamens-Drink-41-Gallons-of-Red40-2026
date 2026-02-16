@@ -6,7 +6,6 @@ import java.util.function.DoubleSupplier;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.BofaUtil;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
@@ -15,6 +14,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.bofalib.util.FunctionalUtil;
 import static frc.robot.Constants.CanIDs.*;
 
 // Colloquially known as The Berlin Wall.
@@ -47,13 +47,13 @@ final class FeederImpl extends SubsystemBase implements
             .apply(DEFAULT_MOTOR_OUTPUT_CONFIGS);
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
-            BofaUtil.composeConditional(
+            FunctionalUtil.composeConditional(
                 motor.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
                 ), 
-                BofaUtil.hasChangedDoublePredicate())
+                FunctionalUtil.hasChangedDoublePredicate())
         ));
     }
 

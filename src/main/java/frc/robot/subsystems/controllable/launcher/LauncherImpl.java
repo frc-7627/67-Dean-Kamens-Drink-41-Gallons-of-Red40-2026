@@ -12,7 +12,6 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.BofaUtil;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
@@ -24,6 +23,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.bofalib.util.FunctionalUtil;
 
 // Colloquially known as Miles after bad Chinese
 final class LauncherImpl extends SubsystemBase implements 
@@ -63,23 +63,23 @@ final class LauncherImpl extends SubsystemBase implements
 
     public LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
-            BofaUtil.composeConditional(
+            FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
                 ), 
-                BofaUtil.hasChangedDoublePredicate()
+                FunctionalUtil.hasChangedDoublePredicate()
             ),
-            BofaUtil.composeConditional(
+            FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
                     DEFAULT_RAMP_UP_PERIOD
                 ), 
-                BofaUtil.hasChangedDoublePredicate()
+                FunctionalUtil.hasChangedDoublePredicate()
             ),
-            BofaUtil.compose(
+            FunctionalUtil.compose(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
                 ), 

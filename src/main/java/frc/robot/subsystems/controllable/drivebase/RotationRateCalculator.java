@@ -6,7 +6,7 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
-import frc.bofalib.BofaUtil;
+import frc.bofalib.util.FunctionalUtil;
 
 final class RotationRateCalculator {
     private final PIDController controller;
@@ -26,21 +26,21 @@ final class RotationRateCalculator {
         keyBuilder.extend("Rotation Rate Calculator");
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
-            BofaUtil.compose(
+            FunctionalUtil.compose(
                 controller::setP, 
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("P"), 
                     3.5
                 )
             ),
-            BofaUtil.compose(
+            FunctionalUtil.compose(
                 controller::setI,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("I"), 
                     0.0
                 )
             ),
-            BofaUtil.compose(
+            FunctionalUtil.compose(
                 controller::setD,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("D"),
