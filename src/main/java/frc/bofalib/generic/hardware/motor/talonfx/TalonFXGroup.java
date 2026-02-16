@@ -14,7 +14,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
-import frc.bofalib.generic.music.Instrument;
+import frc.bofalib.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXGroup extends

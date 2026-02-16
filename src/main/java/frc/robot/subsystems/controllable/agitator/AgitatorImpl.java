@@ -13,9 +13,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
-import frc.bofalib.control.UniControllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 

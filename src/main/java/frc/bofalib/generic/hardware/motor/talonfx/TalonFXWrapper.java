@@ -18,7 +18,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
-import frc.bofalib.generic.music.Instrument;
+import frc.bofalib.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXWrapper extends 

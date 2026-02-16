@@ -1,4 +1,6 @@
-package frc.bofalib.control;
+package frc.bofalib.generic.control;
+
+import frc.bofalib.control.Controllable;
 
 public interface UniControllable<
     This extends UniControllable<This, FirstControl, Control>,

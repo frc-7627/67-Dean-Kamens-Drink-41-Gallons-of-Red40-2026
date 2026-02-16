@@ -4,6 +4,7 @@ import java.util.Collection;
 import com.ctre.phoenix6.Orchestra;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.bofalib.music.Song;
 
 public abstract class SongCommand<AvailableSong extends Song> extends Command {
     private final Collection<? extends MusicalSubsystem> musicalSubsystems;

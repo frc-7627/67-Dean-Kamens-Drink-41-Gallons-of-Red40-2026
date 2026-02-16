@@ -4,7 +4,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
-import frc.bofalib.control.UniControl;
+import frc.bofalib.generic.control.UniControl;
 import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.MotorVelocity;

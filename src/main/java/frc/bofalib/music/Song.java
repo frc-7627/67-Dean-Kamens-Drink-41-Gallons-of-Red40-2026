@@ -1,4 +1,4 @@
-package frc.bofalib.generic.music;
+package frc.bofalib.music;
 
 import static frc.robot.Constants.Directories.SONGS_DIRECTORY;
 

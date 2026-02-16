@@ -3,7 +3,7 @@ package frc.robot.subsystems.controllable.feeder;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.BofaUtil;
-import frc.bofalib.control.UniControl;
+import frc.bofalib.generic.control.UniControl;
 import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;

@@ -1,6 +1,6 @@
 package frc.robot;
 
-import frc.bofalib.generic.music.Song;
+import frc.bofalib.music.Song;
 
 public enum RobotSong implements Song {
     PLAY_SUS("sus"),

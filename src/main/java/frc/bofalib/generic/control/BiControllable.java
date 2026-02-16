@@ -1,4 +1,6 @@
-package frc.bofalib.control;
+package frc.bofalib.generic.control;
+
+import frc.bofalib.control.Controllable;
 
 public interface BiControllable<
     This extends BiControllable<This, FirstControl, SecondControl, Control>,

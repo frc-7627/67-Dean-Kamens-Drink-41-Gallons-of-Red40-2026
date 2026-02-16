@@ -1,4 +1,4 @@
-package frc.bofalib.control;
+package frc.bofalib.generic.control;
 
 public interface BiControl<
     Target,
