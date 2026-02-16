@@ -4,7 +4,6 @@ import static frc.robot.Constants.FeederConstants.*;
 import java.util.List;
 import java.util.function.DoubleSupplier;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.BofaUtil;
@@ -12,7 +11,6 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.control.UniControllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.bofalib.generic.hardware.motor.talon.TalonFXGroup;
 import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
@@ -50,10 +48,8 @@ final class FeederImpl extends SubsystemBase implements
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             BofaUtil.composeConditional(
-                currentLimit -> motor.getConfigurator().apply(
-                    new CurrentLimitsConfigs().withStatorCurrentLimit(currentLimit)
-                ), 
-                 DashboardItems.createDoublePuller(
+                motor.getConfigurator()::applyCurrentLimit, 
+                DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
                 ), 

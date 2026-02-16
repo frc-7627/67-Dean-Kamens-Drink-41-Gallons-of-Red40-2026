@@ -3,61 +3,55 @@ package frc.bofalib.generic.hardware.motor.talon;
 import java.util.Objects;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 
-public final class TalonFXWrapperConfigurator {
+final class TalonFXWrapperConfigurator implements TalonFXCommonConfigurator {
     private final TalonFXConfigurator configurator;
 
-    public TalonFXWrapperConfigurator(TalonFXConfigurator configurator) {
+    TalonFXWrapperConfigurator(TalonFXConfigurator configurator) {
         this.configurator = configurator;
     }
 
-    public void applyCurrentLimit(double currentLimit) {
-        apply(
-            new CurrentLimitsConfigs()
-                .withStatorCurrentLimit(currentLimit)
-        );
-    }
-
-    public void applyRampUpPeriod(double rampUpPeriod) {
-        apply(
-            new OpenLoopRampsConfigs()
-                .withDutyCycleOpenLoopRampPeriod(rampUpPeriod)
-        );
-
-        apply(
-            new ClosedLoopRampsConfigs()
-                .withDutyCycleClosedLoopRampPeriod(rampUpPeriod)  
-        );
-    }
-
+    @Override
     public void apply(ClosedLoopRampsConfigs configuration) {
         configurator.apply(
             Objects.requireNonNull(configuration)
         );
     }
 
+    @Override
     public void apply(OpenLoopRampsConfigs configuration) {
         configurator.apply(
             Objects.requireNonNull(configuration)
         );
     }
 
+    @Override
     public void apply(Slot0Configs configuration) {
         configurator.apply(
             Objects.requireNonNull(configuration)
         );
     }
 
+    @Override
     public void apply(CurrentLimitsConfigs configuration) {
         configurator.apply(
             Objects.requireNonNull(configuration)
         );
     }
 
+    @Override
+    public void apply(MotorOutputConfigs configuration) {
+        configurator.apply(
+            Objects.requireNonNull(configuration)
+        );
+    }
+
+    @Override
     public void apply(TalonFXConfiguration configuration) {
         configurator.apply(
             Objects.requireNonNull(configuration)

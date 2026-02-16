@@ -18,7 +18,7 @@ import frc.bofalib.generic.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXGroup extends
-    MotorHardware<TalonFXBatchControl, TalonFXGroupConfigurator> 
+    MotorHardware<TalonFXBatchControl, TalonFXCommonConfigurator> 
 implements
     DoubleQueryable<TalonFXGroupQuery>,
     Instrument
@@ -88,7 +88,7 @@ implements
     }
 
     @Override
-    public TalonFXGroupConfigurator getConfigurator() {
+    public TalonFXCommonConfigurator getConfigurator() {
         return configurator;
     }
 

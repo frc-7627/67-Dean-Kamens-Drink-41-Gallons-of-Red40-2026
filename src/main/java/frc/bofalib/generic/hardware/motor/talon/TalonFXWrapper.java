@@ -22,7 +22,7 @@ import frc.bofalib.generic.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXWrapper extends 
-    MotorHardware<TalonFXControl, TalonFXWrapperConfigurator>
+    MotorHardware<TalonFXControl, TalonFXCommonConfigurator>
 implements
     DoubleQueryable<TalonFXQuery>,
     Instrument
@@ -108,7 +108,7 @@ implements
     }
 
     @Override
-    public TalonFXWrapperConfigurator getConfigurator() {
+    public TalonFXCommonConfigurator getConfigurator() {
         return configurator;
     }
 
