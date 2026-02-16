@@ -2,7 +2,10 @@ package frc.bofalib.generic.hardware.motor.talon;
 
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
+import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -16,29 +19,64 @@ import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
+import frc.bofalib.generic.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXWrapper extends 
     MotorHardware<TalonFXControl, TalonFXConfigurator>
 implements
-    DoubleQueryable<TalonFXQuery>
+    DoubleQueryable<TalonFXQuery>,
+    Instrument
 {
     private final TalonFX talonFX;
+    private final OptionalInt trackNumberOptional;
+    private Optional<Follower> followerOptional = Optional.empty();
     private TalonFXControl control = TalonFXControlEmpty.getInstance();
 
     public TalonFXWrapper(int deviceId) {
         this.talonFX = new TalonFX(deviceId);
+        this.trackNumberOptional = OptionalInt.empty();
+
+        reset();
+    }
+
+    public TalonFXWrapper(int deviceId, int trackNumber) {
+        this.talonFX = new TalonFX(deviceId);
+        this.trackNumberOptional = OptionalInt.of(trackNumber);
+
+        reset();
+    }
+
+    private void reset() {
+        followerOptional.ifPresentOrElse(
+            follower -> talonFX.setControl(follower),
+            () -> talonFX.setControl(
+                new MotionMagicVoltage(
+                    talonFX.getPosition().getValueAsDouble()
+                )
+            )
+        );
+    }
+
+    void followerWith(Follower follower) {
+        this.followerOptional = Optional.of(follower);
+
+        reset();
+    }
+
+    @Override
+    public void addToOrchestra(Orchestra orchestra) {
+        Objects.requireNonNull(orchestra);
+
+        trackNumberOptional.ifPresentOrElse(
+            trackNumber -> orchestra.addInstrument(talonFX, trackNumber), 
+            () -> orchestra.addInstrument(talonFX)
+        );
     }
 
     @Override
     public void beginControl(TalonFXControl control) {
         this.control = Objects.requireNonNull(control);
-
-        control.visit(
-            request -> {},
-            setting -> {},
-            track -> { track.orchestra().addInstrument(talonFX, track.trackNumber()); }
-        );
     }
 
     @Override
@@ -61,6 +99,8 @@ implements
 
     @Override
     public void endControl() {
+        reset();
+
         talonFX.stopMotor();
 
         this.control = TalonFXControlEmpty.getInstance();
@@ -86,15 +126,5 @@ implements
 
     Follower getFollower(MotorAlignmentValue motorAlignmentValue) {
         return new Follower(talonFX.getDeviceID(), motorAlignmentValue);
-    }
-
-    void follow(Follower follower) {
-        talonFX.setControl(follower);
-    }
-
-    void lead() {
-        talonFX.setControl(new MotionMagicVoltage(
-            talonFX.getPosition().getValueAsDouble()
-        ));
     }
 }

@@ -1,7 +1,5 @@
 package frc.bofalib.generic.hardware.motor.talon.control;
 
-import com.ctre.phoenix6.Orchestra;
-
 public final class TalonFXBatchEmpty implements TalonFXBatchControl {
     private static final TalonFXBatchEmpty INSTANCE = new TalonFXBatchEmpty();
 
@@ -12,12 +10,12 @@ public final class TalonFXBatchEmpty implements TalonFXBatchControl {
     private TalonFXBatchEmpty() {}
 
     @Override
-    public TalonFXControl getLeaderControl(Orchestra orchestra) {
+    public TalonFXControl getLeaderControl() {
         return TalonFXControlEmpty.getInstance();
     }
 
     @Override
-    public TalonFXControl getFollowerControl(Orchestra orchestra, int index) {
+    public TalonFXControl getFollowerControl() {
         return TalonFXControlEmpty.getInstance();
     }
 }
