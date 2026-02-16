@@ -1,24 +1,18 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
 import java.util.Objects;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfigurator;
 
-public final class TalonFXGroupConfigurator {
-    private final TalonFXWrapperConfigurator leaderConfigurator;
-    private final Supplier<Stream<TalonFXWrapperConfigurator>> followerConfiguratorsSupplier;
+public final class TalonFXWrapperConfigurator {
+    private final TalonFXConfigurator configurator;
 
-    TalonFXGroupConfigurator(
-        TalonFXWrapperConfigurator leaderConfigurator,
-        Supplier<Stream<TalonFXWrapperConfigurator>> followerConfiguratorsSupplier
-    ) {
-        this.leaderConfigurator = leaderConfigurator;
-        this.followerConfiguratorsSupplier = followerConfiguratorsSupplier;
+    public TalonFXWrapperConfigurator(TalonFXConfigurator configurator) {
+        this.configurator = configurator;
     }
 
     public void applyCurrentLimit(double currentLimit) {
@@ -41,47 +35,32 @@ public final class TalonFXGroupConfigurator {
     }
 
     public void apply(ClosedLoopRampsConfigs configuration) {
-        leaderConfigurator.apply(
+        configurator.apply(
             Objects.requireNonNull(configuration)
-        );
-        followerConfiguratorsSupplier.get().forEach(
-            followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(OpenLoopRampsConfigs configuration) {
-        leaderConfigurator.apply(
+        configurator.apply(
             Objects.requireNonNull(configuration)
-        );
-        followerConfiguratorsSupplier.get().forEach(
-            followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(Slot0Configs configuration) {
-        leaderConfigurator.apply(
+        configurator.apply(
             Objects.requireNonNull(configuration)
-        );
-        followerConfiguratorsSupplier.get().forEach(
-            followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(CurrentLimitsConfigs configuration) {
-        leaderConfigurator.apply(
+        configurator.apply(
             Objects.requireNonNull(configuration)
-        );
-        followerConfiguratorsSupplier.get().forEach(
-            followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 
     public void apply(TalonFXConfiguration configuration) {
-        leaderConfigurator.apply(
+        configurator.apply(
             Objects.requireNonNull(configuration)
-        );
-        followerConfiguratorsSupplier.get().forEach(
-            followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
 }

@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -23,28 +22,31 @@ import frc.bofalib.generic.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
 public final class TalonFXWrapper extends 
-    MotorHardware<TalonFXControl, TalonFXConfigurator>
+    MotorHardware<TalonFXControl, TalonFXWrapperConfigurator>
 implements
     DoubleQueryable<TalonFXQuery>,
     Instrument
 {
     private final TalonFX talonFX;
     private final OptionalInt trackNumberOptional;
+    private final TalonFXWrapperConfigurator configurator;
     private Optional<Follower> followerOptional = Optional.empty();
     private TalonFXControl control = TalonFXControlEmpty.getInstance();
 
-    public TalonFXWrapper(int deviceId) {
+    private TalonFXWrapper(int deviceId, OptionalInt trackNumberOptional) {
         this.talonFX = new TalonFX(deviceId);
-        this.trackNumberOptional = OptionalInt.empty();
+        this.trackNumberOptional = trackNumberOptional;
+        this.configurator = new TalonFXWrapperConfigurator(talonFX.getConfigurator());
 
         reset();
     }
 
-    public TalonFXWrapper(int deviceId, int trackNumber) {
-        this.talonFX = new TalonFX(deviceId);
-        this.trackNumberOptional = OptionalInt.of(trackNumber);
+    public TalonFXWrapper(int deviceId) {
+        this(deviceId, OptionalInt.empty());
+    }
 
-        reset();
+    public TalonFXWrapper(int deviceId, int trackNumber) {
+        this(deviceId, OptionalInt.of(trackNumber));
     }
 
     private void reset() {
@@ -106,8 +108,8 @@ implements
     }
 
     @Override
-    public TalonFXConfigurator getConfigurator() {
-        return talonFX.getConfigurator();
+    public TalonFXWrapperConfigurator getConfigurator() {
+        return configurator;
     }
 
     @Override
