@@ -1,5 +1,6 @@
 package frc.robot;
 
+import static frc.robot.Constants.Directories.SONGS_DIRECTORY;
 import frc.bofalib.music.Song;
 
 public enum RobotSong implements Song {
@@ -23,5 +24,10 @@ public enum RobotSong implements Song {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getSongsDirectory() {
+        return SONGS_DIRECTORY;
     }
 }

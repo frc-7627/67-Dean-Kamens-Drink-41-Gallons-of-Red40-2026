@@ -1,11 +1,11 @@
 package frc.bofalib.music;
 
-import static frc.robot.Constants.Directories.SONGS_DIRECTORY;
-
 public interface Song {
     String getName();
 
+    String getSongsDirectory();
+
     default String getChrpFilepath() {
-        return SONGS_DIRECTORY + "/" + getName() + ".chrp";
+        return getSongsDirectory() + "/" + getName() + ".chrp";
     }
 }
