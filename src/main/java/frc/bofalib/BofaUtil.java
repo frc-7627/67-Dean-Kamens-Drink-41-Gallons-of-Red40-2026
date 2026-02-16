@@ -24,7 +24,7 @@ public final class BofaUtil {
         double pitchRad
     ) {
         return Math.sqrt(
-            gravityMPS2 / (verticalM - horizontalM * Math.tan(pitchRad))
+            0.5 * gravityMPS2 / (verticalM - horizontalM * Math.tan(pitchRad))
         ) * horizontalM / Math.cos(pitchRad);
     }
 
