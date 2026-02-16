@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.bofalib.control.Controllable;
 
 /**
- * Interface for the hopper mechanism of the robot.
+ * The agitator.
  */
 public interface Agitator extends Subsystem, Controllable<AgitatorControl> {
     static Agitator create() {
