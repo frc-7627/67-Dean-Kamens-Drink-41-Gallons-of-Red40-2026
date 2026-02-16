@@ -10,7 +10,7 @@ import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
-import frc.robot.commands.feeder.FeedIn;
+import frc.robot.subsystems.feeder.FeederControl;
 import frc.robot.subsystems.intake.IntakeControl;
 import frc.robot.subsystems.launcher.LauncherControl;
 
@@ -80,11 +80,11 @@ enum TeleopCommandFactory {
     )),
 
     FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
-        .alongWith(new FeedIn(context.feeder()))),
+        .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))),
     
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
-    FEED(context -> new FeedIn(context.feeder()))
+    FEED(context -> new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))
     ;
     
 
