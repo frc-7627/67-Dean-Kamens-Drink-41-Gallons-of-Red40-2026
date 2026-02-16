@@ -108,12 +108,13 @@ public final class DashboardItems {
                 gainItem -> {
                     Objects.requireNonNull(gainItem);
 
-                    return FunctionalUtil.compose(
+                    return FunctionalUtil.composeConditional(
                         value -> gains.setGain(gainItem.selection, value), 
                         createDoublePuller(
                             keyBuilder.copyExtendedToString(gainItem.selection.name), 
                             gainItem.defaultValue
-                        )
+                        ),
+                        FunctionalUtil.hasChangedDoublePredicate()
                     );
                 }
             ).toList()
