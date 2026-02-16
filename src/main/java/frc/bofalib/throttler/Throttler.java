@@ -1,4 +1,4 @@
-package frc.bofalib;
+package frc.bofalib.throttler;
 
 import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.units.measure.Time;
