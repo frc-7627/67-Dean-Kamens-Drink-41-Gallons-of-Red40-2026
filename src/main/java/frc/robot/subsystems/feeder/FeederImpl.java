@@ -35,6 +35,12 @@ final class FeederImpl extends SubsystemBase implements Feeder {
         CHECK_SIMPLE_MOTOR_SPEED
     );
 
+    private final DoubleSupplier manFeedSpeedSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Manual Feed Speed"),
+        MANUAL_FEED_SPEED,
+        CHECK_SIMPLE_MOTOR_SPEED
+    );
+
     private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
 
     @Override
@@ -69,6 +75,16 @@ final class FeederImpl extends SubsystemBase implements Feeder {
     @Override
     public void feedOut() {
         feederMotor.set(-feedSpeedSupplier.getAsDouble());
+    }
+
+    @Override 
+    public void manualFeedOut(){
+        feederMotor.set(-manFeedSpeedSupplier.getAsDouble());
+    }
+
+    @Override
+    public void manualFeedIn(){
+        feederMotor.set(manFeedSpeedSupplier.getAsDouble());
     }
 
     /**

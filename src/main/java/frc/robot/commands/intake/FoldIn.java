@@ -26,7 +26,7 @@ public class FoldIn extends Command {
      */
     @Override
     public void execute() {
-        intake.FoldIn();
+        intake.foldIn();
     }
 
     /**

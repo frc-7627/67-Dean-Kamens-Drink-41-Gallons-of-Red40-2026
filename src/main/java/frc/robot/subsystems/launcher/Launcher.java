@@ -30,6 +30,16 @@ public interface Launcher extends Subsystem {
     void shootIn();
 
     /**
+     * Runs the launcher Out at a slower, manual, rate
+     */
+    void manualOut();
+
+    /**
+     * Runs the launcher In at a slower, manual, rate
+     */
+    void manualIn();
+
+    /**
      * Stop the launcher.
      */
     void stop();

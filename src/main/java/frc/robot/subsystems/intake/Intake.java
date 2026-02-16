@@ -44,12 +44,22 @@ public interface Intake extends Subsystem {
     /**
      * Folds the intake out into the ready pos to intake fuel
      */
-    void FoldOut();
+    void foldOut();
 
     /**
      * Folds the intake back inside of the hopper
      */
-    void FoldIn();
+    void foldIn();
+
+    /**
+     * Folds the intake In at a slower, manual, rate
+     */
+    void manualFoldIn();
+
+    /**
+     * Folds the intake Out at a slower, manual, rate
+     */
+    void manualFoldOut();
 
     static Intake create() {
         return new IntakeImpl();

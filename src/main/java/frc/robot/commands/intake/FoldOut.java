@@ -26,7 +26,7 @@ public class FoldOut extends Command {
      */
     @Override
     public void execute() {
-        intake.FoldOut();
+        intake.foldOut();
     }
 
     /**

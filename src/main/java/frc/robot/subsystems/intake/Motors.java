@@ -30,8 +30,8 @@ final class Motors {
         }
     }
 
-    private final TalonFX Kraken = new TalonFX(INTAKE_MOTOR_CAN_ID);
-    private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(Kraken.getConfigurator());
+    private final TalonFX Intake = new TalonFX(INTAKE_MOTOR_CAN_ID);
+    private final MotorsConfigurator motorsConfigurator = new MotorsConfigurator(Intake.getConfigurator());
     private final Orchestra orchestra = new Orchestra();
     private ControlMode mode = ControlMode.SIMPLE;
 
@@ -39,17 +39,17 @@ final class Motors {
      * The launcher motors.
      */
     public Motors() {
-        resetKraken();
+        resetIntake();
     }
 
     /**
      * Reset motor control to ensure motors are usable.
      * 
-     * Sets the Kraken to target its own position, and the minion to follow the
-     * Kraken.
+     * Sets the Intake to target its own position, and the minion to follow the
+     * Intake.
      */
-    private void resetKraken() {
-        Kraken.setControl(TARGET_DEFAULT_POSITION.withPosition(getKrakenPosition()));
+    private void resetIntake() {
+        Intake.setControl(TARGET_DEFAULT_POSITION.withPosition(getIntakePosition()));
     }
 
     /**
@@ -68,7 +68,7 @@ final class Motors {
         }
 
         if (!mode.isSimple()) {
-            resetKraken();
+            resetIntake();
         }
 
         mode = ControlMode.SIMPLE;
@@ -84,7 +84,7 @@ final class Motors {
         }
 
         if (!mode.isSimple()) {
-            resetKraken();
+            resetIntake();
         }
 
         mode = ControlMode.VELOCITY;
@@ -100,7 +100,7 @@ final class Motors {
      */
     public void playNote(int freq) {
         ensureMusic();
-        Kraken.setControl(new MusicTone(freq));
+        Intake.setControl(new MusicTone(freq));
     }
 
     /**
@@ -113,54 +113,54 @@ final class Motors {
      * @apiNote Enters music mode.
      */
     public void playSongFromFile(String filePath) {
-        orchestra.addInstrument(Kraken);
+        orchestra.addInstrument(Intake);
         orchestra.loadMusic(filePath);
         orchestra.play();
     }
 
     /**
-     * Set the Kraken motor's speed to the provided speed.
+     * Set the Intake motor's speed to the provided speed.
      * 
      * @param speed the provided speed.
      */
     public void setSpeed(double speed) {
         ensureSimple();
-        Kraken.set(speed);
+        Intake.set(speed);
     }
 
     public void setAngularSpeed(double velocityRotationsPerSec) {
        // ensureVelocity(); TODO: PUT THIS BACK BEFORE GIAN KILLS ME
 
-        Kraken.setControl(new VelocityVoltage(velocityRotationsPerSec));
+        Intake.setControl(new VelocityVoltage(velocityRotationsPerSec));
     }
     
     /**
-     * Stop Kraken motor.
+     * Stop Intake motor.
      */
     public void stop() {
         ensureSimple();
-        Kraken.set(0.0);
+        Intake.set(0.0);
     }
 
     /**
-     * @return the position of the Kraken motor.
+     * @return the position of the Intake motor.
      */
-    public Angle getKrakenPosition() {
-        return Rotations.of(Kraken.getPosition().getValueAsDouble());
+    public Angle getIntakePosition() {
+        return Rotations.of(Intake.getPosition().getValueAsDouble());
     }
 
     /**
-     * @return the supply current of the Kraken motor.
+     * @return the supply current of the Intake motor.
      */
-    public Current getKrakenCurrent() {
-        return Amps.of(Kraken.getSupplyCurrent(false).getValueAsDouble());
+    public Current getIntakeCurrent() {
+        return Amps.of(Intake.getSupplyCurrent(false).getValueAsDouble());
     }
 
     /**
-     * @return the velocity of the Kraken motor.
+     * @return the velocity of the Intake motor.
      */
-    public AngularVelocity getKrakenVelocity() {
-        return RotationsPerSecond.of(Kraken.getVelocity().getValueAsDouble());
+    public AngularVelocity getIntakeVelocity() {
+        return RotationsPerSecond.of(Intake.getVelocity().getValueAsDouble());
     }
 
     public void applyCurrentLimit(double currentLimit) {

@@ -17,6 +17,16 @@ public interface Feeder extends Subsystem {
     void feedOut();
 
     /**
+     * Runs the feeder Out at a slower, manual, rate
+     */
+    void manualFeedOut();
+
+    /**
+     * Runs the feeder In at a slower, manual, rate
+     */
+    void manualFeedIn();
+
+    /**
      * Stop the feeder.
      */
     void stop();

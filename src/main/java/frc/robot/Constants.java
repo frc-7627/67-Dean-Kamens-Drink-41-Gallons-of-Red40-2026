@@ -241,6 +241,8 @@ public final class Constants {
 
         public static final double FOLD_SPEED = 0.7;
 
+        public static final double MANUAL_FOLD = 0.4;
+
         // in range [-1.0, 1.0]
         public static final double DEFAULT_LOAD_SPEED = 0.8;
     }
@@ -297,7 +299,8 @@ public final class Constants {
     public static class FeederConstants {
         // TODO: find values for feeder
         // TODO: we've run on prototype at 0.5, all good, no stretch in the wheel.
-        public static final double DEFAULT_FEED_SPEED = -0.2; 
+        public static final double DEFAULT_FEED_SPEED = -0.2;
+        public static final double MANUAL_FEED_SPEED = 0.2; 
 
         //TODO: PROTO FEEDER NEGITIVE IS INTAKE, FINAL WILL BE OPPOSIMG
 

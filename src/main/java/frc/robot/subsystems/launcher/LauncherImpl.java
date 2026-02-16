@@ -163,6 +163,22 @@ final class LauncherImpl extends SubsystemBase implements Launcher {
     }
 
     /**
+     * Runs the launcher Out at a slower, manual, rate
+     */
+    @Override
+    public void manualOut(){
+        motors.setSpeed(manualSpeedSupplier.getAsDouble());
+    }
+
+    /**
+     * Runs the launcher In at a slower, manual, rate
+     */
+    @Override
+    public void manualIn(){
+        motors.setSpeed(-manualSpeedSupplier.getAsDouble());
+    }
+
+    /**
      * {@inheritDoc}
      * 
      * Stops both motors.
