@@ -1,5 +1,6 @@
 package frc.bofalib.util;
 
+import java.util.List;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
@@ -69,6 +70,12 @@ public final class FunctionalUtil {
                 currentValue = value;
                 return true;
             }
+        };
+    }
+
+    public static Runnable flattenRunnables(List<Runnable> runnables) {
+        return () -> {
+            runnables.forEach(Runnable::run);
         };
     }
 }

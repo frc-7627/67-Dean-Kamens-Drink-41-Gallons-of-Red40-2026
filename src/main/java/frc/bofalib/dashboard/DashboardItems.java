@@ -1,5 +1,7 @@
 package frc.bofalib.dashboard;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
@@ -11,6 +13,9 @@ import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.function.BooleanConsumer;
+import frc.bofalib.gains.GainItem;
+import frc.bofalib.gains.Gains;
+import frc.bofalib.util.FunctionalUtil;
 
 public final class DashboardItems {
     private static String convertToTopicName(String key) {
@@ -91,5 +96,27 @@ public final class DashboardItems {
         }
         
         return topic.subscribe(defaultValue);
+    }
+
+    public static Runnable createGainsDashboard(
+        KeyBuilder keyBuilder,
+        Gains gains,
+        List<GainItem> gainItems 
+    ) {
+        return FunctionalUtil.flattenRunnables(
+            gainItems.stream().map(
+                gainItem -> {
+                    Objects.requireNonNull(gainItem);
+
+                    return FunctionalUtil.compose(
+                        value -> gains.setGain(gainItem.selection, value), 
+                        createDoublePuller(
+                            keyBuilder.copyExtendedToString(gainItem.selection.name), 
+                            gainItem.defaultValue
+                        )
+                    );
+                }
+            ).toList()
+        );
     }
 }
