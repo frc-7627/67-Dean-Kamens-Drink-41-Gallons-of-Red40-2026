@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -47,6 +48,18 @@ implements
 
     public TalonFXWrapper(int deviceId, int trackNumber) {
         this(deviceId, OptionalInt.of(trackNumber));
+    }
+
+    public TalonFXWrapper(TalonFXConfiguration configuration, int deviceId) {
+        this(deviceId);
+
+        configurator.apply(configuration);
+    }
+
+    public TalonFXWrapper(TalonFXConfiguration configuration, int deviceId, int trackNumber) {
+        this(deviceId, trackNumber);
+
+        configurator.apply(configuration);
     }
 
     private void reset() {
