@@ -18,11 +18,13 @@ import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
+import frc.bofalib.generic.music.UniInstrument;
 
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements 
     Intake, 
-    BiControllable<IntakeImpl, SparkMaxControl, TalonFXControl, IntakeControl> 
+    BiControllable<IntakeImpl, SparkMaxControl, TalonFXControl, IntakeControl>,
+    UniInstrument<TalonFXWrapper>
 {
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
@@ -71,6 +73,11 @@ final class IntakeImpl extends SubsystemBase implements
 
     @Override
     public Controllable<TalonFXControl> getSecondControllable() {
+        return intakeMotor;
+    }
+
+    @Override
+    public TalonFXWrapper getFirstInstrument() {
         return intakeMotor;
     }
 }
