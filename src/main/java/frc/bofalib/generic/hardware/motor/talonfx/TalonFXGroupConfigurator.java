@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.motor.talon;
+package frc.bofalib.generic.hardware.motor.talonfx;
 
 import java.util.Objects;
 import java.util.function.Supplier;

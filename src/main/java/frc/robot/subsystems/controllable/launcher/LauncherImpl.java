@@ -17,11 +17,11 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.control.UniControllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.bofalib.generic.hardware.motor.talon.TalonFXGroup;
-import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talon.query.TalonFXGroupQuery;
-import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 

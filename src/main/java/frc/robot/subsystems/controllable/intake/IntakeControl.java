@@ -8,9 +8,9 @@ import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlEmpty;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 
 public enum IntakeControl implements BiControl<
     IntakeImpl, 

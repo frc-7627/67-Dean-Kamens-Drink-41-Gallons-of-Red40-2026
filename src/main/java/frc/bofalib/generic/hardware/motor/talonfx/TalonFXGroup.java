@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.motor.talon;
+package frc.bofalib.generic.hardware.motor.talonfx;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,10 +10,10 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.math.Pair;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
-import frc.bofalib.generic.hardware.motor.talon.query.TalonFXGroupQuery;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 

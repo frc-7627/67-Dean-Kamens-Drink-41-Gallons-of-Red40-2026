@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.motor.talon.control;
+package frc.bofalib.generic.hardware.motor.talonfx.control;
 
 public final record TalonFXBatchRequest(
     TalonFXControlRequest request

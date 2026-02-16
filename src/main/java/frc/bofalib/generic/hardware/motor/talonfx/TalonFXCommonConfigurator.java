@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.motor.talon;
+package frc.bofalib.generic.hardware.motor.talonfx;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;

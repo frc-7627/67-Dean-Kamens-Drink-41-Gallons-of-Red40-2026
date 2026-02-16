@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.motor.talon.query;
+package frc.bofalib.generic.hardware.motor.talonfx.query;
 
 import java.util.OptionalInt;
 

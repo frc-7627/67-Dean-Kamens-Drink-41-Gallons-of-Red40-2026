@@ -16,8 +16,8 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
 
 // Colloquially known as Miles at lunch

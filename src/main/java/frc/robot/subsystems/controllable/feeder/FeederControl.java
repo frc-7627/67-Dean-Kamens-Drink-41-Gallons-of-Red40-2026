@@ -5,8 +5,8 @@ import java.util.function.Function;
 import frc.bofalib.BofaUtil;
 import frc.bofalib.control.UniControl;
 import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 
 public enum FeederControl implements UniControl<FeederImpl, TalonFXControl> {
     FEED_OUT(impl -> impl.feedDutyCycleSupplier),

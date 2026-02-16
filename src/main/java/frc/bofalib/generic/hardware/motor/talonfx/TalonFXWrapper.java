@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware.motor.talon;
+package frc.bofalib.generic.hardware.motor.talonfx;
 
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
@@ -14,10 +14,10 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlEmpty;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
-import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 

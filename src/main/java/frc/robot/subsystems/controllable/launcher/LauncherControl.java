@@ -8,9 +8,9 @@ import frc.bofalib.control.UniControl;
 import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.MotorVelocity;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 
 public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl> {
     SHOOT(impl -> impl.shootSpeedFPSSupplier, MotorSetting.Type.ANGULAR_VELOCITY);
