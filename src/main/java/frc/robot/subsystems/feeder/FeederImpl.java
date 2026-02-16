@@ -1,84 +1,70 @@
 package frc.robot.subsystems.feeder;
 
 import static frc.robot.Constants.FeederConstants.*;
+import java.util.List;
 import java.util.function.DoubleSupplier;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
-import static frc.robot.Constants.MOTOR_CONFIGURE_FREQUENCY;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.Throttler;
+import frc.bofalib.BofaUtil;
+import frc.bofalib.control.Controllable;
+import frc.bofalib.control.UniControllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import static frc.robot.Constants.CanIDs.*;
 
 // Colloquially known as The Berlin Wall.
-final class FeederImpl extends SubsystemBase implements Feeder {
+final class FeederImpl extends SubsystemBase implements 
+    Feeder, 
+    UniControllable<FeederImpl, TalonFXControl, FeederControl> 
+{
 
     // 1 kraken
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());
-    private final TalonFX feederMotor = new TalonFX(FEEDER_CAN_ID);
+    private final TalonFXWrapper motor = new TalonFXWrapper(FEEDER_CAN_ID);
 
-    private final CurrentLimitsConfigs currentLimitsConfigs = DEFAULT_CURRENT_LIMITS_CONFIGS;
-    private final MotorOutputConfigs motorOutputConfigs = DEFAULT_MOTOR_OUTPUT_CONFIGS;
-    
-    private final DoubleSupplier currentLimitSupplier = DashboardItems.createDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Current Limit"), 
-        DEFAULT_CURRENT_LIMIT
-    );
-
-    private final DoubleSupplier feedSpeedSupplier = DashboardItems.createCheckedDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Feed Speed"), 
-        DEFAULT_FEED_SPEED,
+    final DoubleSupplier feedDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Feed Duty Cycle"), 
+        DEFAULT_FEED_SPEED, 
         CHECK_DUTY_CYCLE
     );
 
-    private final Throttler throttler = new Throttler(MOTOR_CONFIGURE_FREQUENCY);
+    final DoubleSupplier feedManualDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Feed Manual Duty Cycle"), 
+        DEFAULT_FEED_SPEED, 
+        CHECK_DUTY_CYCLE
+    );
 
-    @Override
-    public void periodic() {
-        throttler.execute(() -> {
-            apply(
-                currentLimitSupplier.getAsDouble(), 
-                feedSpeedSupplier.getAsDouble()
-            );
-        });
-    }
+    FeederImpl() {
+        motor.getConfigurator()
+            .apply(DEFAULT_CURRENT_LIMITS_CONFIGS);
+        motor.getConfigurator()
+            .apply(DEFAULT_MOTOR_OUTPUT_CONFIGS);
 
-    private void apply(double currentLimit, double feedSpeed) {
-        applyCurrentLimit(currentLimit);
-        applyFeedSpeed(feedSpeed);
-    }
-
-    void applyCurrentLimit(double currentLimit) {
-        currentLimitsConfigs.withStatorCurrentLimit(currentLimit);
-    }
-
-    void applyFeedSpeed(double feedSpeed) {
-        motorOutputConfigs.withPeakForwardDutyCycle(feedSpeed);
-        motorOutputConfigs.withPeakReverseDutyCycle(-feedSpeed);
-    }
-
-    @Override
-    public void feedIn() {
-        feederMotor.set(feedSpeedSupplier.getAsDouble());
+        CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
+            BofaUtil.composeConditional(
+                currentLimit -> motor.getConfigurator().apply(
+                    new CurrentLimitsConfigs().withStatorCurrentLimit(currentLimit)
+                ), 
+                 DashboardItems.createDoublePuller(
+                    KEY_BUILDER.copyExtendedToString("Current Limit"), 
+                    DEFAULT_CURRENT_LIMIT
+                ), 
+                BofaUtil.hasChangedDoublePredicate())
+        ));
     }
 
     @Override
-    public void feedOut() {
-        feederMotor.set(-feedSpeedSupplier.getAsDouble());
+    public Controllable<TalonFXControl> getFirstControllable() {
+        return motor;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * Stops the motor.
-     */
     @Override
-    public void stop() {
-        feederMotor.stopMotor();
+    public FeederImpl getThis() {
+        return this;
     }
-
 }
