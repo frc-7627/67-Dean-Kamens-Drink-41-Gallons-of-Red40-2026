@@ -3,6 +3,7 @@ package frc.robot.subsystems.controllable.feeder;
 import static frc.robot.Constants.FeederConstants.*;
 import java.util.List;
 import java.util.function.DoubleSupplier;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +27,12 @@ final class FeederImpl extends SubsystemBase implements
 
     // 1 kraken
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());
-    private final TalonFXWrapper motor = new TalonFXWrapper(FEEDER_CAN_ID);
+    private final TalonFXWrapper motor = new TalonFXWrapper(
+        new TalonFXConfiguration()
+            .withCurrentLimits(DEFAULT_CURRENT_LIMITS_CONFIGS)
+            .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS),
+        FEEDER_CAN_ID
+    );
 
     final DoubleSupplier feedDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Duty Cycle"), 
@@ -41,11 +47,6 @@ final class FeederImpl extends SubsystemBase implements
     );
 
     FeederImpl() {
-        motor.getConfigurator()
-            .apply(DEFAULT_CURRENT_LIMITS_CONFIGS);
-        motor.getConfigurator()
-            .apply(DEFAULT_MOTOR_OUTPUT_CONFIGS);
-
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 motor.getConfigurator()::applyCurrentLimit, 
