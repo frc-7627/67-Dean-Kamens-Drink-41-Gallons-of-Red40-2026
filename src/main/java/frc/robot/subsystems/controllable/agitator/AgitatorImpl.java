@@ -1,4 +1,4 @@
-package frc.robot.subsystems.agitator;
+package frc.robot.subsystems.controllable.agitator;
 
 import static frc.robot.Constants.CanIDs.AGITATOR_MOTOR_CAN_ID;
 import java.util.function.DoubleSupplier;

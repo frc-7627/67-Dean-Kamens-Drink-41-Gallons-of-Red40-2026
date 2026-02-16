@@ -1,4 +1,4 @@
-package frc.robot.subsystems.feeder;
+package frc.robot.subsystems.controllable.feeder;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;

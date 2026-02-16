@@ -1,16 +1,16 @@
 package frc.robot.setup.teleop;
 
 import frc.robot.subsystems.indication.Indicator;
-import frc.robot.subsystems.intake.Intake;
 import java.util.Collection;
 import frc.bofalib.generic.music.MusicalSubsystem;
-import frc.robot.subsystems.agitator.Agitator;
+import frc.robot.subsystems.controllable.agitator.Agitator;
+import frc.robot.subsystems.controllable.drivebase.DriveControl;
+import frc.robot.subsystems.controllable.drivebase.Drivebase;
+import frc.robot.subsystems.controllable.feeder.Feeder;
+import frc.robot.subsystems.controllable.intake.Intake;
+import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controlstate.ControlStateToggler;
-import frc.robot.subsystems.drivebase.DriveControl;
-import frc.robot.subsystems.drivebase.Drivebase;
 import frc.robot.subsystems.gameinfo.GameInfoSupplier;
-import frc.robot.subsystems.launcher.Launcher;
-import frc.robot.subsystems.feeder.Feeder;
 
 public record CommandContext(
     Indicator indicator,

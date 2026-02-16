@@ -1,4 +1,4 @@
-package frc.robot.subsystems.launcher;
+package frc.robot.subsystems.controllable.launcher;
 
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;

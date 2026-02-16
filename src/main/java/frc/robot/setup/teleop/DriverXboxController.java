@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 import com.pathplanner.lib.auto.AutoBuilder.TriFunction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.controllable.drivebase.DriveControl;
 import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
-import frc.robot.subsystems.drivebase.DriveControl;
 
 class DriverXboxController implements DriverController {
     private static final Logger logger = Logger.getLogger(DriverController.class.getName());

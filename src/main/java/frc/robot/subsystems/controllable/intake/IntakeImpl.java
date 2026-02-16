@@ -1,4 +1,4 @@
-package frc.robot.subsystems.intake;
+package frc.robot.subsystems.controllable.intake;
 
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.IntakeConstants.*;

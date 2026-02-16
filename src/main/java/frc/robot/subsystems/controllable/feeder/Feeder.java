@@ -1,4 +1,4 @@
-package frc.robot.subsystems.feeder;
+package frc.robot.subsystems.controllable.feeder;
 
 import frc.bofalib.control.Controllable;
 import frc.bofalib.generic.music.MusicalSubsystem;

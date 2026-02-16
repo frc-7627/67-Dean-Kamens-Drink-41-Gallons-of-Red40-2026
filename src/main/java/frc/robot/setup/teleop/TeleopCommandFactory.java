@@ -10,9 +10,9 @@ import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
-import frc.robot.subsystems.feeder.FeederControl;
-import frc.robot.subsystems.intake.IntakeControl;
-import frc.robot.subsystems.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.feeder.FeederControl;
+import frc.robot.subsystems.controllable.intake.IntakeControl;
+import frc.robot.subsystems.controllable.launcher.LauncherControl;
 
 enum TeleopCommandFactory {
     /**

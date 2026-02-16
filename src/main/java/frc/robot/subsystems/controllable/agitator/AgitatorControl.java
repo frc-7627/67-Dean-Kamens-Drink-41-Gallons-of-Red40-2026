@@ -1,4 +1,4 @@
-package frc.robot.subsystems.agitator;
+package frc.robot.subsystems.controllable.agitator;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
