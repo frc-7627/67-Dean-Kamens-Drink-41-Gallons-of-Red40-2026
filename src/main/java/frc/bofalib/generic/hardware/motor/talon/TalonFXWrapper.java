@@ -92,8 +92,7 @@ implements
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
                     )); }
                 );
-            },
-            track -> {}
+            }
         );
     }
 

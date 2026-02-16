@@ -10,10 +10,10 @@ import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.MotorVelocity;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
-import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSong;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 
 public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl> {
+    /*
     PLAY_SUS("sus"),
     PLAY_BAD_TO_THE_BONE("Bad To the Bone"),
     PLAY_BLOODY_TEARS("bloodytears"),
@@ -24,17 +24,10 @@ public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchCont
     PLAY_UNDERGROUND("Underground"),
     PLAY_VSAUSE("vsauce"),
     PLAY_WII_SHOP("Wii Shop"),
+    */
     SHOOT(impl -> impl.shootSpeedFPSSupplier, MotorSetting.Type.ANGULAR_VELOCITY);
 
     private final Function<LauncherImpl, TalonFXBatchControl> firstControlFunction;
-
-    private LauncherControl(String songName) {
-        this.firstControlFunction = impl -> new TalonFXBatchSong(
-            new RobotSong(songName), 
-            0, 
-            new int[]{1}
-        );
-    }
 
     private LauncherControl(
         Function<LauncherImpl, DoubleSupplier> supplierFunction,

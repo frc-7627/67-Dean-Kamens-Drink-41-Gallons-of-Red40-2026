@@ -7,8 +7,7 @@ public record TalonFXControlSetting(MotorSetting setting) implements TalonFXCont
     @Override
     public void visit(
         Consumer<TalonFXControlRequest> requestConsumer,
-        Consumer<TalonFXControlSetting> settingConsumer,
-        Consumer<TalonFXControlTrack> trackConsumer
+        Consumer<TalonFXControlSetting> settingConsumer
     ) {
         settingConsumer.accept(this);
     }

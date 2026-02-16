@@ -10,8 +10,7 @@ public final record TalonFXControlRequest(
     @Override
     public void visit(
         Consumer<TalonFXControlRequest> requestConsumer,
-        Consumer<TalonFXControlSetting> settingConsumer,
-        Consumer<TalonFXControlTrack> trackConsumer
+        Consumer<TalonFXControlSetting> settingConsumer
     ) {
         requestConsumer.accept(this);
     }
