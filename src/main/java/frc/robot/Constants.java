@@ -20,10 +20,8 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Frequency;
 import edu.wpi.first.units.measure.Time;
 import com.ctre.phoenix6.configs.AudioConfigs;
-import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SingleFadeAnimation;
@@ -268,21 +266,16 @@ public final class Constants {
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 
-        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
-                .withStatorCurrentLimitEnable(true)
-                .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
-
-        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
+        public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
-
-        public static final OpenLoopRampsConfigs DEFAULT_OPEN_LOOP_RAMPS_CONFIGS = new OpenLoopRampsConfigs()
-                .withDutyCycleOpenLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
-
-        public static final ClosedLoopRampsConfigs DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS = new ClosedLoopRampsConfigs()
-                .withDutyCycleClosedLoopRampPeriod(DEFAULT_RAMP_UP_PERIOD);
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
+        
+		public static final double DEFAULT_SLOT0_P = 1.0;
+		public static final double DEFAULT_SLOT0_I = 0.0;
+		public static final double DEFAULT_SLOT0_D = 0.0;
+		public static final double DEFAULT_SLOT0_S = 0.25;
 
         public static final int HORN_FREQ = 440;
     }

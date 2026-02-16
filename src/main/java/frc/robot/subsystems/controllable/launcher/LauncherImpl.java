@@ -38,10 +38,7 @@ final class LauncherImpl extends SubsystemBase implements
 
     private final TalonFXGroup motors = new TalonFXGroup(
         new TalonFXConfiguration()
-            .withCurrentLimits(DEFAULT_CURRENT_LIMITS_CONFIGS)
-            .withOpenLoopRamps(DEFAULT_OPEN_LOOP_RAMPS_CONFIGS)
-            .withClosedLoopRamps(DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS)
-            .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS)
+            .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
             .withAudio(AUDIO_CONFIGS), 
         new TalonFXWrapper(LAUNCHER_COMMANDER_CAN_ID), 
         List.of(
@@ -93,10 +90,10 @@ final class LauncherImpl extends SubsystemBase implements
                 KEY_BUILDER.copyExtended("Motor Gains"), 
                 new Slot0Gains(motors.getConfigurator()), 
                 List.of(
-                    GainItem.createProportional(1.0),
-                    GainItem.createIntegral(0.0),
-                    GainItem.createDerivative(0.0),
-                    GainItem.createStatic(0.25)
+                    GainItem.createProportional(DEFAULT_SLOT0_P),
+                    GainItem.createIntegral(DEFAULT_SLOT0_I),
+                    GainItem.createDerivative(DEFAULT_SLOT0_D),
+                    GainItem.createStatic(DEFAULT_SLOT0_S)
                 )
             )
         ));
