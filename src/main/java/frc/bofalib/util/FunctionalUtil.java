@@ -1,6 +1,7 @@
 package frc.bofalib.util;
 
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
@@ -59,15 +60,20 @@ public final class FunctionalUtil {
 
     public static DoublePredicate hasChangedDoublePredicate() {
         return new DoublePredicate() {
-            private double currentValue = Double.NaN;
+            private OptionalDouble currentValue = OptionalDouble.empty();
 
             @Override
             public boolean test(double value) {
-                if (value == currentValue) {
+                if (currentValue.isEmpty()) {
+                    currentValue = OptionalDouble.of(value);
+                    return true;
+                }
+
+                if (value == currentValue.getAsDouble()) {
                     return false;
                 }
 
-                currentValue = value;
+                currentValue = OptionalDouble.of(value);
                 return true;
             }
         };
