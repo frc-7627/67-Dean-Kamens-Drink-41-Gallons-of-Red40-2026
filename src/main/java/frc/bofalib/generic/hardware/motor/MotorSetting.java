@@ -13,4 +13,9 @@ public sealed interface MotorSetting permits
         Consumer<DoubleSupplier> dutyCycleConsumer,
         BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer
     );
+
+    static enum Type {
+        DUTY_CYCLE,
+        ANGULAR_VELOCITY;
+    }
 }
