@@ -37,14 +37,14 @@ final class AgitatorImpl extends SubsystemBase implements
         PersistMode.kPersistParameters
     );
 
-    public final DoubleSupplier dutyCycleSupplier = 
+    final DoubleSupplier dutyCycleSupplier = 
     DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Duty Cycle"), 
         DEFAULT_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
 
-    public final DoubleSupplier manualDutyCycleSupplier =
+    final DoubleSupplier manualDutyCycleSupplier =
     DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Manual Duty Cycle"), 
         DEFAULT_MANUAL_DUTY_CYCLE, 
