@@ -1,7 +1,7 @@
 package frc.bofalib.generic.hardware.motor.talonfx.control;
 
 import java.util.function.Consumer;
-import frc.bofalib.generic.hardware.motor.MotorSetting;
+import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 
 public record TalonFXControlSetting(MotorSetting setting) implements TalonFXControl {
     @Override

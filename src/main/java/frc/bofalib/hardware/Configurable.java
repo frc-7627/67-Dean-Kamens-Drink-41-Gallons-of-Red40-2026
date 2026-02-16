@@ -1,4 +1,4 @@
-package frc.bofalib.generic.hardware;
+package frc.bofalib.hardware;
 
 public interface Configurable<Config> {
     Config getConfigurator();

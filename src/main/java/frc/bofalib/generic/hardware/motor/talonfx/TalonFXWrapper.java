@@ -13,7 +13,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import frc.bofalib.generic.hardware.motor.MotorHardware;
-import frc.bofalib.generic.hardware.motor.MotorSetting;
+import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;

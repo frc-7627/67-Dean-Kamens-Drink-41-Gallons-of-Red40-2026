@@ -9,7 +9,7 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
-import frc.bofalib.generic.hardware.motor.MotorSetting;
+import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;

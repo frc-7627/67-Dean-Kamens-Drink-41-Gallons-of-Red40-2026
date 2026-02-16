@@ -9,7 +9,7 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.Pair;
 import frc.bofalib.generic.hardware.motor.MotorHardware;
-import frc.bofalib.generic.hardware.motor.MotorSetting;
+import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;

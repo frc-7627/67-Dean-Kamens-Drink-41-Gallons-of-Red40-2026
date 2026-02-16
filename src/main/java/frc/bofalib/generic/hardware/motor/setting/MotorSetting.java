@@ -1,18 +1,21 @@
-package frc.bofalib.generic.hardware.motor;
+package frc.bofalib.generic.hardware.motor.setting;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.units.AngularVelocityUnit;
 
-public record MotorDutyCycle(
-    DoubleSupplier dutyCycleSupplier
-) implements MotorSetting {
-    @Override
-    public void visit(
+public sealed interface MotorSetting permits
+    MotorDutyCycle,
+    MotorVelocity 
+{
+    void visit(
         Consumer<DoubleSupplier> dutyCycleConsumer,
         BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer
-    ) {
-        dutyCycleConsumer.accept(dutyCycleSupplier);
+    );
+
+    static enum Type {
+        DUTY_CYCLE,
+        ANGULAR_VELOCITY;
     }
 }
