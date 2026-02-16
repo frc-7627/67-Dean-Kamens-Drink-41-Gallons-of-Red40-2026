@@ -68,7 +68,8 @@ public class RobotContainer {
 
     private final Collection<? extends MusicalSubsystem> musicalSubsystems = List.of(
         launcher,
-        intake
+        intake,
+        feeder
     );
 
     private final CommandContext commandContext = new CommandContext(

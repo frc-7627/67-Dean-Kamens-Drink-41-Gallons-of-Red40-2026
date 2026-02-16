@@ -12,15 +12,18 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.control.UniControllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.hardware.motor.talon.TalonFXGroup;
 import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControl;
+import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import static frc.robot.Constants.CanIDs.*;
 
 // Colloquially known as The Berlin Wall.
 final class FeederImpl extends SubsystemBase implements 
     Feeder, 
-    UniControllable<FeederImpl, TalonFXControl, FeederControl> 
+    UniControllable<FeederImpl, TalonFXControl, FeederControl>,
+    UniInstrument<TalonFXWrapper>
 {
 
     // 1 kraken
@@ -66,5 +69,10 @@ final class FeederImpl extends SubsystemBase implements
     @Override
     public FeederImpl getThis() {
         return this;
+    }
+
+    @Override
+    public TalonFXWrapper getFirstInstrument() {
+        return motor;
     }
 }
