@@ -22,12 +22,14 @@ import frc.bofalib.generic.hardware.motor.talon.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talon.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talon.query.TalonFXQuery;
+import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 
 // Colloquially known as Miles after bad Chinese
 final class LauncherImpl extends SubsystemBase implements 
     Launcher,
-    UniControllable<LauncherImpl, TalonFXBatchControl, LauncherControl> 
+    UniControllable<LauncherImpl, TalonFXBatchControl, LauncherControl>,
+    UniInstrument<TalonFXGroup>
 {
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
@@ -96,6 +98,11 @@ final class LauncherImpl extends SubsystemBase implements
 
     @Override
     public Controllable<TalonFXBatchControl> getFirstControllable() {
+        return motors;
+    }
+
+    @Override
+    public TalonFXGroup getFirstInstrument() {
         return motors;
     }
 }
