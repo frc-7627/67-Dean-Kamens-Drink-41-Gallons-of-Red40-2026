@@ -15,10 +15,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.gains.GainItem;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
+import frc.bofalib.generic.hardware.motor.talonfx.gains.Slot0Gains;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
@@ -86,6 +88,15 @@ final class LauncherImpl extends SubsystemBase implements
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
                     RotationsPerSecond
+                )
+            ),
+            DashboardItems.createGainsDashboard(
+                KEY_BUILDER.copyExtended("Motor Gains"), 
+                new Slot0Gains(motors.getConfigurator()), 
+                List.of(
+                    GainItem.createProportional(1.0),
+                    GainItem.createIntegral(0.0),
+                    GainItem.createDerivative(0.0)
                 )
             )
         ));
