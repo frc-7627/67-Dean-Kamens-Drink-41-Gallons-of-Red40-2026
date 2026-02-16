@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import java.util.Collection;
+import java.util.List;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.bofalib.generic.music.MusicalSubsystem;
 import frc.robot.commands.ControlCommand;
 import frc.robot.setup.auto.AutoChooser;
 import frc.robot.setup.teleop.CommandContext;
@@ -63,6 +66,11 @@ public class RobotContainer {
         drivebase::getInputDriveControl
     );
 
+    private final Collection<? extends MusicalSubsystem> musicalSubsystems = List.of(
+        launcher,
+        intake
+    );
+
     private final CommandContext commandContext = new CommandContext(
         indicator,
         drivebase,
@@ -72,7 +80,8 @@ public class RobotContainer {
         hopper,
         globalControlState,
         gameInfoSupplier,
-        inputDriveControl
+        inputDriveControl,
+        musicalSubsystems
     );
 
     private final AutoChooser autoChooser = AutoChooser.create(commandContext);

@@ -2,6 +2,8 @@ package frc.robot.setup.teleop;
 
 import frc.robot.subsystems.indication.Indicator;
 import frc.robot.subsystems.intake.Intake;
+import java.util.Collection;
+import frc.bofalib.generic.music.MusicalSubsystem;
 import frc.robot.subsystems.agitator.Agitator;
 import frc.robot.subsystems.controlstate.ControlStateToggler;
 import frc.robot.subsystems.drivebase.DriveControl;
@@ -11,13 +13,14 @@ import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.feeder.Feeder;
 
 public record CommandContext(
-        Indicator indicator,
-        Drivebase drivebase,
-        Intake intake,
-        Launcher launcher,
-        Feeder feeder,
-        Agitator hopper,
-        ControlStateToggler controlStateToggler,
-        GameInfoSupplier gameInfoSupplier,
-        DriveControl inputDriveControl
+    Indicator indicator,
+    Drivebase drivebase,
+    Intake intake,
+    Launcher launcher,
+    Feeder feeder,
+    Agitator hopper,
+    ControlStateToggler controlStateToggler,
+    GameInfoSupplier gameInfoSupplier,
+    DriveControl inputDriveControl,
+    Collection<? extends MusicalSubsystem> musicalSubsystems
 ) {}
