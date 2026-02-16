@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.control.UniControl;
 import frc.bofalib.generic.hardware.motor.MotorDutyCycle;
+import frc.bofalib.generic.hardware.motor.MotorSetting;
 import frc.bofalib.generic.hardware.motor.MotorVelocity;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
@@ -23,7 +24,7 @@ public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchCont
     PLAY_UNDERGROUND("Underground"),
     PLAY_VSAUSE("vsauce"),
     PLAY_WII_SHOP("Wii Shop"),
-    SHOOT(impl -> impl.shootSpeedFPSSupplier, 0);
+    SHOOT(impl -> impl.shootSpeedFPSSupplier, MotorSetting.Type.ANGULAR_VELOCITY);
 
     private final Function<LauncherImpl, TalonFXBatchControl> firstControlFunction;
 
@@ -36,27 +37,22 @@ public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchCont
     }
 
     private LauncherControl(
-        Function<LauncherImpl, DoubleSupplier> feetPerSecFunction, 
-        int dummy
+        Function<LauncherImpl, DoubleSupplier> supplierFunction,
+        MotorSetting.Type type
     ) {
-        this.firstControlFunction = impl -> new TalonFXBatchSetting(
-            new TalonFXControlSetting(
-                new MotorVelocity(
-                    () -> RadiansPerSecond.of(
-                        feetPerSecFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET
-                    )
-                )
-            )
-        );
-    }
+        final Function<LauncherImpl, MotorSetting> settingFunction = switch (type) {
+            case DUTY_CYCLE -> impl -> new MotorDutyCycle(
+                supplierFunction.apply(impl)
+            );
+            case ANGULAR_VELOCITY -> impl -> new MotorVelocity(
+                () -> supplierFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET, 
+                RadiansPerSecond
+            );
+        };
 
-    private LauncherControl(
-        Function<LauncherImpl, DoubleSupplier> dutyCycleFunction,
-        boolean dummy
-    ) {
         this.firstControlFunction = impl -> new TalonFXBatchSetting(
             new TalonFXControlSetting(
-                new MotorDutyCycle(dutyCycleFunction.apply(impl))
+                settingFunction.apply(impl)
             )
         );
     }
