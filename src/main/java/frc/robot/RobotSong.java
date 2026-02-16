@@ -3,16 +3,16 @@ package frc.robot;
 import frc.bofalib.music.Song;
 
 public enum RobotSong implements Song {
-    PLAY_SUS("sus"),
-    PLAY_BAD_TO_THE_BONE("Bad To the Bone"),
-    PLAY_BLOODY_TEARS("bloodytears"),
-    PLAY_BLUE_LOBSTER("BlueLobster"),
-    PLAY_HCB("hcb"),
-    PLAY_PHOTOGRAPH("photograph"),
-    PLAY_RICKROLL("rickroll"),
-    PLAY_UNDERGROUND("Underground"),
-    PLAY_VSAUSE("vsauce"),
-    PLAY_WII_SHOP("Wii Shop");
+    SUS("sus"),
+    BAD_TO_THE_BONE("Bad To the Bone"),
+    BLOODY_TEARS("bloodytears"),
+    BLUE_LOBSTER("BlueLobster"),
+    HCB("hcb"),
+    PHOTOGRAPH("photograph"),
+    RICKROLL("rickroll"),
+    UNDERGROUND("Underground"),
+    VSAUSE("vsauce"),
+    WII_SHOP("Wii Shop");
 
     private final String name;
 
