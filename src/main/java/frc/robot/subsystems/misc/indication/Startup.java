@@ -1,4 +1,4 @@
-package frc.robot.subsystems.indication;
+package frc.robot.subsystems.misc.indication;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

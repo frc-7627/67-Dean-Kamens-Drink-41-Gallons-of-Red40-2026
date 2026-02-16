@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.subsystems.vision.VisionMeasurement;
+import frc.robot.subsystems.shared.vision.VisionMeasurement;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;

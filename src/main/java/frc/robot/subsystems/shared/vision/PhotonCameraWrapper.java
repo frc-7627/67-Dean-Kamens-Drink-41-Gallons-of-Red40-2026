@@ -1,4 +1,4 @@
-package frc.robot.subsystems.vision;
+package frc.robot.subsystems.shared.vision;
 
 import static edu.wpi.first.units.Units.Microseconds;
 import static edu.wpi.first.units.Units.Milliseconds;

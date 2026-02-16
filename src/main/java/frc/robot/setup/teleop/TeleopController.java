@@ -1,9 +1,9 @@
 package frc.robot.setup.teleop;
 
+import static frc.robot.subsystems.misc.controlstate.GlobalControlState.ControlState;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import edu.wpi.first.wpilibj2.command.Command;
-import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
 
 /**
  * Interface that binds teleop controls to commands to be done by the robot.

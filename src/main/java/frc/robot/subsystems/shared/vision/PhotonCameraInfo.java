@@ -1,4 +1,4 @@
-package frc.robot.subsystems.vision;
+package frc.robot.subsystems.shared.vision;
 
 import static frc.robot.Constants.VisionConstants.*;
 import edu.wpi.first.math.geometry.Transform3d;

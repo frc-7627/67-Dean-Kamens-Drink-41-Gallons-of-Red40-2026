@@ -1,4 +1,4 @@
-package frc.robot.subsystems.gameinfo;
+package frc.robot.subsystems.shared.gameinfo;
 
 import java.util.Optional;
 import java.util.logging.Logger;

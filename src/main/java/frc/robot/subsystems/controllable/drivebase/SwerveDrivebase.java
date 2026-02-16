@@ -15,7 +15,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.robot.subsystems.vision.VisionMeasurementsSupplier;
+import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");

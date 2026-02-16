@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WrapperCommand;
-import frc.robot.subsystems.indication.Indicator;
+import frc.robot.subsystems.misc.indication.Indicator;
 
 public class IndicatingWrapperCommand extends WrapperCommand {
     private final Indicator indicator;

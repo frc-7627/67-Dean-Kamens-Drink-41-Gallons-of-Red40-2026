@@ -4,8 +4,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
-import static frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
+import frc.robot.subsystems.misc.controlstate.GlobalControlState.ControlState;
 
 class OperatorXboxController implements OperatorController {
     private static final Logger logger = Logger.getLogger(OperatorController.class.getName());

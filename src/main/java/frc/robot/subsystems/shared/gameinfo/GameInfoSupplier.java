@@ -1,4 +1,4 @@
-package frc.robot.subsystems.gameinfo;
+package frc.robot.subsystems.shared.gameinfo;
 
 import frc.bofalib.subsystem.SharedSubsystem;
 

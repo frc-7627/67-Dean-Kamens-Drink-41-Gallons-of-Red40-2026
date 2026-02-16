@@ -1,8 +1,8 @@
-package frc.robot.subsystems.indication;
+package frc.robot.subsystems.misc.indication;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.gameinfo.GameInfoSupplier;
+import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 
 /**
  * Interface for the feedback and status of the robot, signaling the state and

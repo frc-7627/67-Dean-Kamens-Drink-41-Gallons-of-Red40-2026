@@ -14,17 +14,17 @@ import frc.robot.setup.auto.AutoChooser;
 import frc.robot.setup.teleop.CommandContext;
 import frc.robot.setup.teleop.DriverController;
 import frc.robot.setup.teleop.OperatorController;
-import frc.robot.subsystems.indication.Indicator;
-import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.misc.controlstate.GlobalControlState;
+import frc.robot.subsystems.misc.controlstate.GlobalControlState.ControlState;
+import frc.robot.subsystems.misc.indication.Indicator;
+import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
+import frc.robot.subsystems.shared.vision.Vision;
 import frc.robot.subsystems.controllable.agitator.Agitator;
 import frc.robot.subsystems.controllable.drivebase.DriveControl;
 import frc.robot.subsystems.controllable.drivebase.Drivebase;
 import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
-import frc.robot.subsystems.controlstate.GlobalControlState;
-import frc.robot.subsystems.controlstate.GlobalControlState.ControlState;
-import frc.robot.subsystems.gameinfo.GameInfoSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a

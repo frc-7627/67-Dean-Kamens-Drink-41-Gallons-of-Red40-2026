@@ -1,10 +1,10 @@
-package frc.robot.subsystems.indication;
+package frc.robot.subsystems.misc.indication;
 
 import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
-import frc.robot.subsystems.gameinfo.GameInfoSupplier;
+import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 
 final class IndicatorImpl extends SubsystemBase implements Indicator {
     private final Startup startup = new Startup();
