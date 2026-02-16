@@ -24,7 +24,6 @@ import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.controls.SingleFadeAnimation;
@@ -284,14 +283,6 @@ public final class Constants {
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
-
-        public static final Slot0Configs SLOT0_CONFIGS = new Slot0Configs()
-            .withKP(1.0)
-            .withKI(0.0)
-            .withKD(0.0)
-            .withKS(0.25)
-            .withKV(0.0)
-            .withKA(0.0);
 
         public static final int HORN_FREQ = 440;
     }

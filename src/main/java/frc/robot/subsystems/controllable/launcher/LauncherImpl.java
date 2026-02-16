@@ -42,8 +42,7 @@ final class LauncherImpl extends SubsystemBase implements
             .withOpenLoopRamps(DEFAULT_OPEN_LOOP_RAMPS_CONFIGS)
             .withClosedLoopRamps(DEFAULT_CLOSED_LOOP_RAMPS_CONFIGS)
             .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS)
-            .withAudio(AUDIO_CONFIGS)
-            .withSlot0(SLOT0_CONFIGS), 
+            .withAudio(AUDIO_CONFIGS), 
         new TalonFXWrapper(LAUNCHER_COMMANDER_CAN_ID), 
         List.of(
             Pair.of(new TalonFXWrapper(LAUNCHER_MINION_CAN_ID), MotorAlignmentValue.Aligned)
@@ -96,7 +95,8 @@ final class LauncherImpl extends SubsystemBase implements
                 List.of(
                     GainItem.createProportional(1.0),
                     GainItem.createIntegral(0.0),
-                    GainItem.createDerivative(0.0)
+                    GainItem.createDerivative(0.0),
+                    GainItem.createStatic(0.25)
                 )
             )
         ));
