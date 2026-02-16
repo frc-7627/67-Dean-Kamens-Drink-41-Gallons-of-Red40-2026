@@ -47,9 +47,9 @@ public final class SparkMaxWrapper extends
     public void runControl() {
         if (control instanceof SparkMaxControlSetting setting) {
             setting.setting().visit(
-                dutyCycle -> { sparkMax.set(dutyCycle.getDutyCycle()); }, 
-                velocity -> { sparkMax.getClosedLoopController().setSetpoint(
-                    velocity.getAngularVelocity().in(RPM), 
+                dutyCycleSupplier -> { sparkMax.set(dutyCycleSupplier.getAsDouble()); }, 
+                (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
+                    RPM.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
                     ControlType.kVelocity
                 ); }
             );

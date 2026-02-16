@@ -1,5 +1,6 @@
 package frc.bofalib.generic.hardware.motor.talon;
 
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
@@ -46,11 +47,11 @@ implements
             request -> { talonFX.setControl(request.request()); },
             setting -> {
                 setting.setting().visit(
-                    dutyCycle -> { talonFX.set(
-                        dutyCycle.getDutyCycle()
+                    dutyCycleSupplier -> { talonFX.set(
+                        dutyCycleSupplier.getAsDouble()
                     ); },
-                    velocity -> { talonFX.setControl(new VelocityVoltage(
-                        velocity.getAngularVelocity()
+                    (magnitudeSupplier, unit) -> { talonFX.setControl(new VelocityVoltage(
+                        RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
                     )); }
                 );
             },

@@ -1,25 +1,19 @@
 package frc.bofalib.generic.hardware.motor;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
-import edu.wpi.first.units.measure.AngularVelocity;
+import java.util.function.DoubleSupplier;
+import edu.wpi.first.units.AngularVelocityUnit;
 
-public final class MotorVelocity implements MotorSetting {
-    private final Supplier<AngularVelocity> angularVelocitySupplier;
-
-    public MotorVelocity(Supplier<AngularVelocity> angularVelocitySupplier) {
-        this.angularVelocitySupplier = angularVelocitySupplier;
-    }
-
-    public AngularVelocity getAngularVelocity() {
-        return angularVelocitySupplier.get();
-    }
-
+public record MotorVelocity(
+    DoubleSupplier magnitudeSupplier, 
+    AngularVelocityUnit unit
+) implements MotorSetting {
     @Override
     public void visit(
-        Consumer<MotorDutyCycle> dutyCycleConsumer,
-        Consumer<MotorVelocity> velocityConsumer
+        Consumer<DoubleSupplier> dutyCycleConsumer,
+        BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer
     ) {
-        velocityConsumer.accept(this);
+        velocityConsumer.accept(magnitudeSupplier, unit);
     }
 }
