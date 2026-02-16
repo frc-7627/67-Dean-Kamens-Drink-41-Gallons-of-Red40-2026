@@ -13,18 +13,6 @@ import frc.bofalib.generic.hardware.motor.talon.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talon.control.TalonFXControlSetting;
 
 public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl> {
-    /*
-    PLAY_SUS("sus"),
-    PLAY_BAD_TO_THE_BONE("Bad To the Bone"),
-    PLAY_BLOODY_TEARS("bloodytears"),
-    PLAY_BLUE_LOBSTER("BlueLobster"),
-    PLAY_HCB("hcb"),
-    PLAY_PHOTOGRAPH("photograph"),
-    PLAY_RICKROLL("rickroll"),
-    PLAY_UNDERGROUND("Underground"),
-    PLAY_VSAUSE("vsauce"),
-    PLAY_WII_SHOP("Wii Shop"),
-    */
     SHOOT(impl -> impl.shootSpeedFPSSupplier, MotorSetting.Type.ANGULAR_VELOCITY);
 
     private final Function<LauncherImpl, TalonFXBatchControl> firstControlFunction;
