@@ -15,15 +15,15 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 
 public final class SparkMaxWrapper extends 
-    MotorHardware<SparkMaxControl, SparkMaxConfigurator> 
+    MotorHardware<SparkMaxControl, SparkMaxConfiguratorImpl> 
 {
     private final SparkMax sparkMax;
-    private final SparkMaxConfigurator configurator;
+    private final SparkMaxConfiguratorImpl configurator;
     private SparkMaxControl control = SparkMaxControlEmpty.getInstance();
 
     public SparkMaxWrapper(int deviceId, MotorType motorType) {
         this.sparkMax = new SparkMax(deviceId, Objects.requireNonNull(motorType));
-        this.configurator = new SparkMaxConfigurator(sparkMax);
+        this.configurator = new SparkMaxConfiguratorImpl(sparkMax);
     }
 
     public SparkMaxWrapper(
@@ -64,7 +64,7 @@ public final class SparkMaxWrapper extends
     }
 
     @Override
-    public SparkMaxConfigurator getConfigurator() {
+    public SparkMaxConfiguratorImpl getConfigurator() {
         return configurator;
     }
 
