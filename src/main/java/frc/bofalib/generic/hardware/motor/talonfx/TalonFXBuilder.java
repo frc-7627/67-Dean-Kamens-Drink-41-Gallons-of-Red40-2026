@@ -21,7 +21,7 @@ public final class TalonFXBuilder {
     }
 
     private boolean isMock() {
-        return deviceIdOptional.isPresent();
+        return deviceIdOptional.isEmpty();
     }
 
     public static TalonFXBuilder create(String name, int deviceId) {
