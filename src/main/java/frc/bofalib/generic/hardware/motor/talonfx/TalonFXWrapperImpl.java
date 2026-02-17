@@ -19,7 +19,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
-public final class TalonFXWrapperImpl extends 
+final class TalonFXWrapperImpl extends 
     LoggableBase 
 implements
     TalonFXWrapper

@@ -14,7 +14,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
-public final class TalonFXGroupImpl extends
+final class TalonFXGroupImpl extends
     LoggableBase
 implements
     TalonFXGroup
