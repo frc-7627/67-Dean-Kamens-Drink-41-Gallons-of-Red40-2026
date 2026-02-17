@@ -28,7 +28,7 @@ final class AgitatorImpl extends SubsystemBase implements
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Agitator");
 
     // one neo
-    private final SparkMaxWrapper motor = SparkMaxBuilder.createBuiltWithConfig(
+    private final SparkMaxWrapper motor = SparkMaxBuilder.createWithConfig(
         AGITATOR_MOTOR_CAN_ID,
         MotorType.kBrushless,
         new SparkMaxConfig()
@@ -36,7 +36,7 @@ final class AgitatorImpl extends SubsystemBase implements
             .smartCurrentLimit(AMP_LIMIT), 
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters
-    );
+    ).build();
 
     final DoubleSupplier dutyCycleSupplier = 
     DashboardItems.createCheckedDoublePuller(

@@ -6,14 +6,22 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 
 public class SparkMaxBuilder {
-    private final SparkMaxWrapperImpl wrapperImpl;
+    private final SparkMaxWrapper wrapper;
 
-    private SparkMaxBuilder(SparkMaxWrapperImpl wrapperImpl) {
-        this.wrapperImpl = wrapperImpl;
+    private SparkMaxBuilder(SparkMaxWrapper wrapper) {
+        this.wrapper = wrapper;
     }
 
     public static SparkMaxBuilder create(int deviceId, MotorType motorType) {
         return new SparkMaxBuilder(new SparkMaxWrapperImpl(deviceId, motorType));
+    }
+
+    public static SparkMaxBuilder mock() {
+        return new SparkMaxBuilder(new SparkMaxWrapperMock());
+    }
+
+    public static SparkMaxBuilder mock(int deviceId, MotorType motorType) {
+        return mock();
     }
 
     public SparkMaxBuilder withConfig(
@@ -21,7 +29,7 @@ public class SparkMaxBuilder {
         ResetMode resetMode,
         PersistMode persistMode
     ) {
-        wrapperImpl.getConfigurator().apply(
+        wrapper.getConfigurator().apply(
             config, 
             resetMode, 
             persistMode
@@ -30,25 +38,41 @@ public class SparkMaxBuilder {
         return this;
     }
 
-    public SparkMaxWrapper build() {
-        return wrapperImpl;
-    }
-
-    public static SparkMaxWrapper createBuilt(int deviceId, MotorType motorType) {
-        return create(deviceId, motorType).build();
-    }
-
-    public static SparkMaxWrapper createBuiltWithConfig(
+    public static SparkMaxBuilder createWithConfig(
         int deviceId, 
         MotorType motorType,
         SparkBaseConfig config,
         ResetMode resetMode,
         PersistMode persistMode
     ) {
-        return 
-            create(deviceId, motorType)
-            .withConfig(config, resetMode, persistMode)
-            .build()
-        ;
+        return create(
+            deviceId, 
+            motorType
+        ).withConfig(
+            config, 
+            resetMode, 
+            persistMode
+        );
+    }
+
+    public static SparkMaxBuilder mockWithConfig(
+        int deviceId, 
+        MotorType motorType,
+        SparkBaseConfig config,
+        ResetMode resetMode,
+        PersistMode persistMode
+    ) {
+        return mock(
+            deviceId, 
+            motorType
+        ).withConfig(
+            config, 
+            resetMode, 
+            persistMode
+        );
+    }
+
+    public SparkMaxWrapper build() {
+        return wrapper;
     }
 }
