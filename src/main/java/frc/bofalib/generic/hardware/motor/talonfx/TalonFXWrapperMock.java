@@ -40,7 +40,7 @@ implements
     @Override
     public TalonFXCommonConfigurator getConfigurator() {
         // TODO Auto-generated method stub
-        return new TalonFXMockConfigurator();
+        return new TalonFXMockConfigurator(getLoggableName());
     }
 
     @Override

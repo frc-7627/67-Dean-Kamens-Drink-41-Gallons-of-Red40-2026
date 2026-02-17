@@ -8,6 +8,17 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 final class TalonFXMockConfigurator implements TalonFXCommonConfigurator {
+    private final String motorName;
+
+    TalonFXMockConfigurator(String motorName) {
+        this.motorName = motorName;
+    }
+
+    @Override
+    public String getLoggableMotorName() {
+        return motorName;
+    }
+
     @Override
     public void apply(MotorOutputConfigs configuration) {
         // TODO Auto-generated method stub

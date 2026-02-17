@@ -11,15 +11,23 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 final class TalonFXGroupConfigurator implements TalonFXCommonConfigurator {
+    private final String motorName;
     private final TalonFXCommonConfigurator leaderConfigurator;
     private final Supplier<Stream<TalonFXCommonConfigurator>> followerConfiguratorsSupplier;
 
     TalonFXGroupConfigurator(
+        String motorName,
         TalonFXCommonConfigurator leaderConfigurator,
         Supplier<Stream<TalonFXCommonConfigurator>> followerConfiguratorsSupplier
     ) {
+        this.motorName = motorName;
         this.leaderConfigurator = leaderConfigurator;
         this.followerConfiguratorsSupplier = followerConfiguratorsSupplier;
+    }
+
+    @Override
+    public String getLoggableMotorName() {
+        return motorName;
     }
 
     @Override

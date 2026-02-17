@@ -34,7 +34,7 @@ implements
         super(name);
         this.talonFX = new TalonFX(deviceId);
         this.trackNumberOptional = trackNumberOptional;
-        this.configurator = new TalonFXWrapperConfigurator(talonFX.getConfigurator());
+        this.configurator = new TalonFXWrapperConfigurator(name, talonFX.getConfigurator());
 
         reset();
     }

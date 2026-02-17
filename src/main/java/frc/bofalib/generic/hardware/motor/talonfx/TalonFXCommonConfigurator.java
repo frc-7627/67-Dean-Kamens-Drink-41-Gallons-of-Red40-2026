@@ -27,6 +27,8 @@ public interface TalonFXCommonConfigurator {
         );
     }
 
+    String getLoggableMotorName();
+
     void apply(MotorOutputConfigs configuration);
 
     void apply(ClosedLoopRampsConfigs configuration);

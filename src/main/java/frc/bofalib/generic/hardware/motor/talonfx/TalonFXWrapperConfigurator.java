@@ -10,10 +10,17 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 
 final class TalonFXWrapperConfigurator implements TalonFXCommonConfigurator {
+    private final String motorName;
     private final TalonFXConfigurator configurator;
 
-    TalonFXWrapperConfigurator(TalonFXConfigurator configurator) {
+    TalonFXWrapperConfigurator(String motorName, TalonFXConfigurator configurator) {
+        this.motorName = motorName;
         this.configurator = configurator;
+    }
+
+    @Override
+    public String getLoggableMotorName() {
+        return motorName;
     }
 
     @Override

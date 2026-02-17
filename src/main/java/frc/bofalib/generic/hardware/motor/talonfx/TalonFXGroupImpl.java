@@ -44,6 +44,7 @@ implements
             }
         ).toList();
         this.configurator = new TalonFXGroupConfigurator(
+            name,
             leaderWrapper.getConfigurator(),
             () -> followerPairs
                 .stream()
