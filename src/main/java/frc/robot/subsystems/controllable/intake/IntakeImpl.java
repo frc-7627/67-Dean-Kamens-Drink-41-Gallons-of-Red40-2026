@@ -17,7 +17,8 @@ import frc.bofalib.generic.control.BiControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapperImpl;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
 
@@ -25,7 +26,7 @@ import frc.bofalib.generic.music.UniInstrument;
 final class IntakeImpl extends SubsystemBase implements 
     Intake, 
     BiControllable<IntakeImpl, SparkMaxControl, TalonFXControl, IntakeControl>,
-    UniInstrument<TalonFXWrapperImpl>
+    UniInstrument<TalonFXWrapper>
 {
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
@@ -41,9 +42,10 @@ final class IntakeImpl extends SubsystemBase implements
         PersistMode.kPersistParameters
     ).build();
 
-    private final TalonFXWrapperImpl intakeMotor = new TalonFXWrapperImpl(
+    private final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
+        "Intake Main Motor", 
         INTAKE_MOTOR_CAN_ID
-    );
+    ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Intake Duty Cycle"), 
@@ -79,7 +81,7 @@ final class IntakeImpl extends SubsystemBase implements
     }
 
     @Override
-    public TalonFXWrapperImpl getFirstInstrument() {
+    public TalonFXWrapper getFirstInstrument() {
         return intakeMotor;
     }
 }

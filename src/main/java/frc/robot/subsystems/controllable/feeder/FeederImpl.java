@@ -11,7 +11,8 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.UniControllable;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapperImpl;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
@@ -22,17 +23,19 @@ import static frc.robot.Constants.CanIDs.*;
 final class FeederImpl extends SubsystemBase implements 
     Feeder, 
     UniControllable<FeederImpl, TalonFXControl, FeederControl>,
-    UniInstrument<TalonFXWrapperImpl>
+    UniInstrument<TalonFXWrapper>
 {
 
     // 1 kraken
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());
-    private final TalonFXWrapperImpl motor = new TalonFXWrapperImpl(
+    private final TalonFXWrapper motor = TalonFXBuilder.create(
+        "Feeder Motor", 
+        FEEDER_CAN_ID
+    ).withConfig(
         new TalonFXConfiguration()
             .withCurrentLimits(DEFAULT_CURRENT_LIMITS_CONFIGS)
-            .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS),
-        FEEDER_CAN_ID
-    );
+            .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS)
+    ).build();
 
     final DoubleSupplier feedDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Duty Cycle"), 
@@ -69,7 +72,7 @@ final class FeederImpl extends SubsystemBase implements
     }
 
     @Override
-    public TalonFXWrapperImpl getFirstInstrument() {
+    public TalonFXWrapper getFirstInstrument() {
         return motor;
     }
 }
