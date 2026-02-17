@@ -17,7 +17,7 @@ import frc.bofalib.generic.control.BiControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapperImpl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
 
@@ -25,7 +25,7 @@ import frc.bofalib.generic.music.UniInstrument;
 final class IntakeImpl extends SubsystemBase implements 
     Intake, 
     BiControllable<IntakeImpl, SparkMaxControl, TalonFXControl, IntakeControl>,
-    UniInstrument<TalonFXWrapper>
+    UniInstrument<TalonFXWrapperImpl>
 {
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
@@ -41,7 +41,7 @@ final class IntakeImpl extends SubsystemBase implements
         PersistMode.kPersistParameters
     ).build();
 
-    private final TalonFXWrapper intakeMotor = new TalonFXWrapper(
+    private final TalonFXWrapperImpl intakeMotor = new TalonFXWrapperImpl(
         INTAKE_MOTOR_CAN_ID
     );
 
@@ -79,7 +79,7 @@ final class IntakeImpl extends SubsystemBase implements
     }
 
     @Override
-    public TalonFXWrapper getFirstInstrument() {
+    public TalonFXWrapperImpl getFirstInstrument() {
         return intakeMotor;
     }
 }

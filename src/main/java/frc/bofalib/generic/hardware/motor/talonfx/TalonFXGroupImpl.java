@@ -17,25 +17,25 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
-public final class TalonFXGroup implements
+public final class TalonFXGroupImpl implements
     MotorHardware<TalonFXBatchControl, TalonFXCommonConfigurator>,
     DoubleQueryable<TalonFXGroupQuery>,
     Instrument
 {
-    private final TalonFXWrapper leaderWrapper;
-    private final List<TalonFXWrapper> followerWrappers;
+    private final TalonFXWrapperImpl leaderWrapper;
+    private final List<TalonFXWrapperImpl> followerWrappers;
     private final TalonFXGroupConfigurator configurator;
 
-    public TalonFXGroup(
+    public TalonFXGroupImpl(
         TalonFXConfiguration configuration, 
-        TalonFXWrapper leaderWrapper,
-        List<Pair<TalonFXWrapper, MotorAlignmentValue>> followerPairs
+        TalonFXWrapperImpl leaderWrapper,
+        List<Pair<TalonFXWrapperImpl, MotorAlignmentValue>> followerPairs
     ) {
         this.leaderWrapper = Objects.requireNonNull(leaderWrapper);
         this.followerWrappers = Objects.requireNonNull(followerPairs).stream().map(
             pair -> {
                 Objects.requireNonNull(pair);
-                final TalonFXWrapper followerWrapper = Objects.requireNonNull(pair.getFirst());
+                final TalonFXWrapperImpl followerWrapper = Objects.requireNonNull(pair.getFirst());
                 followerWrapper.followerWith(
                     leaderWrapper.getFollower(
                         Objects.requireNonNull(pair.getSecond())
@@ -49,7 +49,7 @@ public final class TalonFXGroup implements
             () -> followerPairs
                 .stream()
                 .map(Pair::getFirst)
-                .map(TalonFXWrapper::getConfigurator)
+                .map(TalonFXWrapperImpl::getConfigurator)
         );
     }
 
@@ -75,7 +75,7 @@ public final class TalonFXGroup implements
     public void runControl() {
         leaderWrapper.runControl();
         followerWrappers.forEach(
-            TalonFXWrapper::runControl
+            TalonFXWrapperImpl::runControl
         );
     }
 
@@ -83,7 +83,7 @@ public final class TalonFXGroup implements
     public void endControl() {
         leaderWrapper.endControl();
         followerWrappers.forEach(
-            TalonFXWrapper::endControl
+            TalonFXWrapperImpl::endControl
         );
     }
 

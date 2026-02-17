@@ -17,8 +17,8 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.gains.GainItem;
 import frc.bofalib.generic.control.UniControllable;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroupImpl;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapperImpl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.gains.Slot0Gains;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
@@ -31,18 +31,18 @@ import frc.bofalib.util.FunctionalUtil;
 final class LauncherImpl extends SubsystemBase implements 
     Launcher,
     UniControllable<LauncherImpl, TalonFXBatchControl, LauncherControl>,
-    UniInstrument<TalonFXGroup>
+    UniInstrument<TalonFXGroupImpl>
 {
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
 
-    private final TalonFXGroup motors = new TalonFXGroup(
+    private final TalonFXGroupImpl motors = new TalonFXGroupImpl(
         new TalonFXConfiguration()
             .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
             .withAudio(AUDIO_CONFIGS), 
-        new TalonFXWrapper(LAUNCHER_COMMANDER_CAN_ID), 
+        new TalonFXWrapperImpl(LAUNCHER_COMMANDER_CAN_ID), 
         List.of(
-            Pair.of(new TalonFXWrapper(LAUNCHER_MINION_CAN_ID), MotorAlignmentValue.Aligned)
+            Pair.of(new TalonFXWrapperImpl(LAUNCHER_MINION_CAN_ID), MotorAlignmentValue.Aligned)
         )
     );
 
@@ -110,7 +110,7 @@ final class LauncherImpl extends SubsystemBase implements
     }
 
     @Override
-    public TalonFXGroup getFirstInstrument() {
+    public TalonFXGroupImpl getFirstInstrument() {
         return motors;
     }
 }

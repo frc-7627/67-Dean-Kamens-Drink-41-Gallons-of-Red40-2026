@@ -22,7 +22,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
-public final class TalonFXWrapper implements
+public final class TalonFXWrapperImpl implements
     MotorHardware<TalonFXControl, TalonFXCommonConfigurator>,
     DoubleQueryable<TalonFXQuery>,
     Instrument
@@ -33,7 +33,7 @@ public final class TalonFXWrapper implements
     private Optional<Follower> followerOptional = Optional.empty();
     private TalonFXControl control = TalonFXControlEmpty.getInstance();
 
-    private TalonFXWrapper(int deviceId, OptionalInt trackNumberOptional) {
+    private TalonFXWrapperImpl(int deviceId, OptionalInt trackNumberOptional) {
         this.talonFX = new TalonFX(deviceId);
         this.trackNumberOptional = trackNumberOptional;
         this.configurator = new TalonFXWrapperConfigurator(talonFX.getConfigurator());
@@ -41,21 +41,21 @@ public final class TalonFXWrapper implements
         reset();
     }
 
-    public TalonFXWrapper(int deviceId) {
+    public TalonFXWrapperImpl(int deviceId) {
         this(deviceId, OptionalInt.empty());
     }
 
-    public TalonFXWrapper(int deviceId, int trackNumber) {
+    public TalonFXWrapperImpl(int deviceId, int trackNumber) {
         this(deviceId, OptionalInt.of(trackNumber));
     }
 
-    public TalonFXWrapper(TalonFXConfiguration configuration, int deviceId) {
+    public TalonFXWrapperImpl(TalonFXConfiguration configuration, int deviceId) {
         this(deviceId);
 
         configurator.apply(configuration);
     }
 
-    public TalonFXWrapper(TalonFXConfiguration configuration, int deviceId, int trackNumber) {
+    public TalonFXWrapperImpl(TalonFXConfiguration configuration, int deviceId, int trackNumber) {
         this(deviceId, trackNumber);
 
         configurator.apply(configuration);
