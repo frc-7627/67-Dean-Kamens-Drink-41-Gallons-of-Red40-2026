@@ -21,7 +21,7 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     SparkMaxWrapperImpl(String name, int deviceId, MotorType motorType) {
         super(name);
         this.sparkMax = new SparkMax(deviceId, Objects.requireNonNull(motorType));
-        this.configurator = new SparkMaxConfiguratorImpl(sparkMax);
+        this.configurator = new SparkMaxConfiguratorImpl(name, sparkMax);
     }
 
     @Override

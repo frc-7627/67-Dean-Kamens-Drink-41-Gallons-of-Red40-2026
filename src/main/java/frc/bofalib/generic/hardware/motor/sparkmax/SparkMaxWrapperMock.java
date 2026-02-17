@@ -35,7 +35,7 @@ implements
 
     @Override
     public SparkMaxConfigurator getConfigurator() {
-        return new SparkMaxConfiguratorMock();
+        return new SparkMaxConfiguratorMock(getLoggableName());
     }
 
     @Override

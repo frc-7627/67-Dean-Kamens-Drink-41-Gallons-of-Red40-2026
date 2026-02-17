@@ -5,11 +5,13 @@ import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
+import frc.bofalib.generic.hardware.motor.MotorConfiguratorBase;
 
-public final class SparkMaxConfiguratorImpl implements SparkMaxConfigurator {
+public final class SparkMaxConfiguratorImpl extends MotorConfiguratorBase implements SparkMaxConfigurator {
     private final SparkMax sparkMax;
 
-    SparkMaxConfiguratorImpl(SparkMax sparkMax) {
+    SparkMaxConfiguratorImpl(String motorName, SparkMax sparkMax) {
+        super(motorName);
         this.sparkMax = sparkMax;
     }
 
