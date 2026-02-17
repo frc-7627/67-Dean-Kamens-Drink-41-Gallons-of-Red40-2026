@@ -20,8 +20,8 @@ public final class TalonFXBuilder {
         this.deviceIdOptional = OptionalInt.of(deviceId);
     }
 
-    private boolean isMock() {
-        return deviceIdOptional.isEmpty();
+    private boolean isReal() {
+        return deviceIdOptional.isPresent();
     }
 
     public static TalonFXBuilder create(String name, int deviceId) {
@@ -50,13 +50,13 @@ public final class TalonFXBuilder {
 
     public TalonFXWrapper build() {
         final TalonFXWrapper wrapper = 
-            isMock() ? 
+            isReal() ? 
             new TalonFXWrapperImpl(
                 name, 
                 deviceIdOptional.getAsInt(), 
                 trackNumberOptional
             ) :
-            null
+            new TalonFXWrapperMock(name)
         ;
 
         configurationOptional.ifPresent(
