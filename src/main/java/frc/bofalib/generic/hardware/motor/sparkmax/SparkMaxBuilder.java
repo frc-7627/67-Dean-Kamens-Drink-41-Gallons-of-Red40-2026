@@ -38,44 +38,6 @@ public class SparkMaxBuilder {
         return this;
     }
 
-    public static SparkMaxBuilder createWithConfig(
-        String name,
-        int deviceId, 
-        MotorType motorType,
-        SparkBaseConfig config,
-        ResetMode resetMode,
-        PersistMode persistMode
-    ) {
-        return create(
-            name,
-            deviceId, 
-            motorType
-        ).withConfig(
-            config, 
-            resetMode, 
-            persistMode
-        );
-    }
-
-    public static SparkMaxBuilder mockWithConfig(
-        String name,
-        int deviceId, 
-        MotorType motorType,
-        SparkBaseConfig config,
-        ResetMode resetMode,
-        PersistMode persistMode
-    ) {
-        return mock(
-            name,
-            deviceId, 
-            motorType
-        ).withConfig(
-            config, 
-            resetMode, 
-            persistMode
-        );
-    }
-
     public SparkMaxWrapper build() {
         return wrapper;
     }

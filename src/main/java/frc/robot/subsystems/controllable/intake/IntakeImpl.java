@@ -31,10 +31,11 @@ final class IntakeImpl extends SubsystemBase implements
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
 
-    private final SparkMaxWrapper pivotMotor = SparkMaxBuilder.createWithConfig(
+    private final SparkMaxWrapper pivotMotor = SparkMaxBuilder.create(
         "Intake Pivot Motor",
         PIVOT_MOTOR_CAN_ID, 
-        MotorType.kBrushless, 
+        MotorType.kBrushless
+    ).withConfig(
         new SparkMaxConfig()
             .idleMode(IdleMode.kCoast)
             .smartCurrentLimit(AMP_LIMIT), 

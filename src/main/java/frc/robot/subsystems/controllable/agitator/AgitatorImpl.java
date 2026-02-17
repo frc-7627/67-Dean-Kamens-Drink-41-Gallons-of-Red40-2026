@@ -28,10 +28,11 @@ final class AgitatorImpl extends SubsystemBase implements
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Agitator");
 
     // one neo
-    private final SparkMaxWrapper motor = SparkMaxBuilder.createWithConfig(
+    private final SparkMaxWrapper motor = SparkMaxBuilder.create(
         "Agitator Motor",
         AGITATOR_MOTOR_CAN_ID,
-        MotorType.kBrushless,
+        MotorType.kBrushless
+    ).withConfig(
         new SparkMaxConfig()
             .idleMode(IdleMode.kCoast)
             .smartCurrentLimit(AMP_LIMIT), 
