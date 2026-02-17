@@ -34,6 +34,7 @@ public final class TalonFXGroup implements
         this.leaderWrapper = Objects.requireNonNull(leaderWrapper);
         this.followerWrappers = Objects.requireNonNull(followerPairs).stream().map(
             pair -> {
+                Objects.requireNonNull(pair);
                 final TalonFXWrapper followerWrapper = Objects.requireNonNull(pair.getFirst());
                 followerWrapper.followerWith(
                     leaderWrapper.getFollower(
