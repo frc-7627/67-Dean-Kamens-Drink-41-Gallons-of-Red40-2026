@@ -38,6 +38,7 @@
     "controlstate",
     "CTBT",
     "DEADBAND",
+    "Defaultable",
     "drivebase",
     "Feedforwards",
     "fieldrel",
