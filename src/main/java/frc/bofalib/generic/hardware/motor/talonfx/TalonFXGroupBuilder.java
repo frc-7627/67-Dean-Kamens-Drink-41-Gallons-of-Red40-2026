@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.math.Pair;
 
@@ -57,6 +58,23 @@ public final class TalonFXGroupBuilder {
         MotorAlignmentValue followerValue
     ) {
         return withFollower(followerBuilder.build(), followerValue);
+    }
+
+    public TalonFXGroupBuilder withAllConfig(TalonFXConfiguration configuration) {
+        leaderWrapperOptional.ifPresent(
+            leaderWrapper -> leaderWrapper
+                .getConfigurator()
+                .apply(configuration)
+        );
+
+        followerPairs.forEach(
+            followerPair -> followerPair
+                .getFirst()
+                .getConfigurator()
+                .apply(configuration)
+        );
+
+        return this;
     }
 
     public TalonFXGroup build() {
