@@ -6,9 +6,9 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import frc.bofalib.generic.hardware.motor.Configurator;
+import frc.bofalib.generic.hardware.motor.MotorConfigurator;
 
-public interface TalonFXCommonConfigurator extends Configurator {
+public interface TalonFXCommonConfigurator extends MotorConfigurator {
     default void applyCurrentLimit(double currentLimit) {
         apply(
             new CurrentLimitsConfigs()

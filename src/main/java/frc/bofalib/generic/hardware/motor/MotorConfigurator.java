@@ -1,5 +1,5 @@
 package frc.bofalib.generic.hardware.motor;
 
-public interface Configurator {
+public interface MotorConfigurator {
     String getLoggableMotorName();
 }

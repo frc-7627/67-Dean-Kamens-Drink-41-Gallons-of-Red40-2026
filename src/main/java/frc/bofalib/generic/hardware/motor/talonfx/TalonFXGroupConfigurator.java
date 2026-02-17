@@ -9,9 +9,9 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import frc.bofalib.generic.hardware.motor.ConfiguratorBase;
+import frc.bofalib.generic.hardware.motor.MotorConfiguratorBase;
 
-final class TalonFXGroupConfigurator extends ConfiguratorBase implements TalonFXCommonConfigurator {
+final class TalonFXGroupConfigurator extends MotorConfiguratorBase implements TalonFXCommonConfigurator {
     private final TalonFXCommonConfigurator leaderConfigurator;
     private final Supplier<Stream<TalonFXCommonConfigurator>> followerConfiguratorsSupplier;
 

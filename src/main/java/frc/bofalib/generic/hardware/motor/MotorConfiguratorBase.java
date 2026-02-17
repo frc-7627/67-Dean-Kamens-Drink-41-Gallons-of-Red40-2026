@@ -1,9 +1,9 @@
 package frc.bofalib.generic.hardware.motor;
 
-public abstract class ConfiguratorBase implements Configurator {
+public abstract class MotorConfiguratorBase implements MotorConfigurator {
     private final String loggableMotorName;
 
-    protected ConfiguratorBase(String loggableMotorName) {
+    protected MotorConfiguratorBase(String loggableMotorName) {
         this.loggableMotorName = loggableMotorName;
     }
 

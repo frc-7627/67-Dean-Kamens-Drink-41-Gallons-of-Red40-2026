@@ -6,9 +6,9 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import frc.bofalib.generic.hardware.motor.ConfiguratorBase;
+import frc.bofalib.generic.hardware.motor.MotorConfiguratorBase;
 
-final class TalonFXMockConfigurator extends ConfiguratorBase implements TalonFXCommonConfigurator {
+final class TalonFXMockConfigurator extends MotorConfiguratorBase implements TalonFXCommonConfigurator {
     TalonFXMockConfigurator(String motorName) {
         super(motorName);
     }
