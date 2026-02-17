@@ -14,7 +14,7 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.BiControllable;
-import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapperImpl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
@@ -29,7 +29,7 @@ final class IntakeImpl extends SubsystemBase implements
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
 
-    private final SparkMaxWrapper pivotMotor = new SparkMaxWrapper(
+    private final SparkMaxWrapperImpl pivotMotor = new SparkMaxWrapperImpl(
         PIVOT_MOTOR_CAN_ID, 
         MotorType.kBrushless, 
         new SparkMaxConfig()

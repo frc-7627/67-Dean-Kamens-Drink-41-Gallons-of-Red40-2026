@@ -6,13 +6,14 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 
-public final class SparkMaxConfiguratorImpl {
+public final class SparkMaxConfiguratorImpl implements SparkMaxConfigurator {
     private final SparkMax sparkMax;
 
     SparkMaxConfiguratorImpl(SparkMax sparkMax) {
         this.sparkMax = sparkMax;
     }
 
+    @Override
     public void apply(
         SparkBaseConfig config, 
         ResetMode resetMode, 

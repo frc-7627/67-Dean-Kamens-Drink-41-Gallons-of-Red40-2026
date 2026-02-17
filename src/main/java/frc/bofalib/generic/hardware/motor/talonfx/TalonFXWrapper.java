@@ -22,9 +22,8 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.music.Instrument;
 import frc.bofalib.query.DoubleQueryable;
 
-public final class TalonFXWrapper extends 
-    MotorHardware<TalonFXControl, TalonFXCommonConfigurator>
-implements
+public final class TalonFXWrapper implements
+    MotorHardware<TalonFXControl, TalonFXCommonConfigurator>,
     DoubleQueryable<TalonFXQuery>,
     Instrument
 {

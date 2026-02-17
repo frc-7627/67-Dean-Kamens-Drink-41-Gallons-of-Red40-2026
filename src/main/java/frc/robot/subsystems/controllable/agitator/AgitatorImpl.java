@@ -16,7 +16,7 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.UniControllable;
-import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapperImpl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 
 // Colloquially known as Edward Hopper
@@ -27,7 +27,7 @@ final class AgitatorImpl extends SubsystemBase implements
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Agitator");
 
     // one neo
-    private final SparkMaxWrapper motor = new SparkMaxWrapper(
+    private final SparkMaxWrapperImpl motor = new SparkMaxWrapperImpl(
         AGITATOR_MOTOR_CAN_ID,
         MotorType.kBrushless,
         new SparkMaxConfig()
