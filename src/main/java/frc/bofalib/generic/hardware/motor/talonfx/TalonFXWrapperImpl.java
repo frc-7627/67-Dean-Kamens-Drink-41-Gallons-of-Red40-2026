@@ -6,26 +6,23 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
-import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
-import frc.bofalib.music.Instrument;
-import frc.bofalib.query.DoubleQueryable;
+import frc.bofalib.generic.loggable.LoggableBase;
 
-public final class TalonFXWrapperImpl implements
-    MotorHardware<TalonFXControl, TalonFXCommonConfigurator>,
-    DoubleQueryable<TalonFXQuery>,
-    Instrument
+public final class TalonFXWrapperImpl extends 
+    LoggableBase 
+implements
+    TalonFXWrapper
 {
     private final TalonFX talonFX;
     private final OptionalInt trackNumberOptional;
@@ -33,32 +30,13 @@ public final class TalonFXWrapperImpl implements
     private Optional<Follower> followerOptional = Optional.empty();
     private TalonFXControl control = TalonFXControlEmpty.getInstance();
 
-    private TalonFXWrapperImpl(int deviceId, OptionalInt trackNumberOptional) {
+    TalonFXWrapperImpl(String name, int deviceId, OptionalInt trackNumberOptional) {
+        super(name);
         this.talonFX = new TalonFX(deviceId);
         this.trackNumberOptional = trackNumberOptional;
         this.configurator = new TalonFXWrapperConfigurator(talonFX.getConfigurator());
 
         reset();
-    }
-
-    public TalonFXWrapperImpl(int deviceId) {
-        this(deviceId, OptionalInt.empty());
-    }
-
-    public TalonFXWrapperImpl(int deviceId, int trackNumber) {
-        this(deviceId, OptionalInt.of(trackNumber));
-    }
-
-    public TalonFXWrapperImpl(TalonFXConfiguration configuration, int deviceId) {
-        this(deviceId);
-
-        configurator.apply(configuration);
-    }
-
-    public TalonFXWrapperImpl(TalonFXConfiguration configuration, int deviceId, int trackNumber) {
-        this(deviceId, trackNumber);
-
-        configurator.apply(configuration);
     }
 
     private void reset() {

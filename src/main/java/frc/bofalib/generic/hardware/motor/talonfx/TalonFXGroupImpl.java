@@ -4,33 +4,31 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.Pair;
-import frc.bofalib.generic.hardware.motor.MotorHardware;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
-import frc.bofalib.music.Instrument;
-import frc.bofalib.query.DoubleQueryable;
+import frc.bofalib.generic.loggable.LoggableBase;
 
-public final class TalonFXGroupImpl implements
-    MotorHardware<TalonFXBatchControl, TalonFXCommonConfigurator>,
-    DoubleQueryable<TalonFXGroupQuery>,
-    Instrument
+public final class TalonFXGroupImpl extends
+    LoggableBase
+implements
+    TalonFXGroup
 {
     private final TalonFXWrapperImpl leaderWrapper;
     private final List<TalonFXWrapperImpl> followerWrappers;
     private final TalonFXGroupConfigurator configurator;
 
-    public TalonFXGroupImpl(
-        TalonFXConfiguration configuration, 
+    TalonFXGroupImpl(
+        String name,
         TalonFXWrapperImpl leaderWrapper,
         List<Pair<TalonFXWrapperImpl, MotorAlignmentValue>> followerPairs
     ) {
+        super(name);
         this.leaderWrapper = Objects.requireNonNull(leaderWrapper);
         this.followerWrappers = Objects.requireNonNull(followerPairs).stream().map(
             pair -> {
