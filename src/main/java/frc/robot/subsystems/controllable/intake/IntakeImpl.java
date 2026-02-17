@@ -31,6 +31,7 @@ final class IntakeImpl extends SubsystemBase implements
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
 
     private final SparkMaxWrapper pivotMotor = SparkMaxBuilder.createWithConfig(
+        "Intake Pivot Motor",
         PIVOT_MOTOR_CAN_ID, 
         MotorType.kBrushless, 
         new SparkMaxConfig()

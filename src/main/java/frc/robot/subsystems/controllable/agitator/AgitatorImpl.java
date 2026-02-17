@@ -29,6 +29,7 @@ final class AgitatorImpl extends SubsystemBase implements
 
     // one neo
     private final SparkMaxWrapper motor = SparkMaxBuilder.createWithConfig(
+        "Agitator Motor",
         AGITATOR_MOTOR_CAN_ID,
         MotorType.kBrushless,
         new SparkMaxConfig()

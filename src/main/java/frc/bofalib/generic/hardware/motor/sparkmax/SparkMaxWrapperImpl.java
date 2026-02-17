@@ -9,15 +9,17 @@ import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
+import frc.bofalib.generic.loggable.LoggableBase;
 
-final class SparkMaxWrapperImpl implements 
+final class SparkMaxWrapperImpl extends LoggableBase implements 
     SparkMaxWrapper 
 {
     private final SparkMax sparkMax;
     private final SparkMaxConfigurator configurator;
     private SparkMaxControl control = SparkMaxControlEmpty.getInstance();
 
-    SparkMaxWrapperImpl(int deviceId, MotorType motorType) {
+    SparkMaxWrapperImpl(String name, int deviceId, MotorType motorType) {
+        super(name);
         this.sparkMax = new SparkMax(deviceId, Objects.requireNonNull(motorType));
         this.configurator = new SparkMaxConfiguratorImpl(sparkMax);
     }

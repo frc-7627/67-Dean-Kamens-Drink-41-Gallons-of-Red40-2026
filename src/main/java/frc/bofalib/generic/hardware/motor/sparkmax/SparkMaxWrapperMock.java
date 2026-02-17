@@ -3,8 +3,17 @@ package frc.bofalib.generic.hardware.motor.sparkmax;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
+import frc.bofalib.generic.loggable.MockLoggableBase;
 
-final class SparkMaxWrapperMock implements SparkMaxWrapper {
+final class SparkMaxWrapperMock extends
+    MockLoggableBase
+implements 
+    SparkMaxWrapper 
+{
+    SparkMaxWrapperMock(String name) {
+        super(name);
+    }
+
 
     @Override
     public void beginControl(SparkMaxControl control) {

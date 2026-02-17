@@ -12,16 +12,16 @@ public class SparkMaxBuilder {
         this.wrapper = wrapper;
     }
 
-    public static SparkMaxBuilder create(int deviceId, MotorType motorType) {
-        return new SparkMaxBuilder(new SparkMaxWrapperImpl(deviceId, motorType));
+    public static SparkMaxBuilder create(String name, int deviceId, MotorType motorType) {
+        return new SparkMaxBuilder(new SparkMaxWrapperImpl(name, deviceId, motorType));
     }
 
-    public static SparkMaxBuilder mock() {
-        return new SparkMaxBuilder(new SparkMaxWrapperMock());
+    public static SparkMaxBuilder mock(String name) {
+        return new SparkMaxBuilder(new SparkMaxWrapperMock(name));
     }
 
-    public static SparkMaxBuilder mock(int deviceId, MotorType motorType) {
-        return mock();
+    public static SparkMaxBuilder mock(String name, int deviceId, MotorType motorType) {
+        return mock(name);
     }
 
     public SparkMaxBuilder withConfig(
@@ -39,6 +39,7 @@ public class SparkMaxBuilder {
     }
 
     public static SparkMaxBuilder createWithConfig(
+        String name,
         int deviceId, 
         MotorType motorType,
         SparkBaseConfig config,
@@ -46,6 +47,7 @@ public class SparkMaxBuilder {
         PersistMode persistMode
     ) {
         return create(
+            name,
             deviceId, 
             motorType
         ).withConfig(
@@ -56,6 +58,7 @@ public class SparkMaxBuilder {
     }
 
     public static SparkMaxBuilder mockWithConfig(
+        String name,
         int deviceId, 
         MotorType motorType,
         SparkBaseConfig config,
@@ -63,6 +66,7 @@ public class SparkMaxBuilder {
         PersistMode persistMode
     ) {
         return mock(
+            name,
             deviceId, 
             motorType
         ).withConfig(
