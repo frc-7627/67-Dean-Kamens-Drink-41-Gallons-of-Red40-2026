@@ -50,7 +50,8 @@ implements
         );
     }
 
-    void followerWith(Follower follower) {
+    @Override
+    public void followerWith(Follower follower) {
         this.followerOptional = Optional.of(follower);
 
         reset();
@@ -115,7 +116,8 @@ implements
     }
     
 
-    Follower getFollower(MotorAlignmentValue motorAlignmentValue) {
-        return new Follower(talonFX.getDeviceID(), motorAlignmentValue);
+    @Override
+    public Optional<Follower> getFollower(MotorAlignmentValue motorAlignmentValue) {
+        return Optional.of(new Follower(talonFX.getDeviceID(), motorAlignmentValue));
     }
 }

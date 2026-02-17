@@ -1,7 +1,10 @@
 package frc.bofalib.generic.hardware.motor.talonfx;
 
+import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
@@ -48,6 +51,17 @@ implements
 
     @Override
     public void addToOrchestra(Orchestra orchestra) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public Optional<Follower> getFollower(MotorAlignmentValue motorAlignmentValue) {
+        // TODO Auto-generated method stub
+        return Optional.empty();
+    }
+
+    @Override
+    public void followerWith(Follower follower) {
         // TODO Auto-generated method stub
     }
         
