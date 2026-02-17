@@ -59,7 +59,7 @@ final class LauncherImpl extends SubsystemBase implements
         0
     );
 
-    public LauncherImpl() {
+    LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyCurrentLimit, 
