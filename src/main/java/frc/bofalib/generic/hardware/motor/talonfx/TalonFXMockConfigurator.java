@@ -6,17 +6,11 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import frc.bofalib.generic.hardware.motor.ConfiguratorBase;
 
-final class TalonFXMockConfigurator implements TalonFXCommonConfigurator {
-    private final String motorName;
-
+final class TalonFXMockConfigurator extends ConfiguratorBase implements TalonFXCommonConfigurator {
     TalonFXMockConfigurator(String motorName) {
-        this.motorName = motorName;
-    }
-
-    @Override
-    public String getLoggableMotorName() {
-        return motorName;
+        super(motorName);
     }
 
     @Override

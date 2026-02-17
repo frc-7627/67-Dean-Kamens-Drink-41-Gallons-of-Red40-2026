@@ -9,9 +9,9 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import frc.bofalib.generic.hardware.motor.ConfiguratorBase;
 
-final class TalonFXGroupConfigurator implements TalonFXCommonConfigurator {
-    private final String motorName;
+final class TalonFXGroupConfigurator extends ConfiguratorBase implements TalonFXCommonConfigurator {
     private final TalonFXCommonConfigurator leaderConfigurator;
     private final Supplier<Stream<TalonFXCommonConfigurator>> followerConfiguratorsSupplier;
 
@@ -20,14 +20,9 @@ final class TalonFXGroupConfigurator implements TalonFXCommonConfigurator {
         TalonFXCommonConfigurator leaderConfigurator,
         Supplier<Stream<TalonFXCommonConfigurator>> followerConfiguratorsSupplier
     ) {
-        this.motorName = motorName;
+        super(motorName);
         this.leaderConfigurator = leaderConfigurator;
         this.followerConfiguratorsSupplier = followerConfiguratorsSupplier;
-    }
-
-    @Override
-    public String getLoggableMotorName() {
-        return motorName;
     }
 
     @Override

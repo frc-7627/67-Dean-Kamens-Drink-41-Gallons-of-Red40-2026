@@ -6,8 +6,9 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import frc.bofalib.generic.hardware.motor.Configurator;
 
-public interface TalonFXCommonConfigurator {
+public interface TalonFXCommonConfigurator extends Configurator {
     default void applyCurrentLimit(double currentLimit) {
         apply(
             new CurrentLimitsConfigs()
@@ -26,8 +27,6 @@ public interface TalonFXCommonConfigurator {
                 .withDutyCycleClosedLoopRampPeriod(rampUpPeriod)  
         );
     }
-
-    String getLoggableMotorName();
 
     void apply(MotorOutputConfigs configuration);
 
