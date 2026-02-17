@@ -28,12 +28,12 @@ public final class TalonFXBuilder {
         return new TalonFXBuilder(name, deviceId);
     }
 
-    public static TalonFXBuilder mock(String name) {
+    public static TalonFXBuilder createMock(String name) {
         return new TalonFXBuilder(name);
     }
 
-    public static TalonFXBuilder mock(String name, int deviceId) {
-        return mock(name);
+    public static TalonFXBuilder createMock(String name, int deviceId) {
+        return createMock(name);
     }
 
     public TalonFXBuilder withTrackNumber(int trackNumber) {

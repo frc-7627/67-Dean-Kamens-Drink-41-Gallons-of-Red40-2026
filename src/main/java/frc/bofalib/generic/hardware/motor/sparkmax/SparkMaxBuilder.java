@@ -16,12 +16,12 @@ public class SparkMaxBuilder {
         return new SparkMaxBuilder(new SparkMaxWrapperImpl(name, deviceId, motorType));
     }
 
-    public static SparkMaxBuilder mock(String name) {
+    public static SparkMaxBuilder createMock(String name) {
         return new SparkMaxBuilder(new SparkMaxWrapperMock(name));
     }
 
-    public static SparkMaxBuilder mock(String name, int deviceId, MotorType motorType) {
-        return mock(name);
+    public static SparkMaxBuilder createMock(String name, int deviceId, MotorType motorType) {
+        return createMock(name);
     }
 
     public SparkMaxBuilder withConfig(

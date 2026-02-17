@@ -29,16 +29,16 @@ public final class TalonFXGroupBuilder {
         return create(name, leaderBuilder.build());
     }
 
-    public static TalonFXGroupBuilder mock(String name) {
+    public static TalonFXGroupBuilder createMock(String name) {
         return new TalonFXGroupBuilder(name, Optional.empty());
     }
 
-    public static TalonFXGroupBuilder mock(String name, TalonFXWrapper leaderWrapper) {
-        return mock(name);
+    public static TalonFXGroupBuilder createMock(String name, TalonFXWrapper leaderWrapper) {
+        return createMock(name);
     }
 
-    public static TalonFXGroupBuilder mock(String name, TalonFXBuilder leaderBuilder) {
-        return mock(name);
+    public static TalonFXGroupBuilder createMock(String name, TalonFXBuilder leaderBuilder) {
+        return createMock(name);
     }
 
     public TalonFXGroupBuilder withFollower(
