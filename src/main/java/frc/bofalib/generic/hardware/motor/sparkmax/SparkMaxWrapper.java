@@ -6,13 +6,6 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 
 
 public interface SparkMaxWrapper extends MotorHardware<SparkMaxControl, SparkMaxConfigurator> {
-
-    void beginControl(SparkMaxControl control);
-
-    void runControl();
-
-    void endControl();
-
     SparkMaxConfigurator getConfigurator();
 
     SparkMaxControl getSetControl(MotorSetting motorSetting);

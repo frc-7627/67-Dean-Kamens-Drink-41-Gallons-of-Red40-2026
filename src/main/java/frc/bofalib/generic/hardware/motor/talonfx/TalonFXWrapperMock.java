@@ -5,6 +5,8 @@ import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import frc.bofalib.generic.control.BoxControllable;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
@@ -14,8 +16,10 @@ import frc.bofalib.generic.loggable.MockLoggableBase;
 final class TalonFXWrapperMock extends 
     MockLoggableBase 
 implements 
-    TalonFXWrapper 
+    TalonFXWrapper,
+    BoxControllable<TalonFXControl>
 {
+    private final ControlBox<TalonFXControl> controlBox = new ControlBox<>();
 
     TalonFXWrapperMock(String name) {
         super(name);
@@ -28,12 +32,23 @@ implements
     }
 
     @Override
-    public void beginControl(TalonFXControl control) {
+    public ControlBox<TalonFXControl> getControlBox() {
+        return controlBox;
+    }
+
+    @Override
+    public void beginControlWith(TalonFXControl control) {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void runControl() {
+    public void runControlWith(TalonFXControl control) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void endControlWith(TalonFXControl control) {
         // TODO Auto-generated method stub
     }
 

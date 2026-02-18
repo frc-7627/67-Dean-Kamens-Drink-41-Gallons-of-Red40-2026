@@ -7,6 +7,8 @@ import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.Pair;
+import frc.bofalib.generic.control.BoxControllable;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
@@ -17,11 +19,13 @@ import frc.bofalib.generic.loggable.LoggableBase;
 final class TalonFXGroupImpl extends
     LoggableBase
 implements
-    TalonFXGroup
+    TalonFXGroup,
+    BoxControllable<TalonFXBatchControl>
 {
     private final TalonFXWrapper leaderWrapper;
     private final List<TalonFXWrapper> followerWrappers;
     private final TalonFXGroupConfigurator configurator;
+    private final ControlBox<TalonFXBatchControl> controlBox = new ControlBox<>();
 
     TalonFXGroupImpl(
         String name,
@@ -54,6 +58,11 @@ implements
     }
 
     @Override
+    public ControlBox<TalonFXBatchControl> getControlBox() {
+        return controlBox;
+    }
+
+    @Override
     public void addToOrchestra(Orchestra orchestra) {
         Objects.requireNonNull(orchestra);
 
@@ -64,7 +73,7 @@ implements
     }
 
     @Override
-    public void beginControl(TalonFXBatchControl control) {
+    public void beginControlWith(TalonFXBatchControl control) {
         leaderWrapper.beginControl(control.getLeaderControl());
         followerWrappers.forEach(
             followerWrapper -> followerWrapper.beginControl(control.getFollowerControl())
@@ -72,7 +81,7 @@ implements
     }
 
     @Override
-    public void runControl() {
+    public void runControlWith(TalonFXBatchControl control) {
         leaderWrapper.runControl();
         followerWrappers.forEach(
             TalonFXWrapper::runControl
@@ -80,7 +89,7 @@ implements
     }
 
     @Override
-    public void endControl() {
+    public void endControlWith(TalonFXBatchControl control) {
         leaderWrapper.endControl();
         followerWrappers.forEach(
             TalonFXWrapper::endControl

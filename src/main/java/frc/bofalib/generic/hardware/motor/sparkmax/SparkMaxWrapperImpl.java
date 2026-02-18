@@ -5,6 +5,8 @@ import java.util.Objects;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import frc.bofalib.generic.control.BoxControllableDefaultable;
+import frc.bofalib.generic.control.DefaultableControlBox;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
@@ -12,11 +14,14 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSettin
 import frc.bofalib.generic.loggable.LoggableBase;
 
 final class SparkMaxWrapperImpl extends LoggableBase implements 
-    SparkMaxWrapper 
+    SparkMaxWrapper,
+    BoxControllableDefaultable<SparkMaxControl>
 {
     private final SparkMax sparkMax;
     private final SparkMaxConfigurator configurator;
-    private SparkMaxControl control = SparkMaxControlEmpty.getInstance();
+    private final DefaultableControlBox<SparkMaxControl> controlBox = new DefaultableControlBox<>(
+        SparkMaxControlEmpty.getInstance()
+    );
 
     SparkMaxWrapperImpl(String name, int deviceId, MotorType motorType) {
         super(name);
@@ -25,12 +30,12 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     }
 
     @Override
-    public void beginControl(SparkMaxControl control) {
-        this.control = Objects.requireNonNull(control);
+    public DefaultableControlBox<SparkMaxControl> getControlBox() {
+        return controlBox;
     }
 
     @Override
-    public void runControl() {
+    public void runControlWith(SparkMaxControl control) {
         if (control instanceof SparkMaxControlSetting setting) {
             setting.setting().visit(
                 dutyCycleSupplier -> { sparkMax.set(dutyCycleSupplier.getAsDouble()); }, 
@@ -43,10 +48,8 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     }
 
     @Override
-    public void endControl() {
+    public void endControlWith(SparkMaxControl control) {
         sparkMax.stopMotor();
-
-        this.control = SparkMaxControlEmpty.getInstance();
     }
 
     @Override

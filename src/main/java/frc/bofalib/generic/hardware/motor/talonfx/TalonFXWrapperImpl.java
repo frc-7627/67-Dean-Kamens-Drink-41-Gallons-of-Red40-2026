@@ -11,7 +11,8 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
-
+import frc.bofalib.generic.control.BoxControllableDefaultable;
+import frc.bofalib.generic.control.DefaultableControlBox;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
@@ -22,13 +23,16 @@ import frc.bofalib.generic.loggable.LoggableBase;
 final class TalonFXWrapperImpl extends 
     LoggableBase 
 implements
-    TalonFXWrapper
+    TalonFXWrapper,
+    BoxControllableDefaultable<TalonFXControl>
 {
     private final TalonFX talonFX;
     private final OptionalInt trackNumberOptional;
     private final TalonFXWrapperConfigurator configurator;
     private Optional<Follower> followerOptional = Optional.empty();
-    private TalonFXControl control = TalonFXControlEmpty.getInstance();
+    private final DefaultableControlBox<TalonFXControl> controlBox = new DefaultableControlBox<>(
+        TalonFXControlEmpty.getInstance()
+    );
 
     TalonFXWrapperImpl(String name, int deviceId, OptionalInt trackNumberOptional) {
         super(name);
@@ -51,6 +55,11 @@ implements
     }
 
     @Override
+    public DefaultableControlBox<TalonFXControl> getControlBox() {
+        return controlBox;
+    }
+
+    @Override
     public void followerWith(Follower follower) {
         this.followerOptional = Optional.of(follower);
 
@@ -68,12 +77,7 @@ implements
     }
 
     @Override
-    public void beginControl(TalonFXControl control) {
-        this.control = Objects.requireNonNull(control);
-    }
-
-    @Override
-    public void runControl() {
+    public void runControlWith(TalonFXControl control) {
         control.visit(
             request -> { talonFX.setControl(request.request()); },
             setting -> {
@@ -90,12 +94,10 @@ implements
     }
 
     @Override
-    public void endControl() {
+    public void endControlWith(TalonFXControl control) {
         reset();
 
         talonFX.stopMotor();
-
-        this.control = TalonFXControlEmpty.getInstance();
     }
 
     @Override
