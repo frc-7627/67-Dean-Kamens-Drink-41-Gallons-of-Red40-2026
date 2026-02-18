@@ -12,6 +12,11 @@ public final class TalonFXControlEmpty implements TalonFXControl {
     private TalonFXControlEmpty() {}
 
     @Override
+    public String getLoggableName() {
+        return "Empty Talon FX Control";
+    }
+
+    @Override
     public void visit(
         Consumer<TalonFXControlRequest> requestConsumer,
         Consumer<TalonFXControlSetting> settingConsumer

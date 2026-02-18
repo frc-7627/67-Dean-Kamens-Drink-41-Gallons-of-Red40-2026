@@ -2,8 +2,9 @@ package frc.bofalib.generic.control;
 
 import frc.bofalib.control.AlwaysViewableControl;
 import frc.bofalib.control.Controllable;
+import frc.bofalib.loggable.Loggable;
 
-public interface BoxControllableDefaultable<Control> extends 
+public interface BoxControllableDefaultable<Control extends Loggable> extends 
     Controllable<Control>,
     InnerControllable<Control>,
     AlwaysViewableControl<Control>

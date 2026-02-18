@@ -1,6 +1,8 @@
 package frc.bofalib.generic.hardware.motor.talonfx.control;
 
-public interface TalonFXBatchControl {
+import frc.bofalib.loggable.Loggable;
+
+public interface TalonFXBatchControl extends Loggable {
     TalonFXControl getLeaderControl();
 
     TalonFXControl getFollowerControl();

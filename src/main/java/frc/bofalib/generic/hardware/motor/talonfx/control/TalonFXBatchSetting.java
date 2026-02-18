@@ -4,6 +4,17 @@ public record TalonFXBatchSetting(
     TalonFXControlSetting setting
 ) implements TalonFXBatchControl {
     @Override
+    public String getLoggableName() {
+        return "Setting Batch Talon FX Control";
+    }
+
+    @Override
+    public String getLoggableInfo() {
+        // TODO Auto-generated method stub
+        return TalonFXBatchControl.super.getLoggableInfo();
+    }
+
+    @Override
     public TalonFXControl getLeaderControl() {
         return setting;
     }

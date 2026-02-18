@@ -10,6 +10,11 @@ public final class TalonFXBatchEmpty implements TalonFXBatchControl {
     private TalonFXBatchEmpty() {}
 
     @Override
+    public String getLoggableName() {
+        return "Empty Batch Talon FX Control";
+    }
+
+    @Override
     public TalonFXControl getLeaderControl() {
         return TalonFXControlEmpty.getInstance();
     }

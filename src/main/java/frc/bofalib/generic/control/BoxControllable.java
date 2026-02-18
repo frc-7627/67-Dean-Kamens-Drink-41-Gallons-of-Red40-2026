@@ -3,8 +3,9 @@ package frc.bofalib.generic.control;
 import java.util.Optional;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.control.ViewableControl;
+import frc.bofalib.loggable.Loggable;
 
-public interface BoxControllable<Control> extends 
+public interface BoxControllable<Control extends Loggable> extends 
     Controllable<Control>,
     InnerControllable<Control>,
     ViewableControl<Control>

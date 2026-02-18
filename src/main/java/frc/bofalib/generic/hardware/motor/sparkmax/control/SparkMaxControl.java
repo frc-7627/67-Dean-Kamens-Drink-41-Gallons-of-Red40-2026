@@ -1,5 +1,7 @@
 package frc.bofalib.generic.hardware.motor.sparkmax.control;
 
-public interface SparkMaxControl {
+import frc.bofalib.loggable.Loggable;
+
+public interface SparkMaxControl extends Loggable {
     
 }
