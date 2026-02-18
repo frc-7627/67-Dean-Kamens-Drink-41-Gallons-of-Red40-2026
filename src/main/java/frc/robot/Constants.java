@@ -226,7 +226,7 @@ public final class Constants {
     public static class AgitatorConstants {
         public static final int AMP_LIMIT = 150;
 
-        public static final double DEFAULT_DUTY_CYCLE = 0.7;
+        public static final double DEFAULT_DUTY_CYCLE = 0.2;
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
     }
 
@@ -238,10 +238,10 @@ public final class Constants {
         
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
 
-        public static final double DEFAULT_FOLD_DUTY_CYCLE = 0.7;
+        public static final double DEFAULT_FOLD_DUTY_CYCLE = 0.2;
 
         // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = 0.8;
+        public static final double DEFAULT_INTAKE_DUTY_CYCLE = 0.2;
     }
 
     public static class LauncherConstants {
@@ -252,7 +252,7 @@ public final class Constants {
         //LINIEAR FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double SHOOT_SPEED = 4; 
+        public static final double SHOOT_SPEED = 1; 
         public static final double IDLE_SPEED = 670;
         public static final double INACTIVE_SPEED = 67;
 
@@ -281,11 +281,7 @@ public final class Constants {
     }
 
     public static class FeederConstants {
-        // TODO: find values for feeder
-        // TODO: we've run on prototype at 0.5, all good, no stretch in the wheel.
         public static final double DEFAULT_FEED_SPEED = -0.2; 
-
-        //TODO: PROTO FEEDER NEGITIVE IS INTAKE, FINAL WILL BE OPPOSIMG
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 

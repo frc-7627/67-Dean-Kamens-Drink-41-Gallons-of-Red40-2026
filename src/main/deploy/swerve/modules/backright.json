@@ -16,7 +16,7 @@
   },
   "inverted": {
     "angle": true,
-    "drive": true
+    "drive": false
   },
   "encoder": {
     "type": "cancoder",

@@ -18,8 +18,9 @@ class OperatorXboxController implements OperatorController {
 
         switch (factory) {
             case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
-            case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::onTrue);
+            case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::whileTrue);
             case FEED_AND_SHOOT -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
+            case FEED -> binderConsumer.accept(xboxController.y()::whileTrue);
             case SHOOT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
             default -> {
             }
