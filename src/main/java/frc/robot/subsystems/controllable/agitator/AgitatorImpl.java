@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.UniControllable;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 
@@ -26,16 +28,20 @@ final class AgitatorImpl extends SubsystemBase implements
 {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Agitator");
 
+    private final ControlBox<AgitatorControl> controlBox = new ControlBox<>();
+
     // one neo
-    private final SparkMaxWrapper motor = new SparkMaxWrapper(
+    private final SparkMaxWrapper motor = SparkMaxBuilder.create(
+        "Agitator Motor",
         AGITATOR_MOTOR_CAN_ID,
-        MotorType.kBrushless,
+        MotorType.kBrushless
+    ).withConfig(
         new SparkMaxConfig()
             .idleMode(IdleMode.kCoast)
             .smartCurrentLimit(AMP_LIMIT), 
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters
-    );
+    ).build();
 
     final DoubleSupplier dutyCycleSupplier = 
     DashboardItems.createCheckedDoublePuller(
@@ -50,6 +56,11 @@ final class AgitatorImpl extends SubsystemBase implements
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
+
+    @Override
+    public ControlBox<AgitatorControl> getControlBox() {
+        return controlBox;
+    }
 
     @Override
     public AgitatorImpl getThis() {

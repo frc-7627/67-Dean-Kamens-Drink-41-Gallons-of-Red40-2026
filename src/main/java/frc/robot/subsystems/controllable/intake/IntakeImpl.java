@@ -14,8 +14,11 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.BiControllable;
+import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.music.UniInstrument;
@@ -29,19 +32,24 @@ final class IntakeImpl extends SubsystemBase implements
     // Neos
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
 
-    private final SparkMaxWrapper pivotMotor = new SparkMaxWrapper(
+    private final ControlBox<IntakeControl> controlBox = new ControlBox<>();
+
+    private final SparkMaxWrapper pivotMotor = SparkMaxBuilder.create(
+        "Intake Pivot Motor",
         PIVOT_MOTOR_CAN_ID, 
-        MotorType.kBrushless, 
+        MotorType.kBrushless
+    ).withConfig(
         new SparkMaxConfig()
             .idleMode(IdleMode.kCoast)
             .smartCurrentLimit(AMP_LIMIT), 
         ResetMode.kResetSafeParameters, 
         PersistMode.kPersistParameters
-    );
+    ).build();
 
-    private final TalonFXWrapper intakeMotor = new TalonFXWrapper(
+    private final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
+        "Intake Main Motor", 
         INTAKE_MOTOR_CAN_ID
-    );
+    ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Intake Duty Cycle"), 
@@ -60,6 +68,11 @@ final class IntakeImpl extends SubsystemBase implements
         DEFAULT_FOLD_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
+
+    @Override
+    public ControlBox<IntakeControl> getControlBox() {
+        return controlBox;
+    }
 
     @Override
     public IntakeImpl getThis() {

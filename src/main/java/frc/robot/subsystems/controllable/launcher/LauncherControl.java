@@ -5,37 +5,36 @@ import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.generic.control.UniControl;
-import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
-import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.setting.MotorVelocity;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.loggable.Loggable;
 
-public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl> {
-    SHOOT(impl -> impl.shootSpeedFPSSupplier, MotorSetting.Type.ANGULAR_VELOCITY);
+public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl>, Loggable {
+    SHOOT("Launcher Shoot", impl -> impl.shootSpeedFPSSupplier);
 
+    private final String name;
     private final Function<LauncherImpl, TalonFXBatchControl> firstControlFunction;
 
     private LauncherControl(
-        Function<LauncherImpl, DoubleSupplier> supplierFunction,
-        MotorSetting.Type type
+        String name,
+        Function<LauncherImpl, DoubleSupplier> feetPerSecFunction
     ) {
-        final Function<LauncherImpl, MotorSetting> settingFunction = switch (type) {
-            case DUTY_CYCLE -> impl -> new MotorDutyCycle(
-                supplierFunction.apply(impl)
-            );
-            case ANGULAR_VELOCITY -> impl -> new MotorVelocity(
-                () -> supplierFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET, 
-                RadiansPerSecond
-            );
-        };
-
+        this.name = name;
         this.firstControlFunction = impl -> new TalonFXBatchSetting(
             new TalonFXControlSetting(
-                settingFunction.apply(impl)
+                new MotorVelocity(
+                    () -> feetPerSecFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET, 
+                    RadiansPerSecond
+                )
             )
         );
+    }
+
+    @Override
+    public String getLoggableName() {
+        return name;
     }
 
     @Override

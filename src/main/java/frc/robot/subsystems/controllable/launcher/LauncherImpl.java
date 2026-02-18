@@ -10,15 +10,16 @@ import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.gains.GainItem;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.UniControllable;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroupBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.gains.Slot0Gains;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
@@ -36,15 +37,19 @@ final class LauncherImpl extends SubsystemBase implements
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
 
-    private final TalonFXGroup motors = new TalonFXGroup(
+    private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
+
+    private final TalonFXGroup motors = TalonFXGroupBuilder.create(
+        "Launcher Motors", 
+        TalonFXBuilder.create("Launcher Commander", LAUNCHER_COMMANDER_CAN_ID)
+    ).withFollower(
+        TalonFXBuilder.create("Launcher Minion", LAUNCHER_MINION_CAN_ID), 
+        MotorAlignmentValue.Aligned
+    ).withAllConfig(
         new TalonFXConfiguration()
             .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
-            .withAudio(AUDIO_CONFIGS), 
-        new TalonFXWrapper(LAUNCHER_COMMANDER_CAN_ID), 
-        List.of(
-            Pair.of(new TalonFXWrapper(LAUNCHER_MINION_CAN_ID), MotorAlignmentValue.Aligned)
-        )
-    );
+            .withAudio(AUDIO_CONFIGS)
+    ).build();
 
     private final DoubleSupplier motorVelocityRotPerSecSupplier = motors.queryDouble(
         new TalonFXGroupQuery(
@@ -59,7 +64,7 @@ final class LauncherImpl extends SubsystemBase implements
         0
     );
 
-    public LauncherImpl() {
+    LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyCurrentLimit, 
@@ -97,6 +102,11 @@ final class LauncherImpl extends SubsystemBase implements
                 )
             )
         ));
+    }
+
+    @Override
+    public ControlBox<LauncherControl> getControlBox() {
+        return controlBox;
     }
 
     @Override

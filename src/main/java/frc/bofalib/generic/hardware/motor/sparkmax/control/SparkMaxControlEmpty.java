@@ -8,4 +8,9 @@ public final class SparkMaxControlEmpty implements SparkMaxControl {
     }
 
     private SparkMaxControlEmpty() {}
+
+    @Override
+    public String getLoggableName() {
+        return "Empty Spark Max Control";
+    }
 }
