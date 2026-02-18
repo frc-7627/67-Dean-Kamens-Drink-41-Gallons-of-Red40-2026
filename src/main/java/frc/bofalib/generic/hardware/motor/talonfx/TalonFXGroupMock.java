@@ -39,7 +39,7 @@ final class TalonFXGroupMock extends MockLoggableBase implements
     }
 
     @Override
-    public void runControlWith(TalonFXBatchControl control) {
+    public void runControlInner(TalonFXBatchControl control) {
         // TODO Auto-generated method stub
     }
 

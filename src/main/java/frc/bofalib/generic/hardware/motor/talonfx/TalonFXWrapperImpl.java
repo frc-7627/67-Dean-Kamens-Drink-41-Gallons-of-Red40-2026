@@ -77,7 +77,7 @@ implements
     }
 
     @Override
-    public void runControlWith(TalonFXControl control) {
+    public void runControlInner(TalonFXControl control) {
         control.visit(
             request -> { talonFX.setControl(request.request()); },
             setting -> {
@@ -94,7 +94,7 @@ implements
     }
 
     @Override
-    public void endControlWith(TalonFXControl control) {
+    public void endControlInner(TalonFXControl control) {
         reset();
 
         talonFX.stopMotor();

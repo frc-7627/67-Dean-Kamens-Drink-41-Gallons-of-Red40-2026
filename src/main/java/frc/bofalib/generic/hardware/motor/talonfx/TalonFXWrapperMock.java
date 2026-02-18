@@ -37,18 +37,18 @@ implements
     }
 
     @Override
-    public void beginControlWith(TalonFXControl control) {
+    public void beginControlInner(TalonFXControl control) {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void runControlWith(TalonFXControl control) {
+    public void runControlInner(TalonFXControl control) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void endControlWith(TalonFXControl control) {
+    public void endControlInner(TalonFXControl control) {
         // TODO Auto-generated method stub
     }
 

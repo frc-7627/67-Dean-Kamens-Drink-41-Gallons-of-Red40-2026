@@ -35,7 +35,7 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     }
 
     @Override
-    public void runControlWith(SparkMaxControl control) {
+    public void runControlInner(SparkMaxControl control) {
         if (control instanceof SparkMaxControlSetting setting) {
             setting.setting().visit(
                 dutyCycleSupplier -> { sparkMax.set(dutyCycleSupplier.getAsDouble()); }, 
@@ -48,7 +48,7 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     }
 
     @Override
-    public void endControlWith(SparkMaxControl control) {
+    public void endControlInner(SparkMaxControl control) {
         sparkMax.stopMotor();
     }
 

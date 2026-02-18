@@ -73,7 +73,7 @@ implements
     }
 
     @Override
-    public void beginControlWith(TalonFXBatchControl control) {
+    public void beginControlInner(TalonFXBatchControl control) {
         leaderWrapper.beginControl(control.getLeaderControl());
         followerWrappers.forEach(
             followerWrapper -> followerWrapper.beginControl(control.getFollowerControl())
@@ -81,7 +81,7 @@ implements
     }
 
     @Override
-    public void runControlWith(TalonFXBatchControl control) {
+    public void runControlInner(TalonFXBatchControl control) {
         leaderWrapper.runControl();
         followerWrappers.forEach(
             TalonFXWrapper::runControl
@@ -89,7 +89,7 @@ implements
     }
 
     @Override
-    public void endControlWith(TalonFXBatchControl control) {
+    public void endControlInner(TalonFXBatchControl control) {
         leaderWrapper.endControl();
         followerWrappers.forEach(
             TalonFXWrapper::endControl
