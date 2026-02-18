@@ -11,6 +11,7 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
@@ -24,12 +25,16 @@ import static frc.robot.Constants.CanIDs.*;
 final class FeederImpl extends SubsystemBase implements 
     Feeder, 
     UniControllable<FeederImpl, TalonFXControl, FeederControl>,
-    UniInstrument<TalonFXWrapper>
+    UniInstrument<TalonFXWrapper>,
+    LoggingControllable<FeederControl>
 {
 
     // 1 kraken
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());
+    private static final String LOGGABLE_NAME = "Feeder";
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
+
     private final ControlBox<FeederControl> controlBox = new ControlBox<>();
+
     private final TalonFXWrapper motor = TalonFXBuilder.create(
         "Feeder Motor", 
         FEEDER_CAN_ID
@@ -61,6 +66,11 @@ final class FeederImpl extends SubsystemBase implements
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate())
         ));
+    }
+
+    @Override
+    public String getLoggableName() {
+        return LOGGABLE_NAME;
     }
 
     @Override

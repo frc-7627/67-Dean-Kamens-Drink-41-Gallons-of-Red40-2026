@@ -16,6 +16,7 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
@@ -24,9 +25,11 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 // Colloquially known as Edward Hopper
 final class AgitatorImpl extends SubsystemBase implements 
     Agitator, 
-    UniControllable<AgitatorImpl, SparkMaxControl, AgitatorControl> 
+    UniControllable<AgitatorImpl, SparkMaxControl, AgitatorControl>,
+    LoggingControllable<AgitatorControl>
 {
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Agitator");
+    private static final String LOGGABLE_NAME = "Agitator";
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
     private final ControlBox<AgitatorControl> controlBox = new ControlBox<>();
 
@@ -56,6 +59,11 @@ final class AgitatorImpl extends SubsystemBase implements
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
+
+    @Override
+    public String getLoggableName() {
+        return LOGGABLE_NAME;
+    }
 
     @Override
     public ControlBox<AgitatorControl> getControlBox() {
