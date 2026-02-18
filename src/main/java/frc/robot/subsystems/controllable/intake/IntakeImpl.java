@@ -15,6 +15,7 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.BiControllable;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
@@ -27,10 +28,12 @@ import frc.bofalib.generic.music.UniInstrument;
 final class IntakeImpl extends SubsystemBase implements 
     Intake, 
     BiControllable<IntakeImpl, SparkMaxControl, TalonFXControl, IntakeControl>,
-    UniInstrument<TalonFXWrapper>
+    UniInstrument<TalonFXWrapper>,
+    LoggingControllable<IntakeControl>
 {
     // Neos
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Intake");
+    private static final String LOGGABLE_NAME = "Intake";
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
     private final ControlBox<IntakeControl> controlBox = new ControlBox<>();
 
@@ -68,6 +71,11 @@ final class IntakeImpl extends SubsystemBase implements
         DEFAULT_FOLD_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
+
+    @Override
+    public String getLoggableName() {
+        return LOGGABLE_NAME;
+    }
 
     @Override
     public ControlBox<IntakeControl> getControlBox() {

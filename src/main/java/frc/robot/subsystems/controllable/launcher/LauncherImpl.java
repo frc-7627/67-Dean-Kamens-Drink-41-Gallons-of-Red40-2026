@@ -16,6 +16,7 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.gains.GainItem;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
@@ -32,10 +33,11 @@ import frc.bofalib.util.FunctionalUtil;
 final class LauncherImpl extends SubsystemBase implements 
     Launcher,
     UniControllable<LauncherImpl, TalonFXBatchControl, LauncherControl>,
-    UniInstrument<TalonFXGroup>
+    UniInstrument<TalonFXGroup>,
+    LoggingControllable<LauncherControl>
 {
-
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
+    private static final String LOGGABLE_NAME = "Launcher";
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
     private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
@@ -102,6 +104,11 @@ final class LauncherImpl extends SubsystemBase implements
                 )
             )
         ));
+    }
+
+    @Override
+    public String getLoggableName() {
+        return LOGGABLE_NAME;
     }
 
     @Override

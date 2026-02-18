@@ -8,19 +8,29 @@ public interface LoggingControllable<Control extends Loggable> extends
 {
     @Override
     default void beginControl(Control control) {
-        // TODO Auto-generated method stub
+        getLogger().finer(
+            () -> "Entering control in " + getLoggableName() + ": " + control.getLoggableInfo()
+        );
         BoxControllable.super.beginControl(control);
     }
 
     @Override
     default void runControl() {
-        // TODO Auto-generated method stub
+        getCurrentControlIfPresent().ifPresent(
+            control -> getLogger().finest(
+                () -> "Running control in " + getLoggableName() + ": " + control.getLoggableInfo()
+            )
+        );
         BoxControllable.super.runControl();
     }
 
     @Override
     default void endControl() {
-        // TODO Auto-generated method stub
+        getCurrentControlIfPresent().ifPresent(
+            control -> getLogger().finer(
+                () -> "Exiting control in " + getLoggableName() + ": " + control.getLoggableInfo()    
+            )
+        );
         BoxControllable.super.endControl();
     }
 }
