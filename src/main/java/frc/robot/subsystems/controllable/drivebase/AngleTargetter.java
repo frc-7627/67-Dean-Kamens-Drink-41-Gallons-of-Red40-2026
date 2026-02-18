@@ -1,9 +1,11 @@
 package frc.robot.subsystems.controllable.drivebase;
 
+import frc.bofalib.loggable.Loggable;
+
 /**
  * Strategies for angle targeting.
  */
-public interface AngleTargetter {
+public interface AngleTargetter extends Loggable {
     /**
      * Initialize.
      */

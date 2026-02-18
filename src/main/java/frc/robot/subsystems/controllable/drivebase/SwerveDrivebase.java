@@ -2,7 +2,6 @@ package frc.robot.subsystems.controllable.drivebase;
 
 import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
-import java.util.Objects;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
@@ -15,23 +14,21 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
-final class SwerveDrivebase extends SubsystemBase implements Drivebase {
-    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Drivebase");
-    private static final DriveControl ZERO_DRIVE_CONTROL = new DriveControl() {
-        private static final ChassisSpeeds ZERO_SPEEDS = new ChassisSpeeds();
-
-        @Override
-        public ChassisSpeeds getSpeeds() {
-            return ZERO_SPEEDS;
-        }
-    };
+final class SwerveDrivebase extends SubsystemBase implements 
+    Drivebase,
+    LoggingControllable<DriveControl>
+{
+    private static final String LOGGABLE_NAME = "Drivebase";
+    private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
     private final VisionMeasurementsSupplier vision;
     private final SwerveDriveWrapper swerveDriveWrapper;
     private final RotationRateCalculator rotationRateCalculator;
-    private DriveControl driveControl = ZERO_DRIVE_CONTROL;
+    private final ControlBox<DriveControl> controlBox = new ControlBox<>();
 
     SwerveDrivebase(VisionMeasurementsSupplier vision, Supplier<Alliance> allianceSupplier) {
         this.vision = vision;
@@ -59,6 +56,16 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
+    public ControlBox<DriveControl> getControlBox() {
+        return controlBox;
+    }
+
+    @Override
+    public String getLoggableName() {
+        return LOGGABLE_NAME;
+    }
+
+    @Override
     public void periodic() {
         swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements());
         Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
@@ -75,6 +82,17 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
             );
 
             @Override
+            public String getLoggableName() {
+                return "Input Drive Control";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return DriveControl.super.getLoggableInfo();
+            }
+
+            @Override
             public ChassisSpeeds getSpeeds() {
                 return inputStream.get();
             }
@@ -85,6 +103,17 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     public DriveControl getAngularDriveControl(AngleTargetter angleTargetter) {
         return new DriveControl() {
             private final ChassisSpeeds workingSpeeds = new ChassisSpeeds();
+
+            @Override
+            public String getLoggableName() {
+                return "Angular Drive Control";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return DriveControl.super.getLoggableInfo();
+            }
 
             @Override
             public void initialize() {
@@ -113,6 +142,17 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
             private double initialOrientationRadians;
 
             @Override
+            public String getLoggableName() {
+                return "Rotation Angle Targetter";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return AngleTargetter.super.getLoggableInfo();
+            }
+
+            @Override
             public void initialize() {
                 initialOrientationRadians = swerveDriveWrapper.getOrientationRadians();
             }
@@ -127,6 +167,17 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     @Override
     public AngleTargetter getLocationAngleTargetter(Translation2d targetLocation) {
         return new AngleTargetter() {
+            @Override
+            public String getLoggableName() {
+                return "Location Angle Targetter";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return AngleTargetter.super.getLoggableInfo();
+            }
+            
             @Override
             public double getTargetRadians() {
                 return targetLocation.minus(
@@ -162,15 +213,14 @@ final class SwerveDrivebase extends SubsystemBase implements Drivebase {
     }
 
     @Override
-    public void beginControl(DriveControl driveControl) {
-        this.driveControl = Objects.requireNonNull(driveControl);
-        driveControl.initialize();
+    public void beginControlInner(DriveControl control) {
+        control.initialize();
     }
 
     @Override
-    public void runControl() {
+    public void runControlInner(DriveControl control) {
         swerveDriveWrapper.driveFieldRelative(
-            driveControl.getSpeeds()
+            control.getSpeeds()
         );
     }
 }

@@ -1,8 +1,9 @@
 package frc.robot.subsystems.controllable.drivebase;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import frc.bofalib.loggable.Loggable;
 
-public interface DriveControl {
+public interface DriveControl extends Loggable {
     /**
      * Initialize.
      */
@@ -23,6 +24,17 @@ public interface DriveControl {
 
         return new DriveControl() {
             private final ChassisSpeeds workingSpeeds = new ChassisSpeeds();
+
+            @Override
+            public String getLoggableName() {
+                return "Combined Drive Control";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return DriveControl.super.getLoggableInfo();
+            }
 
             @Override
             public void initialize() {
