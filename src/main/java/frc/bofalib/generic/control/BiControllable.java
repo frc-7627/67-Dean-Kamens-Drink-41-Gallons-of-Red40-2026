@@ -12,19 +12,19 @@ public interface BiControllable<
     Controllable<SecondControl> getSecondControllable();
 
     @Override
-    default void beginControl(Control control) {
+    default void beginControlInner(Control control) {
         getFirstControllable().beginControl(control.getFirstControl(getThis()));
         getSecondControllable().beginControl(control.getSecondControl(getThis()));
     }
 
     @Override
-    default void runControl() {
+    default void runControlInner(Control control) {
         getFirstControllable().runControl();
         getSecondControllable().runControl();
     }
 
     @Override
-    default void endControl() {
+    default void endControlInner(Control control) {
         getFirstControllable().endControl();
         getSecondControllable().endControl();
     }
