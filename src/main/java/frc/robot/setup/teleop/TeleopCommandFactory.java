@@ -10,6 +10,7 @@ import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
+import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControl;
@@ -30,6 +31,14 @@ enum TeleopCommandFactory {
         new ControlCommand<>(context.intake(), IntakeControl.LOAD), 
         context.indicator()
     )),
+
+    /**
+     * 
+     */
+    EJECT_INTAKE(context -> new IndicatingWrapperCommand(
+    new ControlCommand<>(context.intake(), IntakeControl.EJECT), 
+    context.indicator()
+)),
     /**
      * 
      */
@@ -84,7 +93,13 @@ enum TeleopCommandFactory {
     
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
-    FEED(context -> new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))
+    FEED(context -> new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)),
+
+    AGITATE(context -> new ControlCommand<>(context.hopper(), AgitatorControl.TOWARD)),
+
+    REVERSE_AGITATE(context -> new ControlCommand<>(context.hopper(), AgitatorControl.AWAY)),
+
+    SWIVEL_OUT(context -> new ControlCommand<>(context.intake(), IntakeControl.FOLD_OUT)),
     ;
     
 
