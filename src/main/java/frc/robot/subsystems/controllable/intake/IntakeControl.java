@@ -10,34 +10,41 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSettin
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.loggable.Loggable;
 import frc.bofalib.util.FunctionalUtil;
 
 public enum IntakeControl implements BiControl<
     IntakeImpl, 
     SparkMaxControl, 
     TalonFXControl
-> {
+>, Loggable {
     LOAD(
+        "Intake Load",
         Motor.INTAKE_MOTOR, 
         impl -> impl.intakeDutyCycle
     ),
     EJECT(
+        "Intake Eject",
         Motor.INTAKE_MOTOR, 
         impl -> FunctionalUtil.negativeSupplier(impl.intakeDutyCycle)
     ),
     LOAD_MANUAL(
+        "Intake Load Manual",
         Motor.INTAKE_MOTOR, 
         impl -> impl.intakeManualDutyCycle
     ),
     EJECT_MANUAL(
+        "Intake Eject Manual",
         Motor.INTAKE_MOTOR, 
         impl -> FunctionalUtil.negativeSupplier(impl.intakeManualDutyCycle)
     ),
     FOLD_OUT(
+        "Intake Fold Out",
         Motor.PIVOT_MOTOR, 
         impl -> impl.foldDutyCycle
     ),
     FOLD_IN(
+        "Intake Fold In",
         Motor.PIVOT_MOTOR, 
         impl -> FunctionalUtil.negativeSupplier(impl.foldDutyCycle)
     );
@@ -57,13 +64,16 @@ public enum IntakeControl implements BiControl<
         }
     }
 
+    private final String name;
     private final Function<IntakeImpl, SparkMaxControl> pivotControlFunction;
     private final Function<IntakeImpl, TalonFXControl> intakeControlFunction;
 
     private IntakeControl(
+        String name,
         Motor motor,
         Function<IntakeImpl, DoubleSupplier> dutyCycleFunction
     ) {
+        this.name = name;
         this.pivotControlFunction = motor.visit(
             impl -> new SparkMaxControlSetting(
                 new MotorDutyCycle(
@@ -81,6 +91,11 @@ public enum IntakeControl implements BiControl<
                 )
             )
         );
+    }
+
+    @Override
+    public String getLoggableName() {
+        return name;
     }
 
     @Override

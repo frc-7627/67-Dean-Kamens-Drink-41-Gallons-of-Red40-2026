@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
@@ -26,6 +27,8 @@ final class AgitatorImpl extends SubsystemBase implements
     UniControllable<AgitatorImpl, SparkMaxControl, AgitatorControl> 
 {
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Agitator");
+
+    private final ControlBox<AgitatorControl> controlBox = new ControlBox<>();
 
     // one neo
     private final SparkMaxWrapper motor = SparkMaxBuilder.create(
@@ -53,6 +56,11 @@ final class AgitatorImpl extends SubsystemBase implements
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
+
+    @Override
+    public ControlBox<AgitatorControl> getControlBox() {
+        return controlBox;
+    }
 
     @Override
     public AgitatorImpl getThis() {

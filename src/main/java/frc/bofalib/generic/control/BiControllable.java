@@ -1,12 +1,13 @@
 package frc.bofalib.generic.control;
 
 import frc.bofalib.control.Controllable;
+import frc.bofalib.loggable.Loggable;
 
 public interface BiControllable<
     This extends BiControllable<This, FirstControl, SecondControl, Control>,
     FirstControl,
     SecondControl,
-    Control extends BiControl<This, FirstControl, SecondControl>
+    Control extends BiControl<This, FirstControl, SecondControl> & Loggable
 > extends UniControllable<This, FirstControl, Control> {
     Controllable<SecondControl> getSecondControllable();
 

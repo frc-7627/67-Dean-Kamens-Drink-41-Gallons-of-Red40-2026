@@ -15,6 +15,7 @@ import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.gains.GainItem;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
@@ -35,6 +36,8 @@ final class LauncherImpl extends SubsystemBase implements
 {
 
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Launcher");
+
+    private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
     private final TalonFXGroup motors = TalonFXGroupBuilder.create(
         "Launcher Motors", 
@@ -99,6 +102,11 @@ final class LauncherImpl extends SubsystemBase implements
                 )
             )
         ));
+    }
+
+    @Override
+    public ControlBox<LauncherControl> getControlBox() {
+        return controlBox;
     }
 
     @Override

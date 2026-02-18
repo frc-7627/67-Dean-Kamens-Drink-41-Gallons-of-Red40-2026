@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
@@ -28,6 +29,7 @@ final class FeederImpl extends SubsystemBase implements
 
     // 1 kraken
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(Feeder.class.getSimpleName());
+    private final ControlBox<FeederControl> controlBox = new ControlBox<>();
     private final TalonFXWrapper motor = TalonFXBuilder.create(
         "Feeder Motor", 
         FEEDER_CAN_ID
@@ -59,6 +61,11 @@ final class FeederImpl extends SubsystemBase implements
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate())
         ));
+    }
+
+    @Override
+    public ControlBox<FeederControl> getControlBox() {
+        return controlBox;
     }
 
     @Override

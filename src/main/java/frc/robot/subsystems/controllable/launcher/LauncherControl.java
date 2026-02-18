@@ -9,15 +9,19 @@ import frc.bofalib.generic.hardware.motor.setting.MotorVelocity;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.loggable.Loggable;
 
-public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl> {
-    SHOOT(impl -> impl.shootSpeedFPSSupplier);
+public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl>, Loggable {
+    SHOOT("Launcher Shoot", impl -> impl.shootSpeedFPSSupplier);
 
+    private final String name;
     private final Function<LauncherImpl, TalonFXBatchControl> firstControlFunction;
 
     private LauncherControl(
+        String name,
         Function<LauncherImpl, DoubleSupplier> feetPerSecFunction
     ) {
+        this.name = name;
         this.firstControlFunction = impl -> new TalonFXBatchSetting(
             new TalonFXControlSetting(
                 new MotorVelocity(
@@ -26,6 +30,11 @@ public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchCont
                 )
             )
         );
+    }
+
+    @Override
+    public String getLoggableName() {
+        return name;
     }
 
     @Override
