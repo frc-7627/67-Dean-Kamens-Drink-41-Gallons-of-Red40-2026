@@ -1,10 +1,13 @@
 package frc.bofalib.generic.control;
 
+import java.util.Optional;
 import frc.bofalib.control.Controllable;
+import frc.bofalib.control.ViewableControl;
 
 public interface BoxControllable<Control> extends 
     Controllable<Control>,
-    InnerControllable<Control> 
+    InnerControllable<Control>,
+    ViewableControl<Control>
 {
     ControlBox<Control> getControlBox();
 
@@ -29,5 +32,10 @@ public interface BoxControllable<Control> extends
         );;
 
         getControlBox().resetControl();
+    }
+
+    @Override
+    default Optional<Control> getCurrentControlIfPresent() {
+        return getControlBox().getControl();
     }
 }

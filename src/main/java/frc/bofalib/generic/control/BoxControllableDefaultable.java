@@ -1,10 +1,12 @@
 package frc.bofalib.generic.control;
 
+import frc.bofalib.control.AlwaysViewableControl;
 import frc.bofalib.control.Controllable;
 
 public interface BoxControllableDefaultable<Control> extends 
     Controllable<Control>,
-    InnerControllable<Control>  
+    InnerControllable<Control>,
+    AlwaysViewableControl<Control>
 {
     DefaultableControlBox<Control> getControlBox();
 
@@ -25,5 +27,10 @@ public interface BoxControllableDefaultable<Control> extends
         endControlInner(getControlBox().getControl());
 
         getControlBox().resetControl();
+    }
+
+    @Override
+    default Control getCurrentControl() {
+        return getControlBox().getControl();
     }
 }
