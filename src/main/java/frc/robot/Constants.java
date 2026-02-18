@@ -121,9 +121,9 @@ public final class Constants {
         public static final double DEFAULT_SINGLE_TAG_STD_DEV = 0.5;
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
 
-        // TODO: set field to 2026.
+        
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout
-                .loadField(AprilTagFields.k2025ReefscapeWelded);
+                .loadField(AprilTagFields.k2026RebuiltWelded); //TODO: i think the prac field vs the match field uses different
 
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
