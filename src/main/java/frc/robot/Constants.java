@@ -59,11 +59,9 @@ public final class Constants {
     // Logging mode for advantage kit logs. Switch between, REAL , SIM , and REPLAY
     // based on whatever
     // mode you need
-    public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY
-    // TIME YOU DEPLOY OR
-    // ELSE THE CODE WILL NOT THE CODE
+    public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY TIME YOU DEPLOY OR ELSE THE CODE WILL NOT THE CODE
     public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
-    public static final Matter CHASSIS = // TODO: Figure out if CHASSIS is needed
+    public static final Matter CHASSIS =
             new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(2);
@@ -272,10 +270,9 @@ public final class Constants {
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
         
-		public static final double DEFAULT_SLOT0_P = 1.0;
-		public static final double DEFAULT_SLOT0_I = 0.0;
-		public static final double DEFAULT_SLOT0_D = 0.0;
-		public static final double DEFAULT_SLOT0_S = 0.25;
+		public static final double DEFAULT_SLOT0_P = 5.0;
+		public static final double DEFAULT_SLOT0_I = 5.0;
+		public static final double DEFAULT_SLOT0_D = 5.0;
 
         public static final int HORN_FREQ = 440;
     }
