@@ -1,7 +1,6 @@
 package frc.bofalib.generic.hardware.motor.talonfx;
 
 import java.util.Optional;
-import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
@@ -59,9 +58,9 @@ implements
     }
 
     @Override
-    public DoubleSupplier queryDouble(TalonFXQuery query) {
+    public double queryDouble(TalonFXQuery query) {
         // TODO Auto-generated method stub
-        return () -> 0.0;
+        return 0.0;
     }
 
     @Override

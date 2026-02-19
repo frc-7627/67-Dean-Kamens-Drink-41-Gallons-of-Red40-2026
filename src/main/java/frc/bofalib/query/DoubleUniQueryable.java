@@ -1,7 +1,5 @@
 package frc.bofalib.query;
 
-import java.util.function.DoubleSupplier;
-
 public interface DoubleUniQueryable<
     FirstQuery,
     Query extends UniQuery<FirstQuery>
@@ -9,7 +7,7 @@ public interface DoubleUniQueryable<
     DoubleQueryable<FirstQuery> getFirstQueryable();
 
     @Override
-    default DoubleSupplier queryDouble(Query query) {
+    default double queryDouble(Query query) {
         return getFirstQueryable().queryDouble(query.getFirstQuery());
     }
 }

@@ -1,6 +1,5 @@
 package frc.bofalib.generic.hardware.motor.talonfx;
 
-import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
 import frc.bofalib.generic.control.BoxControllable;
 import frc.bofalib.generic.control.ControlBox;
@@ -50,9 +49,9 @@ final class TalonFXGroupMock extends MockLoggableBase implements
     }
 
     @Override
-    public DoubleSupplier queryDouble(TalonFXGroupQuery query) {
+    public double queryDouble(TalonFXGroupQuery query) {
         // TODO Auto-generated method stub
-        return () -> 0.0;
+        return 0.0;
     }
 
     @Override

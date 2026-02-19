@@ -1,7 +1,5 @@
 package frc.bofalib.query;
 
-import java.util.function.BooleanSupplier;
-
 public interface BooleanUniQueryable<
     FirstQuery, 
     Query extends UniQuery<FirstQuery>
@@ -9,7 +7,7 @@ public interface BooleanUniQueryable<
     BooleanQueryable<FirstQuery> getFirstQueryable();
 
     @Override
-    default BooleanSupplier queryBoolean(Query query) {
+    default boolean queryBoolean(Query query) {
         return getFirstQueryable().queryBoolean(query.getFirstQuery());
     }
 }

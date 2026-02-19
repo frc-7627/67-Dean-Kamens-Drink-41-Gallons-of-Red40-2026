@@ -1,7 +1,5 @@
 package frc.bofalib.generic.hardware.tof.pwf;
 
-import java.util.function.BooleanSupplier;
-
 import frc.bofalib.query.BooleanQueryable;
 
 public final class PWFTimeOfFlight implements BooleanQueryable<PWFTimeOfFlightQuery> {
@@ -26,8 +24,8 @@ public final class PWFTimeOfFlight implements BooleanQueryable<PWFTimeOfFlightQu
     }
 
     @Override
-    public BooleanSupplier queryBoolean(PWFTimeOfFlightQuery query) {
+    public boolean queryBoolean(PWFTimeOfFlightQuery query) {
         // TODO: import fusion and uncomment
-        return () -> /* timeOfFlight.isRangeValid() && */ checkQuery(query);
+        return /* timeOfFlight.isRangeValid() && */ checkQuery(query);
     }
 }

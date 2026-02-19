@@ -4,7 +4,6 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -111,9 +110,9 @@ implements
     }
 
     @Override
-    public DoubleSupplier queryDouble(TalonFXQuery query) {
+    public double queryDouble(TalonFXQuery query) {
         return switch (Objects.requireNonNull(query)) {
-            case ANGULAR_VELOCITY_ROT_PER_SEC -> talonFX.getVelocity()::getValueAsDouble;
+            case ANGULAR_VELOCITY_ROT_PER_SEC -> talonFX.getVelocity().getValueAsDouble();
         };
     }
     

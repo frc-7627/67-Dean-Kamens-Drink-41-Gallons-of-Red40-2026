@@ -53,7 +53,7 @@ final class LauncherImpl extends SubsystemBase implements
             .withAudio(AUDIO_CONFIGS)
     ).build();
 
-    private final DoubleSupplier motorVelocityRotPerSecSupplier = motors.queryDouble(
+    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> motors.queryDouble(
         new TalonFXGroupQuery(
             OptionalInt.empty(), 
             TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC

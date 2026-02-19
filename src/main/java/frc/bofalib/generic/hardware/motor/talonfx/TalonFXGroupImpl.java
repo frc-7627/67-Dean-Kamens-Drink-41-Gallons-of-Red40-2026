@@ -2,7 +2,6 @@ package frc.bofalib.generic.hardware.motor.talonfx;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
@@ -111,7 +110,7 @@ implements
     }
 
     @Override
-    public DoubleSupplier queryDouble(TalonFXGroupQuery query) {
+    public double queryDouble(TalonFXGroupQuery query) {
         Objects.requireNonNull(query);
 
         if (query.index().isEmpty()) {
