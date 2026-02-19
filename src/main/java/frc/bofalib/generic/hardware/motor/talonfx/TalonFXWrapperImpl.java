@@ -86,7 +86,7 @@ implements
                     ); },
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new VelocityVoltage(
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
-                    )); }
+                    ).withSlot(0)); }
                 );
             }
         );
