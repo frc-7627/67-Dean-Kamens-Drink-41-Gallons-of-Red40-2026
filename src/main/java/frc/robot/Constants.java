@@ -255,7 +255,7 @@ public final class Constants {
         //LINIEAR FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double SHOOT_SPEED = 4; 
+        public static final double SHOOT_SPEED = .25; 
         public static final double IDLE_SPEED = 670;
         public static final double INACTIVE_SPEED = 67;
 
@@ -263,7 +263,7 @@ public final class Constants {
         public static final double DEFAULT_SHOOT_SPEED = 0.1;
         public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
         public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;
-        public static final double DEFAULT_MANUAL_SPEED = 0.3;
+        public static final double DEFAULT_MANUAL_SPEED = 0.1;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
 
@@ -288,10 +288,8 @@ public final class Constants {
         public static final Slot0Configs SLOT0_CONFIGS = new Slot0Configs()
             .withKP(1.0)
             .withKI(0.0)
-            .withKD(0.0)
-            .withKS(0.25)
-            .withKV(0.0)
-            .withKA(0.0);
+            .withKD(0.0);
+
 
         public static final int HORN_FREQ = 440;
     }

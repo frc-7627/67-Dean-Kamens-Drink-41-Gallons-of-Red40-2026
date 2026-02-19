@@ -135,15 +135,16 @@ final class Motors {
      * @param speed the provided speed.
      */
     public void setSpeed(double speed) {
-        ensureSimple();
+        ensureVelocity();
 
         commander.set(speed);
     }
 
     public void setAngularSpeed(double velocityRotationsPerSec) {
-       // ensureVelocity(); TODO: PUT THIS BACK BEFORE GIAN KILLS ME
+       ensureVelocity();
 
         commander.setControl(new VelocityVoltage(velocityRotationsPerSec));
+        minion.setControl(new VelocityVoltage(velocityRotationsPerSec));
     }
 
     /**
