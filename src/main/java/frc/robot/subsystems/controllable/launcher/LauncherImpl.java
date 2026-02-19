@@ -43,9 +43,9 @@ final class LauncherImpl extends SubsystemBase implements
 
     private final TalonFXGroup motors = TalonFXGroupBuilder.create(
         "Launcher Motors", 
-        TalonFXBuilder.create("Launcher Commander", LAUNCHER_COMMANDER_CAN_ID)
+        TalonFXBuilder.create("Launcher - Commander", LAUNCHER_COMMANDER_CAN_ID)
     ).withFollower(
-        TalonFXBuilder.create("Launcher Minion", LAUNCHER_MINION_CAN_ID), 
+        TalonFXBuilder.create("Launcher - Minion", LAUNCHER_MINION_CAN_ID), 
         MotorAlignmentValue.Aligned
     ).withAllConfig(
         new TalonFXConfiguration()
@@ -99,8 +99,7 @@ final class LauncherImpl extends SubsystemBase implements
                 List.of(
                     GainItem.createProportional(DEFAULT_SLOT0_P),
                     GainItem.createIntegral(DEFAULT_SLOT0_I),
-                    GainItem.createDerivative(DEFAULT_SLOT0_D),
-                    GainItem.createStatic(DEFAULT_SLOT0_S)
+                    GainItem.createDerivative(DEFAULT_SLOT0_D)
                 )
             )
         ));
