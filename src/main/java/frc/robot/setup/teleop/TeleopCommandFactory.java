@@ -13,6 +13,7 @@ import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.RobotSongCommand;
 import frc.robot.commands.Score;
 import frc.robot.commands.control.ToggleControlState;
+<<<<<<< HEAD
 import frc.robot.commands.drive.misc.*;
 import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
@@ -21,6 +22,17 @@ import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControl;
 import frc.robot.subsystems.controllable.swivel.Swivel;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
+=======
+import frc.robot.commands.drive.direct.DriveAngularOrientingTo;
+import frc.robot.commands.drive.direct.DriveAngularRotatingBy;
+import frc.robot.commands.drive.direct.DriveCombinedOrientingTo;
+import frc.robot.commands.drive.misc.Lock;
+import frc.robot.commands.drive.misc.ZeroGyro;
+import frc.robot.commands.feeder.*;
+import frc.robot.commands.intake.Eject;
+import frc.robot.commands.intake.*;
+import frc.robot.commands.launcher.*;
+>>>>>>> a0f1a07 (Testing junk)
 
 enum TeleopCommandFactory {
     
@@ -125,8 +137,14 @@ enum TeleopCommandFactory {
     
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
+<<<<<<< HEAD
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
     context.drivebase(), context.launcher(), context.agitator(), context.feeder())),
+=======
+    MANUAL_SHOOT(context -> new ManualShootOut(context.launcher())),
+
+    FEED(context -> new FeedIn(context.feeder())),
+>>>>>>> a0f1a07 (Testing junk)
 
     FEED(context -> new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)),
 
