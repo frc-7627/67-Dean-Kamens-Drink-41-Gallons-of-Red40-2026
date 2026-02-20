@@ -63,7 +63,7 @@ final class LauncherImpl extends SubsystemBase implements
     final DoubleSupplier shootSpeedFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Speed Feet Per Sec"), 
-        0
+        SHOOT_SPEED
     );
 
     LauncherImpl() {
