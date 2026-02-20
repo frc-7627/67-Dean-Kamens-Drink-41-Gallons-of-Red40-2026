@@ -16,7 +16,7 @@ public enum RobotSong implements Song {
     PHOTOGRAPH("photograph"),
     RICKROLL("rickroll"),
     UNDERGROUND("Underground"),
-    VSAUSE("vsauce"),
+    VSAUCE("vsauce"),
     WII_SHOP("Wii Shop");
 
     private static final List<RobotSong> SONGS = Collections.unmodifiableList(
