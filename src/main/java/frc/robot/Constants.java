@@ -270,9 +270,10 @@ public final class Constants {
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
         
-		public static final double DEFAULT_SLOT0_P = 5.0;
-		public static final double DEFAULT_SLOT0_I = 5.0;
-		public static final double DEFAULT_SLOT0_D = 5.0;
+		public static final double DEFAULT_SLOT0_P = 1.0;
+		public static final double DEFAULT_SLOT0_I = 1.0;
+		public static final double DEFAULT_SLOT0_D = 1.0;
+                public static final double DEFAULT_SLOT0_V = 1.0;
 
         public static final int HORN_FREQ = 440;
     }
