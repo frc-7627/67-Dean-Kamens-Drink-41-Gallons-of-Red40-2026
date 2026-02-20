@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.5659638554216868,
+        "y": 5.914566265060241
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7733478691473985,
+        "y": 5.999798119705927
+      },
+      "isLocked": false,
+      "linkedName": "Depot"
+    },
+    {
+      "anchor": {
+        "x": 3.4180963855421687,
+        "y": 7.116614457831325
+      },
+      "prevControl": {
+        "x": 2.5273106055672567,
+        "y": 6.738282246421796
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Top Trench Shooting Pose"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.877,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -70.34617594194664
+  },
+  "reversed": false,
+  "folder": "Hub",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

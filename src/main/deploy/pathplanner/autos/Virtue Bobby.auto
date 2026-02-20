@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "top start - shooting pose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top Start - Top N Zone"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top Down Through N Zone"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom N Zone - Bottom Hub"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
