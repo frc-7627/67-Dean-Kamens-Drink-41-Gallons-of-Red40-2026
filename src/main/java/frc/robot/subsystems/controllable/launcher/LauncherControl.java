@@ -12,7 +12,9 @@ import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.loggable.Loggable;
 
 public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl>, Loggable {
-    SHOOT("Launcher Shoot", impl -> impl.shootSpeedFPSSupplier);
+    SHOOT("Launcher Shoot", impl -> impl.shootSpeedFPSSupplier),
+    ACTIVE_IDLE("Launcher Active Idle", impl -> impl.activeIdleFPSSupplier),
+    INACTIVE_IDLE("Launcher Inactive Idle", impl -> impl.inactiveIdleFPSSupplier);
 
     private final String name;
     private final Function<LauncherImpl, TalonFXBatchControl> firstControlFunction;

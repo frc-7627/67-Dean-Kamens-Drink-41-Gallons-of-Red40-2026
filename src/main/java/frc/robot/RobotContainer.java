@@ -8,8 +8,11 @@ import java.util.Collection;
 import java.util.List;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.bofalib.generic.music.MusicalSubsystem;
 import frc.robot.commands.ControlCommand;
+import frc.robot.commands.RobotSongCommand;
 import frc.robot.setup.auto.AutoChooser;
 import frc.robot.setup.teleop.CommandContext;
 import frc.robot.setup.teleop.DriverController;
@@ -25,6 +28,7 @@ import frc.robot.subsystems.controllable.drivebase.Drivebase;
 import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
+import frc.robot.subsystems.controllable.launcher.LauncherControl;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -104,6 +108,12 @@ public class RobotContainer {
 
         drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputDriveControl));
 
+        launcher.setDefaultCommand(new ConditionalCommand(
+            new ControlCommand<>(launcher, LauncherControl.ACTIVE_IDLE), 
+            new ControlCommand<>(launcher, LauncherControl.INACTIVE_IDLE), 
+            gameInfoSupplier::willHubActivate
+        ));
+
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);
     }
@@ -111,6 +121,12 @@ public class RobotContainer {
     private void bindControllers(ControlState controlState) {
         driverController.bindAll(commandContext, controlState);
         operatorController.bindAll(commandContext, controlState);
+    }
+
+    private void playRandomSong() {
+        CommandScheduler.getInstance().schedule(
+            new RobotSongCommand(musicalSubsystems, RobotSong.getRandomSong())
+        );
     }
 
     /**
@@ -147,8 +163,7 @@ public class RobotContainer {
      * @return void
      */
     public void disabledInit() {
-        // PLACEHOLDER (SUBSYSTEM CONTAINING KRAKENS, SEE LEBRONAVATOR 2025 FOR
-        // EX).playSong("BlueLobster"); TODO: Add back soon
+        playRandomSong();
     }
 
     // Periodically do things during teleop

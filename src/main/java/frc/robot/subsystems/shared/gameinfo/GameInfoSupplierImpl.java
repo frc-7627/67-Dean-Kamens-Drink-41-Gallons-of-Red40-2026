@@ -85,7 +85,7 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     @Override
     public boolean isHubActive() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isHubActive'");
+        return false;
     }
 
     @Override
@@ -95,5 +95,11 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
             case Red -> Constants.VisionConstants.HUB_LOCATION.unaryMinus();
             case Blue -> Constants.VisionConstants.HUB_LOCATION;
         };
+    }
+
+    @Override
+    public boolean willHubActivate() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

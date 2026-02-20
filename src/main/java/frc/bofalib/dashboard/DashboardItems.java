@@ -6,11 +6,8 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
-import edu.wpi.first.networktables.BooleanPublisher;
-import edu.wpi.first.networktables.BooleanTopic;
-import edu.wpi.first.networktables.DoublePublisher;
-import edu.wpi.first.networktables.DoubleSubscriber;
-import edu.wpi.first.networktables.DoubleTopic;
+import edu.wpi.first.networktables.BooleanEntry;
+import edu.wpi.first.networktables.DoubleEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.function.BooleanConsumer;
 import frc.bofalib.gains.GainItem;
@@ -24,26 +21,25 @@ public final class DashboardItems {
 
     public static DoubleConsumer createDoublePusher(String key) {
         return NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key)).publish();
+            .getDoubleTopic(convertToTopicName(key)).getEntry(0);
     }
 
     public static BooleanConsumer createBooleanPusher(String key) {
         return NetworkTableInstance.getDefault()
-            .getBooleanTopic(convertToTopicName(key)).publish();
+            .getBooleanTopic(convertToTopicName(key)).getEntry(false);
     }
 
     public static DoubleSupplier createDoublePuller(
         String key, 
         double defaultValue
     ) {
-        final DoubleTopic topic = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key));
+        final DoubleEntry entry = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key))
+            .getEntry(defaultValue);
 
-        try (DoublePublisher pub = topic.publish()) {
-            pub.set(defaultValue);
-        }
+        entry.set(defaultValue);
         
-        return topic.subscribe(defaultValue);
+        return entry;
     }
 
     public static DoubleSupplier createCheckedDoublePuller(
@@ -55,28 +51,23 @@ public final class DashboardItems {
             throw new BadInitialValueError(defaultValue);
         }
 
-        final DoubleTopic topic = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key));
+        final DoubleEntry entry = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key))
+            .getEntry(defaultValue);
 
-        try (DoublePublisher pub = topic.publish()) {
-            pub.set(defaultValue);
-        }
+        entry.set(defaultValue);
 
         return new DoubleSupplier() {
-            private final DoubleSubscriber sub = topic.subscribe(defaultValue);
-
             private double currentValue = defaultValue;
 
             @Override
             public double getAsDouble() {
-                final double newValue = sub.get();
+                final double newValue = entry.get();
 
                 if (predicate.test(newValue)) {
                     currentValue = newValue;
                 } else {
-                    try (DoublePublisher pub = sub.getTopic().publish()) {
-                        pub.set(currentValue);
-                    }
+                    entry.set(defaultValue);
                 }
 
                 return currentValue;
@@ -88,14 +79,13 @@ public final class DashboardItems {
         String key, 
         boolean defaultValue
     ) {
-        final BooleanTopic topic = NetworkTableInstance.getDefault()
-            .getBooleanTopic(convertToTopicName(key));
+        final BooleanEntry entry = NetworkTableInstance.getDefault()
+            .getBooleanTopic(convertToTopicName(key))
+            .getEntry(defaultValue);
 
-        try (BooleanPublisher pub = topic.publish()) {
-            pub.set(defaultValue);
-        }
+        entry.set(defaultValue);
         
-        return topic.subscribe(defaultValue);
+        return entry;
     }
 
     public static Runnable createGainsDashboard(

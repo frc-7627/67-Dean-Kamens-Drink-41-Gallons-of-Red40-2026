@@ -63,7 +63,7 @@ public final class Constants {
     public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
     public static final Matter CHASSIS =
             new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
-    public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms sprk max velocity lag
+    public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(2);
 
     public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
@@ -72,15 +72,6 @@ public final class Constants {
     public static final Frequency MOTOR_CONFIGURE_FREQUENCY = Hertz.of(5);
 
     // Maximum speed of the robot in meters per second, used to limit acceleration.
-
-    // public static final class AutonConstants
-    // {
-    //
-    // public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0,
-    //
-    // 0);
-    // public static final PIDConstants ANGLE_PID = new PIDConstants(0.4, 0, 0.01);
-    // }
 
     public static final class DrivebaseConstants {
         public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
@@ -121,7 +112,7 @@ public final class Constants {
 
         
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout
-                .loadField(AprilTagFields.k2026RebuiltWelded); //TODO: i think the prac field vs the match field uses different
+                .loadField(AprilTagFields.k2026RebuiltWelded); //TODO: i think the practice field vs the match field uses different
 
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
@@ -196,7 +187,7 @@ public final class Constants {
     }
 
     public static class SixtySeven {
-        public static final double SixitySeven = 67.67;
+        public static final double SIXTY_SEVEN = 67.67;
     }
 
     public static class GameInfoConstants {
@@ -247,18 +238,12 @@ public final class Constants {
 
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
         
-        //LINIEAR FEET PER SEC
+        // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double SHOOT_SPEED = 5; 
-        public static final double IDLE_SPEED = 670;
-        public static final double INACTIVE_SPEED = 67;
-
-        //MOTOR POWERS
-        public static final double DEFAULT_SHOOT_SPEED = 0.1;
-        public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
-        public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;
-        public static final double DEFAULT_MANUAL_SPEED = 0.3;
+        public static final double DEFAULT_SHOOT_FPS = 83.495; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = 50;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = 40;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
 
