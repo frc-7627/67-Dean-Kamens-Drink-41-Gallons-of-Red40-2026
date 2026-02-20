@@ -22,6 +22,11 @@ public interface SpecificGameInfoSupplier {
     boolean isHubActive();
 
     /**
+     * @return whether the hub will activate in the next 3 seconds, or is already active
+     */
+    boolean willHubActivate();
+
+    /**
      * @return the hub position.
      */
     Translation2d getHubPosition();

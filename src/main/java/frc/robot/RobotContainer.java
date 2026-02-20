@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import frc.bofalib.generic.music.MusicalSubsystem;
 import frc.robot.commands.ControlCommand;
 import frc.robot.setup.auto.AutoChooser;
@@ -25,6 +26,7 @@ import frc.robot.subsystems.controllable.drivebase.Drivebase;
 import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
+import frc.robot.subsystems.controllable.launcher.LauncherControl;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -103,6 +105,12 @@ public class RobotContainer {
         DriverStation.silenceJoystickConnectionWarning(true);
 
         drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputDriveControl));
+
+        launcher.setDefaultCommand(new ConditionalCommand(
+            new ControlCommand<>(launcher, LauncherControl.ACTIVE_IDLE), 
+            new ControlCommand<>(launcher, LauncherControl.INACTIVE_IDLE), 
+            gameInfoSupplier::willHubActivate
+        ));
 
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);

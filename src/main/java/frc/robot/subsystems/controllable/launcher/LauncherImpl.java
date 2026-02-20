@@ -62,8 +62,20 @@ final class LauncherImpl extends SubsystemBase implements
 
     final DoubleSupplier shootSpeedFPSSupplier =
     DashboardItems.createDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Shoot Speed Feet Per Sec"), 
-        SHOOT_SPEED
+        KEY_BUILDER.copyExtendedToString("Shoot Feet Per Sec"), 
+        DEFAULT_SHOOT_FPS
+    );
+
+    final DoubleSupplier activeIdleFPSSupplier =
+    DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Active Idle Feet Per Sec"),
+        DEFAULT_ACTIVE_IDLE_FPS
+    );
+
+    final DoubleSupplier inactiveIdleFPSSupplier =
+    DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Inactive Idle Feet Per Sec"), 
+        DEFAULT_INACTIVE_IDLE_FPS
     );
 
     LauncherImpl() {

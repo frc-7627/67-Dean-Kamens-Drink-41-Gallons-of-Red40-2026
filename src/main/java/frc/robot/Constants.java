@@ -247,18 +247,12 @@ public final class Constants {
 
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
         
-        //LINIEAR FEET PER SEC
+        // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double SHOOT_SPEED = 5; 
-        public static final double IDLE_SPEED = 670;
-        public static final double INACTIVE_SPEED = 67;
-
-        //MOTOR POWERS
-        public static final double DEFAULT_SHOOT_SPEED = 0.1;
-        public static final double DEFAULT_ACTIVE_IDLE_SPEED = 0.5;
-        public static final double DEFAULT_INACTIVE_IDLE_SPEED = 0.3;
-        public static final double DEFAULT_MANUAL_SPEED = 0.3;
+        public static final double DEFAULT_SHOOT_FPS = 83.495; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = 50;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = 40;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
 
