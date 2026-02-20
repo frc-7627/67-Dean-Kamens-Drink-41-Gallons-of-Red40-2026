@@ -1,5 +1,7 @@
 package frc.bofalib.generic.hardware.motor.talonfx.control;
 
+import frc.bofalib.generic.hardware.motor.setting.MotorVelocity;
+
 public record TalonFXBatchSetting(
     TalonFXControlSetting setting
 ) implements TalonFXBatchControl {
@@ -21,6 +23,10 @@ public record TalonFXBatchSetting(
 
     @Override
     public TalonFXControl getFollowerControl() {
+        if (setting.setting() instanceof MotorVelocity) {
+            return setting;
+        }
+
         return TalonFXControlEmpty.getInstance();
     }
 }
