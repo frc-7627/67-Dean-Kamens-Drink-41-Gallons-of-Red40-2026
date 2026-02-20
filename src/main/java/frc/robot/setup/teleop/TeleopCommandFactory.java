@@ -4,9 +4,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotSong;
 import frc.robot.commands.ControlCommand;
 import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
+import frc.robot.commands.RobotSongCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
@@ -90,6 +92,10 @@ enum TeleopCommandFactory {
 
     FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
         .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))),
+
+    AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+    .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
+    .alongWith(new ControlCommand<>(context.hopper(), AgitatorControl.TOWARD)))),
     
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
@@ -100,6 +106,8 @@ enum TeleopCommandFactory {
     REVERSE_AGITATE(context -> new ControlCommand<>(context.hopper(), AgitatorControl.AWAY)),
 
     SWIVEL_OUT(context -> new ControlCommand<>(context.intake(), IntakeControl.FOLD_OUT)),
+
+    PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.getRandomSong())),
     ;
     
 

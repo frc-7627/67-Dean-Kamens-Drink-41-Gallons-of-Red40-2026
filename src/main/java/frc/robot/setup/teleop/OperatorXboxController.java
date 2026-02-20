@@ -25,6 +25,8 @@ class OperatorXboxController implements OperatorController {
             case SHOOT -> binderConsumer.accept(xboxController.rightStick()::whileTrue);
             case SWIVEL_OUT-> binderConsumer.accept(xboxController.b()::whileTrue);
             case FEED -> binderConsumer.accept(xboxController.leftStick()::whileTrue);
+            case PLAY_SONG -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
+            case AGITATE_FEED_AND_SHOOT -> binderConsumer.accept(xboxController.y()::whileTrue);
             default -> {
             }
         }

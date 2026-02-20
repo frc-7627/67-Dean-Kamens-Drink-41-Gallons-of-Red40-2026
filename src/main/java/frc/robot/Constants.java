@@ -241,9 +241,9 @@ public final class Constants {
         // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 83.495; 
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = 50;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = 40;
+        public static final double DEFAULT_SHOOT_FPS = 15; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
 
@@ -256,9 +256,9 @@ public final class Constants {
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
         
 		public static final double DEFAULT_SLOT0_P = 1.0;
-		public static final double DEFAULT_SLOT0_I = 1.0;
-		public static final double DEFAULT_SLOT0_D = 1.0;
-                public static final double DEFAULT_SLOT0_V = 1.0;
+		public static final double DEFAULT_SLOT0_I = 0.0;
+		public static final double DEFAULT_SLOT0_D = 0.0;
+                public static final double DEFAULT_SLOT0_V = 0.5;
 
         public static final int HORN_FREQ = 440;
     }
