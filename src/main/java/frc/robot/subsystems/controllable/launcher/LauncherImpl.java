@@ -99,7 +99,8 @@ final class LauncherImpl extends SubsystemBase implements
                 List.of(
                     GainItem.createProportional(DEFAULT_SLOT0_P),
                     GainItem.createIntegral(DEFAULT_SLOT0_I),
-                    GainItem.createDerivative(DEFAULT_SLOT0_D)
+                    GainItem.createDerivative(DEFAULT_SLOT0_D),
+                    GainItem.createVelocity(DEFAULT_SLOT0_V)
                 )
             )
         ));
