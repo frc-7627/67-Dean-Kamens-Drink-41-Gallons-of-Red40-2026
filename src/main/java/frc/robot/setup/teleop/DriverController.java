@@ -1,7 +1,6 @@
 package frc.robot.setup.teleop;
 
 import java.util.function.DoubleSupplier;
-import com.pathplanner.lib.auto.AutoBuilder.TriFunction;
 import frc.robot.subsystems.controllable.drivebase.DriveControl;
 
 /**
@@ -9,13 +8,20 @@ import frc.robot.subsystems.controllable.drivebase.DriveControl;
  * robot motion.
  */
 public interface DriverController extends TeleopController {
+    @FunctionalInterface
+    public interface DriverInputsFunction {
+        DriveControl getInputDriveControl(
+            DoubleSupplier xInput, 
+            DoubleSupplier yInput, 
+            DoubleSupplier rotInput,
+            // TODO: Name this parameter
+            DoubleSupplier fourthInput
+        );
+        
+    }
+
     DriveControl getInputDriveControl(
-        TriFunction<
-            DoubleSupplier, 
-            DoubleSupplier, 
-            DoubleSupplier, 
-            DriveControl
-        > driveControlFactory
+        DriverInputsFunction driveControlFactory
     );
 
     static DriverController create() {

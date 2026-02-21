@@ -74,13 +74,18 @@ final class SwerveDrivebase extends SubsystemBase implements
         visionOptional.ifPresent(
             vision -> swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements())
         );
-        
+
         Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
     }
 
     @Override
-    public DriveControl getInputDriveControl(DoubleSupplier xInput, DoubleSupplier yInput,
-            DoubleSupplier rotInput) {
+    public DriveControl getInputDriveControl(
+        DoubleSupplier xInput, 
+        DoubleSupplier yInput,
+        DoubleSupplier rotInput,
+        // TODO: Name this parameter
+        DoubleSupplier fourthInput
+    ) {
         return new DriveControl() {
             private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper.getInputStream(
                 xInput, 

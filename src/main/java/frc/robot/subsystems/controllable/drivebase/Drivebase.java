@@ -1,12 +1,12 @@
 package frc.robot.subsystems.controllable.drivebase;
 
 import java.util.Optional;
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.bofalib.control.Controllable;
+import frc.robot.setup.teleop.DriverController;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 /**
@@ -15,20 +15,9 @@ import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 public interface Drivebase extends 
     IndirectDrivebase, 
     MiscDrivebase,
-    Controllable<DriveControl>
+    Controllable<DriveControl>,
+    DriverController.DriverInputsFunction
 {
-    /**
-     * @param xInput the x drive input
-     * @param yInput the y drive input
-     * @param rotInput the rotational drive input
-     * @return a drive control strategy applying the x, y, and rotational drive inputs to the robot
-     */
-    DriveControl getInputDriveControl(
-        DoubleSupplier xInput, 
-        DoubleSupplier yInput, 
-        DoubleSupplier rotInput
-    );
-
     /**
      * @param angleTargetter the targeting strategy
      * @return a drive control strategy that rotates the robot according to the angle targeting strategy
