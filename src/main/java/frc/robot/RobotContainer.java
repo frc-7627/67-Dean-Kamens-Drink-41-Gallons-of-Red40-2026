@@ -135,8 +135,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // Pass in the selected auto from the SmartDashboard as our desired autnomous
-        // commmand
+        // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand
         return autoChooser.get();
     }
 
@@ -178,15 +177,4 @@ public class RobotContainer {
     public void disabledPeriodic() {
 
     }
-
-    // TODO: Reimplement the folowing vvvv
-    // public void driveNormal() {
-    // System.out.println("Slow mode: disabled");
-    // slowMode = 1.0;
-    // }
-
-    // public void driveSlow() {
-    // System.out.println("Slow mode Activated");
-    // slowMode = slowModeSpeed;
-    // }
 }

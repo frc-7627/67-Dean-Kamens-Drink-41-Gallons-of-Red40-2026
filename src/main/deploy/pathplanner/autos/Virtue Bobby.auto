@@ -27,6 +27,24 @@
           "data": {
             "pathName": "Bottom N Zone - Bottom Hub"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Hub - N Zone"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Up Through the N Zone"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top N Zone - Top Hub"
+          }
         }
       ]
     }

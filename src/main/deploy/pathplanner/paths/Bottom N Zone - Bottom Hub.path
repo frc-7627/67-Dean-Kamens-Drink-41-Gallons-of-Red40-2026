@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 7.66188302425107,
-        "y": 0.3927674750356631
+        "y": 0.39276747503566334
       },
       "isLocked": false,
       "linkedName": "Bottom Neutral Zone"
@@ -25,10 +25,15 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom Trench Shooting Pose"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7737953006770193,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

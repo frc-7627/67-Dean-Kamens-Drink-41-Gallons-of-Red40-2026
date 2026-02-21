@@ -25,6 +25,10 @@ public enum RobotSong implements Song {
 
     private static final Random RANDOM = new Random();
 
+    /**
+     * Get's a random song from the midi folder
+     * @return A random chirp file from the midi folder
+     */
     public static RobotSong getRandomSong() {
         return SONGS.get(RANDOM.nextInt(SONGS.size()));
     }
