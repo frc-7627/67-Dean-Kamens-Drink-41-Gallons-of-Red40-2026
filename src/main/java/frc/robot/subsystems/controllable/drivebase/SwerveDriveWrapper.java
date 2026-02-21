@@ -3,6 +3,7 @@ package frc.robot.subsystems.controllable.drivebase;
 import static frc.robot.Constants.MAX_SPEED;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.DEADBAND;
+import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 import java.io.IOException;
 import java.util.stream.Stream;
 import com.pathplanner.lib.util.DriveFeedforwards;
@@ -37,7 +38,9 @@ final class SwerveDriveWrapper {
             1.0
         );
 
-        swerveDrive.stopOdometryThread();
+        if (VISION_ENABLED) {
+            swerveDrive.stopOdometryThread();
+        }
     }
 
     /**
