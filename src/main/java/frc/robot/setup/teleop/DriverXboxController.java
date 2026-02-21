@@ -1,9 +1,7 @@
 package frc.robot.setup.teleop;
 
 import java.util.function.Consumer;
-import java.util.function.DoubleSupplier;
 import java.util.logging.Logger;
-import com.pathplanner.lib.auto.AutoBuilder.TriFunction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.controllable.drivebase.DriveControl;
@@ -37,17 +35,14 @@ class DriverXboxController implements DriverController {
 
     @Override
     public DriveControl getInputDriveControl(
-        TriFunction<
-            DoubleSupplier,
-            DoubleSupplier,
-            DoubleSupplier,
-            DriveControl
-        > driveControlFactory
+        DriverController.DriverInputsFunction driveControlFactory
     ) {
-        return driveControlFactory.apply(
+        return driveControlFactory.getInputDriveControl(
             () -> xboxController.getLeftY() * -1,
             () -> xboxController.getLeftX() * -1, 
-            xboxController::getRightX
+            xboxController::getRightX,
+            // TODO: what is this for?
+            () -> 0.0
         );
     }
 }

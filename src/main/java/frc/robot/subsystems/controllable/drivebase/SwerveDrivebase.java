@@ -2,6 +2,7 @@ package frc.robot.subsystems.controllable.drivebase;
 
 import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
+import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
@@ -25,13 +26,16 @@ final class SwerveDrivebase extends SubsystemBase implements
     private static final String LOGGABLE_NAME = "Drivebase";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
-    private final VisionMeasurementsSupplier vision;
+    private final Optional<VisionMeasurementsSupplier> visionOptional;
     private final SwerveDriveWrapper swerveDriveWrapper;
     private final RotationRateCalculator rotationRateCalculator;
     private final ControlBox<DriveControl> controlBox = new ControlBox<>();
 
-    SwerveDrivebase(VisionMeasurementsSupplier vision, Supplier<Alliance> allianceSupplier) {
-        this.vision = vision;
+    SwerveDrivebase(
+        Optional<VisionMeasurementsSupplier> visionOptional, 
+        Supplier<Alliance> allianceSupplier
+    ) {
+        this.visionOptional = visionOptional;
 
         final Pose2d initialPose = switch (allianceSupplier.get()) {
             case Red -> RED_ALLIANCE_INITIAL_POSE;
@@ -67,7 +71,10 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     @Override
     public void periodic() {
-        swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements());
+        visionOptional.ifPresent(
+            vision -> swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements())
+        );
+
         Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
     }
  @Override
@@ -98,8 +105,13 @@ final class SwerveDrivebase extends SubsystemBase implements
         };
     }
     @Override
-    public DriveControl getInputDriveControl(DoubleSupplier xInput, DoubleSupplier yInput,
-            DoubleSupplier rotInput) {
+    public DriveControl getInputDriveControl(
+        DoubleSupplier xInput, 
+        DoubleSupplier yInput,
+        DoubleSupplier rotInput,
+        // TODO: Name this parameter
+        DoubleSupplier fourthInput
+    ) {
         return new DriveControl() {
             private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper.getInputStream(
                 xInput, 
