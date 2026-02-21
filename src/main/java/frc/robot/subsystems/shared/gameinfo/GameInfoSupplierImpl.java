@@ -18,9 +18,9 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     private final EventLoop eventLoop = new EventLoop();
     private final BooleanEvent allianceSetEvent;
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
-    private Alliance alliance = Constants.GameInfoConstants.DEFAULT_ALLIANCE;
+    private Alliance alliance;
     private boolean isDistinctAlliance = false;
-    private boolean hasGotAlliance = false;
+    private boolean hasGotAlliance = true;
 
     /**
      * Resource for getting game info.
@@ -30,6 +30,10 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
                 new BooleanEvent(eventLoop, () -> isDistinctAlliance);
         BooleanEvent hasGotAllianceEvent = new BooleanEvent(eventLoop, () -> hasGotAlliance);
         this.allianceSetEvent = isDistinctAllianceEvent.or(hasGotAllianceEvent.rising());
+
+        this.alliance = DriverStation.getAlliance().orElse(
+            Constants.GameInfoConstants.DEFAULT_ALLIANCE
+        );
 
         allianceSetEvent.ifHigh(() -> {
             LOGGER.info("Alliance set from driver station.");

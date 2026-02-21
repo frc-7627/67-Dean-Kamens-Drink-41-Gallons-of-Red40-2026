@@ -197,7 +197,7 @@ public final class Constants {
 
     public static class GameInfoConstants {
         public static final GameInfoSupplier.Phase START_PHASE = GameInfoSupplier.Phase.AUTO;
-        public static final Alliance DEFAULT_ALLIANCE = Alliance.Red;
+        public static final Alliance DEFAULT_ALLIANCE = Alliance.Blue;
     }
 
     public static class CanIDs {
