@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.util.stream.Stream;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurement;
 import swervelib.SwerveDrive;
@@ -136,6 +138,14 @@ final class SwerveDriveWrapper {
      */
     void zeroGyro() {
         swerveDrive.zeroGyro();
+    }
+
+    void zeroGyroWithAlliance(Alliance alliance) {
+        zeroGyro();
+
+        if (alliance.equals(Alliance.Red)) {
+            resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.k180deg));
+        }
     }
 
     /**

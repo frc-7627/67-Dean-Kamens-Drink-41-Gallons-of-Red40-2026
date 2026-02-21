@@ -1,12 +1,11 @@
 package frc.robot.subsystems.controllable.drivebase;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.bofalib.control.Controllable;
 import frc.robot.setup.teleop.JoystickInputs;
+import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 /**
@@ -54,8 +53,8 @@ public interface Drivebase extends
 
     static Drivebase create(
         Optional<VisionMeasurementsSupplier> visionOptional,
-        Supplier<Alliance> allianceSupplier
+        GeneralGameInfoSupplier gameInfoSupplier
     ) {
-        return new SwerveDrivebase(visionOptional, allianceSupplier);
+        return new SwerveDrivebase(visionOptional, gameInfoSupplier);
     }
 }

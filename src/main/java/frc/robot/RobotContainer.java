@@ -55,7 +55,7 @@ public class RobotContainer {
 
     private final Drivebase drivebase = Drivebase.create(
         visionOptional.map(vision -> (VisionMeasurementsSupplier) vision), 
-        gameInfoSupplier::getAlliance
+        gameInfoSupplier
     );
 
     private final Indicator indicator = Indicator.create(

@@ -1,6 +1,7 @@
 package frc.robot.subsystems.misc.indication;
 
 import com.ctre.phoenix6.signals.RGBWColor;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.util.Progress;
@@ -37,7 +38,7 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
      * 
      * Twinks the led with the new default color.
      */
-    private void indicateNewAllianceSet() {
+    private void indicateNewAllianceSet(Alliance alliance) {
         led.twinkWithColor(getDefaultColor());
     }
 

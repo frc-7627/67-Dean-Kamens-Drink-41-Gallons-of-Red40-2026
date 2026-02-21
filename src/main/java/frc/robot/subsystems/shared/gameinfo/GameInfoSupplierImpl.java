@@ -1,6 +1,7 @@
 package frc.robot.subsystems.shared.gameinfo;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -20,16 +21,12 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
     private Alliance alliance;
     private boolean isDistinctAlliance = false;
-    private boolean hasGotAlliance = true;
 
     /**
      * Resource for getting game info.
      */
     GameInfoSupplierImpl() {
-        BooleanEvent isDistinctAllianceEvent =
-                new BooleanEvent(eventLoop, () -> isDistinctAlliance);
-        BooleanEvent hasGotAllianceEvent = new BooleanEvent(eventLoop, () -> hasGotAlliance);
-        this.allianceSetEvent = isDistinctAllianceEvent.or(hasGotAllianceEvent.rising());
+        this.allianceSetEvent = new BooleanEvent(eventLoop, () -> isDistinctAlliance);
 
         this.alliance = DriverStation.getAlliance().orElse(
             Constants.GameInfoConstants.DEFAULT_ALLIANCE
@@ -64,7 +61,6 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
             Alliance newAlliance = newAllianceOption.get();
 
             isDistinctAlliance = newAlliance != alliance;
-            hasGotAlliance = true;
 
             alliance = newAlliance;
         }
@@ -82,8 +78,8 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     }
 
     @Override
-    public void onAllianceSet(Runnable action) {
-        allianceSetEvent.ifHigh(action);
+    public void onAllianceSet(Consumer<Alliance> action) {
+        allianceSetEvent.ifHigh(() -> action.accept(alliance));
     }
 
     @Override

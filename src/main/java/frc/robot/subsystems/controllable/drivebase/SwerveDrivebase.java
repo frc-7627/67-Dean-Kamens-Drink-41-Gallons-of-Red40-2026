@@ -12,12 +12,12 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
 import frc.robot.setup.teleop.JoystickInputs;
+import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 final class SwerveDrivebase extends SubsystemBase implements 
@@ -34,11 +34,11 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     SwerveDrivebase(
         Optional<VisionMeasurementsSupplier> visionOptional, 
-        Supplier<Alliance> allianceSupplier
+        GeneralGameInfoSupplier gameInfoSupplier
     ) {
         this.visionOptional = visionOptional;
 
-        final Pose2d initialPose = switch (allianceSupplier.get()) {
+        final Pose2d initialPose = switch (gameInfoSupplier.getAlliance()) {
             case Red -> RED_ALLIANCE_INITIAL_POSE;
             case Blue -> BLUE_ALLIANCE_INITIAL_POSE;
         };
@@ -50,12 +50,14 @@ final class SwerveDrivebase extends SubsystemBase implements
             swerveDriveWrapper::getOrientationRadians
         );
 
+        gameInfoSupplier.onAllianceSet(swerveDriveWrapper::zeroGyroWithAlliance);
+
         PathPlannerConfig.configure(
             swerveDriveWrapper::getPose, 
             swerveDriveWrapper::resetOdometry, 
             swerveDriveWrapper::getRobotRelativeSpeeds, 
             swerveDriveWrapper::driveRobotRelativeWithFeedForwards, 
-            allianceSupplier,
+            gameInfoSupplier::getAlliance,
             this
         );
     }
