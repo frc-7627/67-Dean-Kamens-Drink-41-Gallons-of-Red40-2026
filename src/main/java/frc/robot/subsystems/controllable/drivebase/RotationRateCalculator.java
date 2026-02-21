@@ -26,26 +26,29 @@ final class RotationRateCalculator {
         keyBuilder.extend("Rotation Rate Calculator");
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
-            FunctionalUtil.compose(
-                controller::setP, 
+            FunctionalUtil.composeConditional(
+                controller::setP,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("P"), 
                     3.5
-                )
+                ),
+                FunctionalUtil.hasChangedDoublePredicate()
             ),
-            FunctionalUtil.compose(
+            FunctionalUtil.composeConditional(
                 controller::setI,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("I"), 
                     0.0
-                )
+                ),
+                FunctionalUtil.hasChangedDoublePredicate()
             ),
-            FunctionalUtil.compose(
+            FunctionalUtil.composeConditional(
                 controller::setD,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("D"),
                     0.0
-                )
+                ),
+                FunctionalUtil.hasChangedDoublePredicate()
             )
         ));
 

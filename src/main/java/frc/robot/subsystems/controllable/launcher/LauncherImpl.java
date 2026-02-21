@@ -96,14 +96,15 @@ final class LauncherImpl extends SubsystemBase implements
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
-            FunctionalUtil.compose(
+            FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
                 ), 
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
                     RotationsPerSecond
-                )
+                ),
+                FunctionalUtil.hasChangedDoublePredicate()
             ),
             DashboardItems.createGainsDashboard(
                 KEY_BUILDER.copyExtended("Motor Gains"), 
