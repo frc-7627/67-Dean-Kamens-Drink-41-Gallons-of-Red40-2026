@@ -241,7 +241,7 @@ public final class Constants {
     public static class LauncherConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(4, Inch);; //inches
+        public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(2, Inch);; //inches
         
         // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
