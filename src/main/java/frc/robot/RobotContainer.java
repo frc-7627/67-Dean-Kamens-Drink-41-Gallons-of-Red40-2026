@@ -4,8 +4,10 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -22,6 +24,7 @@ import frc.robot.subsystems.misc.controlstate.GlobalControlState.ControlState;
 import frc.robot.subsystems.misc.indication.Indicator;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.shared.vision.Vision;
+import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 import frc.robot.subsystems.controllable.agitator.Agitator;
 import frc.robot.subsystems.controllable.drivebase.DriveControl;
 import frc.robot.subsystems.controllable.drivebase.Drivebase;
@@ -43,12 +46,15 @@ public class RobotContainer {
     private final OperatorController operatorController = OperatorController.create();
 
     // The robot's subsystems and resources are defined here...
-    private final Vision vision = Vision.create();
+    private final Optional<Vision> visionOptional = VISION_ENABLED ? 
+        Optional.of(Vision.create()) : 
+        Optional.empty()
+    ;
 
     private final GameInfoSupplier gameInfoSupplier = GameInfoSupplier.create();
 
     private final Drivebase drivebase = Drivebase.create(
-        vision, 
+        visionOptional.map(vision -> (VisionMeasurementsSupplier) vision), 
         gameInfoSupplier::getAlliance
     );
 

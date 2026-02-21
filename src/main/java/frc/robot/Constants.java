@@ -92,6 +92,8 @@ public final class Constants {
     }
 
     public static final class VisionConstants {
+        public static final boolean VISION_ENABLED = true;
+
         public static final String LEFT_CAMERA_NAME = "PC_Camera SIG";
         public static final String RIGHT_CAMERA_NAME = "PC_Camera_MA";
 
