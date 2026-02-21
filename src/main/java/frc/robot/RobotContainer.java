@@ -66,8 +66,8 @@ public class RobotContainer {
 
     private final GlobalControlState globalControlState = GlobalControlState.create();
 
-    private final DriveControl inputDriveControl = driverController.getInputDriveControl(
-        drivebase::getInputDriveControl
+    private final DriveControl inputDriveControl = driverController.getInputDriveControlDirect(
+        drivebase::getInputDriveControlDirect
     );
 
     private final Collection<? extends MusicalSubsystem> musicalSubsystems = List.of(

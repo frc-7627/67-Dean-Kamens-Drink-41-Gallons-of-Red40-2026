@@ -70,7 +70,33 @@ final class SwerveDrivebase extends SubsystemBase implements
         swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements());
         Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
     }
+ @Override
+    public DriveControl getInputDriveControlDirect(DoubleSupplier xInput, DoubleSupplier yInput,
+            DoubleSupplier xHeading, DoubleSupplier yHeading) {
+        return new DriveControl() {
+            private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper.getInputStream(
+                xInput, 
+                yInput, 
+                xHeading,
+                yHeading
+            );
+            @Override
+            public String getLoggableName() {
+                return "Input Drive Control";
+            }
 
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return DriveControl.super.getLoggableInfo();
+            }
+
+            @Override
+            public ChassisSpeeds getSpeeds() {
+                return inputStream.get();
+            }
+        };
+    }
     @Override
     public DriveControl getInputDriveControl(DoubleSupplier xInput, DoubleSupplier yInput,
             DoubleSupplier rotInput) {
@@ -80,6 +106,7 @@ final class SwerveDrivebase extends SubsystemBase implements
                 yInput, 
                 rotInput
             );
+
 
             @Override
             public String getLoggableName() {

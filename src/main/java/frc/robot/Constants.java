@@ -64,7 +64,7 @@ public final class Constants {
     public static final Matter CHASSIS =
             new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
-    public static final double MAX_SPEED = Units.feetToMeters(2);
+    public static final double MAX_SPEED = Units.feetToMeters(16);
 
     public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
             && simpleMotorSpeed <= 1.0;
@@ -215,7 +215,7 @@ public final class Constants {
     public static class AgitatorConstants {
         public static final int AMP_LIMIT = 150;
 
-        public static final double DEFAULT_DUTY_CYCLE = -0.2;
+        public static final double DEFAULT_DUTY_CYCLE = -0.5;
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
     }
 
@@ -258,13 +258,13 @@ public final class Constants {
 		public static final double DEFAULT_SLOT0_P = 1.0;
 		public static final double DEFAULT_SLOT0_I = 0.0;
 		public static final double DEFAULT_SLOT0_D = 0.0;
-                public static final double DEFAULT_SLOT0_V = 0.5;
+                public static final double DEFAULT_SLOT0_V = 0.75;
 
         public static final int HORN_FREQ = 440;
     }
 
     public static class FeederConstants {
-        public static final double DEFAULT_FEED_SPEED = -0.2; 
+        public static final double DEFAULT_FEED_SPEED = -0.8; 
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 

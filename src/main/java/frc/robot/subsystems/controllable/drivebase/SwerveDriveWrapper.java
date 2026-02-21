@@ -183,4 +183,17 @@ final class SwerveDriveWrapper {
             .scaleTranslation(0.8)
             .allianceRelativeControl(true);
     }
+
+    SwerveInputStream getInputStream(
+        DoubleSupplier xInput, 
+        DoubleSupplier yInput,
+        DoubleSupplier xHeading,
+        DoubleSupplier yHeading
+    ) {
+        return SwerveInputStream.of(swerveDrive, xInput, yInput)
+            .withControllerHeadingAxis(xHeading, yHeading)
+            .deadband(DEADBAND)
+            .scaleTranslation(0.8)
+            .allianceRelativeControl(true);
+    }
 }

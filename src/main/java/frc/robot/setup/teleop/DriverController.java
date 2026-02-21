@@ -18,6 +18,16 @@ public interface DriverController extends TeleopController {
         > driveControlFactory
     );
 
+    DriveControl getInputDriveControlDirect(
+        QuadFunction<
+        DoubleSupplier,
+        DoubleSupplier,
+        DoubleSupplier,
+        DoubleSupplier,
+        DriveControl
+        > driveControlFactory
+    )
+
     static DriverController create() {
         return new DriverXboxController();
     }

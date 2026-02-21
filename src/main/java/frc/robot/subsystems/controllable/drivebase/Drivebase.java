@@ -28,6 +28,13 @@ public interface Drivebase extends
         DoubleSupplier rotInput
     );
 
+    DriveControl getInputDriveControlDirect(
+        DoubleSupplier xInput, 
+        DoubleSupplier yInput, 
+        DoubleSupplier xHeading,
+        DoubleSupplier yHeading
+    );
+
     /**
      * @param angleTargetter the targeting strategy
      * @return a drive control strategy that rotates the robot according to the angle targeting strategy
