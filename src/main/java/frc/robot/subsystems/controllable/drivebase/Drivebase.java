@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.bofalib.control.Controllable;
-import frc.robot.setup.teleop.DriverController;
+import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 /**
@@ -15,8 +15,7 @@ import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 public interface Drivebase extends 
     IndirectDrivebase, 
     MiscDrivebase,
-    Controllable<DriveControl>,
-    DriverController.DriverInputsFunction
+    Controllable<DriveControl>
 {
     /**
      * @param xInput the x drive input
@@ -25,16 +24,7 @@ public interface Drivebase extends
      * @return a drive control strategy applying the x, y, and rotational drive inputs to the robot
      */
     DriveControl getInputDriveControl(
-        DoubleSupplier xInput, 
-        DoubleSupplier yInput, 
-        DoubleSupplier rotInput
-    );
-
-    DriveControl getInputDriveControlDirect(
-        DoubleSupplier xInput, 
-        DoubleSupplier yInput, 
-        DoubleSupplier xHeading,
-        DoubleSupplier yHeading
+        JoystickInputs inputs
     );
 
     /**

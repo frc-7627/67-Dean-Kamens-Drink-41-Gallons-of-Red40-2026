@@ -1,6 +1,6 @@
 package frc.robot.setup.teleop;
 
-import java.util.function.DoubleSupplier;
+import java.util.function.Function;
 import frc.robot.subsystems.controllable.drivebase.DriveControl;
 
 /**
@@ -8,31 +8,11 @@ import frc.robot.subsystems.controllable.drivebase.DriveControl;
  * robot motion.
  */
 public interface DriverController extends TeleopController {
-    @FunctionalInterface
-    public interface DriverInputsFunction {
-        DriveControl getInputDriveControl(
-            DoubleSupplier xInput, 
-            DoubleSupplier yInput, 
-            DoubleSupplier rotInput,
-            // TODO: Name this parameter
-            DoubleSupplier fourthInput
-        );
-        
-    }
+    
 
     DriveControl getInputDriveControl(
-        DriverInputsFunction driveControlFactory
+        Function<JoystickInputs, DriveControl> driveControlFunction
     );
-
-    DriveControl getInputDriveControlDirect(
-        QuadFunction<
-        DoubleSupplier,
-        DoubleSupplier,
-        DoubleSupplier,
-        DoubleSupplier,
-        DriveControl
-        > driveControlFactory
-    )
 
     static DriverController create() {
         return new DriverXboxController();

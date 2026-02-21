@@ -4,11 +4,11 @@ import static frc.robot.Constants.MAX_SPEED;
 import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.DEADBAND;
 import java.io.IOException;
-import java.util.function.DoubleSupplier;
 import java.util.stream.Stream;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurement;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
@@ -172,28 +172,27 @@ final class SwerveDriveWrapper {
         return swerveDrive.getOdometryHeading().getRadians();
     }
 
-    SwerveInputStream getInputStream(
-        DoubleSupplier xInput, 
-        DoubleSupplier yInput,
-        DoubleSupplier rotInput
+    private SwerveInputStream getTranslationalInputStream(
+        JoystickInputs inputs
     ) {
-        return SwerveInputStream.of(swerveDrive, xInput, yInput)
-            .withControllerRotationAxis(rotInput)
-            .deadband(DEADBAND)
-            .scaleTranslation(0.8)
-            .allianceRelativeControl(true);
+        return SwerveInputStream.of(
+            swerveDrive, 
+            () -> -inputs.leftY().getAsDouble(), 
+            () -> -inputs.leftX().getAsDouble()
+        ).deadband(DEADBAND)
+        .scaleTranslation(0.8)
+        .allianceRelativeControl(true);
     }
 
     SwerveInputStream getInputStream(
-        DoubleSupplier xInput, 
-        DoubleSupplier yInput,
-        DoubleSupplier xHeading,
-        DoubleSupplier yHeading
+        InputMode mode,
+        JoystickInputs inputs
     ) {
-        return SwerveInputStream.of(swerveDrive, xInput, yInput)
-            .withControllerHeadingAxis(xHeading, yHeading)
-            .deadband(DEADBAND)
-            .scaleTranslation(0.8)
-            .allianceRelativeControl(true);
+        return switch (mode) {
+            case ROTATE -> getTranslationalInputStream(inputs)
+                .withControllerRotationAxis(inputs.rightX());
+            case HEADING -> getTranslationalInputStream(inputs)
+                .withControllerHeadingAxis(inputs.rightX(), inputs.rightY());
+        };
     }
 }

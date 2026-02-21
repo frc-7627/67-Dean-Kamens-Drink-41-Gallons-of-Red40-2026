@@ -39,6 +39,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.subsystems.controllable.drivebase.InputMode;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import swervelib.math.Matter;
 
@@ -74,6 +75,8 @@ public final class Constants {
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 
     public static final class DrivebaseConstants {
+        public static final InputMode MODE = InputMode.HEADING;
+
         public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
 
         public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(

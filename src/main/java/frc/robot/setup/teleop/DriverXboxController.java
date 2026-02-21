@@ -1,6 +1,7 @@
 package frc.robot.setup.teleop;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.logging.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -35,14 +36,14 @@ class DriverXboxController implements DriverController {
 
     @Override
     public DriveControl getInputDriveControl(
-        DriverController.DriverInputsFunction driveControlFactory
-    ) {
-        return driveControlFactory.getInputDriveControl(
-            () -> xboxController.getLeftY() * -1,
-            () -> xboxController.getLeftX() * -1, 
-            xboxController::getRightX,
-            // TODO: what is this for?
-            () -> 0.0
+            Function<JoystickInputs, DriveControl> driveControlFunction) {
+        return driveControlFunction.apply(
+            new JoystickInputs(
+                xboxController::getLeftX, 
+                xboxController::getLeftY, 
+                xboxController::getRightX, 
+                xboxController::getRightY
+            )
         );
     }
 }

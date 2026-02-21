@@ -1,9 +1,9 @@
 package frc.robot.subsystems.controllable.drivebase;
 
 import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
+import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
 import java.util.Optional;
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 import com.pathplanner.lib.path.PathConstraints;
@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
+import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 final class SwerveDrivebase extends SubsystemBase implements 
@@ -77,47 +78,18 @@ final class SwerveDrivebase extends SubsystemBase implements
 
         Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
     }
- @Override
-    public DriveControl getInputDriveControlDirect(DoubleSupplier xInput, DoubleSupplier yInput,
-            DoubleSupplier xHeading, DoubleSupplier yHeading) {
-        return new DriveControl() {
-            private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper.getInputStream(
-                xInput, 
-                yInput, 
-                xHeading,
-                yHeading
-            );
-            @Override
-            public String getLoggableName() {
-                return "Input Drive Control";
-            }
 
-            @Override
-            public String getLoggableInfo() {
-                // TODO Auto-generated method stub
-                return DriveControl.super.getLoggableInfo();
-            }
-
-            @Override
-            public ChassisSpeeds getSpeeds() {
-                return inputStream.get();
-            }
-        };
-    }
     @Override
     public DriveControl getInputDriveControl(
-        DoubleSupplier xInput, 
-        DoubleSupplier yInput,
-        DoubleSupplier rotInput,
-        // TODO: Name this parameter
-        DoubleSupplier fourthInput
+        JoystickInputs inputs
     ) {
         return new DriveControl() {
-            private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper.getInputStream(
-                xInput, 
-                yInput, 
-                rotInput
-            );
+            private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper
+                .getInputStream(
+                    MODE, 
+                    inputs
+                )
+            ;
 
 
             @Override
