@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.commands.ControlCommand;
+import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.setup.teleop.CommandContext;
 import frc.robot.subsystems.controllable.launcher.LauncherControl;
 

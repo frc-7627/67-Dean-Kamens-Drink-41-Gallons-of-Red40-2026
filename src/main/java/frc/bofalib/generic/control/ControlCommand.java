@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.bofalib.generic.control;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
