@@ -7,7 +7,9 @@ import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.networktables.BooleanEntry;
+import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoubleEntry;
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.function.BooleanConsumer;
 import frc.bofalib.gains.GainItem;
@@ -33,11 +35,19 @@ public final class DashboardItems {
         String key, 
         double defaultValue
     ) {
-        final DoubleEntry entry = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key))
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
+
+        final boolean didExist = topic.exists();
+
+        topic.setPersistent(true);
+
+        final DoubleEntry entry = topic
             .getEntry(defaultValue);
 
-        entry.set(defaultValue);
+        if (!didExist) {
+            entry.set(defaultValue);
+        }
         
         return entry;
     }
@@ -51,11 +61,19 @@ public final class DashboardItems {
             throw new BadInitialValueError(defaultValue);
         }
 
-        final DoubleEntry entry = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key))
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
+
+        final boolean didExist = topic.exists();
+
+        topic.setPersistent(true);
+
+        final DoubleEntry entry = topic
             .getEntry(defaultValue);
 
-        entry.set(defaultValue);
+        if (!didExist) {
+            entry.set(defaultValue);
+        }
 
         return new DoubleSupplier() {
             private double currentValue = defaultValue;
@@ -79,11 +97,19 @@ public final class DashboardItems {
         String key, 
         boolean defaultValue
     ) {
-        final BooleanEntry entry = NetworkTableInstance.getDefault()
-            .getBooleanTopic(convertToTopicName(key))
+        final BooleanTopic topic = NetworkTableInstance.getDefault()
+            .getBooleanTopic(convertToTopicName(key));
+
+        final boolean didExist = topic.exists();
+
+        topic.setPersistent(true);
+
+        final BooleanEntry entry = topic
             .getEntry(defaultValue);
 
-        entry.set(defaultValue);
+        if (!didExist) {
+            entry.set(defaultValue);
+        }
         
         return entry;
     }
