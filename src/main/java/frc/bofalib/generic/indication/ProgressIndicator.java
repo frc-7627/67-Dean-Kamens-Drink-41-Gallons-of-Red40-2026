@@ -10,4 +10,6 @@ public interface ProgressIndicator extends Subsystem {
      * @param currentProgress   the current progress.
      */
     <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress);
+
+    void indicateProgress(int stepsProgressed, int totalSteps);
 }
