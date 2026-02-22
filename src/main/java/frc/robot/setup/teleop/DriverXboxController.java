@@ -24,10 +24,11 @@ class DriverXboxController implements DriverController {
             
             case ORIENT_TO_HUB -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
 
-            case ZERO_GYRO -> binderConsumer.accept(xboxController.a()::whileTrue);
+            case ZERO_GYRO -> binderConsumer.accept(xboxController.a()::onTrue);
+            case ZERO_GYRO_WITH_ALLIANCE -> binderConsumer.accept(xboxController.leftTrigger()::onTrue);
             case FEED -> binderConsumer.accept(xboxController.b()::whileTrue);
             case SHOOT -> binderConsumer.accept(xboxController.x()::whileTrue);
-            case FEED_AND_SHOOT -> binderConsumer.accept(xboxController.y()::whileTrue);
+            case AGITATE_FEED_AND_SHOOT -> binderConsumer.accept(xboxController.y()::whileTrue);
 
             default -> {
             }

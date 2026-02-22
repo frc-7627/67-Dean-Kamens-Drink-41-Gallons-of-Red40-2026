@@ -12,6 +12,7 @@ import frc.robot.commands.RobotSongCommand;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.Lock;
 import frc.robot.commands.drive.misc.ZeroGyro;
+import frc.robot.commands.drive.misc.*;
 import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
@@ -26,6 +27,10 @@ enum TeleopCommandFactory {
      * 
      */
     ZERO_GYRO(context -> new ZeroGyro(context.drivebase())),
+    /**
+     * 
+     */
+    ZERO_GYRO_WITH_ALLIANCE(context -> new ZeroGyroWithAlliance(context.drivebase())),
     /**
      * 
      */

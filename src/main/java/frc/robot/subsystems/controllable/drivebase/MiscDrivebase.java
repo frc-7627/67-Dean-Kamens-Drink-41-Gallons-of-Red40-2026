@@ -1,5 +1,6 @@
 package frc.robot.subsystems.controllable.drivebase;
 
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 public interface MiscDrivebase extends Subsystem {
@@ -13,4 +14,9 @@ public interface MiscDrivebase extends Subsystem {
      * (red alliance station).
      */
     void zeroGyro();
+
+    /**
+     * 
+     */
+    void zeroGyroWithAlliance();
 }

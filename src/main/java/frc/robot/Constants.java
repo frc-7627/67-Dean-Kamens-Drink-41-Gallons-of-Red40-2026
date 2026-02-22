@@ -75,7 +75,7 @@ public final class Constants {
     // Maximum speed of the robot in meters per second, used to limit acceleration.
 
     public static final class DrivebaseConstants {
-        public static final InputMode MODE = InputMode.HEADING;
+        public static final InputMode MODE = InputMode.ROTATE;
 
         public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
 
@@ -101,14 +101,23 @@ public final class Constants {
         public static final String RIGHT_CAMERA_NAME = "PC_Camera_MA";
 
         public static final Transform3d LEFT_CAMERA_TRANSFORM = new Transform3d(
-                new Translation3d(Units.inchesToMeters(8),
-                        Units.inchesToMeters(1), Units.inchesToMeters(8)),
-                new Rotation3d(0, Units.degreesToRadians(30), 25));
+                new Translation3d(
+                        Units.inchesToMeters(-6.825), //x
+                        Units.inchesToMeters(4.798), //y
+                        Units.inchesToMeters(18.354)), //z
+                new Rotation3d(
+                        Units.degreesToRadians(0), 
+                        Units.degreesToRadians(10.355), 
+                        Units.degreesToRadians(5)));
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
-                new Translation3d(Units.inchesToMeters(5.840),
-                        Units.inchesToMeters(10.776),
-                        Units.inchesToMeters(7.776)),
-                new Rotation3d(0, Units.degreesToRadians(30), 70));
+                new Translation3d(
+                        Units.inchesToMeters(-6.825), //x
+                        Units.inchesToMeters(-4.798), //y
+                        Units.inchesToMeters(18.354)), //z
+                new Rotation3d(
+                        Units.degreesToRadians(0), 
+                        Units.degreesToRadians(10.355),
+                        Units.degreesToRadians(-5)));
 
         public static final int MAX_CONNECTION_RETRIES = 10;
 
@@ -123,7 +132,7 @@ public final class Constants {
 
         public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
 
-        public static final Translation2d HUB_LOCATION = new Translation2d(Inches.of(182.56), Inches.of(0));
+        public static final Translation2d HUB_LOCATION = new Translation2d(Inches.of(0), Inches.of(0)); //182.56
     }
 
     public static class OperatorConstants {
@@ -246,7 +255,7 @@ public final class Constants {
         // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 15; 
+        public static final double DEFAULT_SHOOT_FPS = 25; 
         public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 
@@ -263,7 +272,7 @@ public final class Constants {
 		public static final double DEFAULT_SLOT0_P = 1.0;
 		public static final double DEFAULT_SLOT0_I = 0.0;
 		public static final double DEFAULT_SLOT0_D = 0.0;
-                public static final double DEFAULT_SLOT0_V = 0.75;
+                public static final double DEFAULT_SLOT0_V = 0.137627;
 
         public static final int HORN_FREQ = 440;
     }

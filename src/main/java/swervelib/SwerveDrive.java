@@ -919,7 +919,8 @@ public class SwerveDrive implements AutoCloseable
       mapleSimDrive.setSimulationWorldPose(pose);
     }
     odometryLock.unlock();
-    ChassisSpeeds robotRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(new ChassisSpeeds(0, 0, 0), getYaw());
+    ChassisSpeeds robotRelativeSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(
+      new ChassisSpeeds(0, 0, 0), getYaw());
     kinematics.toSwerveModuleStates(robotRelativeSpeeds);
 
   }
