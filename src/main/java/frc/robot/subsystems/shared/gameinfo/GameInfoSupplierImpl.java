@@ -3,7 +3,10 @@ package frc.robot.subsystems.shared.gameinfo;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -11,6 +14,7 @@ import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import frc.bofalib.subsystem.SharedSubsystemBase;
 import frc.robot.Constants;
+import swervelib.SwerveDrive;
 
 final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfoSupplier {
     private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getName());
@@ -92,10 +96,23 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     public Translation2d getHubPosition() {
         //System.out.println("Getting the Hub pose for the respective Alliance");
         return switch (alliance) {
-            case Red -> Constants.VisionConstants.HUB_LOCATION.unaryMinus();
-            case Blue -> Constants.VisionConstants.HUB_LOCATION;
+            case Red -> Constants.VisionConstants.RED_HUB_LOCATION;
+            case Blue -> Constants.VisionConstants.BLUE_HUB_LOCATION;
         };
     }
+
+    /** 
+     * Get the distance that the robot is from the respective hub pose
+    */
+    /*@Override
+    public Translation2d getDistanceToHub() {
+        if(alliance == Alliance.Red){
+            return SwerveDrive.getPose() //TODO: PUT THIS BACK WHEN I CAN PUT THIS BACK
+        }
+        else{
+            return 
+        }
+    } */
 
     @Override
     public boolean willHubActivate() {

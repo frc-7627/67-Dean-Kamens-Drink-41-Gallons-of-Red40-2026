@@ -1,0 +1,10 @@
+package frc.robot.subsystems.controllable.Swivel;
+
+import frc.bofalib.control.Controllable;
+import frc.bofalib.generic.music.MusicalSubsystem;
+
+public interface Swivel extends MusicalSubsystem, Controllable<SwivelControl> {
+   /*  static Swivel create() {
+        return new SwivelImpl();
+    } */ //TODO: PUT THIS BACK LATER AND CONTINUE WORKING
+}

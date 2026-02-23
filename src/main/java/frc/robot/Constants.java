@@ -132,7 +132,8 @@ public final class Constants {
 
         public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
 
-        public static final Translation2d HUB_LOCATION = new Translation2d(Inches.of(0), Inches.of(0)); //182.56
+        public static final Translation2d BLUE_HUB_LOCATION = new Translation2d(4.6256, 4.0345);
+        public static final Translation2d RED_HUB_LOCATION = new Translation2d(11.9154, 4.0345); 
     }
 
     public static class OperatorConstants {
@@ -237,11 +238,11 @@ public final class Constants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
         
-        public static final int AMP_LIMIT = 50;
+        public static final int AMP_LIMIT = 25;
         
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
 
-        public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.2;
+        public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
@@ -255,11 +256,11 @@ public final class Constants {
         // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 25; 
+        public static final double DEFAULT_SHOOT_FPS = 31; 
         public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 
-        public static final double DEFAULT_RAMP_UP_PERIOD = 0.5;
+        public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 
@@ -278,7 +279,7 @@ public final class Constants {
     }
 
     public static class FeederConstants {
-        public static final double DEFAULT_FEED_SPEED = -0.8; 
+        public static final double DEFAULT_FEED_SPEED = -1; 
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 

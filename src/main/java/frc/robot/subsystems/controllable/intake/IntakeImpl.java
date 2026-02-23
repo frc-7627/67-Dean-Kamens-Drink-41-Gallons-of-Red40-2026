@@ -1,8 +1,12 @@
 package frc.robot.subsystems.controllable.intake;
 
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.IntakeConstants.*;
 import static frc.robot.Constants.CanIDs.*;
+
+import java.util.List;
 import java.util.function.DoubleSupplier;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
@@ -22,7 +26,10 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.bofalib.util.FunctionalUtil;
 
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements 
@@ -43,7 +50,7 @@ final class IntakeImpl extends SubsystemBase implements
         MotorType.kBrushless
     ).withConfig(
         new SparkMaxConfig()
-            .idleMode(IdleMode.kCoast)
+            .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(AMP_LIMIT), 
         ResetMode.kResetSafeParameters, 
         PersistMode.kPersistParameters
@@ -71,6 +78,35 @@ final class IntakeImpl extends SubsystemBase implements
         DEFAULT_FOLD_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
+
+    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> intakeMotor.queryDouble(
+        TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
+    );
+    private final DoubleSupplier motorVoltageSupplier = () -> intakeMotor.queryDouble(
+        TalonFXQuery.VOLTAGE
+    );
+
+    IntakeImpl() {
+            // MENTOR CODE RAWR!
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                ), 
+                () -> RPM.convertFrom(
+                    motorVelocityRotPerSecSupplier.getAsDouble(), 
+                    RotationsPerSecond
+                ),
+                FunctionalUtil.hasChangedDoublePredicate()
+            );
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                ), 
+                () -> motorVoltageSupplier.getAsDouble(),
+                FunctionalUtil.hasChangedDoublePredicate()
+            );
+        
+    }
 
     @Override
     public String getLoggableName() {

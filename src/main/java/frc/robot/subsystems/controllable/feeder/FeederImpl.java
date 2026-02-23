@@ -2,10 +2,15 @@ package frc.robot.subsystems.controllable.feeder;
 
 import static frc.robot.Constants.FeederConstants.*;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
+
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
@@ -16,6 +21,7 @@ import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
@@ -56,6 +62,13 @@ final class FeederImpl extends SubsystemBase implements
         CHECK_DUTY_CYCLE
     );
 
+    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> motor.queryDouble(
+        TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
+    );
+    private final DoubleSupplier motorVoltageSupplier = () -> motor.queryDouble(
+        TalonFXQuery.VOLTAGE
+    );
+
     FeederImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
@@ -64,8 +77,28 @@ final class FeederImpl extends SubsystemBase implements
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     DEFAULT_CURRENT_LIMIT
                 ), 
-                FunctionalUtil.hasChangedDoublePredicate())
+                FunctionalUtil.hasChangedDoublePredicate()
+            ),
+            // MENTOR CODE RAWR!
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                ), 
+                () -> RPM.convertFrom(
+                    motorVelocityRotPerSecSupplier.getAsDouble(), 
+                    RotationsPerSecond
+                ),
+                FunctionalUtil.hasChangedDoublePredicate()
+            ),
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                ), 
+                () -> motorVoltageSupplier.getAsDouble(),
+                FunctionalUtil.hasChangedDoublePredicate()
+            )
         ));
+        
     }
 
     @Override

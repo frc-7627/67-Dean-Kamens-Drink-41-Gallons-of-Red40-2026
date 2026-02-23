@@ -5,21 +5,15 @@ import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.units.AngularVelocityUnit;
 
-public sealed interface MotorSetting permits
-    MotorDutyCycle,
-    MotorVelocity,
-    MotorMagicMotion
-{
-    void visit(
+public record MotorMagicMotion(
+    DoubleSupplier magicMotionSupplier
+) implements MotorSetting {
+    @Override
+    public void visit(
         Consumer<DoubleSupplier> dutyCycleConsumer,
         BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer,
         Consumer<DoubleSupplier> magicMotionConsumer
-
-    );
-
-    static enum Type {
-        DUTY_CYCLE,
-        ANGULAR_VELOCITY,
-        MAGIC_MOTION;
+    ) {
+        magicMotionConsumer.accept(magicMotionSupplier);
     }
 }
