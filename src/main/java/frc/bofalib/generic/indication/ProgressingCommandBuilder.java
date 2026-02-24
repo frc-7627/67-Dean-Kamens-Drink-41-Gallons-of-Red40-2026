@@ -19,12 +19,14 @@ public final class ProgressingCommandBuilder {
         this.stepNames = new ArrayList<>();
     }
 
-    public void addStep(
+    public ProgressingCommandBuilder addStep(
         String stepName,
         Command command
     ) {
         this.stepNames.add(stepName);
         this.commands.add(command);
+
+        return this;
     }
 
     public Command build() {
