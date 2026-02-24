@@ -4,7 +4,6 @@ import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.util.Progress;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 
 final class IndicatorImpl extends SubsystemBase implements Indicator {
@@ -80,10 +79,8 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
      * default color.
      */
     @Override
-    public <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress) {
-        // Fill the LEDs to the fraction of steps progressed to total steps.
-        led.setProgress(currentProgress.getStepsProgressed(), currentProgress.getTotalSteps(),
-                getProgressBarColor(), getDefaultColor());
+    public void indicateProgress(int stepsProgressed, int totalSteps) {
+        led.setProgress(stepsProgressed, totalSteps, getProgressBarColor(), getDefaultColor());
     }
 
     /**
@@ -122,5 +119,23 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
      */
     private static RGBWColor getColorFromArray(int[] array) {
         return new RGBWColor(array[0], array[1], array[2]);
+    }
+
+    @Override
+    public void indicateRampUp() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'indicateRampUp'");
+    }
+
+    @Override
+    public void indicateShoot() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'indicateShoot'");
+    }
+
+    @Override
+    public void indicateGrace() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'indicateGrace'");
     }
 }
