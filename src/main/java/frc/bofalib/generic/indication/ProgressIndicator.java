@@ -4,12 +4,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 public interface ProgressIndicator extends Subsystem {
     /**
-     * Indicate the progress of a command with the current progress.
+     * Indicate the progress of a command with the current steps progressed and 
+     * total number of steps.
      * 
-     * @param <CommandProgress> an amount of progress.
-     * @param currentProgress   the current progress.
+     * @param stepsProgressed the current steps progressed
+     * @param totalSteps the total number of steps
      */
-    <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress);
-
     void indicateProgress(int stepsProgressed, int totalSteps);
 }

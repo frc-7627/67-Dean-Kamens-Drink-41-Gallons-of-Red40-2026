@@ -3,7 +3,6 @@ package frc.robot.subsystems.misc.indication;
 import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.bofalib.generic.indication.Progress;
 import frc.robot.Constants;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 
@@ -80,10 +79,8 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
      * default color.
      */
     @Override
-    public <CommandProgress extends Progress> void indicateProgress(CommandProgress currentProgress) {
-        // Fill the LEDs to the fraction of steps progressed to total steps.
-        led.setProgress(currentProgress.getStepsProgressed(), currentProgress.getTotalSteps(),
-                getProgressBarColor(), getDefaultColor());
+    public void indicateProgress(int stepsProgressed, int totalSteps) {
+        led.setProgress(stepsProgressed, totalSteps, getProgressBarColor(), getDefaultColor());
     }
 
     /**
