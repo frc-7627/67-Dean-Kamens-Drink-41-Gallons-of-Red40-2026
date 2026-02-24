@@ -120,4 +120,22 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
     private static RGBWColor getColorFromArray(int[] array) {
         return new RGBWColor(array[0], array[1], array[2]);
     }
+
+    @Override
+    public void indicateRampUp() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'indicateRampUp'");
+    }
+
+    @Override
+    public void indicateShoot() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'indicateShoot'");
+    }
+
+    @Override
+    public void indicateGrace() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'indicateGrace'");
+    }
 }

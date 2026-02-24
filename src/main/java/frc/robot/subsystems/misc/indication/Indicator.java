@@ -28,6 +28,12 @@ public interface Indicator extends ProgressIndicator {
      */
     void indicateInterruption();
 
+    void indicateRampUp();
+
+    void indicateShoot();
+
+    void indicateGrace();
+
     static Indicator create(GameInfoSupplier gameInfoSupplier) {
         return new IndicatorImpl(gameInfoSupplier);
     }
