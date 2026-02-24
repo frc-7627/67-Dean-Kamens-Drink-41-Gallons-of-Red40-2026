@@ -11,7 +11,8 @@ public record MotorDutyCycle(
     @Override
     public void visit(
         Consumer<DoubleSupplier> dutyCycleConsumer,
-        BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer
+        BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer,
+        Consumer<DoubleSupplier> magicMotionConsumer
     ) {
         dutyCycleConsumer.accept(dutyCycleSupplier);
     }

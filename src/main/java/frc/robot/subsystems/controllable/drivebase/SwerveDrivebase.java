@@ -3,20 +3,26 @@ package frc.robot.subsystems.controllable.drivebase;
 import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
+import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
+
 import java.util.Optional;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
+
+import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
 import frc.robot.setup.teleop.JoystickInputs;
+import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
@@ -31,12 +37,14 @@ final class SwerveDrivebase extends SubsystemBase implements
     private final SwerveDriveWrapper swerveDriveWrapper;
     private final RotationRateCalculator rotationRateCalculator;
     private final ControlBox<DriveControl> controlBox = new ControlBox<>();
+    private final GeneralGameInfoSupplier gameInfoSupplier;
 
     SwerveDrivebase(
         Optional<VisionMeasurementsSupplier> visionOptional, 
         GeneralGameInfoSupplier gameInfoSupplier
     ) {
         this.visionOptional = visionOptional;
+        this.gameInfoSupplier = gameInfoSupplier;
 
         final Pose2d initialPose = switch (gameInfoSupplier.getAlliance()) {
             case Red -> RED_ALLIANCE_INITIAL_POSE;
@@ -50,7 +58,6 @@ final class SwerveDrivebase extends SubsystemBase implements
             swerveDriveWrapper::getOrientationRadians
         );
 
-        gameInfoSupplier.onAllianceSet(swerveDriveWrapper::zeroGyroWithAlliance);
 
         PathPlannerConfig.configure(
             swerveDriveWrapper::getPose, 
@@ -60,6 +67,11 @@ final class SwerveDrivebase extends SubsystemBase implements
             gameInfoSupplier::getAlliance,
             this
         );
+
+        if (!VISION_ENABLED){
+            zeroGyroWithAlliance();
+        }
+
     }
 
     @Override
@@ -208,6 +220,12 @@ final class SwerveDrivebase extends SubsystemBase implements
     @Override
     public void zeroGyro() {
         swerveDriveWrapper.zeroGyro();
+    }
+
+    @Override
+    public void zeroGyroWithAlliance() {
+        Alliance alliance = this.gameInfoSupplier.getAlliance();
+        swerveDriveWrapper.zeroGyroWithAlliance(alliance);
     }
 
     @Override

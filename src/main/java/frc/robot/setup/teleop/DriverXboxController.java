@@ -19,15 +19,17 @@ class DriverXboxController implements DriverController {
         logger.fine("Binding driver command '" + factory.toString() + "'");
 
         switch (factory) {
-            case LOCK -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
+            //case LOCK -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
             case DRIVE_WHILE_ORIENTING_TO_HUB -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
             
-            case ORIENT_TO_HUB -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
+            //case ORIENT_TO_HUB -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
 
-            case ZERO_GYRO -> binderConsumer.accept(xboxController.a()::whileTrue);
-            case FEED -> binderConsumer.accept(xboxController.b()::whileTrue);
-            case SHOOT -> binderConsumer.accept(xboxController.x()::whileTrue);
-            case FEED_AND_SHOOT -> binderConsumer.accept(xboxController.y()::whileTrue);
+            case ZERO_GYRO_WITH_ALLIANCE -> binderConsumer.accept(xboxController.a()::onTrue);
+            case PERFECT_CELL -> binderConsumer.accept(xboxController.y()::whileTrue);
+            case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::whileTrue);
+            case SWIVEL_OUT -> binderConsumer.accept(xboxController.b()::whileTrue);
+            case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
+            case COOLER_EJECT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
 
             default -> {
             }

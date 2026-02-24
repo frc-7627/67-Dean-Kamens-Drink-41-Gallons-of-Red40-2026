@@ -3,21 +3,24 @@ package frc.robot.setup.teleop;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.RobotSong;
 import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.RobotSongCommand;
 import frc.robot.commands.control.ToggleControlState;
-import frc.robot.commands.drive.misc.Lock;
-import frc.robot.commands.drive.misc.ZeroGyro;
+import frc.robot.commands.drive.misc.*;
 import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
+import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControl;
 
 enum TeleopCommandFactory {
+    
     /**
      * 
      */
@@ -26,6 +29,10 @@ enum TeleopCommandFactory {
      * 
      */
     ZERO_GYRO(context -> new ZeroGyro(context.drivebase())),
+    /**
+     * 
+     */
+    ZERO_GYRO_WITH_ALLIANCE(context -> new ZeroGyroWithAlliance(context.drivebase())),
     /**
      * 
      */
@@ -41,6 +48,12 @@ enum TeleopCommandFactory {
     new ControlCommand<>(context.intake(), IntakeControl.EJECT), 
     context.indicator()
 )),
+
+    /**
+     * 
+     */
+    COOLER_EJECT(context -> new ControlCommand<>(context.intake(), IntakeControl.EJECT)
+        .alongWith(new ControlCommand<>(context.hopper(), AgitatorControl.AWAY))),
     /**
      * 
      */
@@ -96,6 +109,11 @@ enum TeleopCommandFactory {
     AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
     .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
     .alongWith(new ControlCommand<>(context.hopper(), AgitatorControl.TOWARD)))),
+
+    PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+    .raceWith(new WaitCommand(1.25)).andThen(new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+    .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
+    .alongWith(new ControlCommand<>(context.hopper(), AgitatorControl.TOWARD))))),
     
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 

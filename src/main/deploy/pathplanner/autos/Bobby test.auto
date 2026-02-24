@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lame Pt 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Lame Pt 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Undo pt 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Undo pt 1"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

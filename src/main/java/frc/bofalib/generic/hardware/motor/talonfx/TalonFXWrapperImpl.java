@@ -86,7 +86,9 @@ implements
                     ); },
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new VelocityVoltage(
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
-                    ).withSlot(0)); }
+                    ).withSlot(0)); },
+                    magicMotionSupplier -> { talonFX.set(magicMotionSupplier.getAsDouble() //TODO: DO WIZARDRY HERE (Make it actually magic motion)
+                    ); } 
                 );
             }
         );
@@ -113,6 +115,9 @@ implements
     public double queryDouble(TalonFXQuery query) {
         return switch (Objects.requireNonNull(query)) {
             case ANGULAR_VELOCITY_ROT_PER_SEC -> talonFX.getVelocity().getValueAsDouble();
+            case VOLTAGE -> talonFX.getMotorVoltage().getValueAsDouble();
+            default -> throw new IllegalArgumentException("Unexpected value: " + Objects.requireNonNull(query));
+            
         };
     }
     

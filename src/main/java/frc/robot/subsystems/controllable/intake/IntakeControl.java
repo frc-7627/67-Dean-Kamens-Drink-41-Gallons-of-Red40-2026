@@ -4,6 +4,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.generic.control.BiControl;
 import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
+import frc.bofalib.generic.hardware.motor.setting.MotorMagicMotion;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
@@ -76,7 +77,7 @@ public enum IntakeControl implements BiControl<
         this.name = name;
         this.pivotControlFunction = motor.visit(
             impl -> new SparkMaxControlSetting(
-                new MotorDutyCycle(
+                new MotorMagicMotion(
                     dutyCycleFunction.apply(impl)
                 )
             ), 

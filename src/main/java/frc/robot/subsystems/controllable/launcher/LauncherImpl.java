@@ -59,6 +59,12 @@ final class LauncherImpl extends SubsystemBase implements
             TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
         )
     );
+    private final DoubleSupplier motorVoltageSupplier = () -> motors.queryDouble(
+        new TalonFXGroupQuery(
+            OptionalInt.empty(),
+            TalonFXQuery.VOLTAGE
+        )
+    );
 
     final DoubleSupplier shootSpeedFPSSupplier =
     DashboardItems.createDoublePuller(
@@ -104,6 +110,13 @@ final class LauncherImpl extends SubsystemBase implements
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
                     RotationsPerSecond
                 ),
+                FunctionalUtil.hasChangedDoublePredicate()
+            ),
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                ), 
+                () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             DashboardItems.createGainsDashboard(

@@ -5,10 +5,12 @@ import static frc.robot.Constants.DrivebaseConstants.*;
 import static frc.robot.Constants.OperatorConstants.DEADBAND;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 import java.io.IOException;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.setup.teleop.JoystickInputs;
@@ -20,6 +22,11 @@ import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 final class SwerveDriveWrapper {
+
+    private static final Rotation3d k180deg = new Rotation3d();
+
+    private static final Logger logger = Logger.getLogger(SwerveDriveWrapper.class.getName());
+
     private final SwerveDrive swerveDrive;
 
     /**
@@ -138,13 +145,20 @@ final class SwerveDriveWrapper {
      */
     void zeroGyro() {
         swerveDrive.zeroGyro();
+        System.out.println("Zeroing the gyro");
+        logger.fine("Zeroing the gyro");
+        //swerveDrive.setGyroOffset(swerveDrive.getGyro().getRotation3d().minus(k180deg));
     }
 
     void zeroGyroWithAlliance(Alliance alliance) {
         zeroGyro();
+        System.out.println("Zeroing Gyro with the alliance"); 
+        logger.fine("Zeroing Gyro with the alliance");
 
         if (alliance.equals(Alliance.Red)) {
             resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.k180deg));
+            System.out.println("Team was found to be red so applying the 180 degree thing");
+            logger.fine("Team was found to be red so applying the 180 degree thing");
         }
     }
 

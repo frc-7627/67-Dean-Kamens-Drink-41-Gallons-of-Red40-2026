@@ -98,13 +98,14 @@ public class Pigeon2Swerve extends SwerveIMU
   public void factoryDefault()
   {
     Pigeon2Configuration config = new Pigeon2Configuration();
+    System.out.println("Marcus's fault");
 
     // Compass utilization causes readings to jump dramatically in some cases.
     cfg.apply(config.Pigeon2Features.withEnableCompass(false));
   }
 
   /**
-   * Clear sticky faults on {@link Pigeon2}.
+   * Clear sticky faults on {@link Pigeon2}.      
    */
   @Override
   public void clearStickyFaults()
