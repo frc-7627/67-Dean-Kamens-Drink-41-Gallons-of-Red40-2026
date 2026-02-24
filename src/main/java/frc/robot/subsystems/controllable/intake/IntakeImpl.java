@@ -6,7 +6,6 @@ import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.IntakeConstants.*;
 import static frc.robot.Constants.CanIDs.*;
 
-import java.util.List;
 import java.util.function.DoubleSupplier;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
@@ -28,7 +27,6 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
-import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
 
 // Colloquially known as Miles at lunch

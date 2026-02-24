@@ -11,6 +11,7 @@ import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
+import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
 final class SparkMaxWrapperImpl extends LoggableBase implements 
@@ -47,6 +48,16 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
                 ); }
             );
         }
+    }
+
+    @Override
+    public double queryDouble(SparkMaxQuery query) {
+        return switch (Objects.requireNonNull(query)) {
+            case ANGULAR_VELOCITY_ROT_PER_SEC -> sparkMax.
+            case VOLTAGE -> sparkMax.getOutputCurrent();
+            default -> throw new IllegalArgumentException("Unexpected value: " + Objects.requireNonNull(query));
+            
+        };
     }
 
     @Override
