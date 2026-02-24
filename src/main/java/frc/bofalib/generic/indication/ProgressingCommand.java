@@ -1,7 +1,6 @@
 package frc.bofalib.generic.indication;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -15,18 +14,33 @@ final class ProgressingCommand extends Command {
     private final ProgressIndicator indicator;
 
     private final List<Command> commands;
+    private final List<String> stepNames;
     private Iterator<Command> commandIter;
 
     private Optional<Command> commandOptional = Optional.empty();
+    private Optional<String> stepNameOptional = Optional.empty();
     private OptionalInt indexOptional = OptionalInt.empty();
     private boolean runsWhenDisabled = true;
     private InterruptionBehavior interruptionBehavior = InterruptionBehavior.kCancelIncoming;
 
-    ProgressingCommand(ProgressIndicator indicator, Collection<? extends Command> commands) {
+    ProgressingCommand(
+        ProgressIndicator indicator, 
+        List<? extends Command> commands,
+        List<String> stepNames
+    ) {
         this.indicator = Objects.requireNonNull(indicator);
 
         Objects.requireNonNull(commands);
+        Objects.requireNonNull(stepNames);
+
+        if (stepNames.size() != commands.size()) {
+            throw new IllegalArgumentException(
+                "Step names and commands must have the same number of elements!"
+            );
+        }
+
         this.commands = new ArrayList<>(commands.size());
+        this.stepNames = List.copyOf(stepNames);
 
         CommandScheduler.getInstance().registerComposedCommands(
             commands.toArray(Command[]::new)
@@ -62,11 +76,13 @@ final class ProgressingCommand extends Command {
                 indexOptional.isPresent() ? indexOptional.getAsInt() + 1 : 0
             ;
 
-            indicator.indicateProgress(index, commands.size() - 1);
+            indicator.indicateProgress(index, commands.size());
 
             indexOptional = OptionalInt.of(index);
+            stepNameOptional = Optional.of(stepNames.get(index));
         } else {
             commandOptional = Optional.empty();
+            stepNameOptional = Optional.empty();
             indexOptional = OptionalInt.empty();
         }
     }
@@ -118,5 +134,6 @@ final class ProgressingCommand extends Command {
         super.initSendable(builder);
 
         builder.addIntegerProperty("index", () -> indexOptional.orElse(-1), null);
+        builder.addStringProperty("step", () -> stepNameOptional.orElse("N/A"), null);
     }
 }
