@@ -2,7 +2,6 @@ package frc.robot.subsystems.controllable.feeder;
 
 import static frc.robot.Constants.FeederConstants.*;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
@@ -10,7 +9,6 @@ import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
-import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;

@@ -19,7 +19,7 @@ class DriverXboxController implements DriverController {
         logger.fine("Binding driver command '" + factory.toString() + "'");
 
         switch (factory) {
-            //case LOCK -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
+            case LOCK -> binderConsumer.accept(xboxController.leftStick()::whileTrue);
             case DRIVE_WHILE_ORIENTING_TO_HUB -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
             
             //case ORIENT_TO_HUB -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);

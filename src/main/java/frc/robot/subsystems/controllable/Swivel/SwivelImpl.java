@@ -22,10 +22,7 @@ import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
-import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
-import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.util.FunctionalUtil;
-import frc.robot.subsystems.controllable.intake.IntakeControl;
 
 import static frc.robot.Constants.IntakeConstants.*;
 import static frc.robot.Constants.CanIDs.*;

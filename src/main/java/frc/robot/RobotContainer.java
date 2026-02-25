@@ -32,6 +32,7 @@ import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controllable.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.swivel.Swivel;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -64,6 +65,8 @@ public class RobotContainer {
 
     private final Intake intake = Intake.create();
 
+    private final Swivel swivel = Swivel.create();
+
     private final Feeder feeder = Feeder.create();
 
     private final Agitator hopper = Agitator.create();
@@ -86,6 +89,7 @@ public class RobotContainer {
         indicator,
         drivebase,
         intake,
+        swivel,
         launcher,
         feeder,
         hopper,

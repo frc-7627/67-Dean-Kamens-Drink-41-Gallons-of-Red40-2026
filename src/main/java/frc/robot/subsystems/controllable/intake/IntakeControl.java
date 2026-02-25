@@ -2,44 +2,35 @@ package frc.robot.subsystems.controllable.intake;
 
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
-import frc.bofalib.generic.control.BiControl;
+
+import frc.bofalib.generic.control.UniControl;
 import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
-import frc.bofalib.generic.hardware.motor.setting.MotorMagicMotion;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.loggable.Loggable;
 import frc.bofalib.util.FunctionalUtil;
 
-public enum IntakeControl implements BiControl<
+public enum IntakeControl implements UniControl<
     IntakeImpl, 
-    SparkMaxControl, 
     TalonFXControl
 >, Loggable {
     LOAD(
-        "Intake Load",
-        Motor.INTAKE_MOTOR, 
+        "Intake Load", 
         impl -> impl.intakeDutyCycle
     ),
     EJECT(
         "Intake Eject",
-        Motor.INTAKE_MOTOR, 
         impl -> FunctionalUtil.negativeSupplier(impl.intakeDutyCycle)
     ),
     LOAD_MANUAL(
         "Intake Load Manual",
-        Motor.INTAKE_MOTOR, 
         impl -> impl.intakeManualDutyCycle
     ),
     EJECT_MANUAL(
         "Intake Eject Manual",
-        Motor.INTAKE_MOTOR, 
         impl -> FunctionalUtil.negativeSupplier(impl.intakeManualDutyCycle)
-    ),
-    FOLD_OUT(
+    );
+    /*FOLD_OUT(
         "Intake Fold Out",
         Motor.PIVOT_MOTOR, 
         impl -> impl.foldDutyCycle
@@ -47,52 +38,28 @@ public enum IntakeControl implements BiControl<
     FOLD_IN(
         "Intake Fold In",
         Motor.PIVOT_MOTOR, 
-        impl -> FunctionalUtil.negativeSupplier(impl.foldDutyCycle)
-    );
+        impl -> FunctionalUtil.negativeSupplier(impl.foldDutyCycle) //TODO: TAKE THIS OUT AT SOME POINT
+    ); */
 
-    private static enum Motor {
-        PIVOT_MOTOR,
-        INTAKE_MOTOR;
-
-        <Out> Out visit(
-            Out pivotMotorOut,
-            Out intakeMotorOut
-        ) {
-            return switch (this) {
-                case PIVOT_MOTOR -> pivotMotorOut;
-                case INTAKE_MOTOR -> intakeMotorOut;
-            };
-        }
-    }
 
     private final String name;
-    private final Function<IntakeImpl, SparkMaxControl> pivotControlFunction;
     private final Function<IntakeImpl, TalonFXControl> intakeControlFunction;
 
     private IntakeControl(
         String name,
-        Motor motor,
         Function<IntakeImpl, DoubleSupplier> dutyCycleFunction
     ) {
         this.name = name;
-        this.pivotControlFunction = motor.visit(
-            impl -> new SparkMaxControlSetting(
-                new MotorMagicMotion(
-                    dutyCycleFunction.apply(impl)
-                )
-            ), 
-            impl -> SparkMaxControlEmpty.getInstance()
-        );
 
-        this.intakeControlFunction = motor.visit(
-            impl -> TalonFXControlEmpty.getInstance(), 
-            impl -> new TalonFXControlSetting(
+        this.intakeControlFunction = 
+            impl -> new TalonFXControlSetting(              
                 new MotorDutyCycle(
                     dutyCycleFunction.apply(impl)
                 )
-            )
-        );
-    }
+            );
+    } /*this.firstControlFunction = impl -> new SparkMaxControlSetting(
+            new MotorMagicMotion(magicMotionFunction.apply(impl))
+        ); */
 
     @Override
     public String getLoggableName() {
@@ -100,12 +67,7 @@ public enum IntakeControl implements BiControl<
     }
 
     @Override
-    public SparkMaxControl getFirstControl(IntakeImpl target) {
-        return pivotControlFunction.apply(target);
-    }
-
-    @Override
-    public TalonFXControl getSecondControl(IntakeImpl target) {
+    public TalonFXControl getFirstControl(IntakeImpl target) {
         return intakeControlFunction.apply(target);
     }
 }

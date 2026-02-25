@@ -108,7 +108,7 @@ public final class Constants {
                 new Rotation3d(
                         Units.degreesToRadians(0), 
                         Units.degreesToRadians(10.355), 
-                        Units.degreesToRadians(5)));
+                        Units.degreesToRadians(-5)));
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
                         Units.inchesToMeters(-6.825), //x
@@ -117,7 +117,7 @@ public final class Constants {
                 new Rotation3d(
                         Units.degreesToRadians(0), 
                         Units.degreesToRadians(10.355),
-                        Units.degreesToRadians(-5)));
+                        Units.degreesToRadians(5)));
 
         public static final int MAX_CONNECTION_RETRIES = 10;
 
@@ -239,7 +239,7 @@ public final class Constants {
         
         public static final int AMP_LIMIT = 25;
         
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 

@@ -1,6 +1,7 @@
 package frc.bofalib.generic.control;
 
 import frc.bofalib.control.Controllable;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.loggable.Loggable;
 
 public interface BiControllable<
@@ -28,4 +29,6 @@ public interface BiControllable<
         getFirstControllable().endControl();
         getSecondControllable().endControl();
     }
+
+    Controllable<TalonFXControl> getfirstControllable();
 }

@@ -7,21 +7,13 @@ import static frc.robot.Constants.IntakeConstants.*;
 import static frc.robot.Constants.CanIDs.*;
 
 import java.util.function.DoubleSupplier;
-import com.revrobotics.PersistMode;
-import com.revrobotics.ResetMode;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.bofalib.generic.control.BiControllable;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
-import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
-import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
+import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
@@ -32,7 +24,7 @@ import frc.bofalib.util.FunctionalUtil;
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements 
     Intake, 
-    BiControllable<IntakeImpl, SparkMaxControl, TalonFXControl, IntakeControl>,
+    UniControllable<IntakeImpl, TalonFXControl, IntakeControl>,
     UniInstrument<TalonFXWrapper>,
     LoggingControllable<IntakeControl>
 {
@@ -42,17 +34,6 @@ final class IntakeImpl extends SubsystemBase implements
 
     private final ControlBox<IntakeControl> controlBox = new ControlBox<>();
 
-    private final SparkMaxWrapper pivotMotor = SparkMaxBuilder.create(
-        "Intake Pivot Motor",
-        PIVOT_MOTOR_CAN_ID, 
-        MotorType.kBrushless
-    ).withConfig(
-        new SparkMaxConfig()
-            .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(AMP_LIMIT), 
-        ResetMode.kResetSafeParameters, 
-        PersistMode.kPersistParameters
-    ).build();
 
     private final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
         "Intake Main Motor", 
@@ -122,12 +103,7 @@ final class IntakeImpl extends SubsystemBase implements
     }
 
     @Override
-    public Controllable<SparkMaxControl> getFirstControllable() {
-        return pivotMotor;
-    }
-
-    @Override
-    public Controllable<TalonFXControl> getSecondControllable() {
+    public Controllable<TalonFXControl> getFirstControllable() {
         return intakeMotor;
     }
 

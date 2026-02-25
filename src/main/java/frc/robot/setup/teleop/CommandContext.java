@@ -11,14 +11,16 @@ import frc.robot.subsystems.controllable.drivebase.Drivebase;
 import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
+import frc.robot.subsystems.controllable.swivel.Swivel;
 
 public record CommandContext(
     Indicator indicator,
     Drivebase drivebase,
     Intake intake,
+    Swivel swivel,
     Launcher launcher,
     Feeder feeder,
-    Agitator hopper,
+    Agitator agitator,
     ControlStateToggler controlStateToggler,
     GameInfoSupplier gameInfoSupplier,
     DriveControl inputDriveControl,

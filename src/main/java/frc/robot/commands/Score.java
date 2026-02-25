@@ -107,7 +107,7 @@ public final class Score extends Command {
         commandOptional = Optional.of(aimCommand);
         stateOptional = Optional.of(State.AIM_AND_RAMP_UP);
 
-        indicator.indicateRamping();
+        // indicator.indicateRamping();
     }
 
     private void stepToFeedAndShoot() {
@@ -117,7 +117,7 @@ public final class Score extends Command {
         commandOptional = Optional.of(feedAndAgitateCommand);
         stateOptional = Optional.of(State.FEED_AND_SHOOT);
 
-        indicator.indicateShooting();
+        // indicator.indicateShooting();
     }
 
     private void stepToReRampUp() {
@@ -126,7 +126,7 @@ public final class Score extends Command {
         commandOptional = Optional.empty();
         stateOptional = Optional.of(State.FEED_AND_SHOOT);
 
-        indicator.indicateReRamping();
+        // indicator.indicateReRamping();
     }
 
     @Override
