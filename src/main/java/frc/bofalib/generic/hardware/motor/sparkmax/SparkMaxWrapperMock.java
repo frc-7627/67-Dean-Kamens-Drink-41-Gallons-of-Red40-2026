@@ -5,6 +5,7 @@ import frc.bofalib.generic.control.DefaultableControlBox;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
+import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
 import frc.bofalib.generic.loggable.MockLoggableBase;
 
 final class SparkMaxWrapperMock extends
@@ -39,6 +40,12 @@ implements
     @Override
     public void endControlInner(SparkMaxControl control) {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public double queryDouble(SparkMaxQuery query) {
+        // TODO Auto-generated method stub
+        return 0.0;
     }
 
     @Override
