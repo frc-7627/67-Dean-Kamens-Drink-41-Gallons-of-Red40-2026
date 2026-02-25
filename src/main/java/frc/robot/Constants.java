@@ -219,7 +219,6 @@ public final class Constants {
         public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
         public static final int LAUNCHER_MINION_CAN_ID = 17;
 
-        // TODO: configure can_id for feeder
         public static final int FEEDER_CAN_ID = 18;
 
         public static final int AGITATOR_MOTOR_CAN_ID = 19;
