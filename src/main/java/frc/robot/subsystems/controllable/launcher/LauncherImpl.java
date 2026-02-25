@@ -39,6 +39,11 @@ final class LauncherImpl extends SubsystemBase implements
     private static final String LOGGABLE_NAME = "Launcher";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
+    private static final TalonFXGroupQuery ANGULAR_SPEED_QUERY = new TalonFXGroupQuery(
+        OptionalInt.empty(), 
+        TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
+    );
+
     private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
     private final TalonFXGroup motors = TalonFXGroupBuilder.create(
@@ -155,5 +160,14 @@ final class LauncherImpl extends SubsystemBase implements
     @Override
     public TalonFXGroup getFirstInstrument() {
         return motors;
+    }
+
+    @Override
+    public boolean queryBoolean(LauncherBooleanQuery query) {
+        return switch (query) {
+            case AT_SHOOT_SPEED -> Launcher.toLinearVelocityFPS(
+                motors.queryDouble(ANGULAR_SPEED_QUERY)
+            ) >= shootSpeedFPSSupplier.getAsDouble();
+        };
     }
 }
