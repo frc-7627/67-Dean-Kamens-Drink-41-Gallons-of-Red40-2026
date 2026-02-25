@@ -43,7 +43,9 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
                     RPM.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
                     ControlType.kVelocity
                 ); },
-                magicMotionSupplier -> { sparkMax.set(magicMotionSupplier.getAsDouble() //TODO: DO WIZARDRY HERE (Make it actually magic motion)
+                magicMotionSupplier -> { sparkMax.getClosedLoopController().setSetpoint(
+                    magicMotionSupplier.getAsDouble(), 
+                    ControlType.kMAXMotionPositionControl
                 ); }
             );
         }
