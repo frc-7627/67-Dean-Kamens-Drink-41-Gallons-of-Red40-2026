@@ -38,9 +38,10 @@ public final class Score extends Command {
     private final Indicator indicator;
     private final Launcher launcher;
 
-    private final Command aimAndRampUpCommand;
-    private final Command feedAndShootCommand;
-    private final Command reRampUpCommand;
+    private final Command launcherCommand;
+
+    private final Command aimCommand;
+    private final Command feedAndAgitateCommand;
 
     private Optional<State> stateOptional = Optional.empty();
     private Optional<Command> commandOptional = Optional.empty();
@@ -56,26 +57,6 @@ public final class Score extends Command {
         this.indicator = indicator;
         this.launcher = launcher;
 
-        final Command aimCommand = new ControlCommand<>(
-            drivebase, 
-            drivebase.getAngularDriveControl(
-                drivebase.getLocationAngleTargetter(
-                    gameInfoSupplier.getHubPosition()
-                )
-            )
-        );
-
-        final Command runLauncherCommand = new ControlCommand<>(
-            launcher, 
-            LauncherControl.SHOOT
-        );
-
-        final Command slowFeedCommand = new ControlCommand<>(
-            feeder, 
-            // TODO: feed slow control
-            null
-        );
-
         final Command feedCommand = new ControlCommand<>(
             feeder, 
             FeederControl.FEED_IN
@@ -86,16 +67,22 @@ public final class Score extends Command {
             AgitatorControl.TOWARD
         );
 
-        this.aimAndRampUpCommand = runLauncherCommand
-            .alongWith(slowFeedCommand)
-            .alongWith(aimCommand);
+        this.launcherCommand = new ControlCommand<>(
+            launcher, 
+            LauncherControl.SHOOT
+        );
 
-        this.feedAndShootCommand = feedCommand
-            .alongWith(agitateCommand)
-            .alongWith(runLauncherCommand);
+        this.aimCommand = new ControlCommand<>(
+            drivebase, 
+            drivebase.getAngularDriveControl(
+                drivebase.getLocationAngleTargetter(
+                    gameInfoSupplier.getHubPosition()
+                )
+            )
+        );
 
-        this.reRampUpCommand = runLauncherCommand
-            .alongWith(slowFeedCommand);
+        this.feedAndAgitateCommand = agitateCommand
+            .alongWith(feedCommand);
 
         addRequirements(
             indicator,
@@ -115,9 +102,9 @@ public final class Score extends Command {
     }
 
     private void stepToAimAndRampUp() {
-        aimAndRampUpCommand.initialize();
+        aimCommand.initialize();
 
-        commandOptional = Optional.of(aimAndRampUpCommand);
+        commandOptional = Optional.of(aimCommand);
         stateOptional = Optional.of(State.AIM_AND_RAMP_UP);
 
         indicator.indicateRamping();
@@ -125,9 +112,9 @@ public final class Score extends Command {
 
     private void stepToFeedAndShoot() {
         endCurrentCommand();
-        feedAndShootCommand.initialize();
+        feedAndAgitateCommand.initialize();
 
-        commandOptional = Optional.of(feedAndShootCommand);
+        commandOptional = Optional.of(feedAndAgitateCommand);
         stateOptional = Optional.of(State.FEED_AND_SHOOT);
 
         indicator.indicateShooting();
@@ -135,9 +122,8 @@ public final class Score extends Command {
 
     private void stepToReRampUp() {
         endCurrentCommand();
-        reRampUpCommand.initialize();
 
-        commandOptional = Optional.of(reRampUpCommand);
+        commandOptional = Optional.empty();
         stateOptional = Optional.of(State.FEED_AND_SHOOT);
 
         indicator.indicateReRamping();
@@ -145,11 +131,13 @@ public final class Score extends Command {
 
     @Override
     public void initialize() {
+        launcherCommand.initialize();
         stepToAimAndRampUp();
     }
 
     @Override
     public void end(boolean interrupted) {
+        launcherCommand.end(true);
         endCurrentCommand();
 
         stateOptional = Optional.empty();
@@ -158,6 +146,7 @@ public final class Score extends Command {
 
     @Override
     public void execute() {
+        launcherCommand.execute();
         commandOptional.ifPresent(Command::execute);
 
         stateOptional.ifPresent(
