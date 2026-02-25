@@ -30,7 +30,7 @@ final class RotationRateCalculator {
                 controller::setP,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("P"), 
-                    3.5
+                    4
                 ),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
@@ -46,7 +46,7 @@ final class RotationRateCalculator {
                 controller::setD,
                 DashboardItems.createDoublePuller(
                     keyBuilder.copyExtendedToString("D"),
-                    0.0
+                    0.1
                 ),
                 FunctionalUtil.hasChangedDoublePredicate()
             )
