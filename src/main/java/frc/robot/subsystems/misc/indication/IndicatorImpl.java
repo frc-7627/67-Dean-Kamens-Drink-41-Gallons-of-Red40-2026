@@ -122,19 +122,19 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
     }
 
     @Override
-    public void indicateRampUp() {
+    public void indicateRamping() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'indicateRampUp'");
     }
 
     @Override
-    public void indicateShoot() {
+    public void indicateShooting() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'indicateShoot'");
     }
 
     @Override
-    public void indicateGrace() {
+    public void indicateReRamping() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'indicateGrace'");
     }
