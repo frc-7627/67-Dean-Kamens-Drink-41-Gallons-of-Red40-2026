@@ -6,8 +6,13 @@ import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
 
 import frc.bofalib.control.Controllable;
 import frc.bofalib.generic.music.MusicalSubsystem;
+import frc.bofalib.query.BooleanQueryable;
 
-public interface Launcher extends MusicalSubsystem, Controllable<LauncherControl> {
+public interface Launcher extends 
+    MusicalSubsystem, 
+    Controllable<LauncherControl>, 
+    BooleanQueryable<LauncherBooleanQuery> 
+{
     static double toLinearVelocityFPS(double angularVelocityRPS) {
         return RadiansPerSecond.convertFrom(
             angularVelocityRPS, 
