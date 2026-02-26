@@ -1,11 +1,10 @@
 package frc.robot.subsystems.controllable.swivel;
 
-import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotionPosition;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlMotion;
 import frc.bofalib.loggable.Loggable;
-import frc.bofalib.util.FunctionalUtil;
-
+import static edu.wpi.first.units.Units.Degrees;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 
@@ -17,18 +16,23 @@ public enum SwivelControl implements UniControl<
     SparkMaxControl
 >, Loggable{
     FOLD_OUT(
-        "Intake Fold Out", impl -> impl.foldDutyCycle),
+        "Intake Fold Out", 
+        impl -> impl.outPositionDegrees
+    ),
     FOLD_IN(
-        "Intake Fold In", impl -> FunctionalUtil.negativeSupplier(impl.foldDutyCycle));
+        "Intake Fold In", 
+        impl -> impl.inPositionDegrees
+    );
 
     private final String name;
     private final Function<SwivelImpl, SparkMaxControl> firstControlFunction;
 
-    SwivelControl(String name, Function<SwivelImpl, DoubleSupplier> magicMotionFunction) {
+    SwivelControl(String name, Function<SwivelImpl, DoubleSupplier> positionDegreesFunction) {
         this.name = name;
-        this.firstControlFunction = impl -> new SparkMaxControlSetting(
-            new MotorDutyCycle(magicMotionFunction.apply(impl))
-        );
+        this.firstControlFunction = impl -> new SparkMaxControlMotion(new MotorMotionPosition(
+            positionDegreesFunction.apply(impl), 
+            Degrees
+        ));
     }
 
     @Override
