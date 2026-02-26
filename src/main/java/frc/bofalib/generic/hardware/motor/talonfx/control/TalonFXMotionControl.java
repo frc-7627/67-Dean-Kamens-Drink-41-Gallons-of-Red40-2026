@@ -5,18 +5,16 @@ import com.ctre.phoenix6.controls.ControlRequest;
 import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 
-public final class TalonFXControlEmpty implements TalonFXControl {
-    private static final TalonFXControlEmpty INSTANCE = new TalonFXControlEmpty();
-
-    public static TalonFXControlEmpty getInstance() {
-        return INSTANCE;
-    }
-
-    private TalonFXControlEmpty() {}
-
+public record TalonFXMotionControl(MotorMotion motion) implements TalonFXControl {
     @Override
     public String getLoggableName() {
-        return "Empty Talon FX Control";
+        return "Motion Talon FX Control";
+    }
+
+    @Override
+    public String getLoggableInfo() {
+        // TODO Auto-generated method stub
+        return TalonFXControl.super.getLoggableInfo();
     }
 
     @Override
@@ -24,5 +22,7 @@ public final class TalonFXControlEmpty implements TalonFXControl {
         Consumer<ControlRequest> requestConsumer,
         Consumer<MotorSetting> settingConsumer, 
         Consumer<MotorMotion> motionConsumer
-    ) {}
+    ) {
+        motionConsumer.accept(motion);
+    }
 }

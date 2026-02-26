@@ -3,6 +3,8 @@ package frc.bofalib.generic.hardware.motor.talonfx.control;
 import java.util.function.Consumer;
 
 import com.ctre.phoenix6.controls.ControlRequest;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
+import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 
 public final record TalonFXControlRequest(
     ControlRequest request
@@ -20,9 +22,10 @@ public final record TalonFXControlRequest(
 
     @Override
     public void visit(
-        Consumer<TalonFXControlRequest> requestConsumer,
-        Consumer<TalonFXControlSetting> settingConsumer
+        Consumer<ControlRequest> requestConsumer,
+        Consumer<MotorSetting> settingConsumer, 
+        Consumer<MotorMotion> motionConsumer
     ) {
-        requestConsumer.accept(this);
+        requestConsumer.accept(request);    
     }
 }
