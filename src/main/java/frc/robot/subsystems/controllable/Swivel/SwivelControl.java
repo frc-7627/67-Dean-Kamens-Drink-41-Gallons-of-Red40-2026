@@ -1,6 +1,6 @@
 package frc.robot.subsystems.controllable.swivel;
 
-import frc.bofalib.generic.hardware.motor.setting.MotorMagicMotion;
+import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 import frc.bofalib.loggable.Loggable;
@@ -27,7 +27,7 @@ public enum SwivelControl implements UniControl<
     SwivelControl(String name, Function<SwivelImpl, DoubleSupplier> magicMotionFunction) {
         this.name = name;
         this.firstControlFunction = impl -> new SparkMaxControlSetting(
-            new MotorMagicMotion(magicMotionFunction.apply(impl))
+            new MotorDutyCycle(magicMotionFunction.apply(impl))
         );
     }
 

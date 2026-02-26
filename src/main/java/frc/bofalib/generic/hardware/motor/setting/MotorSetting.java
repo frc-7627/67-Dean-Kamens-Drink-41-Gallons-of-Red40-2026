@@ -7,14 +7,11 @@ import edu.wpi.first.units.AngularVelocityUnit;
 
 public sealed interface MotorSetting permits
     MotorDutyCycle,
-    MotorVelocity,
-    MotorMagicMotion
+    MotorVelocity
 {
     void visit(
         Consumer<DoubleSupplier> dutyCycleConsumer,
-        BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer,
-        Consumer<DoubleSupplier> magicMotionConsumer
-
+        BiConsumer<DoubleSupplier, AngularVelocityUnit> velocityConsumer
     );
 
     static enum Type {
