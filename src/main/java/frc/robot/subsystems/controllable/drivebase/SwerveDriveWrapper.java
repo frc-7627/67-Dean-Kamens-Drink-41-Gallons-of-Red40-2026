@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.bofalib.util.FunctionalUtil;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurement;
 import swervelib.SwerveDrive;
@@ -217,7 +218,7 @@ final class SwerveDriveWrapper {
     ) {
         return switch (mode) {
             case ROTATE -> getTranslationalInputStream(inputs)
-                .withControllerRotationAxis(inputs.rightX());
+                .withControllerRotationAxis(FunctionalUtil.negativeSupplier(inputs.rightX()));
             case HEADING -> getTranslationalInputStream(inputs)
                 .withControllerHeadingAxis(inputs.rightX(), inputs.rightY())
                 .headingWhile(true);
