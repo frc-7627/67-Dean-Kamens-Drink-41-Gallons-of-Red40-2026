@@ -19,7 +19,7 @@ import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXMotionControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlMotion;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
@@ -125,7 +125,7 @@ implements
 
     @Override
     public TalonFXControl getMotionControl(MotorMotion motorMotion) {
-        return new TalonFXMotionControl(motorMotion);
+        return new TalonFXControlMotion(motorMotion);
     }
 
     @Override

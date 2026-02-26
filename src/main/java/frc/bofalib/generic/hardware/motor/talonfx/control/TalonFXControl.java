@@ -9,7 +9,7 @@ import frc.bofalib.loggable.Loggable;
 public sealed interface TalonFXControl extends Loggable permits 
     TalonFXControlRequest, 
     TalonFXControlSetting,
-    TalonFXMotionControl,
+    TalonFXControlMotion,
     TalonFXControlEmpty
 {
     void visit(

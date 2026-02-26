@@ -5,7 +5,7 @@ import com.ctre.phoenix6.controls.ControlRequest;
 import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 
-public record TalonFXMotionControl(MotorMotion motion) implements TalonFXControl {
+public record TalonFXControlMotion(MotorMotion motion) implements TalonFXControl {
     @Override
     public String getLoggableName() {
         return "Motion Talon FX Control";

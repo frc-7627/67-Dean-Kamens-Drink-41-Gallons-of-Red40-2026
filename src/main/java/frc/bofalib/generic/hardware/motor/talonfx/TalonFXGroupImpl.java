@@ -12,7 +12,7 @@ import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXMotionControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlMotion;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
@@ -113,7 +113,7 @@ implements
     @Override
     public TalonFXBatchControl getMotionControl(MotorMotion motorMotion) {
         return new TalonFXBatchControl(
-            new TalonFXMotionControl(
+            new TalonFXControlMotion(
                 Objects.requireNonNull(motorMotion)
             )
         );
