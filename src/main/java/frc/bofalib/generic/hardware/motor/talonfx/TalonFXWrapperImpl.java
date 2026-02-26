@@ -14,10 +14,12 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import frc.bofalib.generic.control.BoxControllableDefaultable;
 import frc.bofalib.generic.control.DefaultableControlBox;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXMotionControl;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
@@ -119,6 +121,11 @@ implements
     @Override
     public TalonFXControl getSetControl(MotorSetting motorSetting) {
         return new TalonFXControlSetting(motorSetting);
+    }
+
+    @Override
+    public TalonFXControl getMotionControl(MotorMotion motorMotion) {
+        return new TalonFXMotionControl(motorMotion);
     }
 
     @Override

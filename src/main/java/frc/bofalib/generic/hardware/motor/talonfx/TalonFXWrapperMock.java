@@ -6,6 +6,7 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import frc.bofalib.generic.control.BoxControllable;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
@@ -26,6 +27,12 @@ implements
 
     @Override
     public TalonFXControl getSetControl(MotorSetting motorSetting) {
+        // TODO Auto-generated method stub
+        return TalonFXControlEmpty.getInstance();
+    }
+
+    @Override
+    public TalonFXControl getMotionControl(MotorMotion motorMotion) {
         // TODO Auto-generated method stub
         return TalonFXControlEmpty.getInstance();
     }

@@ -2,9 +2,15 @@ package frc.bofalib.generic.hardware.motor.talonfx.control;
 
 import frc.bofalib.loggable.Loggable;
 
-// TODO: unify these into one batch control class.
-public interface TalonFXBatchControl extends Loggable {
-    TalonFXControl getLeaderControl();
+public record TalonFXBatchControl(TalonFXControl control) implements Loggable {
+    @Override
+    public String getLoggableName() {
+        return "Talon FX Batch Control";
+    }
 
-    TalonFXControl getFollowerControl();
+    @Override
+    public String getLoggableInfo() {
+        // TODO Auto-generated method stub
+        return Loggable.super.getLoggableInfo();
+    }
 }

@@ -3,10 +3,11 @@ package frc.bofalib.generic.hardware.motor.talonfx;
 import com.ctre.phoenix6.Orchestra;
 import frc.bofalib.generic.control.BoxControllable;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXMotionControl;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.loggable.MockLoggableBase;
 
@@ -28,7 +29,12 @@ final class TalonFXGroupMock extends MockLoggableBase implements
     @Override
     public TalonFXBatchControl getSetControl(MotorSetting motorSetting) {
         // TODO Auto-generated method stub
-        return new TalonFXBatchSetting(new TalonFXControlSetting(motorSetting));
+        return new TalonFXBatchControl(new TalonFXControlSetting(motorSetting));
+    }
+
+    @Override
+    public TalonFXBatchControl getMotionControl(MotorMotion motorMotion) {
+        return new TalonFXBatchControl(new TalonFXMotionControl(motorMotion));
     }
 
     @Override
