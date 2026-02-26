@@ -1,21 +1,25 @@
 package frc.bofalib.generic.hardware.motor.talonfx;
 
+import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import frc.bofalib.generic.control.BoxControllableDefaultable;
 import frc.bofalib.generic.control.DefaultableControlBox;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlEmpty;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlMotion;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
@@ -78,17 +82,25 @@ implements
     @Override
     public void runControlInner(TalonFXControl control) {
         control.visit(
-            request -> { talonFX.setControl(request.request()); },
+            talonFX::setControl,
             setting -> {
-                setting.setting().visit(
+                setting.visit(
                     dutyCycleSupplier -> { talonFX.set(
                         dutyCycleSupplier.getAsDouble()
                     ); },
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new VelocityVoltage(
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
-                    ).withSlot(0)); },
-                    magicMotionSupplier -> { talonFX.set(magicMotionSupplier.getAsDouble() //TODO: DO WIZARDRY HERE (Make it actually magic motion)
-                    ); } 
+                    ).withSlot(0)); }
+                );
+            },
+            motion -> {
+                motion.visit(
+                    (magnitudeSupplier, unit) -> { talonFX.setControl(new MotionMagicVoltage(
+                        Rotations.convertFrom(magnitudeSupplier.getAsDouble(), unit)
+                    ).withSlot(1)); }, 
+                    (magnitudeSupplier, unit) -> { talonFX.setControl(new MotionMagicVelocityVoltage(
+                        RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
+                    ).withSlot(1)); }
                 );
             }
         );
@@ -109,6 +121,11 @@ implements
     @Override
     public TalonFXControl getSetControl(MotorSetting motorSetting) {
         return new TalonFXControlSetting(motorSetting);
+    }
+
+    @Override
+    public TalonFXControl getMotionControl(MotorMotion motorMotion) {
+        return new TalonFXControlMotion(motorMotion);
     }
 
     @Override

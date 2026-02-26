@@ -1,15 +1,18 @@
 package frc.bofalib.generic.hardware.motor.sparkmax;
 
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
 import java.util.Objects;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import frc.bofalib.generic.control.BoxControllableDefaultable;
 import frc.bofalib.generic.control.DefaultableControlBox;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlEmpty;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlMotion;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
@@ -37,19 +40,23 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
 
     @Override
     public void runControlInner(SparkMaxControl control) {
-        if (control instanceof SparkMaxControlSetting setting) {
-            setting.setting().visit(
+        control.visit(
+            setting -> setting.visit(
                 dutyCycleSupplier -> { sparkMax.set(dutyCycleSupplier.getAsDouble()); }, 
                 (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
                     RPM.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
                     ControlType.kVelocity
-                ); },
-                magicMotionSupplier -> { sparkMax.getClosedLoopController().setSetpoint(
-                    magicMotionSupplier.getAsDouble(), 
-                    ControlType.kMAXMotionPositionControl
                 ); }
-            );
-        }
+            ), motion -> motion.visit(
+                (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
+                    Rotations.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
+                    ControlType.kMAXMotionPositionControl
+                ); }, (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
+                    RPM.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
+                    ControlType.kMAXMotionVelocityControl
+                ); }
+            )
+        );
     }
 
     @Override
@@ -76,6 +83,13 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     public SparkMaxControl getSetControl(MotorSetting motorSetting) {
         return new SparkMaxControlSetting(
             Objects.requireNonNull(motorSetting)
+        );
+    }
+
+    @Override
+    public SparkMaxControl getMotionControl(MotorMotion motorMotion) {
+        return new SparkMaxControlMotion(
+            Objects.requireNonNull(motorMotion)
         );
     }
 }

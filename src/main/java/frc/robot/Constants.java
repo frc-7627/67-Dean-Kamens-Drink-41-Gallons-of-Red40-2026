@@ -211,7 +211,7 @@ public final class Constants {
     }
 
     public static class CanIDs {
-        public static final int PIVOT_MOTOR_CAN_ID = 14;
+        public static final int SWIVEL_MOTOR_CAN_ID = 14;
         public static final int INTAKE_MOTOR_CAN_ID = 15;
 
         public static final int CANDLE_CAN_ID = 16;

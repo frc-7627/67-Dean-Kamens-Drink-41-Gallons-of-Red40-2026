@@ -8,10 +8,9 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import java.util.List;
 import java.util.function.DoubleSupplier;
 
-import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
@@ -22,6 +21,7 @@ import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
 
 import static frc.robot.Constants.IntakeConstants.*;
@@ -38,9 +38,9 @@ final class SwivelImpl extends SubsystemBase implements
 
     private final ControlBox<SwivelControl> controlBox = new ControlBox<>();
 
-    private final SparkMaxWrapper pivotMotor = SparkMaxBuilder.create(
-        "Intake Pivot Motor",
-        PIVOT_MOTOR_CAN_ID, 
+    private final SparkMaxWrapper swivelMotor = SparkMaxBuilder.create(
+        "Swivel Motor",
+        SWIVEL_MOTOR_CAN_ID, 
         MotorType.kBrushless
     ).withConfig(
         new SparkMaxConfig()
@@ -50,27 +50,27 @@ final class SwivelImpl extends SubsystemBase implements
         PersistMode.kPersistParameters
     ).build();
 
-    final DoubleSupplier intakeManualDutyCycle = DashboardItems.createCheckedDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Intake Manual Duty Cycle"), 
-        DEFAULT_MANUAL_DUTY_CYCLE, 
-        CHECK_DUTY_CYCLE
+    final DoubleSupplier inPositionDegrees = DashboardItems.createDoublePuller(
+        "In Position Degrees", 
+        // TODO: Constant
+        0
     );
 
-    final DoubleSupplier foldDutyCycle = DashboardItems.createCheckedDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Fold Duty Cycle"), 
-        DEFAULT_FOLD_DUTY_CYCLE, 
-        CHECK_DUTY_CYCLE
+    final DoubleSupplier outPositionDegrees = DashboardItems.createDoublePuller(
+        "Out Position Degrees", 
+        // TODO: Constant
+        0
     );
 
-    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> pivotMotor.queryDouble(
+    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.ANGULAR_VELOCITY_ROT_PER_SEC
     );
-    private final DoubleSupplier motorVoltageSupplier = () -> pivotMotor.queryDouble(
+    private final DoubleSupplier motorVoltageSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.VOLTAGE
     );
 
     SwivelImpl() {
-            // MENTOR CODE RAWR!
+        CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
@@ -80,15 +80,15 @@ final class SwivelImpl extends SubsystemBase implements
                     RotationsPerSecond
                 ),
                 FunctionalUtil.hasChangedDoublePredicate()
-            );
+            ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Voltage")
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
-            );
-        
+            )
+        ));
     }
 
     @Override
@@ -108,7 +108,7 @@ final class SwivelImpl extends SubsystemBase implements
 
     @Override
     public Controllable<SparkMaxControl> getFirstControllable() {
-        return pivotMotor;
+        return swivelMotor;
     }
     
 }

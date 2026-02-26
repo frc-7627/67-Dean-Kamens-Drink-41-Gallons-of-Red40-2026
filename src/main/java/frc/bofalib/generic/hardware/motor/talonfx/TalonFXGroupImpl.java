@@ -8,10 +8,11 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.math.Pair;
 import frc.bofalib.generic.control.BoxControllable;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchSetting;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlMotion;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.loggable.LoggableBase;
 
@@ -73,9 +74,9 @@ implements
 
     @Override
     public void beginControlInner(TalonFXBatchControl control) {
-        leaderWrapper.beginControl(control.getLeaderControl());
+        leaderWrapper.beginControl(control.control());
         followerWrappers.forEach(
-            followerWrapper -> followerWrapper.beginControl(control.getFollowerControl())
+            followerWrapper -> followerWrapper.beginControl(control.control())
         );
     }
 
@@ -102,9 +103,18 @@ implements
 
     @Override
     public TalonFXBatchControl getSetControl(MotorSetting motorSetting) {
-        return new TalonFXBatchSetting(
+        return new TalonFXBatchControl(
             new TalonFXControlSetting(
                 Objects.requireNonNull(motorSetting)
+            )
+        );
+    }
+
+    @Override
+    public TalonFXBatchControl getMotionControl(MotorMotion motorMotion) {
+        return new TalonFXBatchControl(
+            new TalonFXControlMotion(
+                Objects.requireNonNull(motorMotion)
             )
         );
     }

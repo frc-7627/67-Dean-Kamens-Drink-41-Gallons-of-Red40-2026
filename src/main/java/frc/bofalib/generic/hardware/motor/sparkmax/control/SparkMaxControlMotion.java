@@ -4,10 +4,10 @@ import java.util.function.Consumer;
 import frc.bofalib.generic.hardware.motor.motion.MotorMotion;
 import frc.bofalib.generic.hardware.motor.setting.MotorSetting;
 
-public record SparkMaxControlSetting(MotorSetting setting) implements SparkMaxControl {
+public record SparkMaxControlMotion(MotorMotion motion) implements SparkMaxControl {
     @Override
     public String getLoggableName() {
-        return "Setting Spark Max Control";
+        return "Motion Spark Max Control";
     }
 
     @Override
@@ -17,10 +17,8 @@ public record SparkMaxControlSetting(MotorSetting setting) implements SparkMaxCo
     }
 
     @Override
-    public void visit(
-        Consumer<MotorSetting> settingConsumer,
-        Consumer<MotorMotion> motionConsumer
-    ) {
-        settingConsumer.accept(setting);
+    public void visit(Consumer<MotorSetting> settingConsumer,
+            Consumer<MotorMotion> motionConsumer) {
+        motionConsumer.accept(motion);
     }
 }
