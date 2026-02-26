@@ -227,9 +227,9 @@ public final class Constants {
     }
 
     public static class AgitatorConstants {
-        public static final int AMP_LIMIT = 150;
+        public static final int AMP_LIMIT = 150; //that's really high so im not gonna change it
 
-        public static final double DEFAULT_DUTY_CYCLE = -0.5;
+        public static final double DEFAULT_DUTY_CYCLE = -0.8;
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
     }
 
@@ -237,7 +237,7 @@ public final class Constants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
         
-        public static final int AMP_LIMIT = 25;
+        public static final int AMP_LIMIT = 70; //TODO: THIS HAS BEEN INCREASED FROM 25
         
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
@@ -245,6 +245,16 @@ public final class Constants {
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
+    }
+
+    public static class SwivelConstants {
+        public static final int AMP_LIMIT = 25;
+        
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
+
+        public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
+
+        
     }
 
     public static class LauncherConstants {
@@ -255,13 +265,13 @@ public final class Constants {
         // FEET PER SEC
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 31; 
+        public static final double DEFAULT_SHOOT_FPS = 35; 
         public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
-        public static final double DEFAULT_CURRENT_LIMIT = 40;
+        public static final double DEFAULT_CURRENT_LIMIT = 70; //TODO: THIS HAS BEEN INCREASED FROM 40
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
@@ -277,10 +287,12 @@ public final class Constants {
         public static final int HORN_FREQ = 440;
     }
 
+
+
     public static class FeederConstants {
         public static final double DEFAULT_FEED_SPEED = -1; 
 
-        public static final double DEFAULT_CURRENT_LIMIT = 40;
+        public static final double DEFAULT_CURRENT_LIMIT = 70; //TODO: THIS HAS BEEN INCREASED FROM 40
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
                 .withStatorCurrentLimitEnable(true)
