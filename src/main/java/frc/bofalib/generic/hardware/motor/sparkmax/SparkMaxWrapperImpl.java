@@ -1,6 +1,7 @@
 package frc.bofalib.generic.hardware.motor.sparkmax;
 
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
 import java.util.Objects;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -39,15 +40,23 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
 
     @Override
     public void runControlInner(SparkMaxControl control) {
-        if (control instanceof SparkMaxControlSetting setting) {
-            setting.setting().visit(
+        control.visit(
+            setting -> setting.visit(
                 dutyCycleSupplier -> { sparkMax.set(dutyCycleSupplier.getAsDouble()); }, 
                 (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
                     RPM.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
                     ControlType.kVelocity
                 ); }
-            );
-        }
+            ), motion -> motion.visit(
+                (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
+                    Rotations.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
+                    ControlType.kMAXMotionPositionControl
+                ); }, (magnitudeSupplier, unit) -> { sparkMax.getClosedLoopController().setSetpoint(
+                    RPM.convertFrom(magnitudeSupplier.getAsDouble(), unit), 
+                    ControlType.kMAXMotionVelocityControl
+                ); }
+            )
+        );
     }
 
     @Override
