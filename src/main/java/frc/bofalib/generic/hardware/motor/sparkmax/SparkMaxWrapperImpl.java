@@ -64,7 +64,7 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
         return switch (Objects.requireNonNull(query)) {
             case ANGULAR_VELOCITY_ROT_PER_SEC -> sparkMax.getEncoder().getVelocity();
             case ANGULAR_POSITION_ROT -> sparkMax.getEncoder().getPosition();
-            case VOLTAGE -> sparkMax.getOutputCurrent();
+            case OUTPUT_CURRENT_AMPS -> sparkMax.getOutputCurrent();
             default -> throw new IllegalArgumentException("Unexpected value: " + Objects.requireNonNull(query));
             
         };
