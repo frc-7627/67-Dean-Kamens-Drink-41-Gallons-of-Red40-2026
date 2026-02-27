@@ -46,7 +46,7 @@ final class LauncherImpl extends SubsystemBase implements
 
     private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
-    private final TalonFXGroup motors = TalonFXGroupBuilder.create(
+    final TalonFXGroup motors = TalonFXGroupBuilder.create(
         "Launcher Motors", 
         TalonFXBuilder.create("Launcher - Commander", LAUNCHER_COMMANDER_CAN_ID)
     ).withFollower(

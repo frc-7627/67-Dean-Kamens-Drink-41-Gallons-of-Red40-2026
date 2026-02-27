@@ -5,9 +5,7 @@ import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.generic.control.UniControl;
-import frc.bofalib.generic.hardware.motor.setting.MotorVelocity;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.loggable.Loggable;
 
 public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchControl>, Loggable {
@@ -23,13 +21,9 @@ public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchCont
         Function<LauncherImpl, DoubleSupplier> feetPerSecFunction
     ) {
         this.name = name;
-        this.firstControlFunction = impl -> new TalonFXBatchControl(
-            new TalonFXControlSetting(
-                new MotorVelocity(
-                    () -> feetPerSecFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET, 
-                    RadiansPerSecond
-                )
-            )
+        this.firstControlFunction = impl -> impl.motors.getSetVelocityControl(
+            () -> feetPerSecFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET, 
+            RadiansPerSecond
         );
     }
 
