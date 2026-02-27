@@ -65,6 +65,7 @@ final class SwivelImpl extends SubsystemBase implements
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.ANGULAR_VELOCITY_ROT_PER_SEC
     );
+    
     private final DoubleSupplier motorVoltageSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.VOLTAGE
     );
