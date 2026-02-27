@@ -63,7 +63,8 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
     public double queryDouble(SparkMaxQuery query) {
         return switch (Objects.requireNonNull(query)) {
             case ANGULAR_VELOCITY_ROT_PER_SEC -> sparkMax.getEncoder().getVelocity();
-            case VOLTAGE -> sparkMax.getOutputCurrent();
+            case ANGULAR_POSITION_ROT -> sparkMax.getEncoder().getPosition();
+            case OUTPUT_CURRENT_AMPS -> sparkMax.getOutputCurrent();
             default -> throw new IllegalArgumentException("Unexpected value: " + Objects.requireNonNull(query));
             
         };

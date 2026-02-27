@@ -5,7 +5,9 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
@@ -65,8 +67,13 @@ final class SwivelImpl extends SubsystemBase implements
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.ANGULAR_VELOCITY_ROT_PER_SEC
     );
-    private final DoubleSupplier motorVoltageSupplier = () -> swivelMotor.queryDouble(
-        SparkMaxQuery.VOLTAGE
+
+    private final DoubleSupplier motorPositionRotSupplier = () -> swivelMotor.queryDouble(
+        SparkMaxQuery.ANGULAR_POSITION_ROT
+    );
+
+    private final DoubleSupplier motorAmpsSupplier = () -> swivelMotor.queryDouble(
+        SparkMaxQuery.OUTPUT_CURRENT_AMPS
     );
 
     SwivelImpl() {
@@ -83,9 +90,18 @@ final class SwivelImpl extends SubsystemBase implements
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                    KEY_BUILDER.copyExtendedToString("Motor Position Degrees")
                 ), 
-                () -> motorVoltageSupplier.getAsDouble(),
+                () -> Degrees.convertFrom(
+                    motorPositionRotSupplier.getAsDouble(), 
+                    Rotations
+                ), 
+                FunctionalUtil.hasChangedDoublePredicate()),
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Motor Amps")
+                ), 
+                () -> motorAmpsSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
             )
         ));
