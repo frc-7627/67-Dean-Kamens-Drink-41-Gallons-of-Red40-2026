@@ -60,10 +60,10 @@ public final class Constants {
     // Logging mode for advantage kit logs. Switch between, REAL , SIM , and REPLAY
     // based on whatever
     // mode you need
-    public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY TIME YOU DEPLOY OR ELSE THE CODE WILL NOT THE CODE
+    public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY TIME YOU DEPLOY OR ELSE THE CODE WILL
+                                                      // NOT THE CODE
     public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
-    public static final Matter CHASSIS =
-            new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
+    public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(16);
 
@@ -102,20 +102,20 @@ public final class Constants {
 
         public static final Transform3d LEFT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
-                        Units.inchesToMeters(-6.825), //x
-                        Units.inchesToMeters(4.798), //y
-                        Units.inchesToMeters(18.354)), //z
+                        Units.inchesToMeters(-6.825), // x
+                        Units.inchesToMeters(4.798), // y
+                        Units.inchesToMeters(18.354)), // z
                 new Rotation3d(
-                        Units.degreesToRadians(0), 
-                        Units.degreesToRadians(10.355), 
+                        Units.degreesToRadians(0),
+                        Units.degreesToRadians(10.355),
                         Units.degreesToRadians(-5)));
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
-                        Units.inchesToMeters(-6.825), //x
-                        Units.inchesToMeters(-4.798), //y
-                        Units.inchesToMeters(18.354)), //z
+                        Units.inchesToMeters(-6.825), // x
+                        Units.inchesToMeters(-4.798), // y
+                        Units.inchesToMeters(18.354)), // z
                 new Rotation3d(
-                        Units.degreesToRadians(0), 
+                        Units.degreesToRadians(0),
                         Units.degreesToRadians(10.355),
                         Units.degreesToRadians(5)));
 
@@ -124,16 +124,16 @@ public final class Constants {
         public static final double DEFAULT_SINGLE_TAG_STD_DEV = 0.5;
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
 
-        
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout
-                .loadField(AprilTagFields.k2026RebuiltWelded); //TODO: i think the practice field vs the match field uses different
+                .loadField(AprilTagFields.k2026RebuiltWelded); // TODO: i think the practice field vs the match field
+                                                               // uses different
 
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
         public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
 
         public static final Translation2d BLUE_HUB_LOCATION = new Translation2d(4.6256, 4.0345);
-        public static final Translation2d RED_HUB_LOCATION = new Translation2d(11.9154, 4.0345); 
+        public static final Translation2d RED_HUB_LOCATION = new Translation2d(11.9154, 4.0345);
     }
 
     public static class OperatorConstants {
@@ -223,11 +223,12 @@ public final class Constants {
 
         public static final int AGITATOR_MOTOR_CAN_ID = 19;
 
-        
+        public static final int CLIMBER_CAN_ID = 20;
+
     }
 
     public static class AgitatorConstants {
-        public static final int AMP_LIMIT = 150; //that's really high so im not gonna change it
+        public static final int AMP_LIMIT = 150; // that's really high so im not gonna change it
 
         public static final double DEFAULT_DUTY_CYCLE = -0.8;
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
@@ -236,9 +237,8 @@ public final class Constants {
     public static class IntakeConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        
-        public static final int AMP_LIMIT = 70; //TODO: THIS HAS BEEN INCREASED FROM 25
-        
+        public static final int AMP_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 25
+
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
@@ -249,50 +249,48 @@ public final class Constants {
 
     public static class SwivelConstants {
         public static final int AMP_LIMIT = 25;
-        
+
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
-        
     }
 
     public static class LauncherConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(2, Inch);; //inches
-        
+        public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(2, Inch);; // inches
+
         // FEET PER SEC
-        // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
+        // Math says (not accounting for energy loss) that from trench to hub is
+        // 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 35; 
+        public static final double DEFAULT_SHOOT_FPS = 35;
         public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
-        public static final double DEFAULT_CURRENT_LIMIT = 70; //TODO: THIS HAS BEEN INCREASED FROM 40
+        public static final double DEFAULT_CURRENT_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 40
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
-        
-		public static final double DEFAULT_SLOT0_P = 1.0;
-		public static final double DEFAULT_SLOT0_I = 0.0;
-		public static final double DEFAULT_SLOT0_D = 0.0;
-                public static final double DEFAULT_SLOT0_V = 0.137627;
+
+        public static final double DEFAULT_SLOT0_P = 1.0;
+        public static final double DEFAULT_SLOT0_I = 0.0;
+        public static final double DEFAULT_SLOT0_D = 0.0;
+        public static final double DEFAULT_SLOT0_V = 0.137627;
 
         public static final int HORN_FREQ = 440;
     }
 
-
-
     public static class FeederConstants {
-        public static final double DEFAULT_FEED_SPEED = -1; 
+        public static final double DEFAULT_FEED_SPEED = -1;
 
-        public static final double DEFAULT_CURRENT_LIMIT = 70; //TODO: THIS HAS BEEN INCREASED FROM 40
+        public static final double DEFAULT_CURRENT_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 40
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
                 .withStatorCurrentLimitEnable(true)
@@ -302,6 +300,17 @@ public final class Constants {
                 .withPeakForwardDutyCycle(DEFAULT_FEED_SPEED)
                 .withPeakReverseDutyCycle(-DEFAULT_FEED_SPEED)
                 .withNeutralMode(NeutralModeValue.Coast);
+    }
+
+    public static class ClimberConstants {
+        // TODO: find values for climber
+        public static final double DEFAULT_CURRENT_LIMIT = 0;
+
+        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
+                .withStatorCurrentLimitEnable(true)
+                .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+
+        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
     }
 
     public static class Directories {
