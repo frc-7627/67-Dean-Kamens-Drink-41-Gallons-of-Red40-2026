@@ -1,8 +1,6 @@
 package frc.robot.subsystems.controllable.swivel;
 
-import frc.bofalib.generic.hardware.motor.motion.MotorMotionPosition;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlMotion;
 import frc.bofalib.loggable.Loggable;
 import static edu.wpi.first.units.Units.Degrees;
 import java.util.function.DoubleSupplier;
@@ -29,10 +27,10 @@ public enum SwivelControl implements UniControl<
 
     SwivelControl(String name, Function<SwivelImpl, DoubleSupplier> positionDegreesFunction) {
         this.name = name;
-        this.firstControlFunction = impl -> new SparkMaxControlMotion(new MotorMotionPosition(
+        this.firstControlFunction = impl -> impl.swivelMotor.getMotionPositionControl(
             positionDegreesFunction.apply(impl), 
             Degrees
-        ));
+        );
     }
 
     @Override

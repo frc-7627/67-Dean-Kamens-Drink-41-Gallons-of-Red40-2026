@@ -40,7 +40,7 @@ final class SwivelImpl extends SubsystemBase implements
 
     private final ControlBox<SwivelControl> controlBox = new ControlBox<>();
 
-    private final SparkMaxWrapper swivelMotor = SparkMaxBuilder.create(
+    final SparkMaxWrapper swivelMotor = SparkMaxBuilder.create(
         "Swivel Motor",
         SWIVEL_MOTOR_CAN_ID, 
         MotorType.kBrushless
