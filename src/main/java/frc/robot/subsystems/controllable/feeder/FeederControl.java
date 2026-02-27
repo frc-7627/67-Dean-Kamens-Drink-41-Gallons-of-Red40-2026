@@ -3,9 +3,7 @@ package frc.robot.subsystems.controllable.feeder;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.generic.control.UniControl;
-import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.loggable.Loggable;
 import frc.bofalib.util.FunctionalUtil;
 
@@ -22,8 +20,8 @@ public enum FeederControl implements UniControl<FeederImpl, TalonFXControl>, Log
 
     FeederControl(String name, Function<FeederImpl, DoubleSupplier> dutyCycleFunction) {
         this.name = name;
-        this.firstControlFunction = impl -> new TalonFXControlSetting(
-            new MotorDutyCycle(dutyCycleFunction.apply(impl))
+        this.firstControlFunction = impl -> impl.motor.getSetDutyCycleControl(
+            dutyCycleFunction.apply(impl)
         );
     }
 

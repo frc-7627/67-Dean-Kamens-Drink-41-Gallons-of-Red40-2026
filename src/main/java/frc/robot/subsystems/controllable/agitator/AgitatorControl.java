@@ -4,9 +4,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.util.FunctionalUtil;
 import frc.bofalib.generic.control.UniControl;
-import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControlSetting;
 import frc.bofalib.loggable.Loggable;
 
 public enum AgitatorControl implements UniControl<AgitatorImpl, SparkMaxControl>, Loggable {
@@ -24,10 +22,8 @@ public enum AgitatorControl implements UniControl<AgitatorImpl, SparkMaxControl>
 
     AgitatorControl(String name, Function<AgitatorImpl, DoubleSupplier> dutyCycleFunction) {
         this.name = name;
-        this.firstControlFunction = impl -> new SparkMaxControlSetting(
-            new MotorDutyCycle(
-                dutyCycleFunction.apply(impl)
-            )
+        this.firstControlFunction = impl -> impl.motor.getSetDutyCycleControl(
+            dutyCycleFunction.apply(impl)
         );
     }
 

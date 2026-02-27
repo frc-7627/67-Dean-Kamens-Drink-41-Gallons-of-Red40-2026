@@ -34,7 +34,7 @@ final class AgitatorImpl extends SubsystemBase implements
     private final ControlBox<AgitatorControl> controlBox = new ControlBox<>();
 
     // one neo
-    private final SparkMaxWrapper motor = SparkMaxBuilder.create(
+    final SparkMaxWrapper motor = SparkMaxBuilder.create(
         "Agitator Motor",
         AGITATOR_MOTOR_CAN_ID,
         MotorType.kBrushless
