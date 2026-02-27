@@ -4,9 +4,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 
 import frc.bofalib.generic.control.UniControl;
-import frc.bofalib.generic.hardware.motor.setting.MotorDutyCycle;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControlSetting;
 import frc.bofalib.loggable.Loggable;
 import frc.bofalib.util.FunctionalUtil;
 
@@ -30,17 +28,6 @@ public enum IntakeControl implements UniControl<
         "Intake Eject Manual",
         impl -> FunctionalUtil.negativeSupplier(impl.intakeManualDutyCycle)
     );
-    /*FOLD_OUT(
-        "Intake Fold Out",
-        Motor.PIVOT_MOTOR, 
-        impl -> impl.foldDutyCycle
-    ),
-    FOLD_IN(
-        "Intake Fold In",
-        Motor.PIVOT_MOTOR, 
-        impl -> FunctionalUtil.negativeSupplier(impl.foldDutyCycle) //TODO: TAKE THIS OUT AT SOME POINT
-    ); */
-
 
     private final String name;
     private final Function<IntakeImpl, TalonFXControl> intakeControlFunction;
@@ -51,15 +38,10 @@ public enum IntakeControl implements UniControl<
     ) {
         this.name = name;
 
-        this.intakeControlFunction = 
-            impl -> new TalonFXControlSetting(              
-                new MotorDutyCycle(
-                    dutyCycleFunction.apply(impl)
-                )
-            );
-    } /*this.firstControlFunction = impl -> new SparkMaxControlSetting(
-            new MotorMagicMotion(magicMotionFunction.apply(impl))
-        ); */
+        this.intakeControlFunction = impl -> impl.intakeMotor.getSetDutyCycleControl(
+            dutyCycleFunction.apply(impl)
+        );
+    }
 
     @Override
     public String getLoggableName() {

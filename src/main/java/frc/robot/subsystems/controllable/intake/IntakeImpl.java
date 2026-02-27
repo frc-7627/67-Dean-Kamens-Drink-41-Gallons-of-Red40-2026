@@ -35,7 +35,7 @@ final class IntakeImpl extends SubsystemBase implements
     private final ControlBox<IntakeControl> controlBox = new ControlBox<>();
 
 
-    private final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
+    final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
         "Intake Main Motor", 
         INTAKE_MOTOR_CAN_ID
     ).build();
