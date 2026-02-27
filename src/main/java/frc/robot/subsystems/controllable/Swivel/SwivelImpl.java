@@ -4,7 +4,10 @@ import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Rotations;
@@ -47,7 +50,15 @@ final class SwivelImpl extends SubsystemBase implements
     ).withConfig(
         new SparkMaxConfig()
             .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(AMP_LIMIT), 
+            .smartCurrentLimit(AMP_LIMIT)
+            .apply(new ClosedLoopConfig().apply(
+                new MAXMotionConfig()
+                    // TODO: constants
+                    .allowedProfileError(Rotations.convertFrom(0.5, Degrees))
+                    .cruiseVelocity(5 /* RPM */)
+                    .maxAcceleration(5 /* RPM / s */)
+                    .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
+            )), 
         ResetMode.kResetSafeParameters, 
         PersistMode.kPersistParameters
     ).build();
