@@ -110,5 +110,4 @@ final class SwivelImpl extends SubsystemBase implements
     public Controllable<SparkMaxControl> getFirstControllable() {
         return swivelMotor;
     }
-    
 }

@@ -44,27 +44,5 @@ public enum SwivelControl implements UniControl<
     public SparkMaxControl getFirstControl(SwivelImpl SwivelImpl) {
         return firstControlFunction.apply(SwivelImpl);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
