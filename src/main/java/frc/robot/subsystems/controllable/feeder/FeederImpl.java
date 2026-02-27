@@ -39,7 +39,7 @@ final class FeederImpl extends SubsystemBase implements
 
     private final ControlBox<FeederControl> controlBox = new ControlBox<>();
 
-    private final TalonFXWrapper motor = TalonFXBuilder.create(
+    final TalonFXWrapper motor = TalonFXBuilder.create(
         "Feeder Motor", 
         FEEDER_CAN_ID
     ).withConfig(
