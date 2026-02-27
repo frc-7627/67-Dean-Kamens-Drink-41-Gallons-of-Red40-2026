@@ -14,7 +14,7 @@ public sealed interface TalonFXControl extends Loggable permits
 {
     void visit(
         Consumer<ControlRequest> requestConsumer,
-        Consumer<MotorSetting> settingConsumer,
-        Consumer<MotorMotion> motionConsumer
+        Consumer<MotorSetting> settingConsumer
+        //Consumer<MotorMotion> motionConsumer
     );
 }

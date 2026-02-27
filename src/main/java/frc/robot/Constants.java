@@ -265,7 +265,7 @@ public final class Constants {
         // Math says (not accounting for energy loss) that from trench to hub is
         // 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 35;
+        public static final double DEFAULT_SHOOT_FPS = 10;
         public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 

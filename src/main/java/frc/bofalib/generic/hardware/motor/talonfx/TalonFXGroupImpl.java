@@ -76,7 +76,7 @@ implements
     public void beginControlInner(TalonFXBatchControl control) {
         leaderWrapper.beginControl(control.control());
         followerWrappers.forEach(
-            followerWrapper -> followerWrapper.beginControl(control.control())
+            followerWrapper -> followerWrapper.beginControl(control.control())  
         );
     }
 
@@ -84,7 +84,7 @@ implements
     public void runControlInner(TalonFXBatchControl control) {
         leaderWrapper.runControl();
         followerWrappers.forEach(
-            TalonFXWrapper::runControl
+            TalonFXWrapper::runControl 
         );
     }
 

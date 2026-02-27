@@ -92,8 +92,8 @@ implements
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
                     ).withSlot(0)); }
                 );
-            },
-            motion -> {
+            }
+            /*motion -> {
                 motion.visit(
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new MotionMagicVoltage(
                         Rotations.convertFrom(magnitudeSupplier.getAsDouble(), unit)
@@ -102,7 +102,7 @@ implements
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
                     ).withSlot(1)); }
                 );
-            }
+            } */
         );
     }
 

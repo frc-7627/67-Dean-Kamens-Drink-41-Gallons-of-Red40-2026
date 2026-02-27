@@ -23,8 +23,8 @@ public final record TalonFXControlRequest(
     @Override
     public void visit(
         Consumer<ControlRequest> requestConsumer,
-        Consumer<MotorSetting> settingConsumer, 
-        Consumer<MotorMotion> motionConsumer
+        Consumer<MotorSetting> settingConsumer
+        //Consumer<MotorMotion> motionConsumer
     ) {
         requestConsumer.accept(request);    
         System.out.println("Visting talon control requests");

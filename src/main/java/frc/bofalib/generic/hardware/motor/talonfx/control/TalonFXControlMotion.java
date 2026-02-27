@@ -20,10 +20,10 @@ public record TalonFXControlMotion(MotorMotion motion) implements TalonFXControl
     @Override
     public void visit(
         Consumer<ControlRequest> requestConsumer,
-        Consumer<MotorSetting> settingConsumer, 
-        Consumer<MotorMotion> motionConsumer
+        Consumer<MotorSetting> settingConsumer
+        //Consumer<MotorMotion> motionConsumer
     ) {
-        motionConsumer.accept(motion);
+        //motionConsumer.accept(motion);
         System.out.println("Visiting Talon Motion Requests");
     }
 }
