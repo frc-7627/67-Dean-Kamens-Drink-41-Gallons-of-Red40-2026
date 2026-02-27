@@ -1,7 +1,6 @@
 package frc.robot.subsystems.controllable.launcher;
 
 import static edu.wpi.first.units.Units.RadiansPerSecond;
-import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import frc.bofalib.generic.control.UniControl;
@@ -22,7 +21,7 @@ public enum LauncherControl implements UniControl<LauncherImpl, TalonFXBatchCont
     ) {
         this.name = name;
         this.firstControlFunction = impl -> impl.motors.getSetVelocityControl(
-            () -> feetPerSecFunction.apply(impl).getAsDouble() / FLYWHEEL_RADIUS_FEET, 
+            () -> Launcher.toAngularVelocityRPS(feetPerSecFunction.apply(impl).getAsDouble()), 
             RadiansPerSecond
         );
     }
