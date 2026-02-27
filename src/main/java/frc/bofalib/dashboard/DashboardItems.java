@@ -22,13 +22,21 @@ public final class DashboardItems {
     }
 
     public static DoubleConsumer createDoublePusher(String key) {
-        return NetworkTableInstance.getDefault()
+        final DoubleEntry entry = NetworkTableInstance.getDefault()
             .getDoubleTopic(convertToTopicName(key)).getEntry(0);
+
+        entry.set(0);
+
+        return entry;
     }
 
     public static BooleanConsumer createBooleanPusher(String key) {
-        return NetworkTableInstance.getDefault()
+        final BooleanEntry entry = NetworkTableInstance.getDefault()
             .getBooleanTopic(convertToTopicName(key)).getEntry(false);
+
+        entry.set(false);
+
+        return entry;
     }
 
     public static DoubleSupplier createDoublePuller(

@@ -61,7 +61,7 @@ final class SwivelImpl extends SubsystemBase implements
     final DoubleSupplier outPositionDegrees = DashboardItems.createDoublePuller(
         "Out Position Degrees", 
         // TODO: Constant
-        0
+        35
     );
 
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> swivelMotor.queryDouble(
