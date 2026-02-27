@@ -24,5 +24,6 @@ public record TalonFXControlMotion(MotorMotion motion) implements TalonFXControl
         Consumer<MotorMotion> motionConsumer
     ) {
         motionConsumer.accept(motion);
+        System.out.println("Visiting Talon Motion Requests");
     }
 }

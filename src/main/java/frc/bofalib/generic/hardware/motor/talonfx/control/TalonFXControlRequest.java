@@ -27,5 +27,6 @@ public final record TalonFXControlRequest(
         Consumer<MotorMotion> motionConsumer
     ) {
         requestConsumer.accept(request);    
+        System.out.println("Visting talon control requests");
     }
 }
