@@ -1,11 +1,13 @@
 package frc.bofalib.generic.hardware.motor.talonfx;
 
+import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -90,8 +92,8 @@ implements
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
                     ).withSlot(0)); }
                 );
-            }
-            /*motion -> {
+            },
+            motion -> {
                 motion.visit(
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new MotionMagicVoltage(
                         Rotations.convertFrom(magnitudeSupplier.getAsDouble(), unit)
@@ -100,7 +102,7 @@ implements
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
                     ).withSlot(1)); }
                 );
-            } */
+            }
         );
     }
 

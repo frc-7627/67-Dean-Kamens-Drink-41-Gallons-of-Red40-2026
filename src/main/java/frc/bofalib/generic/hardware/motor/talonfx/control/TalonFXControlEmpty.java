@@ -22,7 +22,7 @@ public final class TalonFXControlEmpty implements TalonFXControl {
     @Override
     public void visit(
         Consumer<ControlRequest> requestConsumer,
-        Consumer<MotorSetting> settingConsumer 
-        //Consumer<MotorMotion> motionConsumer
+        Consumer<MotorSetting> settingConsumer,
+        Consumer<MotorMotion> motionConsumer
     ) {}
 }
