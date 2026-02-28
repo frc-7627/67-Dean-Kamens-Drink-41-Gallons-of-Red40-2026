@@ -1,34 +1,19 @@
 package frc.bofalib.generic.hardware.motor.talonfx.gains;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.Slot1Configs;
-import com.ctre.phoenix6.configs.SlotConfigs;
 import frc.bofalib.gains.GainSelection;
 import frc.bofalib.gains.Gains;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXCommonConfigurator;
 
-public final class TalonFXGains implements Gains {
+public final class TalonFXMotionGains implements Gains {
     private final TalonFXCommonConfigurator configurator;
-    private final SlotConfigs configs;
+    private final Slot0Configs configs;
 
-    private TalonFXGains(
-        TalonFXCommonConfigurator configurator,
-        SlotConfigs configs
+    public TalonFXMotionGains(
+        TalonFXCommonConfigurator configurator
     ) {
         this.configurator = configurator;
-        this.configs = configs;
-    }
-
-    public static TalonFXGains createSettingGains(
-        TalonFXCommonConfigurator configurator
-    ) {
-        return new TalonFXGains(configurator, SlotConfigs.from(new Slot0Configs()));
-    }
-
-    public static TalonFXGains createMotionGains(
-        TalonFXCommonConfigurator configurator
-    ) {
-        return new TalonFXGains(configurator, SlotConfigs.from(new Slot1Configs()));
+        this.configs = new Slot0Configs();
     }
 
     @Override

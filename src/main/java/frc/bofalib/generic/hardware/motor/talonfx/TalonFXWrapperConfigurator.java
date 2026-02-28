@@ -5,7 +5,8 @@ import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
-import com.ctre.phoenix6.configs.SlotConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import frc.bofalib.generic.hardware.motor.MotorConfiguratorBase;
@@ -33,7 +34,14 @@ final class TalonFXWrapperConfigurator extends MotorConfiguratorBase implements 
     }
 
     @Override
-    public void apply(SlotConfigs configuration) {
+    public void apply(Slot0Configs configuration) {
+        configurator.apply(
+            Objects.requireNonNull(configuration)
+        );
+    }
+
+    @Override
+    public void apply(Slot1Configs configuration) {
         configurator.apply(
             Objects.requireNonNull(configuration)
         );

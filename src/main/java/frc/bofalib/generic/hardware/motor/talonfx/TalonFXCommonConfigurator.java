@@ -4,7 +4,8 @@ import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
-import com.ctre.phoenix6.configs.SlotConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import frc.bofalib.generic.hardware.motor.MotorConfigurator;
 
@@ -34,7 +35,9 @@ public interface TalonFXCommonConfigurator extends MotorConfigurator {
 
     void apply(OpenLoopRampsConfigs configuration);
 
-    void apply(SlotConfigs configuration);
+    void apply(Slot0Configs configuration);
+
+    void apply(Slot1Configs configuration);
 
     void apply(CurrentLimitsConfigs configuration);
 

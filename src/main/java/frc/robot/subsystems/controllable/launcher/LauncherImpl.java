@@ -22,7 +22,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroupBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talonfx.gains.TalonFXGains;
+import frc.bofalib.generic.hardware.motor.talonfx.gains.TalonFXSettingGains;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
@@ -126,7 +126,7 @@ final class LauncherImpl extends SubsystemBase implements
             ),
             DashboardItems.createGainsDashboard(
                 KEY_BUILDER.copyExtended("Motor Gains"), 
-                TalonFXGains.createSettingGains(motors.getConfigurator()), 
+                new TalonFXSettingGains(motors.getConfigurator()), 
                 List.of(
                     GainItem.createProportional(DEFAULT_SLOT0_P),
                     GainItem.createIntegral(DEFAULT_SLOT0_I),
