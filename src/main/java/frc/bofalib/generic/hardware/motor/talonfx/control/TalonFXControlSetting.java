@@ -13,8 +13,10 @@ public record TalonFXControlSetting(MotorSetting setting) implements TalonFXCont
 
     @Override
     public String getLoggableInfo() {
-        // TODO Auto-generated method stub
-        return TalonFXControl.super.getLoggableInfo();
+        return getLoggableName() 
+            + ": "
+            + setting.getLoggableInfo()
+        ;
     }
     
     @Override

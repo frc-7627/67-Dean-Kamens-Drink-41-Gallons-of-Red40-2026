@@ -10,7 +10,6 @@ public record TalonFXBatchControl(TalonFXControl control) implements Loggable {
 
     @Override
     public String getLoggableInfo() {
-        // TODO Auto-generated method stub
-        return Loggable.super.getLoggableInfo();
+        return getLoggableName() + ": " + control.getLoggableInfo();
     }
 }
