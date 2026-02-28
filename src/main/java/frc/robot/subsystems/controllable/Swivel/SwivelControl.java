@@ -3,6 +3,8 @@ package frc.robot.subsystems.controllable.swivel;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.loggable.Loggable;
 import static edu.wpi.first.units.Units.Degrees;
+import static frc.robot.Constants.SwivelConstants.SWIVEL_TO_MOTOR_GEAR_RATIO;
+
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 
@@ -15,11 +17,11 @@ public enum SwivelControl implements UniControl<
 >, Loggable{
     FOLD_OUT(
         "Intake Fold Out", 
-        impl -> impl.outPositionDegrees
+        impl -> () -> impl.outPositionDegrees.getAsDouble() * SWIVEL_TO_MOTOR_GEAR_RATIO
     ),
     FOLD_IN(
         "Intake Fold In", 
-        impl -> impl.inPositionDegrees
+        impl -> () -> impl.inPositionDegrees.getAsDouble() * SWIVEL_TO_MOTOR_GEAR_RATIO 
     );
 
     private final String name;

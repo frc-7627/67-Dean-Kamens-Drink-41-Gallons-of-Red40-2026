@@ -254,6 +254,11 @@ public final class Constants {
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
+        public static final double IN_POSITION_DEGREES = 0.0;
+
+        public static final double OUT_POSITION_DEGREES = 35.0;
+
+        public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
     }
 
     public static class LauncherConstants {

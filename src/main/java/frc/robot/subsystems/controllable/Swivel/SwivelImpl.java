@@ -5,6 +5,7 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
@@ -19,17 +20,19 @@ import java.util.function.DoubleSupplier;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.gains.GainItem;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
+import frc.bofalib.generic.hardware.motor.sparkmax.gains.SparkMaxGains;
 import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
 
-import static frc.robot.Constants.IntakeConstants.*;
+import static frc.robot.Constants.SwivelConstants.*;
 import static frc.robot.Constants.CanIDs.*;
 
 
@@ -55,8 +58,8 @@ final class SwivelImpl extends SubsystemBase implements
                 new MAXMotionConfig()
                     // TODO: constants
                     .allowedProfileError(Rotations.convertFrom(0.5, Degrees))
-                    .cruiseVelocity(5 /* RPM */)
-                    .maxAcceleration(5 /* RPM / s */)
+                    .cruiseVelocity(10 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM */)
+                    .maxAcceleration(10 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM / s */)
                     .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
             )), 
         ResetMode.kResetSafeParameters, 
@@ -64,24 +67,22 @@ final class SwivelImpl extends SubsystemBase implements
     ).build();
 
     final DoubleSupplier inPositionDegrees = DashboardItems.createDoublePuller(
-        "In Position Degrees", 
-        // TODO: Constant
-        0
+        KEY_BUILDER.copyExtendedToString("In Position Degrees"), 
+        IN_POSITION_DEGREES
     );
 
     final DoubleSupplier outPositionDegrees = DashboardItems.createDoublePuller(
-        "Out Position Degrees", 
-        // TODO: Constant
-        35
+        KEY_BUILDER.copyExtendedToString("Out Position Degrees"), 
+        OUT_POSITION_DEGREES
     );
 
-    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> swivelMotor.queryDouble(
+    private final DoubleSupplier swivelVelocityRotPerSecSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.ANGULAR_VELOCITY_ROT_PER_SEC
-    );
+    ) / SWIVEL_TO_MOTOR_GEAR_RATIO;
 
-    private final DoubleSupplier motorPositionRotSupplier = () -> swivelMotor.queryDouble(
-        SparkMaxQuery.ANGULAR_POSITION_ROT
-    );
+    private final DoubleSupplier swivelPositionRotSupplier = () -> swivelMotor.queryDouble(
+        SparkMaxQuery.ANGULAR_POSITION_ROT 
+    ) / SWIVEL_TO_MOTOR_GEAR_RATIO;
 
     private final DoubleSupplier motorAmpsSupplier = () -> swivelMotor.queryDouble(
         SparkMaxQuery.OUTPUT_CURRENT_AMPS
@@ -91,20 +92,20 @@ final class SwivelImpl extends SubsystemBase implements
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Swivel Velocity RPM")
                 ), 
                 () -> RPM.convertFrom(
-                    motorVelocityRotPerSecSupplier.getAsDouble(), 
+                    swivelVelocityRotPerSecSupplier.getAsDouble(), 
                     RotationsPerSecond
                 ),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Position Degrees")
+                    KEY_BUILDER.copyExtendedToString("Swivel Position Degrees")
                 ), 
                 () -> Degrees.convertFrom(
-                    motorPositionRotSupplier.getAsDouble(), 
+                    swivelPositionRotSupplier.getAsDouble(), 
                     Rotations
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()),
