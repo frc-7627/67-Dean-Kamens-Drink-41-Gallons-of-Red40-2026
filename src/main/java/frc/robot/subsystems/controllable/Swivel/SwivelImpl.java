@@ -58,7 +58,8 @@ final class SwivelImpl extends SubsystemBase implements
                     .cruiseVelocity(5 /* RPM */)
                     .maxAcceleration(5 /* RPM / s */)
                     .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
-            )), 
+                ).p(1.0)
+            ), 
         ResetMode.kResetSafeParameters, 
         PersistMode.kPersistParameters
     ).build();
