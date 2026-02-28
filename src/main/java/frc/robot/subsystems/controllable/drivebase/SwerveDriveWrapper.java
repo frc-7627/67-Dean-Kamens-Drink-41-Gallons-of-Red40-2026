@@ -218,7 +218,7 @@ final class SwerveDriveWrapper {
     ) {
         return switch (mode) {
             case ROTATE -> getTranslationalInputStream(inputs)
-                .withControllerRotationAxis(FunctionalUtil.negativeSupplier(inputs.rightX()));
+                .withControllerRotationAxis((inputs.rightX()));
             case HEADING -> getTranslationalInputStream(inputs)
                 .withControllerHeadingAxis(inputs.rightX(), inputs.rightY())
                 .headingWhile(true);
