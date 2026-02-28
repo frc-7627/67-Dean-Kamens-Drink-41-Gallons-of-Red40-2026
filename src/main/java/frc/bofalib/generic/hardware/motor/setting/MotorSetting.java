@@ -4,8 +4,9 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.units.AngularVelocityUnit;
+import frc.bofalib.loggable.Loggable;
 
-public sealed interface MotorSetting permits
+public sealed interface MotorSetting extends Loggable permits
     MotorDutyCycle,
     MotorVelocity
 {

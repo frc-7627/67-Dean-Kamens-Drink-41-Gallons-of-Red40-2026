@@ -7,17 +7,18 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXCommonConfigurator;
 
 public final class TalonFXSettingGains implements Gains {
     private final TalonFXCommonConfigurator configurator;
-    private final Slot0Configs configs;
+    
 
     public TalonFXSettingGains(
         TalonFXCommonConfigurator configurator
     ) {
         this.configurator = configurator;
-        this.configs = new Slot0Configs();
     }
 
     @Override
     public void setGain(GainSelection gain, double value) {
+        final Slot0Configs configs = new Slot0Configs();
+
         switch (gain) {
             case PROPORTIONAL -> configs.kP = value;
             case ACCELERATION -> configs.kA = value;

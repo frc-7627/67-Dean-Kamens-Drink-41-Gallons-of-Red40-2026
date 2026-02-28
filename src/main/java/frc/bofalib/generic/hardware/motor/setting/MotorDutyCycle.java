@@ -15,4 +15,17 @@ public record MotorDutyCycle(
     ) {
         dutyCycleConsumer.accept(dutyCycleSupplier);
     }
+
+    @Override
+    public String getLoggableName() {
+        return "Set Duty Cycle";
+    }
+
+    @Override
+    public String getLoggableInfo() {
+        return getLoggableName() 
+            + ": " 
+            + dutyCycleSupplier.getAsDouble()
+        ;
+    }
 }
