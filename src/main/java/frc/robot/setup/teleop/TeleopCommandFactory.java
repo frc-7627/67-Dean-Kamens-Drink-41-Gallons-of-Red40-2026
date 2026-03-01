@@ -32,7 +32,10 @@ import frc.robot.commands.feeder.*;
 import frc.robot.commands.intake.Eject;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.launcher.*;
+<<<<<<< HEAD
 >>>>>>> a0f1a07 (Testing junk)
+=======
+>>>>>>> a0f1a07b17b32b230e3ca26f049053d9636d0c2c
 
 enum TeleopCommandFactory {
     
@@ -138,6 +141,7 @@ enum TeleopCommandFactory {
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
     context.drivebase(), context.launcher(), context.agitator(), context.feeder())),
 =======
@@ -155,6 +159,15 @@ enum TeleopCommandFactory {
     SWIVEL_OUT(context -> new ControlCommand<>(context.swivel(), SwivelControl.FOLD_OUT)),
 
     PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.getRandomSong())),
+=======
+    MANUAL_SHOOT(context -> new ManualShootOut(context.launcher())),
+
+    FEED(context -> new FeedIn(context.feeder())),
+
+    MANUAL_FEED_IN(context -> new ManualFeedIn(context.feeder())),
+
+    MANUAL_FEED_OUT(context -> new ManualFeedOut(context.feeder()))
+>>>>>>> a0f1a07b17b32b230e3ca26f049053d9636d0c2c
     ;
     
 

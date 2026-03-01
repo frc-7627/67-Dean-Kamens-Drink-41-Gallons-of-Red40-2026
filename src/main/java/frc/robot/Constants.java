@@ -243,6 +243,8 @@ public final class Constants {
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
+        public static final double MANUAL_FOLD = 0.4;
+
         // in range [-1.0, 1.0]
         public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
     }
@@ -256,12 +258,15 @@ public final class Constants {
         // Math says (not accounting for energy loss) that from trench to hub is 1573.85107 RPS z
         // or 83.49530895144358 FPS
 <<<<<<< HEAD
+<<<<<<< HEAD
         public static final double DEFAULT_SHOOT_FPS = 31; 
         public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 =======
+=======
+>>>>>>> a0f1a07b17b32b230e3ca26f049053d9636d0c2c
         public static final double SHOOT_SPEED = .25; 
         public static final double IDLE_SPEED = 670;
         public static final double INACTIVE_SPEED = 67;
@@ -295,13 +300,25 @@ public final class Constants {
             .withKI(0.0)
             .withKD(0.0);
 
+<<<<<<< HEAD
 >>>>>>> a0f1a07 (Testing junk)
+=======
+>>>>>>> a0f1a07b17b32b230e3ca26f049053d9636d0c2c
 
         public static final int HORN_FREQ = 440;
     }
 
     public static class FeederConstants {
+<<<<<<< HEAD
         public static final double DEFAULT_FEED_SPEED = -1; 
+=======
+        // TODO: find values for feeder
+        // TODO: we've run on prototype at 0.5, all good, no stretch in the wheel.
+        public static final double DEFAULT_FEED_SPEED = -0.2;
+        public static final double MANUAL_FEED_SPEED = 0.2; 
+
+        //TODO: PROTO FEEDER NEGITIVE IS INTAKE, FINAL WILL BE OPPOSIMG
+>>>>>>> a0f1a07b17b32b230e3ca26f049053d9636d0c2c
 
         public static final double DEFAULT_CURRENT_LIMIT = 40;
 

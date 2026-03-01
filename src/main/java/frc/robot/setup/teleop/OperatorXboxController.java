@@ -31,7 +31,10 @@ class OperatorXboxController implements OperatorController {
             case FEED_AND_SHOOT -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue);
             case SHOOT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
             case MANUAL_SHOOT -> binderConsumer.accept(xboxController.rightStick()::whileTrue);
+<<<<<<< HEAD
 >>>>>>> a0f1a07 (Testing junk)
+=======
+>>>>>>> a0f1a07b17b32b230e3ca26f049053d9636d0c2c
             default -> {
             }
         }
