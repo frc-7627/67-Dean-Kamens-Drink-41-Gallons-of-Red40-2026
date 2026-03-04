@@ -239,7 +239,7 @@ public final class Constants {
 
         public static final int AMP_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 25
 
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
@@ -254,9 +254,9 @@ public final class Constants {
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
-        public static final double IN_POSITION_DEGREES = 0.0;
+        public static final double IN_POSITION_DEGREES = 50; //INTAKE ROCK UP
 
-        public static final double OUT_POSITION_DEGREES = 35.0;
+        public static final double OUT_POSITION_DEGREES = 83;
 
         public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
     }

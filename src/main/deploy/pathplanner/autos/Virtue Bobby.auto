@@ -5,9 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "top start - shooting pose"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         },
         {
@@ -17,33 +30,47 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Top Down Through N Zone"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Half Top Down"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom N Zone - Bottom Hub"
+            "pathName": "Bottom Top Half Of the N zone - Hub"
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Bottom Hub - N Zone"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom Up Through the N Zone"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top N Zone - Top Hub"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         }
       ]

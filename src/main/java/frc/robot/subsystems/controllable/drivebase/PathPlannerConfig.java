@@ -37,7 +37,7 @@ final class PathPlannerConfig {
 
 
     private static BooleanSupplier shouldFlipPath(Supplier<Alliance> allianceSupplier) {
-        return () -> allianceSupplier.get().equals(ORIGIN_ALLIANCE);
+        return () -> !allianceSupplier.get().equals(ORIGIN_ALLIANCE);
     }
 
     private PathPlannerConfig() {}

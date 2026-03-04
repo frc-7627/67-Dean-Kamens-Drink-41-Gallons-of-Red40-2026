@@ -7,19 +7,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.bofalib.generic.control.ControlCommand;
+import frc.robot.commands.Score;
 import frc.robot.setup.teleop.CommandContext;
+import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
 final class AutoChooserImpl implements AutoChooser {
     private final SendableChooser<Command> chooser;
     private final CommandContext commandContext;
 
     AutoChooserImpl(CommandContext commandContext) {
-        this.chooser = AutoBuilder.buildAutoChooser();
         this.commandContext = commandContext;
-
-        setupChooser();
+        
         setupNamedCommands();
+
+        this.chooser = AutoBuilder.buildAutoChooser();
+        setupChooser();
     }
 
     private void setupNamedCommands() {
@@ -29,9 +33,18 @@ final class AutoChooserImpl implements AutoChooser {
         );
 
         NamedCommands.registerCommand(
-            "Shoot", 
-            new ControlCommand<>(commandContext.launcher(), LauncherControl.SHOOT)
+            "Score", 
+            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), commandContext.drivebase(), commandContext.launcher(), 
+            commandContext.agitator(), commandContext.feeder())
         );
+
+        NamedCommands.registerCommand(
+            "Fold Out", 
+            new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_OUT)
+        );
+
+        NamedCommands.registerCommand("Intake", 
+        new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD));
     }
 
     private void setupChooser() {

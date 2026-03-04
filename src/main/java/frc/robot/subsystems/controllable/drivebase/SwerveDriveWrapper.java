@@ -146,7 +146,6 @@ final class SwerveDriveWrapper {
      */
     void zeroGyro() {
         swerveDrive.zeroGyro();
-        System.out.println("Zeroing the gyro");
         logger.fine("Zeroing the gyro");
         //swerveDrive.setGyroOffset(swerveDrive.getGyro().getRotation3d().minus(k180deg));
     }
@@ -158,7 +157,6 @@ final class SwerveDriveWrapper {
 
         if (alliance.equals(Alliance.Red)) {
             resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.k180deg));
-            System.out.println("Team was found to be red so applying the 180 degree thing");
             logger.fine("Team was found to be red so applying the 180 degree thing");
         }
     }

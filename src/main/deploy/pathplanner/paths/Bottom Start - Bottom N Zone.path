@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.055720399429386,
-        "y": 1.9842225392296724
+        "x": 3.506,
+        "y": 0.582
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0815977175463622,
-        "y": -0.034208273894436036
+        "x": 4.4999397590361445,
+        "y": 0.669265060240964
       },
       "isLocked": false,
       "linkedName": "Bottom Shoot Pose"
@@ -20,8 +20,8 @@
         "y": 2.074793152639087
       },
       "prevControl": {
-        "x": 6.794992867332382,
-        "y": 0.1598716119828818
+        "x": 8.401132530120481,
+        "y": 0.03545783132530245
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.34,
       "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.734210526315792,
+      "rotationDegrees": 124.162
     }
   ],
   "constraintZones": [],
@@ -47,13 +51,13 @@
   },
   "goalEndState": {
     "velocity": 2.0,
-    "rotation": 89.34145682243648
+    "rotation": 124.162
   },
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 46.789910608245954
+    "rotation": 69.65244544685186
   },
   "useDefaultConstraints": true
 }

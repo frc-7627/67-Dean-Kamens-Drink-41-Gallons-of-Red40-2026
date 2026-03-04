@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.752453637660485,
-        "y": 5.619985734664765
+        "x": 7.67990361445783,
+        "y": 6.001987951807228
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.752092832315692,
-        "y": 5.04027773966576
+        "x": 7.679542809113037,
+        "y": 5.422279956808223
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Top Top Half of the N zone"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom Top Half Of the N zone"
     }
   ],
   "rotationTargets": [],
@@ -47,8 +47,8 @@
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -91.87787744728536
+    "velocity": 1.0,
+    "rotation": -124.162
   },
   "useDefaultConstraints": true
 }
