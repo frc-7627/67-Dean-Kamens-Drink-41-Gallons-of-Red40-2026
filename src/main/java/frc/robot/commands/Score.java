@@ -124,7 +124,7 @@ public final class Score extends Command {
         endCurrentCommand();
 
         commandOptional = Optional.empty();
-        stateOptional = Optional.of(State.FEED_AND_SHOOT);
+        stateOptional = Optional.of(State.RE_RAMP_UP);
 
         // indicator.indicateReRamping();
     }
