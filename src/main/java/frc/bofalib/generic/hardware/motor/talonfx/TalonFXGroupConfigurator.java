@@ -95,4 +95,9 @@ final class TalonFXGroupConfigurator extends MotorConfiguratorBase implements Ta
             followerConfigurator -> followerConfigurator.apply(configuration)
         );
     }
+
+    @Override
+    public Slot0Configs GetSlot0Configs() {
+        return  this.configs;
+    }
 }

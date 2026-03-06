@@ -135,8 +135,8 @@ final class LauncherImpl extends SubsystemBase implements
                     GainItem.createProportional(DEFAULT_SLOT0_P),
                     GainItem.createIntegral(DEFAULT_SLOT0_I),
                     GainItem.createDerivative(DEFAULT_SLOT0_D),
-                    GainItem.createVelocity(DEFAULT_SLOT0_V)
-                    //GainItem.createStatic(DEFAULT_SLOT0_S)
+                    GainItem.createVelocity(DEFAULT_SLOT0_V),
+                    GainItem.createStatic(DEFAULT_SLOT0_S)
                 )
             )
         ));
@@ -172,7 +172,7 @@ final class LauncherImpl extends SubsystemBase implements
         return switch (query) {
             case AT_SHOOT_SPEED -> Launcher.toLinearVelocityFPS(
                 motors.queryDouble(ANGULAR_SPEED_QUERY)
-            ) >= shootSpeedFPSSupplier.getAsDouble();
+            ) >= shootSpeedFPSSupplier.getAsDouble() - shootSpeedFPSSupplier.getAsDouble() * .02;
         };
     }
 }

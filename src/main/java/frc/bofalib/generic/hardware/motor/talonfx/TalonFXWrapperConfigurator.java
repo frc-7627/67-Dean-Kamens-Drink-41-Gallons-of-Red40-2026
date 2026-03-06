@@ -67,4 +67,9 @@ final class TalonFXWrapperConfigurator extends MotorConfiguratorBase implements 
             Objects.requireNonNull(configuration)
         );
     }
+
+    @Override
+    public Slot0Configs GetSlot0Configs() {
+        return  this.configs;
+    }
 }
