@@ -5,6 +5,7 @@ import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -23,6 +24,7 @@ import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
 import frc.robot.Constants;
 import frc.robot.setup.teleop.JoystickInputs;
@@ -71,11 +73,12 @@ final class SwerveDrivebase extends SubsystemBase implements
             zeroGyroWithAlliance();
         }
 
-        FunctionalUtil.composeConditional(
-                DashboardItems.createDoublePusher(
-                        KEY_BUILDER.copyExtendedToString("Feet to Hub")),
-                () -> Units.metersToFeet(getDistanceTargetterToHub().getTargetMeters()),
-                FunctionalUtil.hasChangedDoublePredicate());
+        CommandSchedulerWrapper.getInstance().registerPeriodicAction(
+                FunctionalUtil.composeConditional(
+                        DashboardItems.createDoublePusher(
+                                KEY_BUILDER.copyExtendedToString("Feet to Hub")),
+                        () -> Units.metersToFeet(getDistanceTargetterToHub().getTargetMeters()),
+                        FunctionalUtil.hasChangedDoublePredicate()));
 
     }
 
