@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.bofalib.util.FunctionalUtil;
+import frc.robot.Constants;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurement;
 import swervelib.SwerveDrive;
@@ -39,14 +40,12 @@ final class SwerveDriveWrapper {
         swerveDrive.setHeadingCorrection(false);
         swerveDrive.setCosineCompensator(false);
         swerveDrive.setAngularVelocityCompensation(
-            true, 
-            true, 
-            0.1
-        );
+                true,
+                true,
+                0.1);
         swerveDrive.setModuleEncoderAutoSynchronize(
-            false, 
-            1.0
-        );
+                false,
+                1.0);
 
         if (VISION_ENABLED) {
             swerveDrive.stopOdometryThread();
@@ -64,13 +63,13 @@ final class SwerveDriveWrapper {
 
         try {
             swerveDrive = new SwerveParser(SWERVE_CONFIG_FILE)
-                .createSwerveDrive(MAX_SPEED, initialPose);
+                    .createSwerveDrive(MAX_SPEED, initialPose);
         } catch (IOException cause) {
             throw new DrivebaseInitError("Could not create swerve drive!", cause);
         }
 
         configureSwerveDrive(swerveDrive);
-        
+
         return swerveDrive;
     }
 
@@ -93,10 +92,9 @@ final class SwerveDriveWrapper {
     void updateOdometry(Stream<VisionMeasurement> visionMeasurements) {
         visionMeasurements.forEach(visionMeasurement -> {
             swerveDrive.addVisionMeasurement(
-                visionMeasurement.getEstimatedPose(),
-                visionMeasurement.getTimestamp(), 
-                visionMeasurement.getStdDevs()
-            );
+                    visionMeasurement.getEstimatedPose(),
+                    visionMeasurement.getTimestamp(),
+                    visionMeasurement.getStdDevs());
         });
 
         swerveDrive.updateOdometry();
@@ -147,12 +145,12 @@ final class SwerveDriveWrapper {
     void zeroGyro() {
         swerveDrive.zeroGyro();
         logger.fine("Zeroing the gyro");
-        //swerveDrive.setGyroOffset(swerveDrive.getGyro().getRotation3d().minus(k180deg));
+        // swerveDrive.setGyroOffset(swerveDrive.getGyro().getRotation3d().minus(k180deg));
     }
 
     void zeroGyroWithAlliance(Alliance alliance) {
         zeroGyro();
-        System.out.println("Zeroing Gyro with the alliance"); 
+        System.out.println("Zeroing Gyro with the alliance");
         logger.fine("Zeroing Gyro with the alliance");
 
         if (alliance.equals(Alliance.Red)) {
@@ -172,18 +170,27 @@ final class SwerveDriveWrapper {
 
     /**
      * Drive with the robot relative speeds and the feedforwards.
+     * 
      * @param robotRelativeSpeeds the robot relative speeds.
      * @param feedforwards
      */
     void driveRobotRelativeWithFeedForwards(
-        ChassisSpeeds robotRelativeSpeeds,
-        DriveFeedforwards feedforwards
-    ) {
+            ChassisSpeeds robotRelativeSpeeds,
+            DriveFeedforwards feedforwards) {
         swerveDrive.drive(
-            robotRelativeSpeeds, 
-            swerveDrive.kinematics.toSwerveModuleStates(robotRelativeSpeeds),
-            feedforwards.linearForces()
-        );
+                robotRelativeSpeeds,
+                swerveDrive.kinematics.toSwerveModuleStates(robotRelativeSpeeds),
+                feedforwards.linearForces());
+    }
+
+    double getTargetMeters(Alliance alliance) {
+        if (alliance == Alliance.Red) {
+            return getPose().getTranslation()
+                    .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
+        } else {
+            return getPose().getTranslation()
+                    .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
+        }
     }
 
     double getMaxVelocityMetersPerSecond() {
@@ -199,27 +206,24 @@ final class SwerveDriveWrapper {
     }
 
     private SwerveInputStream getTranslationalInputStream(
-        JoystickInputs inputs
-    ) {
+            JoystickInputs inputs) {
         return SwerveInputStream.of(
-            swerveDrive, 
-            () -> -inputs.leftY().getAsDouble(), 
-            () -> -inputs.leftX().getAsDouble()
-        ).deadband(DEADBAND)
-        .scaleTranslation(0.8)
-        .allianceRelativeControl(true);
+                swerveDrive,
+                () -> -inputs.leftY().getAsDouble(),
+                () -> -inputs.leftX().getAsDouble()).deadband(DEADBAND)
+                .scaleTranslation(0.8)
+                .allianceRelativeControl(true);
     }
 
     SwerveInputStream getInputStream(
-        InputMode mode,
-        JoystickInputs inputs
-    ) {
+            InputMode mode,
+            JoystickInputs inputs) {
         return switch (mode) {
             case ROTATE -> getTranslationalInputStream(inputs)
-                .withControllerRotationAxis((inputs.rightX()));
+                    .withControllerRotationAxis((inputs.rightX()));
             case HEADING -> getTranslationalInputStream(inputs)
-                .withControllerHeadingAxis(inputs.rightX(), inputs.rightY())
-                .headingWhile(true);
+                    .withControllerHeadingAxis(inputs.rightX(), inputs.rightY())
+                    .headingWhile(true);
         };
     }
 }
