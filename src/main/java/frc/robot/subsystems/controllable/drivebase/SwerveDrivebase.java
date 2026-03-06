@@ -6,6 +6,7 @@ import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 
 import java.util.Optional;
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
@@ -18,9 +19,11 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
+import frc.bofalib.util.FunctionalUtil;
 import frc.robot.Constants;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
@@ -67,6 +70,12 @@ final class SwerveDrivebase extends SubsystemBase implements
         if (!VISION_ENABLED) {
             zeroGyroWithAlliance();
         }
+
+        FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                        KEY_BUILDER.copyExtendedToString("Meters to Hub")),
+                () -> getDistanceTargetterToHub().getTargetMeters(),
+                FunctionalUtil.hasChangedDoublePredicate());
 
     }
 
@@ -199,6 +208,7 @@ final class SwerveDrivebase extends SubsystemBase implements
         };
     }
 
+    @Override
     public DistanceTargetter getDistanceTargetterToHub() {
         return new DistanceTargetter() {
             @Override
@@ -224,17 +234,6 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             }
         };
-    }
-
-    public double getDistanceToHub() {
-        if (gameInfoSupplier.getAlliance() == Alliance.Red) {
-            return swerveDriveWrapper.getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
-        } else {
-            return swerveDriveWrapper.getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
-        }
-
     }
 
     @Override
