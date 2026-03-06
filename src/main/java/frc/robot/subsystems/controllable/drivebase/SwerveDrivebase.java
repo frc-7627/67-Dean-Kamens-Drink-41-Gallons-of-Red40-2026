@@ -235,17 +235,6 @@ final class SwerveDrivebase extends SubsystemBase implements
         };
     }
 
-    public double getDistanceToHub() {
-        if (gameInfoSupplier.getAlliance() == Alliance.Red) {
-            return swerveDriveWrapper.getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
-        } else {
-            return swerveDriveWrapper.getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
-        }
-
-    }
-
     @Override
     public void lock() {
         swerveDriveWrapper.lock();
