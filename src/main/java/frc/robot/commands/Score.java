@@ -156,7 +156,7 @@ public final class Score extends Command {
                         stepToFeedAndShoot();
                     }
                 }
-                case FEED_AND_SHOOT -> {
+                /*case FEED_AND_SHOOT -> {
                     if (!canFeedAndShoot()) {
                         stepToReRampUp();
                     }
@@ -165,7 +165,7 @@ public final class Score extends Command {
                     if (canFeedAndShoot()) {
                         stepToFeedAndShoot();
                     }
-                }
+                } */
             } }
         );
     }
