@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
-    "velocity": 1.0,
+    "velocity": 0.5,
     "rotation": -124.162
   },
   "useDefaultConstraints": true

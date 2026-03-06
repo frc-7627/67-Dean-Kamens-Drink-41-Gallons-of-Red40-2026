@@ -256,7 +256,7 @@ public final class Constants {
 
         public static final double IN_POSITION_DEGREES = 50; //INTAKE ROCK UP
 
-        public static final double OUT_POSITION_DEGREES = 83;
+        public static final double OUT_POSITION_DEGREES = 79;
 
         public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
     }
@@ -270,9 +270,9 @@ public final class Constants {
         // Math says (not accounting for energy loss) that from trench to hub is
         // 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 2.095; //2.1 for testing //AS OF SATURDAY THE THIRD THIS NUMBER WAS 34
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
+        public static final double DEFAULT_SHOOT_FPS = 43; //2.1 for testing //AS OF SATURDAY THE THIRD THIS NUMBER WAS 34
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 

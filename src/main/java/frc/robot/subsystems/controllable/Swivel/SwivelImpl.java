@@ -58,8 +58,8 @@ final class SwivelImpl extends SubsystemBase implements
                 new MAXMotionConfig()
                     // TODO: constants
                     .allowedProfileError(Rotations.convertFrom(0.5, Degrees))
-                    .cruiseVelocity(30 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM */)
-                    .maxAcceleration(15 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM / s */)
+                    .cruiseVelocity(40 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM */)
+                    .maxAcceleration(20 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM / s */)
                     .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
                 ).p(1.0)
             ), 

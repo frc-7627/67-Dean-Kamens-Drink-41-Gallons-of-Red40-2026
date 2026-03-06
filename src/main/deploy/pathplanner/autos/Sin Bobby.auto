@@ -5,9 +5,46 @@
     "data": {
       "commands": [
         {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Bottom Start - Bottom N Zone"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Half Bottom Up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Bottom Cleanup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Clean - Hub"
           }
         }
       ]
