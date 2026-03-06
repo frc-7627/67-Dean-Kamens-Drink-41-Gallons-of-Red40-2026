@@ -77,7 +77,7 @@ final class SwerveDrivebase extends SubsystemBase implements
                 FunctionalUtil.composeConditional(
                         DashboardItems.createDoublePusher(
                                 KEY_BUILDER.copyExtendedToString("Feet to Hub")),
-                        () -> Units.metersToFeet(getDistanceTargetterToHub().getTargetMeters()),
+                        () -> Units.metersToFeet(swerveDriveWrapper.getTargetMeters(gameInfoSupplier.getAlliance())),
                         FunctionalUtil.hasChangedDoublePredicate()));
 
     }
@@ -214,6 +214,8 @@ final class SwerveDrivebase extends SubsystemBase implements
     @Override
     public DistanceTargetter getDistanceTargetterToHub() {
         return new DistanceTargetter() {
+            private double distance;
+
             @Override
             public String getLoggableName() {
                 return "Location Distance Targetter to Hub";
@@ -226,6 +228,17 @@ final class SwerveDrivebase extends SubsystemBase implements
             }
 
             @Override
+            public void initialize() {
+                if (gameInfoSupplier.getAlliance() == Alliance.Red) {
+                    distance = swerveDriveWrapper.getPose().getTranslation()
+                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
+                } else {
+                    distance = swerveDriveWrapper.getPose().getTranslation()
+                            .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
+                }
+            }
+
+            @Override
             public double getTargetMeters() {
                 if (gameInfoSupplier.getAlliance() == Alliance.Red) {
                     return swerveDriveWrapper.getPose().getTranslation()
@@ -234,7 +247,6 @@ final class SwerveDrivebase extends SubsystemBase implements
                     return swerveDriveWrapper.getPose().getTranslation()
                             .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
                 }
-
             }
         };
     }
