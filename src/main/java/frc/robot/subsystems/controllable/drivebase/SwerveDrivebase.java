@@ -73,8 +73,8 @@ final class SwerveDrivebase extends SubsystemBase implements
 
         FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                        KEY_BUILDER.copyExtendedToString("Meters to Hub")),
-                () -> getDistanceTargetterToHub().getTargetMeters(),
+                        KEY_BUILDER.copyExtendedToString("Feet to Hub")),
+                () -> Units.metersToFeet(getDistanceTargetterToHub().getTargetMeters()),
                 FunctionalUtil.hasChangedDoublePredicate());
 
     }
