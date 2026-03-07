@@ -173,6 +173,7 @@ public final class Score extends Command {
     public void end(boolean interrupted) {
         launcherCommand.end(true);
         feedCommand.end(true);
+        keepOffCommand.end(true);
         endCurrentCommand();
 
         stateOptional = Optional.empty();
