@@ -1,5 +1,7 @@
 package frc.robot.subsystems.controllable.launcher;
 
+import static edu.wpi.first.units.Units.Feet;
+import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
@@ -13,7 +15,9 @@ public final class LauncherControlVarShoot implements LauncherControl {
 
     public LauncherControlVarShoot(DistanceTargetter targetter) {
         this.rpsFunction = impl -> () -> Launcher.toAngularVelocityRPS(
-            DISTANCE_FEET_TO_MOTOR_FPS_MAP.get(targetter.getTargetMeters())
+            DISTANCE_FEET_TO_MOTOR_FPS_MAP.get(
+                Feet.convertFrom(targetter.getTargetMeters(), Meters)
+            )
         );
     }
 
