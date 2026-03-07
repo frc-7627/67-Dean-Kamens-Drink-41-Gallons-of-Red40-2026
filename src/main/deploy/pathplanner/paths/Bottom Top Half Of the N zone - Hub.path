@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.495,
+        "x": 3.7,
         "y": 7.477
       },
       "prevControl": {
-        "x": 4.357879518066515,
+        "x": 4.562879518066515,
         "y": 7.444445783129944
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Top Start"
+      "linkedName": "Top Shooting Pose"
     }
   ],
   "rotationTargets": [
@@ -46,14 +46,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -69.274
+    "velocity": 0.0,
+    "rotation": -72.49376934999043
   },
   "reversed": false,
   "folder": "Hub",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -124.162
   },
   "useDefaultConstraints": true
 }

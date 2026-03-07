@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 8.007734939759036,
-        "y": 0.8768915662650607
+        "y": 0.8768915662650612
       },
       "isLocked": false,
       "linkedName": "Top Bottom Of the N zone"
@@ -47,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 69.65244544685186
+    "rotation": 74.32829370666538
   },
   "reversed": false,
   "folder": "Hub",

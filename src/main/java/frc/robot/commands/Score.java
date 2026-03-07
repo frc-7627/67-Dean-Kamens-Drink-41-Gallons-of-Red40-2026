@@ -40,8 +40,13 @@ public final class Score extends Command {
 
     private final Command launcherCommand;
 
+    private final Command agitateCommand;
+
+    private final Command keepOffCommand;
+
+    private final Command feedCommand;
+
     //private final Command aimCommand;
-    private final Command feedAndAgitateCommand;
 
     private Optional<State> stateOptional = Optional.empty();
     private Optional<Command> commandOptional = Optional.empty();
@@ -57,14 +62,19 @@ public final class Score extends Command {
         this.indicator = indicator;
         this.launcher = launcher;
 
-        final Command feedCommand = new ControlCommand<>(
+        this.feedCommand = new ControlCommand<>(
             feeder, 
             FeederControl.FEED_IN
         );
 
-        final Command agitateCommand = new ControlCommand<>(
+        this.agitateCommand = new ControlCommand<>(
             agitator,
             AgitatorControl.TOWARD
+        );
+
+        this.keepOffCommand = new ControlCommand<>(
+            agitator, 
+            AgitatorControl.AWAY_MANUAL
         );
 
         this.launcherCommand = new ControlCommand<>(
@@ -80,9 +90,6 @@ public final class Score extends Command {
         //         )
         //     )
         // );
-
-        this.feedAndAgitateCommand = agitateCommand
-            .alongWith(feedCommand);
 
         addRequirements(
             indicator,
@@ -103,6 +110,8 @@ public final class Score extends Command {
 
     private void stepToAimAndRampUp() {
         //aimCommand.initialize();
+        keepOffCommand.initialize();
+
 
         commandOptional = Optional.empty(); //of(aimCommand);
         stateOptional = Optional.of(State.AIM_AND_RAMP_UP);
@@ -112,9 +121,10 @@ public final class Score extends Command {
 
     private void stepToFeedAndShoot() {
         endCurrentCommand();
-        feedAndAgitateCommand.initialize();
+        keepOffCommand.end(true);
+        agitateCommand.initialize();
 
-        commandOptional = Optional.of(feedAndAgitateCommand);
+        commandOptional = Optional.of(agitateCommand);
         stateOptional = Optional.of(State.FEED_AND_SHOOT);
 
         indicator.indicateShooting();
@@ -122,6 +132,7 @@ public final class Score extends Command {
 
     private void stepToReRampUp() {
         endCurrentCommand();
+        keepOffCommand.initialize();
 
         commandOptional = Optional.empty();
         stateOptional = Optional.of(State.RE_RAMP_UP);
@@ -132,12 +143,14 @@ public final class Score extends Command {
     @Override
     public void initialize() {
         launcherCommand.initialize();
+        feedCommand.initialize();
         stepToAimAndRampUp();
     }
 
     @Override
     public void end(boolean interrupted) {
         launcherCommand.end(true);
+        feedCommand.end(true);
         endCurrentCommand();
 
         stateOptional = Optional.empty();
@@ -147,11 +160,13 @@ public final class Score extends Command {
     @Override
     public void execute() {
         launcherCommand.execute();
+        feedCommand.execute();
         commandOptional.ifPresent(Command::execute);
 
         stateOptional.ifPresent(
             state -> { switch (state) {
                 case AIM_AND_RAMP_UP -> {
+                    keepOffCommand.execute();
                     if (canFeedAndShoot()) {
                         stepToFeedAndShoot();
                     }
@@ -162,6 +177,7 @@ public final class Score extends Command {
                     }
                 }
                 case RE_RAMP_UP -> {
+                    keepOffCommand.execute();
                     if (canFeedAndShoot()) {
                         stepToFeedAndShoot();
                     }

@@ -233,7 +233,7 @@ public final class Constants {
         public static final int AMP_LIMIT = 150; // that's really high so im not gonna change it
 
         public static final double DEFAULT_DUTY_CYCLE = -0.8;
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.4;
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = -0.2;
     }
 
     public static class IntakeConstants {

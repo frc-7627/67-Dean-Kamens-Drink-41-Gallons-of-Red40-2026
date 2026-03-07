@@ -41,8 +41,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -90.0
+    "velocity": 0.5,
+    "rotation": -124.162
   },
   "reversed": false,
   "folder": "N Zone",
