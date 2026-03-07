@@ -214,8 +214,6 @@ final class SwerveDrivebase extends SubsystemBase implements
     @Override
     public DistanceTargetter getDistanceTargetterToHub() {
         return new DistanceTargetter() {
-            private double distance;
-
             @Override
             public String getLoggableName() {
                 return "Location Distance Targetter to Hub";
@@ -228,17 +226,6 @@ final class SwerveDrivebase extends SubsystemBase implements
             }
 
             @Override
-            public void initialize() {
-                if (gameInfoSupplier.getAlliance() == Alliance.Red) {
-                    distance = swerveDriveWrapper.getPose().getTranslation()
-                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
-                } else {
-                    distance = swerveDriveWrapper.getPose().getTranslation()
-                            .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
-                }
-            }
-
-            @Override
             public double getTargetMeters() {
                 if (gameInfoSupplier.getAlliance() == Alliance.Red) {
                     return swerveDriveWrapper.getPose().getTranslation()
@@ -247,6 +234,28 @@ final class SwerveDrivebase extends SubsystemBase implements
                     return swerveDriveWrapper.getPose().getTranslation()
                             .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
                 }
+            }
+        };
+    }
+
+    @Override
+    public DistanceTargetter getDistanceTargetterToAllianceZone(Side side) {
+        return new DistanceTargetter() {
+            @Override
+            public String getLoggableName() {
+                return "Location Distance Targetter to Alliance Zone";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return DistanceTargetter.super.getLoggableInfo();
+            }
+
+            @Override
+            public double getTargetMeters() {
+                // TODO
+                return 0.0;
             }
         };
     }
@@ -291,5 +300,11 @@ final class SwerveDrivebase extends SubsystemBase implements
     public void runControlInner(DriveControl control) {
         swerveDriveWrapper.driveFieldRelative(
                 control.getSpeeds());
+    }
+
+    @Override
+    public Zone getZone() {
+        // TODO
+        return Zone.CLOSE;
     }
 }

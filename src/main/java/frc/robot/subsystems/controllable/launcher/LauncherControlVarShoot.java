@@ -6,16 +6,15 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
-import static frc.robot.Constants.LauncherConstants.*;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 
 public final class LauncherControlVarShoot implements LauncherControl {
     private final Function<LauncherImpl, DoubleSupplier> rpsFunction;
 
-    public LauncherControlVarShoot(DistanceTargetter targetter) {
+    public LauncherControlVarShoot(DistanceTargetter targetter, LauncherDomain domain) {
         this.rpsFunction = impl -> () -> Launcher.toAngularVelocityRPS(
-            DISTANCE_FEET_TO_MOTOR_FPS_MAP.get(
+            domain.distanceFeetToMotorFPSMap.get(
                 Feet.convertFrom(targetter.getTargetMeters(), Meters)
             )
         );
