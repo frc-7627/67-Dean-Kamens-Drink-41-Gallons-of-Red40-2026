@@ -6,7 +6,7 @@ import static frc.robot.Constants.LauncherConstants.*;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 
-final class LauncherControlVarShoot implements LauncherControl {
+public final class LauncherControlVarShoot implements LauncherControl {
     private final Function<LauncherImpl, TalonFXBatchControl> controlFunction;
 
     LauncherControlVarShoot(DistanceTargetter targetter) {
