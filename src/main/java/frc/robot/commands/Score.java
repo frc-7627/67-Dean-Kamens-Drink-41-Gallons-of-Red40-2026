@@ -11,7 +11,7 @@ import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controllable.launcher.LauncherBooleanQuery;
-import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
+import frc.robot.subsystems.controllable.launcher.LauncherControlVarShoot;
 import frc.robot.subsystems.misc.indication.Indicator;
 import frc.robot.subsystems.shared.gameinfo.SpecificGameInfoSupplier;
 
@@ -49,7 +49,7 @@ public final class Score extends Command {
     public Score(
         SpecificGameInfoSupplier gameInfoSupplier,
         Indicator indicator, 
-        // Drivebase drivebase, 
+        Drivebase drivebase, 
         Launcher launcher, 
         Agitator agitator, 
         Feeder feeder
@@ -69,7 +69,7 @@ public final class Score extends Command {
 
         this.launcherCommand = new ControlCommand<>(
             launcher, 
-            LauncherControlSimple.SHOOT_FROM_TRENCH
+            new LauncherControlVarShoot(drivebase.getDistanceTargetterToHub())
         );
 
         // this.aimCommand = new ControlCommand<>(
@@ -86,7 +86,7 @@ public final class Score extends Command {
 
         addRequirements(
             indicator,
-            //drivebase,
+            // don't add drivebase here; we only using it in a read-only manner.
             launcher,
             agitator,
             feeder
@@ -107,7 +107,7 @@ public final class Score extends Command {
         commandOptional = Optional.empty(); //of(aimCommand);
         stateOptional = Optional.of(State.AIM_AND_RAMP_UP);
 
-        // indicator.indicateRamping();
+        indicator.indicateRamping();
     }
 
     private void stepToFeedAndShoot() {
@@ -117,7 +117,7 @@ public final class Score extends Command {
         commandOptional = Optional.of(feedAndAgitateCommand);
         stateOptional = Optional.of(State.FEED_AND_SHOOT);
 
-        // indicator.indicateShooting();
+        indicator.indicateShooting();
     }
 
     private void stepToReRampUp() {
@@ -126,7 +126,7 @@ public final class Score extends Command {
         commandOptional = Optional.empty();
         stateOptional = Optional.of(State.RE_RAMP_UP);
 
-        // indicator.indicateReRamping();
+        indicator.indicateReRamping();
     }
 
     @Override
