@@ -7,11 +7,13 @@ import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.subsystems.controllable.agitator.Agitator;
 import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.drivebase.Drivebase;
+import frc.robot.subsystems.controllable.drivebase.Side;
 import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controllable.launcher.LauncherBooleanQuery;
 import frc.robot.subsystems.controllable.launcher.LauncherControlVarShoot;
+import frc.robot.subsystems.controllable.launcher.LauncherDomain;
 import frc.robot.subsystems.misc.indication.Indicator;
 import frc.robot.subsystems.shared.gameinfo.SpecificGameInfoSupplier;
 
@@ -37,8 +39,9 @@ public final class Score extends Command {
 
     private final Indicator indicator;
     private final Launcher launcher;
+    private final Drivebase drivebase;
 
-    private final Command launcherCommand;
+    private Command launcherCommand;
 
     //private final Command aimCommand;
     private final Command feedAndAgitateCommand;
@@ -56,6 +59,7 @@ public final class Score extends Command {
     ) {
         this.indicator = indicator;
         this.launcher = launcher;
+        this.drivebase = drivebase;
 
         final Command feedCommand = new ControlCommand<>(
             feeder, 
@@ -69,7 +73,7 @@ public final class Score extends Command {
 
         this.launcherCommand = new ControlCommand<>(
             launcher, 
-            new LauncherControlVarShoot(drivebase.getDistanceTargetterToHub())
+            new LauncherControlVarShoot(drivebase.getDistanceTargetterToHub(), LauncherDomain.CLOSE_ZONE)
         );
 
         // this.aimCommand = new ControlCommand<>(
@@ -131,6 +135,24 @@ public final class Score extends Command {
 
     @Override
     public void initialize() {
+        launcherCommand = new ControlCommand<>(
+            launcher,
+            switch (drivebase.getZone()) {
+                case CLOSE -> new LauncherControlVarShoot(
+                    drivebase.getDistanceTargetterToHub(), 
+                    LauncherDomain.CLOSE_ZONE
+                );
+                case FAR_LEFT -> new LauncherControlVarShoot(
+                    drivebase.getDistanceTargetterToAllianceZone(Side.LEFT), 
+                    LauncherDomain.FAR_ZONE
+                );
+                case FAR_RIGHT -> new LauncherControlVarShoot(
+                    drivebase.getDistanceTargetterToAllianceZone(Side.RIGHT), 
+                    LauncherDomain.FAR_ZONE
+                );
+            }
+        );
+
         launcherCommand.initialize();
         stepToAimAndRampUp();
     }

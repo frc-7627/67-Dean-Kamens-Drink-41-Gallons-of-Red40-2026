@@ -295,23 +295,26 @@ public final class Constants {
 
         public static final int HORN_FREQ = 440;
 
-        private static final double[][] DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
+        private static final double[][] CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
             {6.2, 34.3}, // min
             {11, 39}, // trench/depot
             {17, 45.5} // max
         };
 
-        public static final InterpolatingDoubleTreeMap DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
+        public static final InterpolatingDoubleTreeMap CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
         new InterpolatingDoubleTreeMap();
 
         static {
-            Arrays.stream(DISTANCE_FEET_TO_MOTOR_FPS_ARRAY).forEach(entry -> {
+            Arrays.stream(CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY).forEach(entry -> {
                 final double key = entry[0];
                 final double value = entry[1];
 
-                DISTANCE_FEET_TO_MOTOR_FPS_MAP.put(key, value);
+                CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP.put(key, value);
             });
         }
+
+        public static final InterpolatingDoubleTreeMap FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
+        new InterpolatingDoubleTreeMap();
     }
 
     public static class FeederConstants {
