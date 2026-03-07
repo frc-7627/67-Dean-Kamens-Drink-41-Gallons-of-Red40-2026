@@ -32,7 +32,7 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
 
     @Override
     public Optional<Target> getBestTarget() {
-        return getBestTargets().max((a, b) -> a.compareWith(b))
+        return getBestTargets().min((a, b) -> a.compareWith(b))
                 .map(comparableTarget -> (Target) comparableTarget);
     }
 
