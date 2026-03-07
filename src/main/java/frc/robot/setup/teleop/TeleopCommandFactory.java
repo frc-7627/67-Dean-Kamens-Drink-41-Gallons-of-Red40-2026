@@ -19,7 +19,7 @@ import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
-import frc.robot.subsystems.controllable.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.controllable.swivel.Swivel;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
@@ -70,7 +70,7 @@ enum TeleopCommandFactory {
     /**
      * 
      */
-    LAUNCH_FUEL(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
+    LAUNCH_FUEL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)),
     /**
      * 
      */
@@ -112,19 +112,19 @@ enum TeleopCommandFactory {
         )
     )),
 
-    FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+    FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
         .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))),
 
-    AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+    AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
     .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
     .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD)))),
 
-    PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
-    .raceWith(new WaitCommand(1.7627)).andThen(new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)
+    PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
+    .raceWith(new WaitCommand(1.7627)).andThen(new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
     .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
     .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD))))),
     
-    SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
+    SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)),
 
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
     /*context.drivebase(),*/ context.launcher(), context.agitator(), context.feeder())

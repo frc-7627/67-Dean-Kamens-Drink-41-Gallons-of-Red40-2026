@@ -13,6 +13,7 @@ import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.Second;
 import java.io.File;
+import java.util.Arrays;
 import java.util.function.DoublePredicate;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
@@ -37,6 +38,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.controllable.drivebase.InputMode;
@@ -292,6 +294,24 @@ public final class Constants {
         public static final double DEFAULT_SLOT0_S = 0.25; // .25 volts to overcome static friction (DONT CHANGE)
 
         public static final int HORN_FREQ = 440;
+
+        private static final double[][] DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
+            {6.2, 34.3}, // min
+            {11, 39}, // trench/depot
+            {17, 45.5} // max
+        };
+
+        public static final InterpolatingDoubleTreeMap DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
+        new InterpolatingDoubleTreeMap();
+
+        static {
+            Arrays.stream(DISTANCE_FEET_TO_MOTOR_FPS_ARRAY).forEach(entry -> {
+                final double key = entry[0];
+                final double value = entry[1];
+
+                DISTANCE_FEET_TO_MOTOR_FPS_MAP.put(key, value);
+            });
+        }
     }
 
     public static class FeederConstants {

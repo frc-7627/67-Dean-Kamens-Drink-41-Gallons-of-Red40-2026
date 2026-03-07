@@ -31,7 +31,7 @@ import frc.robot.subsystems.controllable.drivebase.Drivebase;
 import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
-import frc.robot.subsystems.controllable.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.controllable.swivel.Swivel;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
@@ -120,8 +120,8 @@ public class RobotContainer {
         drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputDriveControl));
 
         launcher.setDefaultCommand(new ConditionalCommand(
-            new ControlCommand<>(launcher, LauncherControl.ACTIVE_IDLE), 
-            new ControlCommand<>(launcher, LauncherControl.INACTIVE_IDLE), 
+            new ControlCommand<>(launcher, LauncherControlSimple.ACTIVE_IDLE), 
+            new ControlCommand<>(launcher, LauncherControlSimple.INACTIVE_IDLE), 
             gameInfoSupplier::willHubActivate
         ));
 
