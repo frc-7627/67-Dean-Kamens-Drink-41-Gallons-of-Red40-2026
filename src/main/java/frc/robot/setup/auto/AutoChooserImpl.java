@@ -34,7 +34,7 @@ final class AutoChooserImpl implements AutoChooser {
 
         NamedCommands.registerCommand(
             "Score", 
-            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), /*commandContext.drivebase(),*/ commandContext.launcher(), 
+            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), commandContext.drivebase(), commandContext.launcher(), 
             commandContext.agitator(), commandContext.feeder())
         );
 
