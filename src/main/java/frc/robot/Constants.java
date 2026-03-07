@@ -301,6 +301,10 @@ public final class Constants {
             {17, 45.5} // max
         };
 
+        private static final double[][] FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
+            
+        };
+
         public static final InterpolatingDoubleTreeMap CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
         new InterpolatingDoubleTreeMap();
 
@@ -315,6 +319,15 @@ public final class Constants {
 
         public static final InterpolatingDoubleTreeMap FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
         new InterpolatingDoubleTreeMap();
+
+        static {
+            Arrays.stream(FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY).forEach(entry -> {
+                final double key = entry[0];
+                final double value = entry[1];
+
+                FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP.put(key, value);
+            });
+        }
     }
 
     public static class FeederConstants {
