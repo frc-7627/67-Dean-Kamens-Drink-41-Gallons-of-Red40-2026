@@ -10,7 +10,7 @@ import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.commands.Score;
 import frc.robot.setup.teleop.CommandContext;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
-import frc.robot.subsystems.controllable.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
 final class AutoChooserImpl implements AutoChooser {

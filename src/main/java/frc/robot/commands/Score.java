@@ -11,7 +11,7 @@ import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controllable.launcher.LauncherBooleanQuery;
-import frc.robot.subsystems.controllable.launcher.LauncherControl;
+import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.misc.indication.Indicator;
 import frc.robot.subsystems.shared.gameinfo.SpecificGameInfoSupplier;
 
@@ -69,7 +69,7 @@ public final class Score extends Command {
 
         this.launcherCommand = new ControlCommand<>(
             launcher, 
-            LauncherControl.SHOOT
+            LauncherControlSimple.SHOOT_FROM_TRENCH
         );
 
         // this.aimCommand = new ControlCommand<>(
