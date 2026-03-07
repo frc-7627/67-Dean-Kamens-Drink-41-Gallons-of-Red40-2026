@@ -6,6 +6,7 @@ import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
 import static frc.robot.Constants.CanIDs.LAUNCHER_MINION_CAN_ID;
 import static frc.robot.Constants.LauncherConstants.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -38,11 +39,6 @@ final class LauncherImpl extends SubsystemBase implements
 {
     private static final String LOGGABLE_NAME = "Launcher";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
-
-    private static final TalonFXGroupQuery ANGULAR_SPEED_QUERY = new TalonFXGroupQuery(
-        OptionalInt.empty(), 
-        TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
-    );
 
     private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
@@ -92,6 +88,8 @@ final class LauncherImpl extends SubsystemBase implements
         KEY_BUILDER.copyExtendedToString("Inactive Idle Feet Per Sec"), 
         DEFAULT_INACTIVE_IDLE_FPS
     );
+
+    private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
 
     LauncherImpl() {
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
@@ -153,6 +151,14 @@ final class LauncherImpl extends SubsystemBase implements
     }
 
     @Override
+    public void beginControlInner(LauncherControl control) {
+        // TODO Auto-generated method stub
+        UniControllable.super.beginControlInner(control);
+
+        targetRPSSupplier = control.getTargetRPSSupplier(this);
+    }
+
+    @Override
     public LauncherImpl getThis() {
         return this;
     }
@@ -170,9 +176,9 @@ final class LauncherImpl extends SubsystemBase implements
     @Override
     public boolean queryBoolean(LauncherBooleanQuery query) {
         return switch (query) {
-            case AT_SHOOT_SPEED -> Launcher.toLinearVelocityFPS(
-                motors.queryDouble(ANGULAR_SPEED_QUERY)
-            ) >= shootSpeedFPSSupplier.getAsDouble() - shootSpeedFPSSupplier.getAsDouble() * .02;
+            case AT_TARGET_SPEED -> targetRPSSupplier.isPresent() 
+                ? motorVelocityRotPerSecSupplier.getAsDouble() >= targetRPSSupplier.get().getAsDouble() * (1 - 0.02)
+                : true;
         };
     }
 }

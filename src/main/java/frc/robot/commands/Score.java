@@ -94,7 +94,7 @@ public final class Score extends Command {
     }
 
     private boolean canFeedAndShoot() {
-        return launcher.queryBoolean(LauncherBooleanQuery.AT_SHOOT_SPEED);
+        return launcher.queryBoolean(LauncherBooleanQuery.AT_TARGET_SPEED);
     }
 
     private void endCurrentCommand() {

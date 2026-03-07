@@ -70,7 +70,7 @@ enum TeleopCommandFactory {
     /**
      * 
      */
-    LAUNCH_FUEL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)),
+    LAUNCH_FUEL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)),
     /**
      * 
      */
@@ -112,19 +112,19 @@ enum TeleopCommandFactory {
         )
     )),
 
-    FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
+    FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
         .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))),
 
-    AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
+    AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
     .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
     .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD)))),
 
-    PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
-    .raceWith(new WaitCommand(1.7627)).andThen(new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)
+    PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
+    .raceWith(new WaitCommand(1.7627)).andThen(new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
     .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
     .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD))))),
     
-    SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_FROM_TRENCH)),
+    SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)),
 
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
     context.drivebase(), context.launcher(), context.agitator(), context.feeder())
