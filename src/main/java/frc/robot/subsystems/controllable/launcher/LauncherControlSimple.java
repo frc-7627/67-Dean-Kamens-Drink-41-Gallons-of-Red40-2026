@@ -37,7 +37,11 @@ public enum LauncherControlSimple implements LauncherControl {
 
     @Override
     public Optional<DoubleSupplier> getTargetRPSSupplier(LauncherImpl impl) {
-        return equals(SHOOT_MANUAL) ? Optional.of(impl.shootSpeedFPSSupplier) : Optional.empty();
+        return equals(SHOOT_MANUAL) 
+            ? Optional.of(() -> Launcher.toAngularVelocityRPS(
+                impl.shootSpeedFPSSupplier.getAsDouble()
+            )) 
+            : Optional.empty();
     }
 }
 
