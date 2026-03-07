@@ -33,6 +33,7 @@ import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.controllable.swivel.Swivel;
+import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -124,6 +125,9 @@ public class RobotContainer {
             gameInfoSupplier::willHubActivate
         ));
 
+        swivel.setDefaultCommand(new ControlCommand<>(swivel, SwivelControl.FOLD_OUT));
+
+
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);
     }
@@ -160,6 +164,7 @@ public class RobotContainer {
      */
     public void teleopInit() {
 
+        
     }
 
     public void autoInit() {

@@ -8,6 +8,8 @@ import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
+
+import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Rotations;
@@ -54,8 +56,8 @@ final class SwivelImpl extends SubsystemBase implements
                 new MAXMotionConfig()
                     // TODO: constants
                     .allowedProfileError(Rotations.convertFrom(0.5, Degrees))
-                    .cruiseVelocity(40 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM */)
-                    .maxAcceleration(20 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM / s */)
+                    .cruiseVelocity(50 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM */)
+                    .maxAcceleration(25 * SWIVEL_TO_MOTOR_GEAR_RATIO /* RPM / s */)
                     .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
                 ).p(1.0)
             ), 
@@ -140,10 +142,10 @@ final class SwivelImpl extends SubsystemBase implements
     public boolean queryBoolean(SwivelBooleanQuery query) {
         return switch (query) {
             case AT_UP_POSE -> 
-                swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT)
+                Degrees.convertFrom(swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT), Rotations)
             >= inPositionDegrees.getAsDouble();
             case AT_DOWN_POSE ->
-                swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT)
+                Degrees.convertFrom(swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT), Rotations)
             <= outPositionDegrees.getAsDouble();
         };
     }

@@ -256,9 +256,9 @@ public final class Constants {
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
-        public static final double IN_POSITION_DEGREES = 50; //INTAKE ROCK UP
+        public static final double IN_POSITION_DEGREES = -30; //INTAKE ROCK UP
 
-        public static final double OUT_POSITION_DEGREES = 79;
+        public static final double OUT_POSITION_DEGREES = -79;
 
         public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
     }
