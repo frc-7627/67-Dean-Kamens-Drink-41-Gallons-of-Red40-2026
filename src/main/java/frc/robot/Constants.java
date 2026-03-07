@@ -248,7 +248,7 @@ public final class Constants {
     }
 
     public static class SwivelConstants {
-        public static final int AMP_LIMIT = 25;
+        public static final int AMP_LIMIT = 30;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 

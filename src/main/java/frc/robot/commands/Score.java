@@ -40,7 +40,7 @@ public final class Score extends Command {
 
     private final Command launcherCommand;
 
-    private final Command aimCommand;
+    //private final Command aimCommand;
     private final Command feedAndAgitateCommand;
 
     private Optional<State> stateOptional = Optional.empty();
@@ -49,7 +49,7 @@ public final class Score extends Command {
     public Score(
         SpecificGameInfoSupplier gameInfoSupplier,
         Indicator indicator, 
-        Drivebase drivebase, 
+        // Drivebase drivebase, 
         Launcher launcher, 
         Agitator agitator, 
         Feeder feeder
@@ -72,21 +72,21 @@ public final class Score extends Command {
             LauncherControl.SHOOT
         );
 
-        this.aimCommand = new ControlCommand<>(
-            drivebase, 
-            drivebase.getAngularDriveControl(
-                drivebase.getLocationAngleTargetter(
-                    gameInfoSupplier.getHubPosition()
-                )
-            )
-        );
+        // this.aimCommand = new ControlCommand<>(
+        //     drivebase, 
+        //     drivebase.getAngularDriveControl(
+        //         drivebase.getLocationAngleTargetter(
+        //             gameInfoSupplier.getHubPosition()
+        //         )
+        //     )
+        // );
 
         this.feedAndAgitateCommand = agitateCommand
             .alongWith(feedCommand);
 
         addRequirements(
             indicator,
-            drivebase,
+            //drivebase,
             launcher,
             agitator,
             feeder
@@ -102,7 +102,7 @@ public final class Score extends Command {
     }
 
     private void stepToAimAndRampUp() {
-        aimCommand.initialize();
+        //aimCommand.initialize();
 
         commandOptional = Optional.empty(); //of(aimCommand);
         stateOptional = Optional.of(State.AIM_AND_RAMP_UP);

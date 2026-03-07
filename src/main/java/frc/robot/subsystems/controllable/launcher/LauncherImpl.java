@@ -172,7 +172,7 @@ final class LauncherImpl extends SubsystemBase implements
         return switch (query) {
             case AT_SHOOT_SPEED -> Launcher.toLinearVelocityFPS(
                 motors.queryDouble(ANGULAR_SPEED_QUERY)
-            ) >= shootSpeedFPSSupplier.getAsDouble() - shootSpeedFPSSupplier.getAsDouble() * .03;
+            ) >= shootSpeedFPSSupplier.getAsDouble() - shootSpeedFPSSupplier.getAsDouble() * .01;
         };
     }
 }

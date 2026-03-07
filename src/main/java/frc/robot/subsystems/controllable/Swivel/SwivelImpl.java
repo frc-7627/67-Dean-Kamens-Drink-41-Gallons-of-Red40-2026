@@ -144,7 +144,7 @@ final class SwivelImpl extends SubsystemBase implements
             >= inPositionDegrees.getAsDouble();
             case AT_DOWN_POSE ->
                 swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT)
-            >= outPositionDegrees.getAsDouble();
+            <= outPositionDegrees.getAsDouble();
         };
     }
 }

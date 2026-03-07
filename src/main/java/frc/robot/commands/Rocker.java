@@ -69,7 +69,7 @@ public final class Rocker extends Command {
     private void stepToRockUp() {
         endCurrentCommand();
 
-        commandOptional = Optional.empty();
+        commandOptional = Optional.of(rockIn);
         stateOptional = Optional.of(State.ROCK_UP);
 
     }
@@ -100,14 +100,17 @@ public final class Rocker extends Command {
 
     @Override
     public void execute() {
+
         stateOptional.ifPresent(
             state -> { switch (state) {
                 case ROCK_UP -> {
+                    rockIn.execute();
                     if (isIn()) {
                         stepToRockDown();
                     }
                 }
                 case ROCK_DOWN -> {
+                    rockOut.execute();
                     if (isOut()) {
                         stepToRockUp();
                     }
