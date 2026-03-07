@@ -127,7 +127,9 @@ enum TeleopCommandFactory {
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
-    /*context.drivebase(),*/ context.launcher(), context.agitator(), context.feeder()).alongWith( new Rocker(context.swivel()))),
+    /*context.drivebase(),*/ context.launcher(), context.agitator(), context.feeder())
+    .alongWith( new ControlCommand<>(context.swivel(), SwivelControl.FOLD_IN))
+    .alongWith(new ControlCommand<>(context.intake(), IntakeControl.LOAD))),
 
     FEED(context -> new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)),
     AGITATE(context -> new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD)),

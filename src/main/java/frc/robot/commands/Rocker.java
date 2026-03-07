@@ -4,9 +4,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.bofalib.generic.control.ControlCommand;
-import frc.robot.subsystems.controllable.launcher.LauncherBooleanQuery;
 import frc.robot.subsystems.controllable.swivel.*;
-import frc.robot.subsystems.shared.gameinfo.SpecificGameInfoSupplier;
 
 public final class Rocker extends Command {
     private static enum State {
@@ -68,6 +66,7 @@ public final class Rocker extends Command {
 
     private void stepToRockUp() {
         endCurrentCommand();
+        rockIn.initialize();
 
         commandOptional = Optional.of(rockIn);
         stateOptional = Optional.of(State.ROCK_UP);
@@ -76,8 +75,8 @@ public final class Rocker extends Command {
 
     private void stepToRockDown() {
         endCurrentCommand();
+        rockOut.initialize();
     
-
         commandOptional = Optional.of(rockOut);
         stateOptional = Optional.of(State.ROCK_DOWN);
 
@@ -85,7 +84,6 @@ public final class Rocker extends Command {
 
     @Override
     public void initialize() {
-        rockIn.initialize();
         stepToRockUp();
     }
 
