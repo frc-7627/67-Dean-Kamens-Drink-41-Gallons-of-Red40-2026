@@ -11,7 +11,9 @@ final class LauncherControlVarShoot implements LauncherControl {
 
     LauncherControlVarShoot(DistanceTargetter targetter) {
         this.controlFunction = impl -> impl.motors.getSetVelocityControl(
-            () -> DISTANCE_FEET_TO_MOTOR_RPS_MAP.get(targetter.getTargetMeters()),
+            () -> Launcher.toAngularVelocityRPS(
+                DISTANCE_FEET_TO_MOTOR_FPS_MAP.get(targetter.getTargetMeters())
+            ),
             RotationsPerSecond
         );
     }
