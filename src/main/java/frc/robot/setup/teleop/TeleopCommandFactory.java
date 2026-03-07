@@ -11,6 +11,7 @@ import frc.robot.RobotSong;
 import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.RobotSongCommand;
+import frc.robot.commands.Rocker;
 import frc.robot.commands.Score;
 import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.*;
@@ -126,7 +127,8 @@ enum TeleopCommandFactory {
     SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControl.SHOOT)),
 
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
-    context.drivebase(), context.launcher(), context.agitator(), context.feeder())),
+    context.drivebase(), context.launcher(), context.agitator(), context.feeder())),//.alongWith(context -> new Rocker(context.swivel())),
+    //TODO: Somehow figure out to combine this ^^^ and ROCKER
 
     FEED(context -> new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)),
 
@@ -135,6 +137,8 @@ enum TeleopCommandFactory {
     REVERSE_AGITATE(context -> new ControlCommand<>(context.agitator(), AgitatorControl.AWAY)),
 
     SWIVEL_OUT(context -> new ControlCommand<>(context.swivel(), SwivelControl.FOLD_OUT)),
+
+    ROCKER(context -> new Rocker(context.swivel())),
 
     PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.getRandomSong())),
     ;

@@ -5,7 +5,6 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
@@ -20,18 +19,15 @@ import java.util.function.DoubleSupplier;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
-import frc.bofalib.gains.GainItem;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.hardware.motor.sparkmax.gains.SparkMaxGains;
 import frc.bofalib.generic.hardware.motor.sparkmax.query.SparkMaxQuery;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
-
 import static frc.robot.Constants.SwivelConstants.*;
 import static frc.robot.Constants.CanIDs.*;
 
@@ -138,5 +134,17 @@ final class SwivelImpl extends SubsystemBase implements
     @Override
     public Controllable<SparkMaxControl> getFirstControllable() {
         return swivelMotor;
+    }
+
+    @Override
+    public boolean queryBoolean(SwivelBooleanQuery query) {
+        return switch (query) {
+            case AT_UP_POSE -> 
+                swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT)
+            >= inPositionDegrees.getAsDouble();
+            case AT_DOWN_POSE ->
+                swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT)
+            >= outPositionDegrees.getAsDouble();
+        };
     }
 }

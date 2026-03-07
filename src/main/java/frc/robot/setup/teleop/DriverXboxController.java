@@ -30,6 +30,8 @@ class DriverXboxController implements DriverController {
             case SWIVEL_OUT -> binderConsumer.accept(xboxController.b()::whileTrue);
             case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
             case COOLER_EJECT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
+            //case ROCKER -> binderConsumer.accept(xboxController.y()::whileTrue);
+            case ROCKER -> binderConsumer.accept(xboxController.back()::whileTrue);
 
             default -> {
             }
