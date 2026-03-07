@@ -9,7 +9,7 @@ import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 public final class LauncherControlVarShoot implements LauncherControl {
     private final Function<LauncherImpl, TalonFXBatchControl> controlFunction;
 
-    LauncherControlVarShoot(DistanceTargetter targetter) {
+    public LauncherControlVarShoot(DistanceTargetter targetter) {
         this.controlFunction = impl -> impl.motors.getSetVelocityControl(
             () -> Launcher.toAngularVelocityRPS(
                 DISTANCE_FEET_TO_MOTOR_FPS_MAP.get(targetter.getTargetMeters())
