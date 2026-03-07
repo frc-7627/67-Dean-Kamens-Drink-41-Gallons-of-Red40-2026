@@ -239,7 +239,7 @@ public final class Constants {
 
         public static final int AMP_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 25
 
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
@@ -248,15 +248,15 @@ public final class Constants {
     }
 
     public static class SwivelConstants {
-        public static final int AMP_LIMIT = 25;
+        public static final int AMP_LIMIT = 30;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
         public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
-        public static final double IN_POSITION_DEGREES = 0.0;
+        public static final double IN_POSITION_DEGREES = 50; //INTAKE ROCK UP
 
-        public static final double OUT_POSITION_DEGREES = 35.0;
+        public static final double OUT_POSITION_DEGREES = 79;
 
         public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
     }
@@ -270,9 +270,10 @@ public final class Constants {
         // Math says (not accounting for energy loss) that from trench to hub is
         // 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 10;
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;
+        public static final double DEFAULT_SHOOT_FPS = 39; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
+        // 44 for midfield ferry, 55 for opposing bump ferry
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
@@ -284,10 +285,11 @@ public final class Constants {
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
-        public static final double DEFAULT_SLOT0_P = 1.0;
+        public static final double DEFAULT_SLOT0_P = 0.5;
         public static final double DEFAULT_SLOT0_I = 0.0;
         public static final double DEFAULT_SLOT0_D = 0.0;
-        public static final double DEFAULT_SLOT0_V = 0.137627;
+        public static final double DEFAULT_SLOT0_V = 0.111;
+        public static final double DEFAULT_SLOT0_S = 0.25; // .25 volts to overcome static friction (DONT CHANGE)
 
         public static final int HORN_FREQ = 440;
     }

@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5991440798858774,
-        "y": 1.9842225392296724
+        "x": 7.752453637660485,
+        "y": 3.5368616262482178
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3511411004003158,
-        "y": 2.07959887338223
+        "x": 6.139096385542168,
+        "y": 3.7836626506024102
       },
       "isLocked": false,
-      "linkedName": "Bottom Start"
+      "linkedName": "Top Bottom Of the N zone"
     },
     {
       "anchor": {
-        "x": 3.055720399429386,
-        "y": 1.9842225392296724
+        "x": 5.997036144578313,
+        "y": 1.827602409638554
       },
       "prevControl": {
-        "x": 3.3558039937502295,
-        "y": 2.0242341741318453
+        "x": 5.909614457831326,
+        "y": 4.28633734939759
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Bottom Shoot Pose"
+      "linkedName": "Bottom end of cleanup"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -41,14 +46,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 46.789910608245954
+    "velocity": 0.5,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Starters",
+  "folder": "N Zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 126.2066008773637
   },
   "useDefaultConstraints": true
 }

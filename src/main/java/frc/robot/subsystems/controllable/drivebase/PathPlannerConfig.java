@@ -26,9 +26,9 @@ final class PathPlannerConfig {
 
     private static final PathFollowingController CONTROLLER = new PPHolonomicDriveController(
         // Translation PID Constants
-        new PIDConstants(5.0, 0.0, 0.0),
+        new PIDConstants(4.0, 0.0, 0.0),
         // Rotation PID Constants
-        new PIDConstants(5.0, 0.0, 0.0)
+        new PIDConstants(4.0, 0.0, 0.0)
     );
 
     private static final Alliance ORIGIN_ALLIANCE = Alliance.Blue;
@@ -37,7 +37,7 @@ final class PathPlannerConfig {
 
 
     private static BooleanSupplier shouldFlipPath(Supplier<Alliance> allianceSupplier) {
-        return () -> allianceSupplier.get().equals(ORIGIN_ALLIANCE);
+        return () -> !allianceSupplier.get().equals(ORIGIN_ALLIANCE);
     }
 
     private PathPlannerConfig() {}

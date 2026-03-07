@@ -5,9 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "bottom start - shooting pose"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {
@@ -17,33 +30,66 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Bottom Up Through the N Zone"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Half Bottom Up"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left Bottom Cleanup"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top N Zone - Top Hub"
+            "pathName": "Bottom Clean - Hub"
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Top Hub - Top N Zone"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top Down Through N Zone"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom N Zone - Bottom Hub"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.5
+                }
+              }
+            ]
           }
         }
       ]

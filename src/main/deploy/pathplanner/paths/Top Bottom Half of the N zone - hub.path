@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5862054208273886,
-        "y": 6.021084165477889
+        "x": 7.752453637660485,
+        "y": 3.5368616262482178
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.264244536635736,
-        "y": 5.869463368698114
+        "x": 8.007734939759036,
+        "y": 0.8768915662650607
       },
       "isLocked": false,
-      "linkedName": "Top Start"
+      "linkedName": "Top Bottom Of the N zone"
     },
     {
       "anchor": {
-        "x": 2.7969472182596284,
-        "y": 6.021084165477889
+        "x": 3.7,
+        "y": 0.582
       },
       "prevControl": {
-        "x": 3.135577731824003,
-        "y": 6.101067531853672
+        "x": 5.013542168674698,
+        "y": 0.5272048192771093
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Top Shooting Pose"
+      "linkedName": "Bottom Shoot Pose"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7004799999999994,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -46.04162667601009
+    "rotation": 69.65244544685186
   },
   "reversed": false,
-  "folder": "Starters",
+  "folder": "Hub",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 126.2066008773637
   },
   "useDefaultConstraints": true
 }

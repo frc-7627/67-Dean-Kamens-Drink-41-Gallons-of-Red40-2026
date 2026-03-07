@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4727349397590364,
-        "y": 0.6036987951807224
+        "x": 5.997036144578313,
+        "y": 1.827602409638554
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.587361445783132,
-        "y": 0.38514457831325216
+        "x": 6.1609518072289156,
+        "y": 0.6036987951807224
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom end of cleanup"
     },
     {
       "anchor": {
-        "x": 7.843819277108434,
-        "y": 0.6036987951807224
+        "x": 3.7,
+        "y": 0.582
       },
       "prevControl": {
-        "x": 6.914963855421686,
-        "y": 1.3249277108433741
+        "x": 5.3960120481927705,
+        "y": 0.45071084337349476
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom Shoot Pose"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.788628762541802,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 116.64522680631995
+    "rotation": 69.65244544685186
   },
   "reversed": false,
-  "folder": "Lame",
+  "folder": "Hub",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 65.55729475952047
+    "velocity": 0.5,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

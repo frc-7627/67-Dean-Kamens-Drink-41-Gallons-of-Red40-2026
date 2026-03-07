@@ -16,7 +16,7 @@ public final class TalonFXMotionGains implements Gains {
 
     @Override
     public void setGain(GainSelection gain, double value) {
-        final Slot0Configs configs = new Slot0Configs();
+        Slot0Configs configs = configurator.GetSlot0Configs();
 
         switch (gain) {
             case PROPORTIONAL -> configs.kP = value;

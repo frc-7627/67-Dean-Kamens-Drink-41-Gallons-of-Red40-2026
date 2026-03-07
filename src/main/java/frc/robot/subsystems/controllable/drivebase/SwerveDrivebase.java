@@ -5,7 +5,9 @@ import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
@@ -18,18 +20,21 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
+import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.bofalib.util.FunctionalUtil;
+import frc.robot.Constants;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
-final class SwerveDrivebase extends SubsystemBase implements 
-    Drivebase,
-    LoggingControllable<DriveControl>
-{
+final class SwerveDrivebase extends SubsystemBase implements
+        Drivebase,
+        LoggingControllable<DriveControl> {
     private static final String LOGGABLE_NAME = "Drivebase";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
@@ -40,9 +45,8 @@ final class SwerveDrivebase extends SubsystemBase implements
     private final GeneralGameInfoSupplier gameInfoSupplier;
 
     SwerveDrivebase(
-        Optional<VisionMeasurementsSupplier> visionOptional, 
-        GeneralGameInfoSupplier gameInfoSupplier
-    ) {
+            Optional<VisionMeasurementsSupplier> visionOptional,
+            GeneralGameInfoSupplier gameInfoSupplier) {
         this.visionOptional = visionOptional;
         this.gameInfoSupplier = gameInfoSupplier;
 
@@ -54,23 +58,27 @@ final class SwerveDrivebase extends SubsystemBase implements
         this.swerveDriveWrapper = new SwerveDriveWrapper(initialPose);
 
         this.rotationRateCalculator = new RotationRateCalculator(
-            KEY_BUILDER.copy(), 
-            swerveDriveWrapper::getOrientationRadians
-        );
-
+                KEY_BUILDER.copy(),
+                swerveDriveWrapper::getOrientationRadians);
 
         PathPlannerConfig.configure(
-            swerveDriveWrapper::getPose, 
-            swerveDriveWrapper::resetOdometry, 
-            swerveDriveWrapper::getRobotRelativeSpeeds, 
-            swerveDriveWrapper::driveRobotRelativeWithFeedForwards, 
-            gameInfoSupplier::getAlliance,
-            this
-        );
+                swerveDriveWrapper::getPose,
+                swerveDriveWrapper::resetOdometry,
+                swerveDriveWrapper::getRobotRelativeSpeeds,
+                swerveDriveWrapper::driveRobotRelativeWithFeedForwards,
+                gameInfoSupplier::getAlliance,
+                this);
 
-        if (!VISION_ENABLED){
+        if (!VISION_ENABLED) {
             zeroGyroWithAlliance();
         }
+
+        CommandSchedulerWrapper.getInstance().registerPeriodicAction(
+                FunctionalUtil.composeConditional(
+                        DashboardItems.createDoublePusher(
+                                KEY_BUILDER.copyExtendedToString("Feet to Hub")),
+                        () -> Units.metersToFeet(swerveDriveWrapper.getTargetMeters(gameInfoSupplier.getAlliance())),
+                        FunctionalUtil.hasChangedDoublePredicate()));
 
     }
 
@@ -87,24 +95,19 @@ final class SwerveDrivebase extends SubsystemBase implements
     @Override
     public void periodic() {
         visionOptional.ifPresent(
-            vision -> swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements())
-        );
+                vision -> swerveDriveWrapper.updateOdometry(vision.getVisionMeasurements()));
 
         Logger.recordOutput("MyPose2d", swerveDriveWrapper.getPose());
     }
 
     @Override
     public DriveControl getInputDriveControl(
-        JoystickInputs inputs
-    ) {
+            JoystickInputs inputs) {
         return new DriveControl() {
             private final Supplier<ChassisSpeeds> inputStream = swerveDriveWrapper
-                .getInputStream(
-                    MODE, 
-                    inputs
-                )
-            ;
-
+                    .getInputStream(
+                            MODE,
+                            inputs);
 
             @Override
             public String getLoggableName() {
@@ -148,11 +151,8 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             @Override
             public ChassisSpeeds getSpeeds() {
-                workingSpeeds.omegaRadiansPerSecond = 
-                    rotationRateCalculator.calculateRadiansPerSecond(
-                        angleTargetter.getTargetRadians()
-                    )
-                ;
+                workingSpeeds.omegaRadiansPerSecond = rotationRateCalculator.calculateRadiansPerSecond(
+                        angleTargetter.getTargetRadians());
 
                 return workingSpeeds;
             }
@@ -202,12 +202,51 @@ final class SwerveDrivebase extends SubsystemBase implements
                 // TODO Auto-generated method stub
                 return AngleTargetter.super.getLoggableInfo();
             }
-            
+
             @Override
             public double getTargetRadians() {
                 return targetLocation.minus(
-                    swerveDriveWrapper.getPose().getTranslation()
-                ).getAngle().getRadians();
+                        swerveDriveWrapper.getPose().getTranslation()).getAngle().getRadians();
+            }
+        };
+    }
+
+    @Override
+    public DistanceTargetter getDistanceTargetterToHub() {
+        return new DistanceTargetter() {
+            private double distance;
+
+            @Override
+            public String getLoggableName() {
+                return "Location Distance Targetter to Hub";
+            }
+
+            @Override
+            public String getLoggableInfo() {
+                // TODO Auto-generated method stub
+                return DistanceTargetter.super.getLoggableInfo();
+            }
+
+            @Override
+            public void initialize() {
+                if (gameInfoSupplier.getAlliance() == Alliance.Red) {
+                    distance = swerveDriveWrapper.getPose().getTranslation()
+                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
+                } else {
+                    distance = swerveDriveWrapper.getPose().getTranslation()
+                            .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
+                }
+            }
+
+            @Override
+            public double getTargetMeters() {
+                if (gameInfoSupplier.getAlliance() == Alliance.Red) {
+                    return swerveDriveWrapper.getPose().getTranslation()
+                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
+                } else {
+                    return swerveDriveWrapper.getPose().getTranslation()
+                            .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
+                }
             }
         };
     }
@@ -231,16 +270,16 @@ final class SwerveDrivebase extends SubsystemBase implements
     @Override
     public PathConstraints getPathConstraints() {
         return new PathConstraints(
-            swerveDriveWrapper.getMaxVelocityMetersPerSecond(), 
-            4.0,
-            swerveDriveWrapper.getMaxAngularVelocityRadPerSecond(), 
-            Units.degreesToRadians(720)
-        );
+                swerveDriveWrapper.getMaxVelocityMetersPerSecond(),
+                4.0,
+                swerveDriveWrapper.getMaxAngularVelocityRadPerSecond(),
+                Units.degreesToRadians(720));
     }
 
     @Override
     public void setBrake(boolean brake) {
-        swerveDriveWrapper.setBrake(brake);;
+        swerveDriveWrapper.setBrake(brake);
+        ;
     }
 
     @Override
@@ -251,7 +290,6 @@ final class SwerveDrivebase extends SubsystemBase implements
     @Override
     public void runControlInner(DriveControl control) {
         swerveDriveWrapper.driveFieldRelative(
-            control.getSpeeds()
-        );
+                control.getSpeeds());
     }
 }

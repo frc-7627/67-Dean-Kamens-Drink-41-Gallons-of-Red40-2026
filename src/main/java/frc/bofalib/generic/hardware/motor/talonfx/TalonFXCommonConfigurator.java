@@ -10,6 +10,9 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import frc.bofalib.generic.hardware.motor.MotorConfigurator;
 
 public interface TalonFXCommonConfigurator extends MotorConfigurator {
+
+    Slot0Configs configs = new Slot0Configs();
+
     default void applyCurrentLimit(double currentLimit) {
         apply(
             new CurrentLimitsConfigs()
@@ -42,4 +45,6 @@ public interface TalonFXCommonConfigurator extends MotorConfigurator {
     void apply(CurrentLimitsConfigs configuration);
 
     void apply(TalonFXConfiguration configuration);
+
+    Slot0Configs GetSlot0Configs();
 }

@@ -74,8 +74,12 @@ final class LauncherImpl extends SubsystemBase implements
     final DoubleSupplier shootSpeedFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Feet Per Sec"), 
-        DEFAULT_SHOOT_FPS
+        DEFAULT_SHOOT_FPS 
     );
+
+    final DoubleSupplier commandedShootSpeedSupplier =
+    DashboardItems.createDoublePuller(KEY_BUILDER.copyExtendedToString("Commanded RPM"), 
+    120);
 
     final DoubleSupplier activeIdleFPSSupplier =
     DashboardItems.createDoublePuller(
@@ -131,7 +135,8 @@ final class LauncherImpl extends SubsystemBase implements
                     GainItem.createProportional(DEFAULT_SLOT0_P),
                     GainItem.createIntegral(DEFAULT_SLOT0_I),
                     GainItem.createDerivative(DEFAULT_SLOT0_D),
-                    GainItem.createVelocity(DEFAULT_SLOT0_V)
+                    GainItem.createVelocity(DEFAULT_SLOT0_V),
+                    GainItem.createStatic(DEFAULT_SLOT0_S)
                 )
             )
         ));
@@ -167,7 +172,7 @@ final class LauncherImpl extends SubsystemBase implements
         return switch (query) {
             case AT_SHOOT_SPEED -> Launcher.toLinearVelocityFPS(
                 motors.queryDouble(ANGULAR_SPEED_QUERY)
-            ) >= shootSpeedFPSSupplier.getAsDouble();
+            ) >= shootSpeedFPSSupplier.getAsDouble() - shootSpeedFPSSupplier.getAsDouble() * .01;
         };
     }
 }

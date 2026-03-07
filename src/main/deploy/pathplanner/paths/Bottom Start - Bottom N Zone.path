@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.055720399429386,
-        "y": 1.9842225392296724
+        "x": 3.7,
+        "y": 0.582
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0815977175463622,
-        "y": -0.034208273894436036
+        "x": 4.6939397590361445,
+        "y": 0.669265060240964
       },
       "isLocked": false,
       "linkedName": "Bottom Shoot Pose"
@@ -20,23 +20,39 @@
         "y": 2.074793152639087
       },
       "prevControl": {
-        "x": 6.794992867332382,
-        "y": 0.1598716119828818
+        "x": 8.040518072289156,
+        "y": 0.570915662650602
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Bottom Bottom of the N zone"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.34,
       "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.7593599999999991,
+      "rotationDegrees": 134.449
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 0.3512269938650279,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Fold Out"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.877,
     "maxAcceleration": 3.0,
@@ -46,14 +62,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 2.0,
-    "rotation": 89.34145682243648
+    "velocity": 0.75,
+    "rotation": 134.449
   },
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 46.789910608245954
+    "rotation": 69.65244544685186
   },
   "useDefaultConstraints": true
 }
