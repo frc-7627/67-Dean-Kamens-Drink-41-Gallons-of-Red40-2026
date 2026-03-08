@@ -1,5 +1,7 @@
 package frc.robot.setup.teleop;
 
+import static frc.robot.Constants.DrivebaseConstants.LEFT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.RIGHT_FERRY_TARGET_POSITION;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -93,8 +95,12 @@ enum TeleopCommandFactory {
     ORIENT_TO_HUB(context -> new ControlCommand<>(
         context.drivebase(),
         context.drivebase().getAngularDriveControl(
-            context.drivebase().getLocationAngleTargetter(
-                context.gameInfoSupplier().getHubPosition()
+            context.drivebase().getLocationSupplierAngleTargetter(
+                () -> switch (context.drivebase().getZone()) {
+                    case CLOSE -> context.gameInfoSupplier().getHubPosition();
+                    case FAR_LEFT -> LEFT_FERRY_TARGET_POSITION;
+                    case FAR_RIGHT -> RIGHT_FERRY_TARGET_POSITION;
+                }
             )
         )
     )),
@@ -106,8 +112,12 @@ enum TeleopCommandFactory {
         context.drivebase(),
         context.inputDriveControl().withRotationControl(
             context.drivebase().getAngularDriveControl(
-                context.drivebase().getLocationAngleTargetter(
-                    context.gameInfoSupplier().getHubPosition()
+                context.drivebase().getLocationSupplierAngleTargetter(
+                    () -> switch (context.drivebase().getZone()) {
+                        case CLOSE -> context.gameInfoSupplier().getHubPosition();
+                        case FAR_LEFT -> LEFT_FERRY_TARGET_POSITION;
+                        case FAR_RIGHT -> RIGHT_FERRY_TARGET_POSITION;
+                    }
                 )
             )
         )
