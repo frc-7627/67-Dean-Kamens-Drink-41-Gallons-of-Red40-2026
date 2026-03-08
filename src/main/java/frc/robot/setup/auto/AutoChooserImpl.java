@@ -34,8 +34,17 @@ final class AutoChooserImpl implements AutoChooser {
 
         NamedCommands.registerCommand(
             "Score", 
-            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), commandContext.drivebase(), commandContext.launcher(), 
-            commandContext.agitator(), commandContext.feeder())
+            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), 
+                commandContext.drivebase(), commandContext.launcher(), commandContext.agitator(), commandContext.feeder())
+                .alongWith(new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD))
+        );
+
+        NamedCommands.registerCommand(
+            "Score with Rock", 
+            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), 
+                commandContext.drivebase(), commandContext.launcher(), commandContext.agitator(), commandContext.feeder())
+                .alongWith( new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_IN))
+                .alongWith(new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD))
         );
 
         NamedCommands.registerCommand(

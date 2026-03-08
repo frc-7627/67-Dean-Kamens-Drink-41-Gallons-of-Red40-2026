@@ -24,9 +24,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Top Start - Top N Zone"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Top Start - Top N Zone"
+                }
+              }
+            ]
           }
         },
         {
@@ -68,15 +81,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Fold In"
-                }
-              },
               {
                 "type": "path",
                 "data": {
@@ -163,9 +170,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Top N Zone - Top Hub"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Top N Zone - Top Hub"
+                }
+              }
+            ]
           }
         },
         {
@@ -175,7 +195,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Score"
+                  "name": "Score with Rock"
                 }
               },
               {

@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.312539229671896,
-        "y": 6.6809557774607695
+        "x": 6.335795180722892,
+        "y": 6.919915662650602
       },
       "isLocked": false,
       "linkedName": "Top end of Cleanup"
@@ -20,8 +20,8 @@
         "y": 7.477
       },
       "prevControl": {
-        "x": 5.82459343794579,
-        "y": 7.754864479315264
+        "x": 5.800337349397592,
+        "y": 7.881554216867469
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.7294768183751599,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 0.8127090301003344,
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [],

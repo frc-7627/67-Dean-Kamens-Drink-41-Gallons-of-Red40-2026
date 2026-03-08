@@ -64,10 +64,12 @@ public final class Constants {
     // mode you need
     public static final Mode currentMode = Mode.REAL; // TODO: CHECK THIS EVERY TIME YOU DEPLOY OR ELSE THE CODE WILL
                                                       // NOT THE CODE
-    public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
+    public static final double ROBOT_MASS = (125 - 20.3) * 0.453592; // 32lbs * kg per pound
     public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(16);
+
+    //PATHPLANNER MOI IS PRETTY MUCH GUESSTIMATION
 
     public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
             && simpleMotorSpeed <= 1.0;
@@ -108,18 +110,18 @@ public final class Constants {
                         Units.inchesToMeters(4.798), // y
                         Units.inchesToMeters(18.354)), // z
                 new Rotation3d(
-                        Units.degreesToRadians(0),
-                        Units.degreesToRadians(10.355),
-                        Units.degreesToRadians(-5)));
+                        Units.degreesToRadians(0), //roll
+                        Units.degreesToRadians(10.355), //pitch
+                        Units.degreesToRadians(-5))); //yaw
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
                         Units.inchesToMeters(-6.825), // x
                         Units.inchesToMeters(-4.798), // y
                         Units.inchesToMeters(18.354)), // z
                 new Rotation3d(
-                        Units.degreesToRadians(0),
-                        Units.degreesToRadians(10.355),
-                        Units.degreesToRadians(5)));
+                        Units.degreesToRadians(0), //roll
+                        Units.degreesToRadians(10.355), //pitch
+                        Units.degreesToRadians(5))); //yaw
 
         public static final int MAX_CONNECTION_RETRIES = 10;
 

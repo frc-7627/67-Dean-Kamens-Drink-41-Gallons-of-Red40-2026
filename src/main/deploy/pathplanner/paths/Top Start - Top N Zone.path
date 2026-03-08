@@ -30,6 +30,10 @@
   ],
   "rotationTargets": [
     {
+      "waypointRelativePos": 0.19732441471571907,
+      "rotationDegrees": 0.0
+    },
+    {
       "waypointRelativePos": 0.7355263157894766,
       "rotationDegrees": -124.162
     }
@@ -39,7 +43,7 @@
   "eventMarkers": [
     {
       "name": "Fold Out",
-      "waypointRelativePos": 0.3989010989011022,
+      "waypointRelativePos": 0.299807321772642,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
