@@ -314,7 +314,7 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     @Override
     public Zone getZone() {
-        final boolean isClose = swerveDriveWrapper.getPose().getX() < 4;
+        final boolean isClose = swerveDriveWrapper.getPose().getX() < (gameInfoSupplier.getAlliance().equals(Alliance.Blue) ? 4 : 16.67 - 4);
 
         if (isClose) {
             return Zone.CLOSE;
