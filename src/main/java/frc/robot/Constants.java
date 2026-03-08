@@ -312,7 +312,8 @@ public final class Constants {
         };
 
         private static final double[][] FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
-            
+            {27, 44},
+            {37, 55}
         };
 
         public static final InterpolatingDoubleTreeMap CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
