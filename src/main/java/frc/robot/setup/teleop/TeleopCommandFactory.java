@@ -127,8 +127,8 @@ enum TeleopCommandFactory {
         .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN))),
 
     AGITATE_FEED_AND_SHOOT(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
-    .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
-    .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD)))),
+    /*.alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)*/
+    .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD)))/* )*/,
 
     PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
     .raceWith(new WaitCommand(1.7627)).andThen(new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
