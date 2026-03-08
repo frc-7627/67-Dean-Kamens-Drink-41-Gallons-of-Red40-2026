@@ -195,6 +195,11 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     @Override
     public AngleTargetter getLocationAngleTargetter(Translation2d targetLocation) {
+        return getLocationSupplierAngleTargetter(() -> targetLocation);
+    }
+
+    @Override
+    public AngleTargetter getLocationSupplierAngleTargetter(Supplier<Translation2d> targetLocationSupplier) {
         return new AngleTargetter() {
             @Override
             public String getLoggableName() {
@@ -209,7 +214,7 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             @Override
             public double getTargetRadians() {
-                return targetLocation.minus(
+                return targetLocationSupplier.get().minus(
                         swerveDriveWrapper.getPose().getTranslation()).getAngle().getRadians();
             }
         };

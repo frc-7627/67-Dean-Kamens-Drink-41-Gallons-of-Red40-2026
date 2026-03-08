@@ -1,6 +1,7 @@
 package frc.robot.subsystems.controllable.drivebase;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.bofalib.control.Controllable;
@@ -43,6 +44,8 @@ public interface Drivebase extends
      * @return an angle targeting strategy for looking at the target location
      */
     AngleTargetter getLocationAngleTargetter(Translation2d targetLocation);
+
+    AngleTargetter getLocationSupplierAngleTargetter(Supplier<Translation2d> targetLocationSupplier);
 
     /**
      * @return a distance targeting strategy for measuring the distance to hub
