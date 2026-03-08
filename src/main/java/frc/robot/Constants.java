@@ -359,7 +359,7 @@ public final class Constants {
     public static class Directories {
         public static final String DEPLOY_DIRECTORY = Filesystem.getDeployDirectory().getAbsolutePath();
 
-        public static final String SONGS_DIRECTORY = String.format("%s/%s", DEPLOY_DIRECTORY, "songs");
+        public static final String SONGS_DIRECTORY = String.format("%s/%s", DEPLOY_DIRECTORY, "midi");
     }
 
     public static class StartupConstants {
