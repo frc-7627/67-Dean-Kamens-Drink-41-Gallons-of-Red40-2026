@@ -46,11 +46,11 @@ final class SwerveDrivebase extends SubsystemBase implements
     private final SwerveDriveWrapper swerveDriveWrapper;
     private final RotationRateCalculator rotationRateCalculator;
     private final ControlBox<DriveControl> controlBox = new ControlBox<>();
-    private final GeneralGameInfoSupplier gameInfoSupplier;
+    private final GameInfoSupplier gameInfoSupplier;
 
     SwerveDrivebase(
             Optional<VisionMeasurementsSupplier> visionOptional,
-            GeneralGameInfoSupplier gameInfoSupplier) {
+            GameInfoSupplier gameInfoSupplier) {
         this.visionOptional = visionOptional;
         this.gameInfoSupplier = gameInfoSupplier;
 
@@ -263,10 +263,9 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             @Override
             public double getTargetMeters() {
-                return switch (side) {
-                    case LEFT -> BLUE_LEFT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
-                    case RIGHT -> BLUE_RIGHT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
-                };
+                return gameInfoSupplier
+                    .getFerryTargetPosition(side)
+                    .getDistance(swerveDriveWrapper.getPose().getTranslation());
             }
         };
     }

@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.bofalib.control.Controllable;
 import frc.robot.setup.teleop.JoystickInputs;
+import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
@@ -66,7 +67,7 @@ public interface Drivebase extends
 
     static Drivebase create(
             Optional<VisionMeasurementsSupplier> visionOptional,
-            GeneralGameInfoSupplier gameInfoSupplier) {
+            GameInfoSupplier gameInfoSupplier) {
         return new SwerveDrivebase(visionOptional, gameInfoSupplier);
     }
 }
