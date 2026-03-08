@@ -89,11 +89,11 @@ public final class Constants {
                 Rotation2d.fromDegrees(0));
 
         public static final Translation2d LEFT_FERRY_TARGET_POSITION = new Translation2d(
-                Meter.of(0), Meter.of(8.1)
+                Meter.of(2), Meter.of(6)
         );
 
         public static final Translation2d RIGHT_FERRY_TARGET_POSITION = new Translation2d(
-                Meter.of(0), Meter.of(0)
+                Meter.of(2), Meter.of(2)
         );
 
         // These are for checking whether the robot has settled to an orientation.
