@@ -33,8 +33,8 @@ import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 
-import static frc.robot.Constants.DrivebaseConstants.LEFT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.RIGHT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
 
 final class SwerveDrivebase extends SubsystemBase implements
         Drivebase,
@@ -264,8 +264,8 @@ final class SwerveDrivebase extends SubsystemBase implements
             @Override
             public double getTargetMeters() {
                 return switch (side) {
-                    case LEFT -> LEFT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
-                    case RIGHT -> RIGHT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
+                    case LEFT -> BLUE_LEFT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
+                    case RIGHT -> BLUE_RIGHT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
                 };
             }
         };

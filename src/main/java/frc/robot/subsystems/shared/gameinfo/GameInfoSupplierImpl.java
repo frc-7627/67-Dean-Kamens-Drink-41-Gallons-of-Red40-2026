@@ -1,5 +1,9 @@
 package frc.robot.subsystems.shared.gameinfo;
 
+import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.RED_LEFT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.RED_RIGHT_FERRY_TARGET_POSITION;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -14,6 +18,7 @@ import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import frc.bofalib.subsystem.SharedSubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.controllable.drivebase.Side;
 import swervelib.SwerveDrive;
 
 final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfoSupplier {
@@ -118,5 +123,19 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     public boolean willHubActivate() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public Translation2d getFerryTargetPosition(Side side) {
+        return switch (side) {
+            case LEFT -> switch (alliance) {
+                case Red -> RED_LEFT_FERRY_TARGET_POSITION;
+                case Blue -> BLUE_LEFT_FERRY_TARGET_POSITION;
+            };
+            case RIGHT -> switch (alliance) {
+                case Red -> RED_RIGHT_FERRY_TARGET_POSITION;
+                case Blue -> BLUE_RIGHT_FERRY_TARGET_POSITION;
+            };
+        };
     }
 }
