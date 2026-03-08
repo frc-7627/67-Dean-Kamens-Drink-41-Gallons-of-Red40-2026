@@ -93,4 +93,9 @@ final class SparkMaxWrapperImpl extends LoggableBase implements
             Objects.requireNonNull(motorMotion)
         );
     }
+
+    @Override
+    public void zeroEncoder() {
+        sparkMax.getEncoder().setPosition(0.0);
+    }
 }

@@ -18,6 +18,8 @@ public interface MotorHardware<
 > extends 
     Hardware<MotorControl, MotorConfig>
 {
+    void zeroEncoder();
+
     MotorControl getSetControl(MotorSetting motorSetting);
 
     default MotorControl getSetDutyCycleControl(DoubleSupplier dutyCycleSupplier) {

@@ -131,4 +131,10 @@ implements
                 .queryDouble(query.query());
         }
     }
+
+    @Override
+    public void zeroEncoder() {
+        leaderWrapper.zeroEncoder();
+        followerWrappers.forEach(TalonFXWrapper::zeroEncoder);
+    }
 }

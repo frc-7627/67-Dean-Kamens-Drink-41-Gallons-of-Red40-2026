@@ -85,5 +85,10 @@ implements
     public void followerWith(Follower follower) {
         // TODO Auto-generated method stub
     }
+     
+    @Override
+    public void zeroEncoder() {
+        // TODO Auto-generated method stub
         
+    }
 }
