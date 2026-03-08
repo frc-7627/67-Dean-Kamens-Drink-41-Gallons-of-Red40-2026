@@ -1,7 +1,7 @@
 package frc.robot.setup.teleop;
 
-import static frc.robot.Constants.DrivebaseConstants.LEFT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.RIGHT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -25,6 +25,7 @@ import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.controllable.swivel.Swivel;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
+import frc.robot.subsystems.controllable.drivebase.Side;
 
 enum TeleopCommandFactory {
     
@@ -98,8 +99,8 @@ enum TeleopCommandFactory {
             context.drivebase().getLocationSupplierAngleTargetter(
                 () -> switch (context.drivebase().getZone()) {
                     case CLOSE -> context.gameInfoSupplier().getHubPosition();
-                    case FAR_LEFT -> LEFT_FERRY_TARGET_POSITION;
-                    case FAR_RIGHT -> RIGHT_FERRY_TARGET_POSITION;
+                    case FAR_LEFT -> context.gameInfoSupplier().getFerryTargetPosition(Side.LEFT);
+                    case FAR_RIGHT -> context.gameInfoSupplier().getFerryTargetPosition(Side.RIGHT);
                 }
             )
         )
@@ -115,8 +116,8 @@ enum TeleopCommandFactory {
                 context.drivebase().getLocationSupplierAngleTargetter(
                     () -> switch (context.drivebase().getZone()) {
                         case CLOSE -> context.gameInfoSupplier().getHubPosition();
-                        case FAR_LEFT -> LEFT_FERRY_TARGET_POSITION;
-                        case FAR_RIGHT -> RIGHT_FERRY_TARGET_POSITION;
+                        case FAR_LEFT -> context.gameInfoSupplier().getFerryTargetPosition(Side.LEFT);
+                        case FAR_RIGHT -> context.gameInfoSupplier().getFerryTargetPosition(Side.RIGHT);
                     }
                 )
             )
@@ -160,6 +161,7 @@ enum TeleopCommandFactory {
     private final Function<CommandContext, Command> commandSupplier;
 
     private TeleopCommandFactory(Function<CommandContext, Command> commandSupplier) {
+        
         this.commandSupplier = commandSupplier;
     }
 

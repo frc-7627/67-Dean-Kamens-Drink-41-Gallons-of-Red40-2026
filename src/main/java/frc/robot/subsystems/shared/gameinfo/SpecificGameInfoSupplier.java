@@ -1,6 +1,7 @@
 package frc.robot.subsystems.shared.gameinfo;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import frc.robot.subsystems.controllable.drivebase.Side;
 
 /**
  * Interface for supplying specific details during the game. Contains information about the phase of
@@ -30,4 +31,6 @@ public interface SpecificGameInfoSupplier {
      * @return the hub position.
      */
     Translation2d getHubPosition();
+
+    Translation2d getFerryTargetPosition(Side side);
 }

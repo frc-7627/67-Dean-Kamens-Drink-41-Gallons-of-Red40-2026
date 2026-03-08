@@ -88,12 +88,20 @@ public final class Constants {
         public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)),
                 Rotation2d.fromDegrees(0));
 
-        public static final Translation2d LEFT_FERRY_TARGET_POSITION = new Translation2d(
+        public static final Translation2d BLUE_LEFT_FERRY_TARGET_POSITION = new Translation2d(
                 Meter.of(2), Meter.of(6)
         );
 
-        public static final Translation2d RIGHT_FERRY_TARGET_POSITION = new Translation2d(
+        public static final Translation2d BLUE_RIGHT_FERRY_TARGET_POSITION = new Translation2d(
                 Meter.of(2), Meter.of(2)
+        );
+
+        public static final Translation2d RED_LEFT_FERRY_TARGET_POSITION = new Translation2d(
+                Meter.of(14), Meter.of(2)
+        );
+
+        public static final Translation2d RED_RIGHT_FERRY_TARGET_POSITION = new Translation2d(
+                Meter.of(14), Meter.of(6)
         );
 
         // These are for checking whether the robot has settled to an orientation.
