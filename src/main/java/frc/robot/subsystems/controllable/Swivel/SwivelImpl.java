@@ -9,7 +9,6 @@ import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 
-import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Rotations;
@@ -148,5 +147,10 @@ final class SwivelImpl extends SubsystemBase implements
                 Degrees.convertFrom(swivelMotor.queryDouble(SparkMaxQuery.ANGULAR_POSITION_ROT), Rotations)
             <= outPositionDegrees.getAsDouble();
         };
+    }
+
+    @Override
+    public void reset() {
+        swivelMotor.zeroEncoder();
     }
 }

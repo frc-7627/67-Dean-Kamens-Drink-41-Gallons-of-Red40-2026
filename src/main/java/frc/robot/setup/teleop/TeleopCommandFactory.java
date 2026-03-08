@@ -5,6 +5,7 @@ import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.RobotSong;
@@ -141,6 +142,8 @@ enum TeleopCommandFactory {
     ROCKER(context -> new Rocker(context.swivel())),
 
     PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.getRandomSong())),
+
+    RESET_SWIVEL(context -> Commands.runOnce(context.swivel()::reset, context.swivel()))
     ;
     
 

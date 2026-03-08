@@ -8,6 +8,8 @@ public interface Swivel extends Subsystem,
 Controllable<SwivelControl>,
  BooleanQueryable<SwivelBooleanQuery>
 {
+    void reset();
+
     static Swivel create() {
         return new SwivelImpl();
     }
