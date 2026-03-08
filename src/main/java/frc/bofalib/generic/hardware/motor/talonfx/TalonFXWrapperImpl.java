@@ -143,4 +143,9 @@ implements
     public Optional<Follower> getFollower(MotorAlignmentValue motorAlignmentValue) {
         return Optional.of(new Follower(talonFX.getDeviceID(), motorAlignmentValue));
     }
+
+    @Override
+    public void zeroEncoder() {
+        talonFX.setPosition(0.0);
+    }
 }

@@ -68,4 +68,10 @@ implements
             Objects.requireNonNull(motorMotion)
         );
     }
+
+    @Override
+    public void zeroEncoder() {
+        // TODO Auto-generated method stub
+        
+    }
 }

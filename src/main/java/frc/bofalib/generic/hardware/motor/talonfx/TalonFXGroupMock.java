@@ -65,4 +65,8 @@ final class TalonFXGroupMock extends MockLoggableBase implements
         // TODO Auto-generated method stub
     }
     
+    @Override
+    public void zeroEncoder() {
+        
+    }
 }
