@@ -31,6 +31,10 @@ import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
+import swervelib.SwerveDrive;
+
+import static frc.robot.Constants.DrivebaseConstants.LEFT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.RIGHT_FERRY_TARGET_POSITION;
 
 final class SwerveDrivebase extends SubsystemBase implements
         Drivebase,
@@ -254,8 +258,10 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             @Override
             public double getTargetMeters() {
-                // TODO: 
-                return 0.0;
+                return switch (side) {
+                    case LEFT -> LEFT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
+                    case RIGHT -> RIGHT_FERRY_TARGET_POSITION.getDistance(swerveDriveWrapper.getPose().getTranslation());
+                };
             }
         };
     }
@@ -304,7 +310,14 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     @Override
     public Zone getZone() {
-        // TODO
-        return Zone.CLOSE;
+        final boolean isClose = swerveDriveWrapper.getPose().getX() < 4;
+
+        if (isClose) {
+            return Zone.CLOSE;
+        }
+
+        final boolean isOnLeft = swerveDriveWrapper.getPose().getY() >= 4;
+
+        return isOnLeft ? Zone.FAR_LEFT : Zone.FAR_RIGHT;
     }
 }
