@@ -106,19 +106,6 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
         };
     }
 
-    /** 
-     * Get the distance that the robot is from the respective hub pose
-    */
-    /*@Override
-    public Translation2d getDistanceToHub() {
-        if(alliance == Alliance.Red){
-            return SwerveDrive.getPose() //TODO: PUT THIS BACK WHEN I CAN PUT THIS BACK
-        }
-        else{
-            return 
-        }
-    } */
-
     @Override
     public boolean willHubActivate() {
         // TODO Auto-generated method stub

@@ -1,8 +1,10 @@
 package frc.robot.subsystems.controllable.drivebase;
 
 import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_ZONE_X;
 import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
+import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_ZONE_X;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 
 import java.util.List;
@@ -35,6 +37,7 @@ import swervelib.SwerveDrive;
 
 import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
 import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
+import static frc.robot.Constants.DrivebaseConstants.FIELD_MIDLINE_Y;
 
 final class SwerveDrivebase extends SubsystemBase implements
         Drivebase,
@@ -314,13 +317,16 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     @Override
     public Zone getZone() {
-        final boolean isClose = swerveDriveWrapper.getPose().getX() < (gameInfoSupplier.getAlliance().equals(Alliance.Blue) ? 4 : 16.67 - 4);
+        final boolean isClose = gameInfoSupplier.getAlliance().equals(Alliance.Blue) ? 
+        swerveDriveWrapper.getPose().getX() < BLUE_ALLIANCE_ZONE_X :
+        swerveDriveWrapper.getPose().getX() > RED_ALLIANCE_ZONE_X;
 
         if (isClose) {
             return Zone.CLOSE;
         }
 
-        final boolean isOnLeft = swerveDriveWrapper.getPose().getY() >= 4;
+        final boolean isOnLeft = gameInfoSupplier.getAlliance().equals(Alliance.Blue) ?
+        swerveDriveWrapper.getPose().getY() >= FIELD_MIDLINE_Y : swerveDriveWrapper.getPose().getY() <= FIELD_MIDLINE_Y;
 
         return isOnLeft ? Zone.FAR_LEFT : Zone.FAR_RIGHT;
     }

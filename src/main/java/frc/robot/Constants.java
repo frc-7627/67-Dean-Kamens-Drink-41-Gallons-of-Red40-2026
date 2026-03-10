@@ -83,6 +83,11 @@ public final class Constants {
 
         public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
 
+        public static final double BLUE_ALLIANCE_ZONE_X = 4;
+        public static final double RED_ALLIANCE_ZONE_X = 12.5;
+
+        public static final double FIELD_MIDLINE_Y = 4;
+
         public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
                 new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
         public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)),
