@@ -8,32 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.139096385542168,
-        "y": 3.7836626506024102
+        "x": 7.883701234399981,
+        "y": 3.7496386653057883
       },
       "isLocked": false,
-      "linkedName": "Top Bottom Of the N zone"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.997036144578313,
-        "y": 1.827602409638554
+        "x": 7.752453637660485,
+        "y": 2.074793152639087
       },
       "prevControl": {
-        "x": 6.122182596291013,
-        "y": 4.093223965763196
+        "x": 7.6735620138628144,
+        "y": 2.399355003581804
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Bottom end of cleanup"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -46,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
-    "rotation": -90.0
+    "velocity": 0,
+    "rotation": -67.0
   },
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
-    "velocity": 0.5,
-    "rotation": 126.2066008773637
+    "velocity": 0,
+    "rotation": -67.0
   },
   "useDefaultConstraints": true
 }

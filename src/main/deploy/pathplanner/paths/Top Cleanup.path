@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.488188302425106,
-        "y": 3.8473894436519256
+        "x": 7.157275320970041,
+        "y": 3.8862054208273893
       },
       "isLocked": false,
       "linkedName": "Bottom Top Half Of the N zone"
@@ -20,8 +20,8 @@
         "y": 5.982268188302426
       },
       "prevControl": {
-        "x": 5.759900142653351,
-        "y": 3.472168330955778
+        "x": 5.462310984308131,
+        "y": 4.869543509272469
       },
       "nextControl": null,
       "isLocked": false,

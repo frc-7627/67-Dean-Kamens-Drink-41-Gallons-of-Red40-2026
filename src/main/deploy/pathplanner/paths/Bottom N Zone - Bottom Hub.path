@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.66188302425107,
-        "y": 0.392767475035664
+        "x": 6.536219686162624,
+        "y": 0.7421112696148362
       },
       "isLocked": false,
       "linkedName": "Bottom Neutral Zone"
@@ -29,6 +29,10 @@
     }
   ],
   "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4810718843045484,
+      "rotationDegrees": 180.0
+    },
     {
       "waypointRelativePos": 0.7737953006770193,
       "rotationDegrees": 180.0
@@ -52,8 +56,8 @@
   "reversed": false,
   "folder": "Hub",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -89.5225462226905
+    "velocity": 0.5,
+    "rotation": -67.0
   },
   "useDefaultConstraints": true
 }
