@@ -42,6 +42,7 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.controllable.drivebase.InputMode;
+import frc.robot.subsystems.misc.indication.AllianceDefaultColors;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import swervelib.math.Matter;
 
@@ -202,30 +203,31 @@ public final class Constants {
 
     public static class IndicatorConstants {
         public static class ColorArrays {
-            /**
-             * All default colors.
-             * 
-             * Indices are in the following order: alliance, game phase, color channel.
-             */
-            public static final int[][][] DEFAULT_COLOR_ARRAYS = {
-                /* Red alliance. */ { 
-                    /* Auto #ff0000 */ { 255, 0, 0 },
-                    /* Transition #ff0000 */ { 255, 0, 0 }, 
-                    /* Teleop 1 #ff0000 */ { 255, 0, 0 }, 
-                    /* Teleop 2 #ff0000 */ { 255, 0, 0 },
-                    /* Teleop 3 #ff0000 */ { 255, 0, 0 }, 
-                    /* Teleop 4 #ff0000 */{ 255, 0, 0 },
-                    /* Endgame #ff0000 */ { 255, 0, 0 }, 
-                }, /* Blue alliance. */ { 
-                    /* Auto #0000ff */ { 0, 0, 255 }, 
-                    /* Transition #0000ff */ { 0, 0, 255 },
-                    /* Teleop 1 #0000ff */ { 0, 0, 255 }, 
-                    /* Teleop 2 #0000ff */ { 0, 0, 255 },
-                    /* Teleop 3 #0000ff */ { 0, 0, 255 }, 
-                    /* Teleop 4 #0000ff */{ 0, 0, 255 },
-                    /* Endgame #0000ff */ { 0, 0, 255 }, 
-                }, 
-            };
+            public static final AllianceDefaultColors BLUE_DEFAULT_COLORS = new AllianceDefaultColors(
+                // Auto #ff0000
+                new int[]{ 0, 0, 255 },
+                // Transition #ff0000
+                new int[]{ 0, 0, 255 },
+                // Teleop Inactive #ff0000
+                new int[]{ 0, 0, 255 },
+                // Teleop Active #ff0000
+                new int[]{ 0, 0, 255 },
+                // Endgame #ff0000
+                new int[]{ 0, 0, 255 }
+            );
+
+            public static final AllianceDefaultColors RED_DEFAULT_COLORS = new AllianceDefaultColors(
+                // Auto #0000ff
+                new int[]{ 0, 0, 255 },
+                // Transition #0000ff
+                new int[]{ 0, 0, 255 },
+                // Teleop Inactive #0000ff
+                new int[]{ 0, 0, 255 },
+                // Teleop Active #0000ff
+                new int[]{ 0, 0, 255 },
+                // Endgame #0000ff
+                new int[]{ 0, 0, 255 }
+            );
 
             // #89a203
             public static final int[] COMPLETION_COLOR_ARRAY = { 137, 162, 3 }; 
