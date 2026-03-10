@@ -46,13 +46,8 @@ enum TeleopCommandFactory {
      */
     LOAD_INTAKE(context -> new IndicatingWrapperCommand(
         new ControlCommand<>(context.intake(), IntakeControl.LOAD), 
-        context.indicator()
-    )),
-
-    /**
-     * 
-     */
-    //COOLER_LOAD(context -> new IndicatingWrapperCommand(new ControlCommand<>(context.intake(), IntakeControl.)) TODO: Put this back when you figure out encoders
+        context.indicator())
+    ),
 
     /**
      * 
