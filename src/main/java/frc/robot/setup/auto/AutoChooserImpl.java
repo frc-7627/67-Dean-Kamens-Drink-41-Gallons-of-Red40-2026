@@ -32,6 +32,20 @@ final class AutoChooserImpl implements AutoChooser {
             Commands.print("Named Command Test")
         );
 
+        /*NamedCommands.registerCommand(
+            "Aim", 
+                new ControlCommand<>(commandContext.drivebase(),
+                    commandContext.inputDriveControl().withRotationControl(
+                    commandContext.drivebase().getAngularDriveControl(
+                    commandContext.drivebase().getLocationSupplierAngleTargetter( () ->
+                    commandContext.gameInfoSupplier().getHubPosition()
+                            )
+                        )
+                    )
+                )
+            )
+        );*/
+
         NamedCommands.registerCommand(
             "Score", 
             new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), 

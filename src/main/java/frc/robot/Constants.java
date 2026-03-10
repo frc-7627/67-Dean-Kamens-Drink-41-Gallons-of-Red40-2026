@@ -83,8 +83,8 @@ public final class Constants {
 
         public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
 
-        public static final double BLUE_ALLIANCE_ZONE_X = 4;
-        public static final double RED_ALLIANCE_ZONE_X = 12.5;
+        public static final double BLUE_ALLIANCE_ZONE_X = 4.5;
+        public static final double RED_ALLIANCE_ZONE_X = 12;
 
         public static final double FIELD_MIDLINE_Y = 4;
 

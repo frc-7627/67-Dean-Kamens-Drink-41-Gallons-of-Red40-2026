@@ -325,8 +325,7 @@ final class SwerveDrivebase extends SubsystemBase implements
             return Zone.CLOSE;
         }
 
-        final boolean isOnLeft = gameInfoSupplier.getAlliance().equals(Alliance.Blue) ?
-        swerveDriveWrapper.getPose().getY() >= FIELD_MIDLINE_Y : swerveDriveWrapper.getPose().getY() <= FIELD_MIDLINE_Y;
+        final boolean isOnLeft = swerveDriveWrapper.getPose().getY() >= FIELD_MIDLINE_Y;
 
         return isOnLeft ? Zone.FAR_LEFT : Zone.FAR_RIGHT;
     }

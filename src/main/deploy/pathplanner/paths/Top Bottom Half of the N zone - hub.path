@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 8.007734939759036,
-        "y": 0.8768915662650616
+        "y": 0.876891566265062
       },
       "isLocked": false,
       "linkedName": "Top Bottom Of the N zone"
@@ -38,8 +38,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.877,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 6.07,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
