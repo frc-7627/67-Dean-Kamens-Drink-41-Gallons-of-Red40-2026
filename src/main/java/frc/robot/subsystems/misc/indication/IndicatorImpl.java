@@ -4,6 +4,7 @@ import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import static frc.robot.Constants.IndicatorConstants.ColorArrays.*;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 
 final class IndicatorImpl extends SubsystemBase implements Indicator {
@@ -87,9 +88,20 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
      * @return The default color for the current alliance and phase.
      */
     private RGBWColor getDefaultColor() {
+        final AllianceDefaultColors defaultColors = switch (gameInfoSupplier.getAlliance()) {
+            case Blue -> BLUE_DEFAULT_COLORS;
+            case Red -> RED_DEFAULT_COLORS;
+        };
+
         return getColorFromArray(
-                Constants.IndicatorConstants.ColorArrays.DEFAULT_COLOR_ARRAYS[gameInfoSupplier
-                        .getAlliance().ordinal()][gameInfoSupplier.getPhase().ordinal()]);
+            switch (gameInfoSupplier.getPhase()) {
+                case AUTO -> defaultColors.auto();
+                case TRANSITION -> defaultColors.transition();
+                case TELEOP_INACTIVE -> defaultColors.inactive();
+                case TELEOP_ACTIVE -> defaultColors.active();
+                case ENDGAME -> defaultColors.endgame();
+            }
+        );
     }
 
     /**
