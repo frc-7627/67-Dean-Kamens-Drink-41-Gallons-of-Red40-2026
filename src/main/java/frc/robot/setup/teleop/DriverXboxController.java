@@ -26,11 +26,11 @@ class DriverXboxController implements DriverController {
 
             case ZERO_GYRO_WITH_ALLIANCE -> binderConsumer.accept(xboxController.a()::onTrue);
             case ALL_ONE_BUTTON_SHOOT -> binderConsumer.accept(xboxController.y()::whileTrue);
+            case PERFECT_CELL -> binderConsumer.accept(xboxController.rightTrigger()::whileTrue); //Defaults to Trench Speed in case of uhoh
             case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::whileTrue);
             case SWIVEL_OUT -> binderConsumer.accept(xboxController.b()::whileTrue);
             case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
             case COOLER_EJECT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
-            //case ROCKER -> binderConsumer.accept(xboxController.y()::whileTrue);
             case RESET_SWIVEL -> binderConsumer.accept(xboxController.back()::whileTrue);
 
             default -> {

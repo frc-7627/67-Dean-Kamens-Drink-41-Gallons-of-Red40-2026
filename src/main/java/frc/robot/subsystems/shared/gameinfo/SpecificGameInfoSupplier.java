@@ -10,7 +10,7 @@ import frc.robot.subsystems.controllable.drivebase.Side;
  */
 public interface SpecificGameInfoSupplier {
     public static enum Phase {
-        AUTO, TRANSITION, TELEOP_1, TELEOP_2, TELEOP_3, TELEOP_4, ENDGAME;
+        AUTO, TRANSITION, TELEOP_INACTIVE, TELEOP_ACTIVE, ENDGAME;
     }
 
     /**
