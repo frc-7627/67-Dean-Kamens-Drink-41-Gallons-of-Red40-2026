@@ -53,13 +53,29 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
         if (phaseTimer.hasElapsed(110)) {
             phase = Phase.ENDGAME;
         } else if (phaseTimer.hasElapsed(85)) {
-            phase = Phase.TELEOP_4;
+            if (gameData.charAt(0) == 'R') {
+                phase = Phase.TELEOP_ACTIVE;
+            } else {
+                phase = Phase.TELEOP_INACTIVE;
+            }
         } else if (phaseTimer.hasElapsed(60)) {
-            phase = Phase.TELEOP_3;
+            if (gameData.charAt(0) == 'B') {
+                phase = Phase.TELEOP_ACTIVE;
+            } else {
+                phase = Phase.TELEOP_INACTIVE;
+            }
         } else if (phaseTimer.hasElapsed(35)) {
-            phase = Phase.TELEOP_2;
+            if (gameData.charAt(0) == 'R') {
+                phase = Phase.TELEOP_ACTIVE;
+            } else {
+                phase = Phase.TELEOP_INACTIVE;
+            }
         } else if (phaseTimer.hasElapsed(10)) {
-            phase = Phase.TELEOP_1;
+            if (gameData.charAt(0) == 'B') {
+                phase = Phase.TELEOP_ACTIVE;
+            } else {
+                phase = Phase.TELEOP_INACTIVE;
+            }
         } else {
             phase = Phase.TRANSITION;
         }
@@ -113,9 +129,8 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
         // TODO Auto-generated method stub
         Phase currentPhase = getPhase();
         return switch (currentPhase) {
-            case AUTO, TRANSITION, ENDGAME -> true;
-            case TELEOP_1, TELEOP_3 -> gameData.charAt(0) == 'B';
-            case TELEOP_2, TELEOP_4 -> gameData.charAt(0) == 'R';
+            case AUTO, TRANSITION, ENDGAME, TELEOP_ACTIVE -> true;
+            case TELEOP_INACTIVE -> false;
         };
     }
 
