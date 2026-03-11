@@ -32,7 +32,7 @@ final class AutoChooserImpl implements AutoChooser {
             Commands.print("Named Command Test")
         );
 
-        /*NamedCommands.registerCommand(
+        NamedCommands.registerCommand(
             "Aim", 
                 new ControlCommand<>(commandContext.drivebase(),
                     commandContext.inputDriveControl().withRotationControl(
@@ -43,8 +43,7 @@ final class AutoChooserImpl implements AutoChooser {
                         )
                     )
                 )
-            )
-        );*/
+            );
 
         NamedCommands.registerCommand(
             "Score", 

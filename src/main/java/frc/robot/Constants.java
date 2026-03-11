@@ -285,11 +285,9 @@ public final class Constants {
     public static class IntakeConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final int AMP_LIMIT = 70;
+        public static final int AMP_LIMIT = 50;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
-
-        public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;

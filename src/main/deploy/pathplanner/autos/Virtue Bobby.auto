@@ -104,6 +104,12 @@
                 }
               },
               {
+                "type": "named",
+                "data": {
+                  "name": "Aim"
+                }
+              },
+              {
                 "type": "wait",
                 "data": {
                   "waitTime": 2.0
@@ -196,6 +202,12 @@
                 "type": "named",
                 "data": {
                   "name": "Score with Rock"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Aim"
                 }
               },
               {

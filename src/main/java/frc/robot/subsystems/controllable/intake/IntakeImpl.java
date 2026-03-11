@@ -52,12 +52,6 @@ final class IntakeImpl extends SubsystemBase implements
         CHECK_DUTY_CYCLE
     );
 
-    final DoubleSupplier foldDutyCycle = DashboardItems.createCheckedDoublePuller(
-        KEY_BUILDER.copyExtendedToString("Fold Duty Cycle"), 
-        DEFAULT_FOLD_DUTY_CYCLE, 
-        CHECK_DUTY_CYCLE
-    );
-
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> intakeMotor.queryDouble(
         TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
     );
