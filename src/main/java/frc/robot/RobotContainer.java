@@ -36,9 +36,12 @@ import frc.robot.subsystems.controllable.swivel.Swivel;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -48,21 +51,16 @@ public class RobotContainer {
     private final OperatorController operatorController = OperatorController.create();
 
     // The robot's subsystems and resources are defined here...
-    private final Optional<Vision> visionOptional = VISION_ENABLED ? 
-        Optional.of(Vision.create()) : 
-        Optional.empty()
-    ;
+    private final Optional<Vision> visionOptional = VISION_ENABLED ? Optional.of(Vision.create()) : Optional.empty();
 
     private final GameInfoSupplier gameInfoSupplier = GameInfoSupplier.create();
 
     private final Drivebase drivebase = Drivebase.create(
-        visionOptional.map(vision -> (VisionMeasurementsSupplier) vision), 
-        gameInfoSupplier
-    );
+            visionOptional.map(vision -> (VisionMeasurementsSupplier) vision),
+            gameInfoSupplier);
 
     private final Indicator indicator = Indicator.create(
-        gameInfoSupplier
-    );
+            gameInfoSupplier);
 
     private final Intake intake = Intake.create();
 
@@ -77,28 +75,25 @@ public class RobotContainer {
     private final GlobalControlState globalControlState = GlobalControlState.create();
 
     private final DriveControl inputDriveControl = driverController.getInputDriveControl(
-        drivebase::getInputDriveControl
-    );
+            drivebase::getInputDriveControl);
 
     private final Collection<? extends MusicalSubsystem> musicalSubsystems = List.of(
-        launcher,
-        intake,
-        feeder
-    );
+            launcher,
+            intake,
+            feeder);
 
     private final CommandContext commandContext = new CommandContext(
-        indicator,
-        drivebase,
-        intake,
-        swivel,
-        launcher,
-        feeder,
-        hopper,
-        globalControlState,
-        gameInfoSupplier,
-        inputDriveControl,
-        musicalSubsystems
-    );
+            indicator,
+            drivebase,
+            intake,
+            swivel,
+            launcher,
+            feeder,
+            hopper,
+            globalControlState,
+            gameInfoSupplier,
+            inputDriveControl,
+            musicalSubsystems);
 
     private final AutoChooser autoChooser = AutoChooser.create(commandContext);
 
@@ -120,13 +115,11 @@ public class RobotContainer {
         drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputDriveControl));
 
         launcher.setDefaultCommand(new ConditionalCommand(
-            new ControlCommand<>(launcher, LauncherControlSimple.ACTIVE_IDLE), 
-            new ControlCommand<>(launcher, LauncherControlSimple.INACTIVE_IDLE), 
-            gameInfoSupplier::willHubActivate
-        ));
+                new ControlCommand<>(launcher, LauncherControlSimple.ACTIVE_IDLE),
+                new ControlCommand<>(launcher, LauncherControlSimple.INACTIVE_IDLE),
+                gameInfoSupplier::willHubActivate));
 
         swivel.setDefaultCommand(new ControlCommand<>(swivel, SwivelControl.FOLD_OUT));
-
 
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);
@@ -139,8 +132,7 @@ public class RobotContainer {
 
     private void playRandomSong() {
         CommandScheduler.getInstance().schedule(
-            new RobotSongCommand(musicalSubsystems, RobotSong.getRandomSong())
-        );
+                new RobotSongCommand(musicalSubsystems, RobotSong.getRandomSong()));
     }
 
     /**
@@ -149,7 +141,8 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand
+        // Pass in the selected auto from the SmartDashboard as our desired autnomous
+        // commmand
         return autoChooser.get();
     }
 
@@ -163,8 +156,7 @@ public class RobotContainer {
      * @return void
      */
     public void teleopInit() {
-
-        
+        gameInfoSupplier.teleopInit();
     }
 
     public void autoInit() {

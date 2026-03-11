@@ -4,7 +4,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.subsystems.controllable.drivebase.Side;
 
 /**
- * Interface for supplying specific details during the game. Contains information about the phase of
+ * Interface for supplying specific details during the game. Contains
+ * information about the phase of
  * the game and the status of the hub.
  */
 public interface SpecificGameInfoSupplier {
@@ -17,13 +18,16 @@ public interface SpecificGameInfoSupplier {
      */
     Phase getPhase();
 
+    void teleopInit();
+
     /**
      * @return whether the hub is active.
      */
     boolean isHubActive();
 
     /**
-     * @return whether the hub will activate in the next 3 seconds, or is already active
+     * @return whether the hub will activate in the next 3 seconds, or is already
+     *         active
      */
     boolean willHubActivate();
 
