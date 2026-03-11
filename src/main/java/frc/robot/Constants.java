@@ -150,8 +150,7 @@ public final class Constants {
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
 
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout
-                .loadField(AprilTagFields.k2026RebuiltWelded); // TODO: i think the practice field vs the match field
-                                                               // uses different
+                .loadField(AprilTagFields.k2026RebuiltWelded);
 
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
@@ -262,7 +261,7 @@ public final class Constants {
     public static class IntakeConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final int AMP_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 25
+        public static final int AMP_LIMIT = 70;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
@@ -302,7 +301,7 @@ public final class Constants {
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
-        public static final double DEFAULT_CURRENT_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 40
+        public static final double DEFAULT_CURRENT_LIMIT = 70;
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
@@ -357,7 +356,7 @@ public final class Constants {
     public static class FeederConstants {
         public static final double DEFAULT_FEED_SPEED = -1;
 
-        public static final double DEFAULT_CURRENT_LIMIT = 70; // TODO: THIS HAS BEEN INCREASED FROM 40
+        public static final double DEFAULT_CURRENT_LIMIT = 70;
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
                 .withStatorCurrentLimitEnable(true)
