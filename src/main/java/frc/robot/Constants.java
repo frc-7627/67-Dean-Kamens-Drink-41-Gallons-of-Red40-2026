@@ -174,7 +174,7 @@ public final class Constants {
         private static final int ONBOARD_LED_COUNT = 8;
         private static final int LAST_ONBOARD_LED_NUM = ONBOARD_LED_COUNT - 1;
 
-        public static final int ATTACHED_LED_COUNT = 0;
+        public static final int ATTACHED_LED_COUNT = 14;
 
         public static final int FIRST_ATTACHED_LED_NUM = ONBOARD_LED_COUNT;
         public static final int LAST_ATTACHED_LED_NUM = Math.min(LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT,
