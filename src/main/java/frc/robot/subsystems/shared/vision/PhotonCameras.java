@@ -72,10 +72,11 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
     }
 
     private void sendPhotonVisionRequest(String ipString, String command) {
+        final String uriString = "http://" + ipString + ":5800/api/utils/" + command;
         try {
-            HttpClient httpClient = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://" + ipString + ":5800/api/utils/" + command))
+            final HttpClient httpClient = HttpClient.newHttpClient();
+            final HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(uriString))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .build()
             ;
@@ -84,7 +85,9 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
             LOGGER.log(
                 Level.SEVERE, 
                 error, 
-                () -> "Error while sending photon vision HTTP request to IP: " + ipString
+                () -> "Error while sending photon vision request with URI '"
+                    + uriString
+                    + "'"
             );
         }
     }
