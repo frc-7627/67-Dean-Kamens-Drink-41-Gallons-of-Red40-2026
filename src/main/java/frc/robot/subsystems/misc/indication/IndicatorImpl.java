@@ -3,7 +3,6 @@ package frc.robot.subsystems.misc.indication;
 import com.ctre.phoenix6.signals.RGBWColor;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import static frc.robot.Constants.IndicatorConstants.ColorArrays.*;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 
@@ -108,21 +107,33 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
      * @return The completion color.
      */
     private static RGBWColor getCompletionColor() {
-        return getColorFromArray(Constants.IndicatorConstants.ColorArrays.COMPLETION_COLOR_ARRAY);
+        return getColorFromArray(COMPLETION_COLOR_ARRAY);
     }
 
     /**
      * @return The interruption color.
      */
     private static RGBWColor getInterruptionColor() {
-        return getColorFromArray(Constants.IndicatorConstants.ColorArrays.INTERRUPTION_COLOR_ARRAY);
+        return getColorFromArray(INTERRUPTION_COLOR_ARRAY);
     }
 
     /**
      * @return The progress bar color.
      */
     private static RGBWColor getProgressBarColor() {
-        return getColorFromArray(Constants.IndicatorConstants.ColorArrays.PROGRESS_BAR_COLOR_ARRAY);
+        return getColorFromArray(PROGRESS_BAR_COLOR_ARRAY);
+    }
+
+    private static RGBWColor getRampingColor() {
+        return getColorFromArray(RAMPING_COLOR_ARRAY);
+    }
+
+    private static RGBWColor getShootingColor() {
+        return getColorFromArray(SHOOTING_COLOR_ARRAY);
+    }
+
+    private static RGBWColor getReRampingColor() {
+        return getColorFromArray(RE_RAMPING_COLOR_ARRAY);
     }
 
     /**
@@ -135,17 +146,17 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
 
     @Override
     public void indicateRamping() {
-        // TODO Auto-generated method stub
+        led.setSolidColor(getRampingColor());
     }
 
     @Override
     public void indicateShooting() {
-        // TODO Auto-generated method stub
+        led.setSolidColor(getShootingColor());
     }
 
     @Override
     public void indicateReRamping() {
-        // TODO Auto-generated method stub
+        led.setSolidColor(getReRampingColor());
     }
 }
 
