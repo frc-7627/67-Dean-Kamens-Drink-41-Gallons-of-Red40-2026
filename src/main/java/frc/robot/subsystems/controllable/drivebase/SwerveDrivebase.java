@@ -329,4 +329,16 @@ final class SwerveDrivebase extends SubsystemBase implements
 
         return isOnLeft ? Zone.FAR_LEFT : Zone.FAR_RIGHT;
     }
+
+    @Override
+    public ChassisSpeeds getFieldRelativeSpeeds() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public ChassisSpeeds getRobotRelativeSpeeds() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

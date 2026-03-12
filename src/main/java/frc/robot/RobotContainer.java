@@ -72,7 +72,7 @@ public class RobotContainer {
 
     private final Agitator hopper = Agitator.create();
 
-    private final Launcher launcher = Launcher.create();
+    private final Launcher launcher = Launcher.create(drivebase);
 
     private final GlobalControlState globalControlState = GlobalControlState.create();
 

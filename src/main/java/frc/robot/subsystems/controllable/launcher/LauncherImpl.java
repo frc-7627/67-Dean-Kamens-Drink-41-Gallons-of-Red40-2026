@@ -29,6 +29,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
+import frc.robot.subsystems.controllable.drivebase.DrivebaseKinematics;
 
 // Colloquially known as Miles after bad Chinese
 final class LauncherImpl extends SubsystemBase implements 
@@ -89,9 +90,13 @@ final class LauncherImpl extends SubsystemBase implements
         DEFAULT_INACTIVE_IDLE_FPS
     );
 
+    final DrivebaseKinematics kinematics;
+
     private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
 
-    LauncherImpl() {
+    LauncherImpl(DrivebaseKinematics kinematics) {
+        this.kinematics = kinematics;
+
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyCurrentLimit, 

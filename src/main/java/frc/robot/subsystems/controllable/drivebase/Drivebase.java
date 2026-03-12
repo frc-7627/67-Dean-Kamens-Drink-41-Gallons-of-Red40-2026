@@ -7,7 +7,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import frc.bofalib.control.Controllable;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
-import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 
 /**
@@ -16,6 +15,7 @@ import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 public interface Drivebase extends
         IndirectDrivebase,
         MiscDrivebase,
+        DrivebaseKinematics,
         Controllable<DriveControl> {
     /**
      * @param xInput   the x drive input
