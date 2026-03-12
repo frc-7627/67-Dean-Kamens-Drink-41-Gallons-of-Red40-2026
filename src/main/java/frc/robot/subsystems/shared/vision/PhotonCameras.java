@@ -19,6 +19,8 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
     private static final Logger LOGGER = Logger.getLogger(PhotonCameras.class.getName());
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of("Vision");
 
+    private static final String COPROCESSOR_IP = "10.76.27.11";
+
     private final List<PhotonCameraWrapper> photonCameraWrappers;
 
     private final StandardDeviations standardDeviations =
@@ -29,13 +31,13 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
                 .map(photonCameraInfo -> new PhotonCameraWrapper(photonCameraInfo)).toList();
 
         SmartDashboard.putData(
-            KEY_BUILDER.copyExtendedToString("Restart Vision"), 
-            Commands.runOnce(this::restart)
+            KEY_BUILDER.copyExtendedToString("Restart Vision Coprocessor (program)"), 
+            Commands.runOnce(this::restartCoprocessorProgram)
         );
 
         SmartDashboard.putData(
-            KEY_BUILDER.copyExtendedToString("Restart Vision (devices only)"), 
-            Commands.runOnce(this::restartDevicesOnly)
+            KEY_BUILDER.copyExtendedToString("Restart Vision Coprocessor (device)"), 
+            Commands.runOnce(this::restartCoprocessorDevice)
         );
     }
 
@@ -62,13 +64,12 @@ final class PhotonCameras extends SharedSubsystemBase implements Vision {
                 .getVisionMeasurement(standardDeviations).stream());
     }
 
-    private void restart() {
-        sendPhotonVisionRequest("10.76.27.15", "restartProgram");
+    private void restartCoprocessorProgram() {
+        sendPhotonVisionRequest(COPROCESSOR_IP, "restartProgram");
     }
 
-    private void restartDevicesOnly() {
-        sendPhotonVisionRequest("10.76.27.10", "restartDevice");
-        sendPhotonVisionRequest("10.76.27.11", "restartDevice");
+    private void restartCoprocessorDevice() {
+        sendPhotonVisionRequest(COPROCESSOR_IP, "restartDevice");
     }
 
     private void sendPhotonVisionRequest(String ipString, String command) {
