@@ -393,12 +393,11 @@ public final class Constants {
     }
 
     public static class ClimberConstants {
-        // TODO: find values for climber
-        public static final double DEFAULT_CURRENT_LIMIT = 0;
+        public static final double DEFAULT_CURRENT_LIMIT = 80;
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
-                .withStatorCurrentLimitEnable(true)
-                .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+            .withStatorCurrentLimitEnable(true)
+            .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
         public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
 
