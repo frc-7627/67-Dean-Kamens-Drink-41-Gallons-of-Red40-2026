@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.FeetPerSecond;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
 import static frc.robot.Constants.CanIDs.LAUNCHER_MINION_CAN_ID;
@@ -200,7 +201,7 @@ final class LauncherImpl extends SubsystemBase implements
         final double distanceFeet = Feet.convertFrom(targetter.getTargetMeters(), Meters);
 
         final double robotRelativeYVelocityFPS = FeetPerSecond.convertFrom(
-            kinematics.getRobotRelativeSpeeds().vxMetersPerSecond,
+            kinematics.getRobotRelativeSpeeds().vyMetersPerSecond,
             MetersPerSecond
         );
 
@@ -208,6 +209,8 @@ final class LauncherImpl extends SubsystemBase implements
             distanceFeet
         );
         
-        return baseShootVelocityFPS - robotRelativeYVelocityFPS;
+        return baseShootVelocityFPS 
+            - (robotRelativeYVelocityFPS 
+                    / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Radians)));
     }
 }
