@@ -308,6 +308,8 @@ public final class Constants {
     }
 
     public static class LauncherConstants {
+        public static final double PITCH_ANGLE_DEGREES = 55;
+
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(2, Inch);; // inches

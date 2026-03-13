@@ -7,6 +7,7 @@ import static frc.robot.Constants.LauncherConstants.FLYWHEEL_RADIUS_FEET;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.generic.music.MusicalSubsystem;
 import frc.bofalib.query.BooleanQueryable;
+import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 import frc.robot.subsystems.controllable.drivebase.DrivebaseKinematics;
 
 public interface Launcher extends 
@@ -31,4 +32,9 @@ public interface Launcher extends
     static Launcher create(DrivebaseKinematics kinematics) {
         return new LauncherImpl(kinematics);
     }
+
+    double getShootVelocityFPS(
+        DistanceTargetter targetter, 
+        LauncherDomain domain
+    );
 }

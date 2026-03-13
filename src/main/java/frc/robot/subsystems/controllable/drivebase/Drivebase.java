@@ -56,6 +56,8 @@ public interface Drivebase extends
 
     DistanceTargetter getDistanceTargetterToAllianceZone(Side side);
 
+    DistanceTargetter getDistanceTargetterToZone(Zone zone);
+
     /**
      * Sets the motor mode to brake
      * 

@@ -1,16 +1,19 @@
 package frc.robot.setup.teleop;
 
-import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
+import static edu.wpi.first.units.Units.FeetPerSecond;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.Degrees;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.RobotSong;
+import static frc.robot.Constants.LauncherConstants.PITCH_ANGLE_DEGREES;
 import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
 import frc.robot.commands.RobotSongCommand;
@@ -20,12 +23,13 @@ import frc.robot.commands.control.ToggleControlState;
 import frc.robot.commands.drive.misc.*;
 import frc.robot.subsystems.controllable.agitator.AgitatorControl;
 import frc.robot.subsystems.controllable.feeder.FeederControl;
-import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
-import frc.robot.subsystems.controllable.swivel.Swivel;
+import frc.robot.subsystems.controllable.launcher.LauncherDomain;
 import frc.robot.subsystems.controllable.swivel.SwivelControl;
+import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 import frc.robot.subsystems.controllable.drivebase.Side;
+import frc.robot.subsystems.controllable.drivebase.Zone;
 
 enum TeleopCommandFactory {
     
@@ -109,10 +113,45 @@ enum TeleopCommandFactory {
         context.inputDriveControl().withRotationControl(
             context.drivebase().getAngularDriveControl(
                 context.drivebase().getLocationSupplierAngleTargetter(
-                    () -> switch (context.drivebase().getZone()) {
-                        case CLOSE -> context.gameInfoSupplier().getHubPosition();
-                        case FAR_LEFT -> context.gameInfoSupplier().getFerryTargetPosition(Side.LEFT);
-                        case FAR_RIGHT -> context.gameInfoSupplier().getFerryTargetPosition(Side.RIGHT);
+                    () -> {
+                        final Zone zone = context.drivebase().getZone();
+                        
+                        final Translation2d targetPosition = switch (zone) {
+                            case CLOSE -> context.gameInfoSupplier()
+                                .getHubPosition();
+                            case FAR_LEFT -> context.gameInfoSupplier()
+                                .getFerryTargetPosition(Side.LEFT);
+                            case FAR_RIGHT -> context.gameInfoSupplier()
+                                .getFerryTargetPosition(Side.RIGHT);
+                        };
+
+                        final DistanceTargetter targetter = context.drivebase()
+                            .getDistanceTargetterToZone(zone);
+
+                        final LauncherDomain domain = switch (zone) {
+                            case CLOSE -> LauncherDomain.CLOSE_ZONE;
+                            case FAR_LEFT -> LauncherDomain.FAR_ZONE;
+                            case FAR_RIGHT -> LauncherDomain.FAR_ZONE;
+                        };
+
+                        /*
+                         * delta y = (
+                         *   robot velocity y component 
+                         *       / horizontal shoot velocity
+                         *   ) * target distance
+                         */
+                        final double yCompensationMeters = (
+                            context.drivebase()
+                                .getFieldRelativeSpeeds().vyMetersPerSecond 
+                            / (MetersPerSecond.convertFrom(context.launcher()
+                                .getShootVelocityFPS(targetter, domain), FeetPerSecond) 
+                                * Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees)))
+                        ) * targetter.getTargetMeters();
+                        
+                        return targetPosition.minus(new Translation2d(
+                            0,
+                            yCompensationMeters
+                        ));
                     }
                 )
             )

@@ -1,5 +1,9 @@
 package frc.robot.subsystems.controllable.launcher;
 
+import static edu.wpi.first.units.Units.Feet;
+import static edu.wpi.first.units.Units.FeetPerSecond;
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
@@ -29,6 +33,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
+import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 import frc.robot.subsystems.controllable.drivebase.DrivebaseKinematics;
 
 // Colloquially known as Miles after bad Chinese
@@ -185,5 +190,24 @@ final class LauncherImpl extends SubsystemBase implements
                 ? motorVelocityRotPerSecSupplier.getAsDouble() >= targetRPSSupplier.get().getAsDouble() * (1 - 0.02)
                 : true;
         };
+    }
+
+    @Override
+    public double getShootVelocityFPS(
+        DistanceTargetter targetter, 
+        LauncherDomain domain
+    ) {
+        final double distanceFeet = Feet.convertFrom(targetter.getTargetMeters(), Meters);
+
+        final double robotRelativeYVelocityFPS = FeetPerSecond.convertFrom(
+            kinematics.getRobotRelativeSpeeds().vxMetersPerSecond,
+            MetersPerSecond
+        );
+
+        final double baseShootVelocityFPS = domain.distanceFeetToMotorFPSMap.get(
+            distanceFeet
+        );
+        
+        return baseShootVelocityFPS - robotRelativeYVelocityFPS;
     }
 }

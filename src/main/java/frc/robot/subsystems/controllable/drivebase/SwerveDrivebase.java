@@ -217,8 +217,13 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             @Override
             public double getTargetRadians() {
-                return targetLocationSupplier.get().minus(
-                        swerveDriveWrapper.getPose().getTranslation()).getAngle().getRadians();
+                return targetLocationSupplier
+                    .get()
+                    .minus(
+                        swerveDriveWrapper.getPose().getTranslation()
+                    ).getAngle()
+                    .getRadians()
+                ;
             }
         };
     }
@@ -270,6 +275,15 @@ final class SwerveDrivebase extends SubsystemBase implements
                     .getFerryTargetPosition(side)
                     .getDistance(swerveDriveWrapper.getPose().getTranslation());
             }
+        };
+    }
+
+    @Override
+    public DistanceTargetter getDistanceTargetterToZone(Zone zone) {
+        return switch (zone) {
+            case CLOSE -> getDistanceTargetterToHub();
+            case FAR_LEFT -> getDistanceTargetterToAllianceZone(Side.LEFT);
+            case FAR_RIGHT -> getDistanceTargetterToAllianceZone(Side.RIGHT);
         };
     }
 
