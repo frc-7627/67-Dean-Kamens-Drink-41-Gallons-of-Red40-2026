@@ -346,13 +346,11 @@ final class SwerveDrivebase extends SubsystemBase implements
 
     @Override
     public ChassisSpeeds getFieldRelativeSpeeds() {
-        // TODO Auto-generated method stub
-        return null;
+        return swerveDriveWrapper.getFieldRelativeSpeeds();
     }
 
     @Override
     public ChassisSpeeds getRobotRelativeSpeeds() {
-        // TODO Auto-generated method stub
-        return null;
+        return swerveDriveWrapper.getRobotRelativeSpeeds();
     }
 }

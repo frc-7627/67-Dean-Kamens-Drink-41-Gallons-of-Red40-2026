@@ -132,6 +132,10 @@ final class SwerveDriveWrapper {
         return swerveDrive.getRobotVelocity();
     }
 
+    ChassisSpeeds getFieldRelativeSpeeds() {
+        return swerveDrive.getFieldVelocity();
+    }
+
     /**
      * Lock the robot's pose.
      */
