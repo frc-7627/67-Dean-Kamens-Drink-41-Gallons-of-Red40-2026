@@ -1,5 +1,6 @@
 package frc.robot.subsystems.controllable.launcher;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.FeetPerSecond;
 import static edu.wpi.first.units.Units.Meters;
@@ -205,12 +206,21 @@ final class LauncherImpl extends SubsystemBase implements
             MetersPerSecond
         );
 
+        /**
+         * Get the base shoot speed based on the distance to target using linear interpolation.
+         */
         final double baseShootVelocityFPS = domain.distanceFeetToMotorFPSMap.get(
             distanceFeet
         );
         
-        return baseShootVelocityFPS 
-            - (robotRelativeYVelocityFPS 
-                    / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Radians)));
+        /**
+         * Compensate the shoot speed to account for robot motion in the direction of the target.
+         * 
+         * delta shoot velocity = -robot relative y velocity / cos(pitch angle)
+         */
+        final double vCompensationFPS = robotRelativeYVelocityFPS 
+            / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees));
+
+        return baseShootVelocityFPS - vCompensationFPS;
     }
 }

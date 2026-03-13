@@ -134,22 +134,33 @@ enum TeleopCommandFactory {
                             case FAR_RIGHT -> LauncherDomain.FAR_ZONE;
                         };
 
-                        /*
-                         * delta y = (
-                         *   robot velocity y component 
-                         *       / horizontal shoot velocity
-                         *   ) * target distance
+                        /**
+                         * Time of flight = distance to target / (shoot velocity * cos(pitch angle))
                          */
-                        final double yCompensationMeters = (
-                            context.drivebase()
-                                .getFieldRelativeSpeeds().vyMetersPerSecond 
+                        final double timeOfFlight = targetter.getTargetMeters() 
                             / (MetersPerSecond.convertFrom(context.launcher()
                                 .getShootVelocityFPS(targetter, domain), FeetPerSecond) 
                                 * Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees)))
-                        ) * targetter.getTargetMeters();
+                        ;
+
+                        /**
+                         * Compensate the target location to account for robot motion
+                         * 
+                         * delta target x = -robot velocity x component / time of flight
+                         * delta target y = -robot velocity y component / time of flight
+                         */
+                        final double xCompensationMeters = -context.drivebase()
+                            .getFieldRelativeSpeeds().vxMetersPerSecond 
+                            / timeOfFlight
+                        ;
                         
-                        return targetPosition.minus(new Translation2d(
-                            0,
+                        final double yCompensationMeters = -context.drivebase()
+                            .getFieldRelativeSpeeds().vyMetersPerSecond 
+                            / timeOfFlight
+                        ;
+                        
+                        return targetPosition.plus(new Translation2d(
+                            xCompensationMeters,
                             yCompensationMeters
                         ));
                     }
