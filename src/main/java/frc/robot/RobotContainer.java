@@ -134,7 +134,7 @@ public class RobotContainer {
 
     private void playRandomSong() {
         CommandScheduler.getInstance().schedule(
-                new RobotSongCommand(musicalSubsystems, RobotSong.getRandomSong()));
+                new RobotSongCommand(musicalSubsystems, RobotSong.UNDERGROUND));
     }
 
     /**

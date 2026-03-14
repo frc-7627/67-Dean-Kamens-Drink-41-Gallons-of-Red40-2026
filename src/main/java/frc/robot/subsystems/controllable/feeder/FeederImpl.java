@@ -46,6 +46,7 @@ final class FeederImpl extends SubsystemBase implements
         new TalonFXConfiguration()
             .withCurrentLimits(DEFAULT_CURRENT_LIMITS_CONFIGS)
             .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS)
+            .withAudio(AUDIO_CONFIGS)
     ).build();
 
     final DoubleSupplier feedDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(

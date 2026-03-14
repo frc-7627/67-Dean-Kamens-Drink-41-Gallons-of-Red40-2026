@@ -30,6 +30,7 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
     @Override
     public void indicateStartup() {
         startup.startup();
+        indicateInit();
     }
 
     /**

@@ -4,6 +4,8 @@ import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSI
 import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
 import static frc.robot.Constants.DrivebaseConstants.RED_LEFT_FERRY_TARGET_POSITION;
 import static frc.robot.Constants.DrivebaseConstants.RED_RIGHT_FERRY_TARGET_POSITION;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -27,24 +29,22 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
 
     String gameData = DriverStation.getGameSpecificMessage();
     private final EventLoop eventLoop = new EventLoop();
-    private final BooleanEvent allianceSetEvent;
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
     private Alliance alliance;
-    private boolean isDistinctAlliance = false;
+    private boolean hasBeenSet = false;
     private final Timer phaseTimer = new Timer();
+    private final List<Consumer<Alliance>> allianceConsumers = new ArrayList<>();
 
     /**
      * Resource for getting game info.
      */
     GameInfoSupplierImpl() {
-        this.allianceSetEvent = new BooleanEvent(eventLoop, () -> isDistinctAlliance);
-
         this.alliance = DriverStation.getAlliance().orElse(
                 Constants.GameInfoConstants.DEFAULT_ALLIANCE);
 
-        allianceSetEvent.ifHigh(() -> {
-            LOGGER.info("Alliance set from driver station.");
-        });
+        onAllianceSet(alliance -> LOGGER.info("Alliance set from driver station."));
+
+        updateAlliance();
     }
 
     @Override
@@ -102,7 +102,10 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
         if (newAllianceOption.isPresent()) {
             Alliance newAlliance = newAllianceOption.get();
 
-            isDistinctAlliance = newAlliance != alliance;
+            if (newAlliance != alliance || !hasBeenSet) {
+                allianceConsumers.forEach(action -> action.accept(newAlliance));
+                hasBeenSet = true;
+            }
 
             alliance = newAlliance;
         }
@@ -112,16 +115,12 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     public void periodic() {
         if (RobotState.isDisabled()) {
             updateAlliance();
-
-            eventLoop.poll();
-        } else {
-            isDistinctAlliance = false;
         }
     }
 
     @Override
     public void onAllianceSet(Consumer<Alliance> action) {
-        allianceSetEvent.ifHigh(() -> action.accept(alliance));
+        allianceConsumers.add(action);
     }
 
     @Override

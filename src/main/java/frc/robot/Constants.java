@@ -177,7 +177,7 @@ public final class Constants {
         public static final int ATTACHED_LED_COUNT = 14;
 
         public static final int FIRST_ATTACHED_LED_NUM = ONBOARD_LED_COUNT;
-        public static final int LAST_ATTACHED_LED_NUM = Math.min(LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT,
+        public static final int LAST_ATTACHED_LED_NUM = Math.max(LAST_ONBOARD_LED_NUM + ATTACHED_LED_COUNT,
                 FIRST_ATTACHED_LED_NUM);
 
         private static final int LAST_LED_NUM = LAST_ATTACHED_LED_NUM;
@@ -217,15 +217,15 @@ public final class Constants {
 
             public static final AllianceDefaultColors RED_DEFAULT_COLORS = new AllianceDefaultColors(
                 // Auto #0000ff
-                new int[]{ 0, 0, 255 },
+                new int[]{ 255, 0, 0 },
                 // Transition #0000ff
-                new int[]{ 0, 0, 255 },
+                new int[]{ 255, 0, 0 },
                 // Teleop Inactive #0000ff
-                new int[]{ 0, 0, 255 },
+                new int[]{ 255, 0, 0 },
                 // Teleop Active #0000ff
-                new int[]{ 0, 0, 255 },
+                new int[]{ 255, 0, 0 },
                 // Endgame #0000ff
-                new int[]{ 0, 0, 255 }
+                new int[]{ 255, 0, 0 }
             );
 
             // #89a203
@@ -291,6 +291,9 @@ public final class Constants {
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
+
+        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
+                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
     }
 
     public static class SwivelConstants {
@@ -302,7 +305,7 @@ public final class Constants {
 
         public static final double IN_POSITION_DEGREES = -30; //INTAKE ROCK UP
 
-        public static final double OUT_POSITION_DEGREES = -79;
+        public static final double OUT_POSITION_DEGREES = -79 + (-79 * 0.02);
 
         public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
     }
@@ -380,6 +383,9 @@ public final class Constants {
 
         public static final double DEFAULT_CURRENT_LIMIT = 70;
 
+        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
+                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
+
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
                 .withStatorCurrentLimitEnable(true)
                 .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
@@ -402,7 +408,7 @@ public final class Constants {
     }
 
     public static class Directories {
-        public static final String DEPLOY_DIRECTORY = Filesystem.getDeployDirectory().getAbsolutePath();
+        public static final String DEPLOY_DIRECTORY = Filesystem.getDeployDirectory().getPath();
 
         public static final String SONGS_DIRECTORY = String.format("%s/%s", DEPLOY_DIRECTORY, "midi");
     }

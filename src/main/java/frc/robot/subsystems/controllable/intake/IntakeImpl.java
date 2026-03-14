@@ -7,6 +7,7 @@ import static frc.robot.Constants.IntakeConstants.*;
 import static frc.robot.Constants.CanIDs.*;
 
 import java.util.function.DoubleSupplier;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
@@ -38,6 +39,8 @@ final class IntakeImpl extends SubsystemBase implements
     final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
         "Intake Main Motor", 
         INTAKE_MOTOR_CAN_ID
+    ).withConfig(
+        new TalonFXConfiguration().withAudio(AUDIO_CONFIGS)
     ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(

@@ -136,7 +136,7 @@ enum TeleopCommandFactory {
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
     context.drivebase(), context.launcher(), context.agitator(), context.feeder())
     .alongWith( new ControlCommand<>(context.swivel(), SwivelControl.FOLD_IN))
-    .alongWith(new ControlCommand<>(context.intake(), IntakeControl.LOAD))
+    //.alongWith(new ControlCommand<>(context.intake(), IntakeControl.LOAD))
     //.alongWith(new Lock(context.drivebase())) //TODO: ADD BACK IF WE DECIDE WE NEED IT DURING GPK
 ),
 
@@ -149,7 +149,7 @@ enum TeleopCommandFactory {
 
     ROCKER(context -> new Rocker(context.swivel())),
 
-    PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.getRandomSong())),
+    PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.UNDERGROUND)),
 
     RESET_SWIVEL(context -> Commands.runOnce(context.swivel()::reset, context.swivel()))
     ;
