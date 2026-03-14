@@ -127,7 +127,7 @@ enum TeleopCommandFactory {
     .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD)))),
 
     PERFECT_CELL(context -> new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
-    .raceWith(new WaitCommand(1.7627)).andThen(new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
+    .raceWith(new WaitCommand(1.3333)).andThen(new ControlCommand<>(context.launcher(), LauncherControlSimple.SHOOT_MANUAL)
     .alongWith(new ControlCommand<>(context.feeder(), FeederControl.FEED_IN)
     .alongWith(new ControlCommand<>(context.agitator(), AgitatorControl.TOWARD))))),
     
@@ -149,7 +149,7 @@ enum TeleopCommandFactory {
 
     ROCKER(context -> new Rocker(context.swivel())),
 
-    PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.UNDERGROUND)),
+    PLAY_SONG(context -> new RobotSongCommand(context.musicalSubsystems(), RobotSong.getRandomSong())),
 
     RESET_SWIVEL(context -> Commands.runOnce(context.swivel()::reset, context.swivel()))
     ;

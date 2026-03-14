@@ -285,7 +285,7 @@ public final class Constants {
     public static class IntakeConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final int AMP_LIMIT = 50;
+        public static final int AMP_LIMIT = 80;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
@@ -322,7 +322,7 @@ public final class Constants {
         public static final double DEFAULT_SHOOT_FPS = 39; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
         public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2; 
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
