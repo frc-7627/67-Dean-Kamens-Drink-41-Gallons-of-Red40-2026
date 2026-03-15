@@ -319,7 +319,7 @@ public final class Constants {
         // Math says (not accounting for energy loss) that from trench to hub is
         // 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 39; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
+        public static final double DEFAULT_SHOOT_FPS = 41; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
         public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2; 
@@ -343,9 +343,9 @@ public final class Constants {
         public static final int HORN_FREQ = 440;
 
         private static final double[][] CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
-            {6.2, 34.3}, // min
-            {11, 39}, // trench/depot
-            {17, 45.5} // max
+            {6.2, 36.3}, // min //35.3
+            {11, 40}, // trench/depot //39
+            {17, 46.5} // max //45.5
         };
 
         private static final double[][] FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {

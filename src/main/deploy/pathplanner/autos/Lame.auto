@@ -9,6 +9,31 @@
           "data": {
             "pathName": "tester auto"
           }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Aim"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 12.0
+                }
+              }
+            ]
+          }
         }
       ]
     }

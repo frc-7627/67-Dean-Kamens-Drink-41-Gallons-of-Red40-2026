@@ -16,17 +16,17 @@ class OperatorXboxController implements OperatorController {
             Consumer<Consumer<Command>> binderConsumer, ControlState controlState) {
         logger.fine("Binding operator command '" + factory.toString() + "'");
 
-        switch (factory) {
-            case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
-            case COOLER_EJECT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
-            case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::whileTrue);
-            case SWIVEL_OUT-> binderConsumer.accept(xboxController.b()::whileTrue);
-            case AGITATE -> binderConsumer.accept(xboxController.a()::whileTrue);
-            case PLAY_SONG -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
-            case AGITATE_FEED_AND_SHOOT -> binderConsumer.accept(xboxController.rightStick()::whileTrue);
-            case PERFECT_CELL -> binderConsumer.accept(xboxController.y()::whileTrue);
-            default -> {
-            }
-        }
+        // switch (factory) {
+        //     case LOAD_INTAKE -> binderConsumer.accept(xboxController.leftTrigger()::whileTrue);
+        //     case COOLER_EJECT -> binderConsumer.accept(xboxController.leftBumper()::whileTrue);
+        //     case STOW_INTAKE -> binderConsumer.accept(xboxController.x()::whileTrue);
+        //     case SWIVEL_OUT-> binderConsumer.accept(xboxController.b()::whileTrue);
+        //     case AGITATE -> binderConsumer.accept(xboxController.a()::whileTrue);
+        //     case PLAY_SONG -> binderConsumer.accept(xboxController.rightBumper()::whileTrue);
+        //     case AGITATE_FEED_AND_SHOOT -> binderConsumer.accept(xboxController.rightStick()::whileTrue);
+        //     case PERFECT_CELL -> binderConsumer.accept(xboxController.y()::whileTrue);
+        //     default -> {
+        //     }
+        // }
     }
 }
