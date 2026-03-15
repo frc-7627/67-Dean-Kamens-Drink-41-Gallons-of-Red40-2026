@@ -89,6 +89,12 @@ final class LauncherImpl extends SubsystemBase implements
         DEFAULT_INACTIVE_IDLE_FPS
     );
 
+    final DoubleSupplier manualCompensationFPSSupplier =
+    DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Manual Compensation Feet Per Sec"), 
+        0
+    );
+
     private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
 
     LauncherImpl() {

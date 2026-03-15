@@ -16,7 +16,7 @@ public final class LauncherControlVarShoot implements LauncherControl {
         this.rpsFunction = impl -> () -> Launcher.toAngularVelocityRPS(
             domain.distanceFeetToMotorFPSMap.get(
                 Feet.convertFrom(targetter.getTargetMeters(), Meters)
-            )
+            ) + impl.manualCompensationFPSSupplier.getAsDouble()
         );
     }
 
