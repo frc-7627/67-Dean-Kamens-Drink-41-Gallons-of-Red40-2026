@@ -321,8 +321,8 @@ public final class Constants {
         // or 83.49530895144358 FPS
         public static final double DEFAULT_SHOOT_FPS = 41; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /2; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333; 
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
