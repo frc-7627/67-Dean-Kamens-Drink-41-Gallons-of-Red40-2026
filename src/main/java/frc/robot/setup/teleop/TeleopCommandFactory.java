@@ -6,6 +6,8 @@ import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Degrees;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.logging.Logger;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -158,6 +160,11 @@ enum TeleopCommandFactory {
                             .getFieldRelativeSpeeds().vyMetersPerSecond 
                             / timeOfFlight
                         ;
+
+                        final Logger logger = Logger.getLogger(TeleopCommandFactory.class.getName());
+
+                        logger.fine("Target X compensation: " + xCompensationMeters + " meters");
+                        logger.fine("Target Y compensation: " + yCompensationMeters + " meters");
                         
                         return targetPosition.plus(new Translation2d(
                             xCompensationMeters,

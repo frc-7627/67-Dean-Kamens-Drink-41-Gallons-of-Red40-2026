@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Logger;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -47,6 +49,7 @@ final class LauncherImpl extends SubsystemBase implements
 {
     private static final String LOGGABLE_NAME = "Launcher";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
+    private static final Logger LOGGER = Logger.getLogger(LauncherImpl.class.getName());
 
     private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
@@ -226,6 +229,8 @@ final class LauncherImpl extends SubsystemBase implements
          */
         final double vCompensationFPS = robotRelativeYVelocityFPS 
             / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees));
+
+        LOGGER.finest(() -> "Shoot speed compensation: " + vCompensationFPS + " feet/sec");        
 
         return baseShootVelocityFPS 
             - vCompensationFPS 
