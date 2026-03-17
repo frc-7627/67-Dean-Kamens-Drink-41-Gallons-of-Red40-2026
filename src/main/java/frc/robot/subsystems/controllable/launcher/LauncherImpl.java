@@ -97,6 +97,12 @@ final class LauncherImpl extends SubsystemBase implements
         DEFAULT_INACTIVE_IDLE_FPS
     );
 
+    final DoubleSupplier manualCompensationFPSSupplier =
+    DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Manual Compensation Feet Per Sec"), 
+        0
+    );
+
     final DrivebaseKinematics kinematics;
 
     private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
@@ -221,6 +227,9 @@ final class LauncherImpl extends SubsystemBase implements
         final double vCompensationFPS = robotRelativeYVelocityFPS 
             / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees));
 
-        return baseShootVelocityFPS - vCompensationFPS;
+        return baseShootVelocityFPS 
+            - vCompensationFPS 
+            + manualCompensationFPSSupplier.getAsDouble()
+        ;
     }
 }
