@@ -31,7 +31,7 @@ final class ClimberImpl extends SubsystemBase implements
 
     private final ControlBox<ClimberControl> controlBox = new ControlBox<>();
 
-    final TalonFXWrapper motor = TalonFXBuilder.create(
+    final TalonFXWrapper motor = TalonFXBuilder.createMock(
         "Climber Motor",
         CLIMBER_CAN_ID
     ).withConfig(
