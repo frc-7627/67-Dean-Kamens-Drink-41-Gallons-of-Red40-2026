@@ -70,6 +70,9 @@ public final class Constants {
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(16);
 
+    public static final boolean USE_TARGET_COMPENSATION = true;
+    public static final boolean USE_SHOOT_SPEED_COMPENSATION = true;
+
     //PATHPLANNER MOI IS PRETTY MUCH GUESSTIMATION
 
     public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed

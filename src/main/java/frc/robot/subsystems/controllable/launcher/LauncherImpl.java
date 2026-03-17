@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
+import static frc.robot.Constants.USE_SHOOT_SPEED_COMPENSATION;
 import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
 import static frc.robot.Constants.CanIDs.LAUNCHER_MINION_CAN_ID;
 import static frc.robot.Constants.LauncherConstants.*;
@@ -227,13 +228,13 @@ final class LauncherImpl extends SubsystemBase implements
          * 
          * delta shoot velocity = -robot relative y velocity / cos(pitch angle)
          */
-        final double vCompensationFPS = robotRelativeYVelocityFPS 
+        final double vCompensationFPS = -robotRelativeYVelocityFPS 
             / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees));
 
         LOGGER.finest(() -> "Shoot speed compensation: " + vCompensationFPS + " feet/sec");        
 
         return baseShootVelocityFPS 
-            - vCompensationFPS 
+            + (USE_SHOOT_SPEED_COMPENSATION ? vCompensationFPS : 0) 
             + manualCompensationFPSSupplier.getAsDouble()
         ;
     }

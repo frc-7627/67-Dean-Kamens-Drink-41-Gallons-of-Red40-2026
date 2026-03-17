@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.bofalib.generic.control.ControlCommand;
 import frc.robot.RobotSong;
+import static frc.robot.Constants.USE_TARGET_COMPENSATION;
 import static frc.robot.Constants.LauncherConstants.PITCH_ANGLE_DEGREES;
 import frc.robot.commands.IndicatingWrapperCommand;
 import frc.robot.commands.LoggingWrapperCommand;
@@ -166,10 +167,10 @@ enum TeleopCommandFactory {
                         logger.fine("Target X compensation: " + xCompensationMeters + " meters");
                         logger.fine("Target Y compensation: " + yCompensationMeters + " meters");
                         
-                        return targetPosition.plus(new Translation2d(
+                        return targetPosition.plus(USE_TARGET_COMPENSATION ? new Translation2d(
                             xCompensationMeters,
                             yCompensationMeters
-                        ));
+                        ) : new Translation2d());
                     }
                 )
             )
