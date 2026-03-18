@@ -42,12 +42,14 @@ final class IntakeImpl extends SubsystemBase implements
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Intake Duty Cycle"), 
+        true,
         DEFAULT_INTAKE_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
 
     final DoubleSupplier intakeManualDutyCycle = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Intake Manual Duty Cycle"), 
+        true,
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
@@ -63,7 +65,8 @@ final class IntakeImpl extends SubsystemBase implements
             // MENTOR CODE RAWR!
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
+                    true
                 ), 
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
@@ -73,7 +76,8 @@ final class IntakeImpl extends SubsystemBase implements
             );
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage"),
+                    true
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()

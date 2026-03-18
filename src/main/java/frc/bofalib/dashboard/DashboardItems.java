@@ -21,11 +21,11 @@ public final class DashboardItems {
         return "/SmartDashboard/" + key;
     }
 
-    public static DoubleConsumer createDoublePusher(String key) {
+    public static DoubleConsumer createDoublePusher(String key, boolean retained) {
         final DoubleTopic topic = NetworkTableInstance.getDefault()
             .getDoubleTopic(convertToTopicName(key));
 
-        topic.setRetained(false);
+        topic.setRetained(retained);
 
         final DoubleEntry entry = topic.getEntry(0);
 
@@ -34,11 +34,11 @@ public final class DashboardItems {
         return entry;
     }
 
-    public static BooleanConsumer createBooleanPusher(String key) {
+    public static BooleanConsumer createBooleanPusher(String key, boolean retained) {
         final BooleanTopic topic = NetworkTableInstance.getDefault()
             .getBooleanTopic(convertToTopicName(key));
 
-        topic.setRetained(false);
+        topic.setRetained(retained);
 
         final BooleanEntry entry = topic.getEntry(false);
 
@@ -49,12 +49,13 @@ public final class DashboardItems {
 
     public static DoubleSupplier createDoublePuller(
         String key, 
+        boolean retained,
         double defaultValue
     ) {
         final DoubleTopic topic = NetworkTableInstance.getDefault()
             .getDoubleTopic(convertToTopicName(key));
 
-        topic.setRetained(false);
+        topic.setRetained(retained);
 
         final DoubleEntry entry = topic.getEntry(defaultValue);
 
@@ -63,6 +64,7 @@ public final class DashboardItems {
 
     public static DoubleSupplier createCheckedDoublePuller(
         String key, 
+        boolean retained,
         double defaultValue, 
         DoublePredicate predicate
     ) {
@@ -73,7 +75,7 @@ public final class DashboardItems {
         final DoubleTopic topic = NetworkTableInstance.getDefault()
             .getDoubleTopic(convertToTopicName(key));
 
-        topic.setRetained(false);
+        topic.setRetained(retained);
 
         final DoubleEntry entry = topic.getEntry(defaultValue);
 
@@ -99,12 +101,13 @@ public final class DashboardItems {
 
     public static BooleanSupplier createBooleanPuller(
         String key, 
+        boolean retained,
         boolean defaultValue
     ) {
         final BooleanTopic topic = NetworkTableInstance.getDefault()
             .getBooleanTopic(convertToTopicName(key));
 
-        topic.setRetained(false);
+        topic.setRetained(retained);
 
         final BooleanEntry entry = topic.getEntry(defaultValue);
         
@@ -115,6 +118,7 @@ public final class DashboardItems {
 
     public static Runnable createGainsDashboard(
         KeyBuilder keyBuilder,
+        boolean retained,
         Gains gains,
         List<GainItem> gainItems 
     ) {
@@ -127,6 +131,7 @@ public final class DashboardItems {
                         value -> gains.setGain(gainItem.selection, value), 
                         createDoublePuller(
                             keyBuilder.copyExtendedToString(gainItem.selection.name), 
+                            retained,
                             gainItem.defaultValue
                         ),
                         FunctionalUtil.hasChangedDoublePredicate()

@@ -42,6 +42,7 @@ final class ClimberImpl extends SubsystemBase implements
 
     final DoubleSupplier dutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Duty Cycle"), 
+        true,
         DEFAULT_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );

@@ -83,7 +83,9 @@ final class SwerveDrivebase extends SubsystemBase implements
         CommandSchedulerWrapper.getInstance().registerPeriodicAction(
                 FunctionalUtil.composeConditional(
                         DashboardItems.createDoublePusher(
-                                KEY_BUILDER.copyExtendedToString("Feet to Hub")),
+                                KEY_BUILDER.copyExtendedToString("Feet to Hub"),
+                                true
+                            ),
                         () -> Units.metersToFeet(swerveDriveWrapper.getTargetMeters(gameInfoSupplier.getAlliance())),
                         FunctionalUtil.hasChangedDoublePredicate()));
 

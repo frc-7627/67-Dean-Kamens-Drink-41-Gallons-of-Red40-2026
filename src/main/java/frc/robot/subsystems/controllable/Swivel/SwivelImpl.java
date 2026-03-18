@@ -66,11 +66,13 @@ final class SwivelImpl extends SubsystemBase implements
 
     final DoubleSupplier inPositionDegrees = DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("In Position Degrees"), 
+        true,
         IN_POSITION_DEGREES
     );
 
     final DoubleSupplier outPositionDegrees = DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Out Position Degrees"), 
+        true,
         OUT_POSITION_DEGREES
     );
 
@@ -90,7 +92,8 @@ final class SwivelImpl extends SubsystemBase implements
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Swivel Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Swivel Velocity RPM"),
+                    true
                 ), 
                 () -> RPM.convertFrom(
                     swivelVelocityRotPerSecSupplier.getAsDouble(), 
@@ -100,7 +103,8 @@ final class SwivelImpl extends SubsystemBase implements
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Swivel Position Degrees")
+                    KEY_BUILDER.copyExtendedToString("Swivel Position Degrees"),
+                    true
                 ), 
                 () -> Degrees.convertFrom(
                     swivelPositionRotSupplier.getAsDouble(), 
@@ -109,7 +113,8 @@ final class SwivelImpl extends SubsystemBase implements
                 FunctionalUtil.hasChangedDoublePredicate()),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Amps")
+                    KEY_BUILDER.copyExtendedToString("Motor Amps"),
+                    true
                 ), 
                 () -> motorAmpsSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()

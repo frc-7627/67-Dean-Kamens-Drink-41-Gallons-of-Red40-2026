@@ -82,24 +82,28 @@ final class LauncherImpl extends SubsystemBase implements
     final DoubleSupplier shootSpeedFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Feet Per Sec"), 
-        DEFAULT_SHOOT_FPS 
+        true,
+        DEFAULT_SHOOT_FPS
     );
 
     final DoubleSupplier activeIdleFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Active Idle Feet Per Sec"),
+        true,
         DEFAULT_ACTIVE_IDLE_FPS
     );
 
     final DoubleSupplier inactiveIdleFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Inactive Idle Feet Per Sec"), 
+        true,
         DEFAULT_INACTIVE_IDLE_FPS
     );
 
     final DoubleSupplier manualCompensationFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Manual Compensation Feet Per Sec"), 
+        true,
         0
     );
 
@@ -115,6 +119,7 @@ final class LauncherImpl extends SubsystemBase implements
                 motors.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
+                    true,
                     DEFAULT_CURRENT_LIMIT
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
@@ -123,13 +128,15 @@ final class LauncherImpl extends SubsystemBase implements
                 motors.getConfigurator()::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
+                    true,
                     DEFAULT_RAMP_UP_PERIOD
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
+                    true
                 ), 
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
@@ -139,13 +146,15 @@ final class LauncherImpl extends SubsystemBase implements
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage"),
+                    true
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             DashboardItems.createGainsDashboard(
                 KEY_BUILDER.copyExtended("Motor Gains"), 
+                true,
                 new TalonFXSettingGains(motors.getConfigurator()), 
                 List.of(
                     GainItem.createProportional(DEFAULT_SLOT0_P),

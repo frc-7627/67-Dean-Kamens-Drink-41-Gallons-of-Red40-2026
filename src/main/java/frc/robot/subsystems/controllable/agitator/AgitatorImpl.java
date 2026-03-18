@@ -49,6 +49,7 @@ final class AgitatorImpl extends SubsystemBase implements
     final DoubleSupplier dutyCycleSupplier = 
     DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Duty Cycle"), 
+        true,
         DEFAULT_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
@@ -56,6 +57,7 @@ final class AgitatorImpl extends SubsystemBase implements
     final DoubleSupplier manualDutyCycleSupplier =
     DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Manual Duty Cycle"), 
+        true,
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
