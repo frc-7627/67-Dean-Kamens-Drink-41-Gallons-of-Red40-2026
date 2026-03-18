@@ -137,6 +137,9 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     }
 
     private double getTimeLeftInPhase() {
+        if (getPhase().equals(Phase.AUTO)) {
+            return DriverStation.getMatchTime();
+        }
         return getTimeOfPhaseEnd() - teleopTimer.get();
     }
 
