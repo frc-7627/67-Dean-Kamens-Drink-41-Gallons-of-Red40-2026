@@ -45,6 +45,8 @@ public final class DashboardItems {
             .getDoubleTopic(convertToTopicName(key))
             .getEntry(defaultValue);
         
+        entry.set(defaultValue);
+
         return entry;
     }
 
@@ -60,6 +62,8 @@ public final class DashboardItems {
         final DoubleEntry entry = NetworkTableInstance.getDefault()
             .getDoubleTopic(convertToTopicName(key))
             .getEntry(defaultValue);
+
+        entry.set(defaultValue);
 
         return new DoubleSupplier() {
             private double currentValue = defaultValue;
@@ -87,6 +91,8 @@ public final class DashboardItems {
             .getBooleanTopic(convertToTopicName(key))
             .getEntry(defaultValue);
         
+        entry.set(defaultValue);
+
         return entry;
     }
 
