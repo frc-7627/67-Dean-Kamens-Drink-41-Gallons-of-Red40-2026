@@ -7,7 +7,9 @@ import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.networktables.BooleanEntry;
+import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoubleEntry;
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.function.BooleanConsumer;
 import frc.bofalib.gains.GainItem;
@@ -20,8 +22,12 @@ public final class DashboardItems {
     }
 
     public static DoubleConsumer createDoublePusher(String key) {
-        final DoubleEntry entry = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key)).getEntry(0);
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
+
+        topic.setRetained(false);
+
+        final DoubleEntry entry = topic.getEntry(0);
 
         entry.set(0);
 
@@ -29,8 +35,12 @@ public final class DashboardItems {
     }
 
     public static BooleanConsumer createBooleanPusher(String key) {
-        final BooleanEntry entry = NetworkTableInstance.getDefault()
-            .getBooleanTopic(convertToTopicName(key)).getEntry(false);
+        final BooleanTopic topic = NetworkTableInstance.getDefault()
+            .getBooleanTopic(convertToTopicName(key));
+
+        topic.setRetained(false);
+
+        final BooleanEntry entry = topic.getEntry(false);
 
         entry.set(false);
 
@@ -41,11 +51,12 @@ public final class DashboardItems {
         String key, 
         double defaultValue
     ) {
-        final DoubleEntry entry = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key))
-            .getEntry(defaultValue);
-        
-        entry.set(defaultValue);
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
+
+        topic.setRetained(false);
+
+        final DoubleEntry entry = topic.getEntry(defaultValue);
 
         return entry;
     }
@@ -59,9 +70,12 @@ public final class DashboardItems {
             throw new BadInitialValueError(defaultValue);
         }
 
-        final DoubleEntry entry = NetworkTableInstance.getDefault()
-            .getDoubleTopic(convertToTopicName(key))
-            .getEntry(defaultValue);
+        final DoubleTopic topic = NetworkTableInstance.getDefault()
+            .getDoubleTopic(convertToTopicName(key));
+
+        topic.setRetained(false);
+
+        final DoubleEntry entry = topic.getEntry(defaultValue);
 
         entry.set(defaultValue);
 
@@ -87,9 +101,12 @@ public final class DashboardItems {
         String key, 
         boolean defaultValue
     ) {
-        final BooleanEntry entry = NetworkTableInstance.getDefault()
-            .getBooleanTopic(convertToTopicName(key))
-            .getEntry(defaultValue);
+        final BooleanTopic topic = NetworkTableInstance.getDefault()
+            .getBooleanTopic(convertToTopicName(key));
+
+        topic.setRetained(false);
+
+        final BooleanEntry entry = topic.getEntry(defaultValue);
         
         entry.set(defaultValue);
 
