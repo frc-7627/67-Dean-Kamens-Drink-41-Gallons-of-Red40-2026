@@ -85,10 +85,6 @@ final class LauncherImpl extends SubsystemBase implements
         DEFAULT_SHOOT_FPS 
     );
 
-    final DoubleSupplier commandedShootSpeedSupplier =
-    DashboardItems.createDoublePuller(KEY_BUILDER.copyExtendedToString("Commanded RPM"), 
-    120);
-
     final DoubleSupplier activeIdleFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Active Idle Feet Per Sec"),
