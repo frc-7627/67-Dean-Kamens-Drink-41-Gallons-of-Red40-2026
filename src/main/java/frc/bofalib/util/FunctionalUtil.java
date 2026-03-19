@@ -2,10 +2,13 @@ package frc.bofalib.util;
 
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import java.util.function.DoubleUnaryOperator;
+import java.util.function.IntPredicate;
+import java.util.function.IntSupplier;
 
 public final class FunctionalUtil {
     private FunctionalUtil() {}
@@ -83,5 +86,12 @@ public final class FunctionalUtil {
         return () -> {
             runnables.forEach(Runnable::run);
         };
+    }
+
+    public static BooleanSupplier compose(
+        IntSupplier supplier,
+        IntPredicate predicate
+    ) {
+        return () -> predicate.test(supplier.getAsInt());
     }
 }

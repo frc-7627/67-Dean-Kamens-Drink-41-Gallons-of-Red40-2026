@@ -120,7 +120,8 @@ public final class DashboardItems {
         KeyBuilder keyBuilder,
         boolean retained,
         Gains gains,
-        List<GainItem> gainItems 
+        List<GainItem> gainItems,
+        BooleanSupplier isActiveSupplier
     ) {
         return FunctionalUtil.flattenRunnables(
             gainItems.stream().map(
@@ -135,6 +136,7 @@ public final class DashboardItems {
                             gainItem.defaultValue
                         ),
                         FunctionalUtil.hasChangedDoublePredicate()
+                            .and(x -> isActiveSupplier.getAsBoolean())
                     );
                 }
             ).toList()

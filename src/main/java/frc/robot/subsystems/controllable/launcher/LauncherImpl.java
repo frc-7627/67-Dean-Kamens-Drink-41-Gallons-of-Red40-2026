@@ -111,6 +111,8 @@ final class LauncherImpl extends SubsystemBase implements
 
     private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
 
+    private int currentGainsIndex = 0;
+
     LauncherImpl(DrivebaseKinematics kinematics) {
         this.kinematics = kinematics;
 
@@ -121,8 +123,7 @@ final class LauncherImpl extends SubsystemBase implements
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
                     true,
                     DEFAULT_CURRENT_LIMIT
-                ), 
-                FunctionalUtil.hasChangedDoublePredicate()
+                ), FunctionalUtil.hasChangedDoublePredicate()
             ),
             FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyRampUpPeriod, 
@@ -130,26 +131,22 @@ final class LauncherImpl extends SubsystemBase implements
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
                     true,
                     DEFAULT_RAMP_UP_PERIOD
-                ), 
-                FunctionalUtil.hasChangedDoublePredicate()
+                ), FunctionalUtil.hasChangedDoublePredicate()
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
                     true
-                ), 
-                () -> RPM.convertFrom(
+                ), () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
                     RotationsPerSecond
-                ),
-                FunctionalUtil.hasChangedDoublePredicate()
+                ), FunctionalUtil.hasChangedDoublePredicate()
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Voltage"),
                     true
-                ), 
-                () -> motorVoltageSupplier.getAsDouble(),
+                ), () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             DashboardItems.createGainsDashboard(
@@ -162,6 +159,9 @@ final class LauncherImpl extends SubsystemBase implements
                     GainItem.createDerivative(DEFAULT_SLOT0_D),
                     GainItem.createVelocity(DEFAULT_SLOT0_V),
                     GainItem.createStatic(DEFAULT_SLOT0_S)
+                ), FunctionalUtil.compose(
+                    () -> 0, 
+                    index -> index == currentGainsIndex
                 )
             )
         ));
