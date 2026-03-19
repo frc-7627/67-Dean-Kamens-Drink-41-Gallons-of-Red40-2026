@@ -7,6 +7,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXCommonConfigurator;
 
 public final class TalonFXMotionGains implements Gains {
     private final TalonFXCommonConfigurator configurator;
+    private final Slot0Configs configs = new Slot0Configs();
 
     public TalonFXMotionGains(
         TalonFXCommonConfigurator configurator
@@ -16,8 +17,6 @@ public final class TalonFXMotionGains implements Gains {
 
     @Override
     public void setGain(GainSelection gain, double value) {
-        Slot0Configs configs = configurator.GetSlot0Configs();
-
         switch (gain) {
             case PROPORTIONAL -> configs.kP = value;
             case ACCELERATION -> configs.kA = value;

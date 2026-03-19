@@ -1,7 +1,6 @@
 package frc.bofalib.generic.hardware.motor.talonfx.gains;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
-import com.fasterxml.jackson.databind.cfg.ConfigOverride;
 
 import frc.bofalib.gains.GainSelection;
 import frc.bofalib.gains.Gains;
@@ -9,7 +8,7 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXCommonConfigurator;
 
 public final class TalonFXSettingGains implements Gains {
     private final TalonFXCommonConfigurator configurator;
-    
+    private final Slot0Configs configs = new Slot0Configs();
 
     public TalonFXSettingGains(
         TalonFXCommonConfigurator configurator
@@ -19,8 +18,6 @@ public final class TalonFXSettingGains implements Gains {
 
     @Override
     public void setGain(GainSelection gain, double value) {
-        Slot0Configs configs = configurator.GetSlot0Configs();
-
         switch (gain) {
             case PROPORTIONAL -> configs.kP = value;
             case ACCELERATION -> configs.kA = value;

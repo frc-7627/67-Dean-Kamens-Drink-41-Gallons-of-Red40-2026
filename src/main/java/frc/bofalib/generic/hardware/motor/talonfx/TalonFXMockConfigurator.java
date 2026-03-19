@@ -48,10 +48,4 @@ final class TalonFXMockConfigurator extends MotorConfiguratorBase implements Tal
     public void apply(TalonFXConfiguration configuration) {
         // TODO Auto-generated method stub
     }
-
-    @Override
-    public Slot0Configs GetSlot0Configs() {
-        return  this.configs;
-    }
-    
 }
