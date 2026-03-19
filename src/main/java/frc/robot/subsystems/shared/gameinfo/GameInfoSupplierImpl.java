@@ -5,15 +5,11 @@ import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POS
 import static frc.robot.Constants.DrivebaseConstants.RED_LEFT_FERRY_TARGET_POSITION;
 import static frc.robot.Constants.DrivebaseConstants.RED_RIGHT_FERRY_TARGET_POSITION;
 
-import java.sql.Driver;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.Odometry;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
@@ -27,7 +23,6 @@ import frc.bofalib.subsystem.SharedSubsystemBase;
 import frc.bofalib.util.FunctionalUtil;
 import frc.robot.Constants;
 import frc.robot.subsystems.controllable.drivebase.Side;
-import swervelib.SwerveDrive;
 
 final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfoSupplier {
     private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getName());
@@ -35,14 +30,13 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     private static final String LOGGABLE_NAME = "Game Info";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
 
-    String gameData = DriverStation.getGameSpecificMessage();
+    private String gameData = DriverStation.getGameSpecificMessage();
     private final EventLoop eventLoop = new EventLoop();
     private final BooleanEvent allianceSetEvent;
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
     private Alliance alliance;
     private boolean isDistinctAlliance = false;
     private final Timer teleopTimer = new Timer();
-    private final Timer phaseTimer = new Timer();
 
     /**
      * Resource for getting game info.
@@ -57,15 +51,15 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
             LOGGER.info("Alliance set from driver station.");
         });
 
-        phaseTimer.start();
-
         CommandSchedulerWrapper.getInstance().registerPeriodicAction(
-                FunctionalUtil.composeConditional(
-                        DashboardItems.createDoublePusher(
-                                KEY_BUILDER.copyExtendedToString("Time Left in Phase"),
-                                true),
-                        () -> getTimeLeftInPhase(),
-                        FunctionalUtil.hasChangedDoublePredicate()));
+            FunctionalUtil.composeConditional(
+                DashboardItems.createDoublePusher(
+                    KEY_BUILDER.copyExtendedToString("Time Left in Phase"),
+                    true
+                ), this::getTimeLeftInPhase,
+                FunctionalUtil.hasChangedDoublePredicate()
+            )
+        );
     }
 
     @Override
