@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Trench Start - Top N Zone"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Half Top Down"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top Bump"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bump - Top Cleanup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Reversed Top Down"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
