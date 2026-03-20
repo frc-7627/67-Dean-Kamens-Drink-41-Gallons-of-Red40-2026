@@ -72,7 +72,19 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Fold Out",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": 0.5375161707632596,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Fold Out"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 6.07,
     "maxAcceleration": 4.0,

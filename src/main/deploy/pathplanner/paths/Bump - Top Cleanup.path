@@ -43,8 +43,8 @@
   "eventMarkers": [
     {
       "name": "Fold Out",
-      "waypointRelativePos": 0.7,
-      "endWaypointRelativePos": null,
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.37580853816300136,
       "command": null
     }
   ],
