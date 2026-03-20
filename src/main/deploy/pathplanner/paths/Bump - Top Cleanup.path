@@ -1,0 +1,70 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.009,
+        "y": 5.514389086595493
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": -0.014578884927387126,
+        "y": 8.24722419929362
+      },
+      "isLocked": false,
+      "linkedName": "Top Bump Shooting Pose"
+    },
+    {
+      "anchor": {
+        "x": 6.0,
+        "y": 5.982268188302426
+      },
+      "prevControl": {
+        "x": 7.323190984570849,
+        "y": 8.118113879005389
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Top cleanup"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Fold Out",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.37580853816300136,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.07,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": -91.51463515920246
+  },
+  "reversed": false,
+  "folder": "N Zone",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -39.11386656530555
+  },
+  "useDefaultConstraints": true
+}
