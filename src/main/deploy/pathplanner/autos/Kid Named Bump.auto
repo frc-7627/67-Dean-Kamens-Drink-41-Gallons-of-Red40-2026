@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Top Trench Start - Top N Zone"
+                  "pathName": "Bottom Trench Start - Bottom N Zone"
                 }
               },
               {
@@ -30,7 +30,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Half Top Down"
+                  "pathName": "Half Bottom Up"
                 }
               },
               {
@@ -45,7 +45,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Bottom N Zone - Top Bump"
+            "pathName": "Top Bottom N Zone - Bottom Bump"
           }
         },
         {
@@ -80,7 +80,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Bump - Top Cleanup"
+                  "pathName": "Bottom Bump - Reversed Bottom Cleanup"
                 }
               },
               {
@@ -99,26 +99,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Reversed Top Cleanup"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Reversed Half Top Down"
+                  "pathName": "Reversed Half Bottom Up"
                 }
               },
               {
@@ -133,7 +114,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Top N Zone - Top Bump"
+            "pathName": "Bottom Bottom N zone - Bottom Bump"
           }
         },
         {
