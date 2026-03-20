@@ -1,0 +1,71 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.5,
+        "y": 7.477
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.30824096385754,
+        "y": 7.422590361452114
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.67990361445783,
+        "y": 6.001987951807228
+      },
+      "prevControl": {
+        "x": 8.138867469879518,
+        "y": 7.673927710843374
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Top Top Half of the N zone"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7355263157894766,
+      "rotationDegrees": -124.162
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Fold Out",
+      "waypointRelativePos": 0.25,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Fold Out"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.07,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": -124.162
+  },
+  "reversed": false,
+  "folder": "N Zone",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -0.5798668749111792
+  },
+  "useDefaultConstraints": true
+}

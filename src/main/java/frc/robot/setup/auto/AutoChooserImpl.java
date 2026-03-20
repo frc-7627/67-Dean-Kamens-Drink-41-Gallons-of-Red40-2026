@@ -65,6 +65,11 @@ final class AutoChooserImpl implements AutoChooser {
             new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_OUT)
         );
 
+        NamedCommands.registerCommand(
+            "Fold In", 
+            new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_IN)
+        );
+
         NamedCommands.registerCommand("Intake", 
         new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD));
     }

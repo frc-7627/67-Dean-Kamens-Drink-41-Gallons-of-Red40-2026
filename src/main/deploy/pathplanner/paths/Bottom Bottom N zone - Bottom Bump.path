@@ -1,0 +1,71 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.752453637660485,
+        "y": 2.074793152639087
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.5620970042796,
+        "y": 2.6052781740370903
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.120413694721825,
+        "y": 2.644094151212554
+      },
+      "prevControl": {
+        "x": 3.5732667617689007,
+        "y": 2.5794008559201154
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "bottom bump shooting pose"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.42297784647089254,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Fold In",
+      "waypointRelativePos": 0.373221216041397,
+      "endWaypointRelativePos": 0.7535575679172056,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Fold In"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.07,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 52.35237935989228
+  },
+  "reversed": false,
+  "folder": "Hub",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": -125.00000000000001
+  },
+  "useDefaultConstraints": true
+}

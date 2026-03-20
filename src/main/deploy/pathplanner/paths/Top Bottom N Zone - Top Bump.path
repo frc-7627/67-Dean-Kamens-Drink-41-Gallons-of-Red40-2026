@@ -1,0 +1,63 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.752453637660485,
+        "y": 4.403751783166904
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.678244365361804,
+        "y": 5.9124792408066424
+      },
+      "isLocked": false,
+      "linkedName": "Bottom Top Half Of the N zone"
+    },
+    {
+      "anchor": {
+        "x": 3.009,
+        "y": 5.514389086595493
+      },
+      "prevControl": {
+        "x": 2.009,
+        "y": 5.514389086595493
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Top Bump Shooting Pose"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3872113676731797,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.7566607460035596,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 6.07,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -39.11386656530555
+  },
+  "reversed": false,
+  "folder": "Hub",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -124.162
+  },
+  "useDefaultConstraints": true
+}
