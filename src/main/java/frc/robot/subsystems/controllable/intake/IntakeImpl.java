@@ -9,6 +9,7 @@ import static frc.robot.Constants.CanIDs.*;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -46,14 +47,18 @@ final class IntakeImpl extends SubsystemBase implements
         TalonFXBuilder.create(
             "Intake Main Motor", 
             INTAKE_MOTOR_CAN_ID
-        )
-    ).withFollower(
-        TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID), 
-        MotorAlignmentValue.Opposed
-    ).withAllConfig(
-        new TalonFXConfiguration()
+        ).withConfig(new TalonFXConfiguration()
             .withAudio(AUDIO_CONFIGS)
             .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
+        )
+    ).withFollower(
+        TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID)
+            .withConfig(new TalonFXConfiguration()
+                .withAudio(AUDIO_CONFIGS)
+                .withMotorOutput(MOTOR_OUTPUT_CONFIGS
+                    .withInverted(InvertedValue.Clockwise_Positive)
+                )
+        ), MotorAlignmentValue.Opposed
     ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
