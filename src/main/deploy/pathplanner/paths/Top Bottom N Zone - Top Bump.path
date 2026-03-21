@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.009,
-        "y": 5.514389086595493
+        "x": 2.654621968616262,
+        "y": 5.516476462196862
       },
       "prevControl": {
-        "x": 2.009,
-        "y": 5.514389086595493
+        "x": 1.654621968616262,
+        "y": 5.516476462196862
       },
       "nextControl": null,
       "isLocked": false,
@@ -36,7 +36,19 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Fold In",
+      "waypointRelativePos": 0.4042690815006468,
+      "endWaypointRelativePos": 0.6267787839586026,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Fold In"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 6.07,
     "maxAcceleration": 4.0,
@@ -47,7 +59,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -39.11386656530555
+    "rotation": -42.954591511112696
   },
   "reversed": false,
   "folder": "Hub",

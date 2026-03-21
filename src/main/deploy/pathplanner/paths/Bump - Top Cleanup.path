@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.009,
-        "y": 5.514389086595493
+        "x": 2.654621968616262,
+        "y": 5.516476462196862
       },
       "prevControl": null,
       "nextControl": {
-        "x": -0.014578884927387126,
-        "y": 8.24722419929362
+        "x": 0.8640527817403703,
+        "y": 8.041602354203366
       },
       "isLocked": false,
       "linkedName": "Top Bump Shooting Pose"
@@ -64,7 +64,7 @@
   "folder": "N Zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -39.11386656530555
+    "rotation": -42.954591511112696
   },
   "useDefaultConstraints": true
 }

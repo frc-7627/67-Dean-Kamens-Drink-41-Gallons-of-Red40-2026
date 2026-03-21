@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.120413694721825,
-        "y": 2.644094151212554
+        "x": 2.5769900142653355,
+        "y": 2.6052781740370903
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8487018544935796,
-        "y": 1.9842225392296724
+        "x": 2.30527817403709,
+        "y": 1.9454065620542087
       },
       "isLocked": false,
       "linkedName": "bottom bump shooting pose"
@@ -17,18 +17,18 @@
     {
       "anchor": {
         "x": 4.440156918687589,
-        "y": 0.44452211126961516
+        "y": 0.6
       },
       "prevControl": {
         "x": 3.0425421561122468,
-        "y": 0.4445221112696153
+        "y": 0.6000000000000002
       },
       "nextControl": {
         "x": 5.2811697574893,
-        "y": 0.44452211126961516
+        "y": 0.6
       },
       "isLocked": false,
-      "linkedName": "Trench Starting Pose"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -68,6 +68,10 @@
     {
       "waypointRelativePos": 1.95,
       "rotationDegrees": 125.00000000000001
+    },
+    {
+      "waypointRelativePos": 2.659969088098911,
+      "rotationDegrees": 19.319498814155807
     }
   ],
   "constraintZones": [],
@@ -101,7 +105,7 @@
   "folder": "N Zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 52.35237935989228
+    "rotation": 42.95459151111288
   },
   "useDefaultConstraints": true
 }

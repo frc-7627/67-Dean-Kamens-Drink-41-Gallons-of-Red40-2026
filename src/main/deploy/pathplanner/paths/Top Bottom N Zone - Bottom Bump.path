@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.510342368045648,
-        "y": 3.316904422253923
+        "x": 6.62679029957204,
+        "y": 2.941683309557775
       },
       "isLocked": false,
       "linkedName": "Top Bottom Of the N zone"
     },
     {
       "anchor": {
-        "x": 3.120413694721825,
-        "y": 2.644094151212554
+        "x": 2.5769900142653355,
+        "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 4.53097004279601,
-        "y": 2.147631954350928
+        "x": 3.9875463623395215,
+        "y": 2.1088159771754644
       },
       "nextControl": null,
       "isLocked": false,
@@ -59,7 +59,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 52.35237935989228
+    "rotation": 42.95459151111288
   },
   "reversed": false,
   "folder": "Hub",
