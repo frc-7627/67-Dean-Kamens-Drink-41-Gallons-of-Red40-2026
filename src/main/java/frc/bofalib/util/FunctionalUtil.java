@@ -82,15 +82,15 @@ public final class FunctionalUtil {
         };
     }
 
-    public static BooleanSupplier hasChanged(BooleanSupplier supplier, boolean defaultValue) {
+    public static BooleanSupplier hasBecomeTrue(BooleanSupplier supplier) {
         return new BooleanSupplier() {
-            private boolean currentValue = defaultValue;
+            private boolean currentValue = false;
 
             @Override
             public boolean getAsBoolean() {
                 final boolean value = supplier.getAsBoolean();
 
-                if (value == currentValue) {
+                if (!value || currentValue) {
                     return false;
                 }
 
