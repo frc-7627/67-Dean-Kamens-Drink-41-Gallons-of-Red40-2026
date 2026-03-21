@@ -264,6 +264,7 @@ public final class Constants {
     public static class CanIDs {
         public static final int SWIVEL_MOTOR_CAN_ID = 14;
         public static final int INTAKE_MOTOR_CAN_ID = 15;
+        public static final int INTAKE_FOLLOWER_CAN_ID = 21; //yes i know how stupid this number is, cant do anything
 
         public static final int CANDLE_CAN_ID = 16;
 
@@ -294,6 +295,9 @@ public final class Constants {
 
         // in range [-1.0, 1.0]
         public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
+
+        public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
+                .withNeutralMode(NeutralModeValue.Coast);
     }
 
     public static class SwivelConstants {

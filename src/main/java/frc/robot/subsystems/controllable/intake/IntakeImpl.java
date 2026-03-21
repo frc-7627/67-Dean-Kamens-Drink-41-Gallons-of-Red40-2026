@@ -8,9 +8,12 @@ import static frc.robot.Constants.LauncherConstants.AUDIO_CONFIGS;
 import static frc.robot.Constants.LauncherConstants.MOTOR_OUTPUT_CONFIGS;
 import static frc.robot.Constants.CanIDs.*;
 
+import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
+
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,7 +27,9 @@ import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroupBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.util.FunctionalUtil;
@@ -32,8 +37,8 @@ import frc.bofalib.util.FunctionalUtil;
 // Colloquially known as Miles at lunch
 final class IntakeImpl extends SubsystemBase implements 
     Intake, 
-    UniControllable<IntakeImpl, TalonFXControl, IntakeControl>,
-    UniInstrument<TalonFXWrapper>,
+    UniControllable<IntakeImpl, TalonFXBatchControl, IntakeControl>,
+    UniInstrument<TalonFXGroup>,
     LoggingControllable<IntakeControl>
 {
     // Neos
@@ -76,12 +81,18 @@ final class IntakeImpl extends SubsystemBase implements
         CHECK_DUTY_CYCLE
     );
 
-    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> intakeMotors.queryDouble(
-        TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
-    );
-    private final DoubleSupplier motorVoltageSupplier = () -> intakeMotors.queryDouble(
-        TalonFXQuery.VOLTAGE
-    );
+    private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> intakeMotorss.queryDouble(
+        new TalonFXGroupQuery(
+            OptionalInt.empty(),
+            TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
+    )
+);
+    private final DoubleSupplier motorVoltageSupplier = () -> intakeMotorss.queryDouble(
+        new TalonFXGroupQuery(
+            OptionalInt.empty(),
+            TalonFXQuery.VOLTAGE
+    )
+);
 
     IntakeImpl() {
             // MENTOR CODE RAWR!
@@ -123,12 +134,12 @@ final class IntakeImpl extends SubsystemBase implements
     }
 
     @Override
-    public Controllable<TalonFXControl> getFirstControllable() {
-        return intakeMotors;
+    public Controllable<TalonFXBatchControl> getFirstControllable() {
+        return intakeMotorss;
     }
 
     @Override
-    public TalonFXWrapper getFirstInstrument() {
-        return intakeMotors;
+    public TalonFXGroup getFirstInstrument() {
+        return intakeMotorss;
     }
 }

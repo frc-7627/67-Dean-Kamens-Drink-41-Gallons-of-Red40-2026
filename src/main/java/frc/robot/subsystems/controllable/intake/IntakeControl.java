@@ -4,13 +4,13 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 
 import frc.bofalib.generic.control.UniControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
 import frc.bofalib.loggable.Loggable;
 import frc.bofalib.util.FunctionalUtil;
 
 public enum IntakeControl implements UniControl<
     IntakeImpl, 
-    TalonFXControl
+    TalonFXBatchControl
 >, Loggable {
     LOAD(
         "Intake Load", 
@@ -30,7 +30,7 @@ public enum IntakeControl implements UniControl<
     );
 
     private final String name;
-    private final Function<IntakeImpl, TalonFXControl> intakeControlFunction;
+    private final Function<IntakeImpl, TalonFXBatchControl> intakeControlFunction;
 
     private IntakeControl(
         String name,
@@ -38,7 +38,7 @@ public enum IntakeControl implements UniControl<
     ) {
         this.name = name;
 
-        this.intakeControlFunction = impl -> impl.intakeMotor.getSetDutyCycleControl(
+        this.intakeControlFunction = impl -> impl.intakeMotors.getSetDutyCycleControl(
             dutyCycleFunction.apply(impl)
         );
     }
@@ -49,7 +49,7 @@ public enum IntakeControl implements UniControl<
     }
 
     @Override
-    public TalonFXControl getFirstControl(IntakeImpl target) {
+    public TalonFXBatchControl getFirstControl(IntakeImpl target) {
         return intakeControlFunction.apply(target);
     }
 }
