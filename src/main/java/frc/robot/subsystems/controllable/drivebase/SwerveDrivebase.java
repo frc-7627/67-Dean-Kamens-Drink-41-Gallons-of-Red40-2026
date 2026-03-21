@@ -355,4 +355,9 @@ final class SwerveDrivebase extends SubsystemBase implements
     public ChassisSpeeds getRobotRelativeSpeeds() {
         return swerveDriveWrapper.getRobotRelativeSpeeds();
     }
+
+    @Override
+    public Translation2d getAccelerations() {
+        return swerveDriveWrapper.getAccelerations();
+    }
 }
