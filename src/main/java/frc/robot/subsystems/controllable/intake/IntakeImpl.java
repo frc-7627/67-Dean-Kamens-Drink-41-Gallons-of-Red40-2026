@@ -49,7 +49,7 @@ final class IntakeImpl extends SubsystemBase implements
         INTAKE_MOTOR_CAN_ID)
     ).withFollower(
         TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID),
-        MotorAlignmentValue.Aligned
+        MotorAlignmentValue.Opposed
     ).withAllConfig(
         new TalonFXConfiguration()
         .withAudio(AUDIO_CONFIGS)
