@@ -135,7 +135,10 @@ enum TeleopCommandFactory {
 
     ALL_ONE_BUTTON_SHOOT(context -> new Score(context.gameInfoSupplier(), context.indicator(), 
     context.drivebase(), context.launcher(), context.agitator(), context.feeder())
-    .alongWith( new ControlCommand<>(context.swivel(), SwivelControl.FOLD_IN))
+    .alongWith(new WaitCommand(.75)
+        .andThen((new ControlCommand<>(context.swivel(), SwivelControl.FOLD_IN)))
+    )
+
     //.alongWith(new ControlCommand<>(context.intake(), IntakeControl.LOAD))
     //.alongWith(new Lock(context.drivebase())) //TODO: ADD BACK IF WE DECIDE WE NEED IT DURING GPK
 ),
