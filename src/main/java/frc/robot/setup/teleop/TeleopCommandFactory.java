@@ -149,17 +149,17 @@ enum TeleopCommandFactory {
                         /**
                          * Compensate the target location to account for robot motion
                          * 
-                         * delta target x = -robot velocity x component / time of flight
-                         * delta target y = -robot velocity y component / time of flight
+                         * delta target x = -robot velocity x component * time of flight
+                         * delta target y = -robot velocity y component * time of flight
                          */
                         final double xCompensationMeters = -context.drivebase()
                             .getFieldRelativeSpeeds().vxMetersPerSecond 
-                            / timeOfFlight
+                            * timeOfFlight
                         ;
                         
                         final double yCompensationMeters = -context.drivebase()
                             .getFieldRelativeSpeeds().vyMetersPerSecond 
-                            / timeOfFlight
+                            * timeOfFlight
                         ;
 
                         final Logger logger = Logger.getLogger(TeleopCommandFactory.class.getName());
