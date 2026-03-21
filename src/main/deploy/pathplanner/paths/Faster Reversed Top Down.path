@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7,
-        "y": 7.477
+        "x": 6.0,
+        "y": 5.982268188302426
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.50824096385754,
-        "y": 7.422590361452114
+        "x": 5.913736654804271,
+        "y": 5.568185053380782
       },
       "isLocked": false,
-      "linkedName": "Top Shooting Pose"
+      "linkedName": "Top cleanup"
+    },
+    {
+      "anchor": {
+        "x": 6.752953736654805,
+        "y": 4.158730723606168
+      },
+      "prevControl": {
+        "x": 5.655516014234878,
+        "y": 4.104934756820877
+      },
+      "nextControl": {
+        "x": 7.708430423884013,
+        "y": 4.205567816117404
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,39 +36,23 @@
         "y": 6.001987951807228
       },
       "prevControl": {
-        "x": 8.138867469879518,
-        "y": 7.673927710843374
+        "x": 7.67990361445783,
+        "y": 5.001987951807228
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Top Top Half of the N zone"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.19732441471571907,
+      "waypointRelativePos": 1,
       "rotationDegrees": 0.0
-    },
-    {
-      "waypointRelativePos": 0.7355263157894766,
-      "rotationDegrees": -124.162
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Fold Out",
-      "waypointRelativePos": 0.299807321772642,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "Fold Out"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 6.07,
     "maxAcceleration": 4.0,
@@ -62,14 +62,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
-    "rotation": -125.00000000000001
+    "velocity": 1.0,
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -72.49376934999043
+    "velocity": 1.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

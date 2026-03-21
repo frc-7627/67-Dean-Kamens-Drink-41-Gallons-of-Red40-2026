@@ -59,7 +59,7 @@
   },
   "goalEndState": {
     "velocity": 0.5,
-    "rotation": -124.162
+    "rotation": -125.00000000000001
   },
   "reversed": false,
   "folder": "N Zone",

@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.704766596416281,
-        "y": 5.235273778934337
+        "x": 7.7154330946415195,
+        "y": 5.180030435672295
       },
       "isLocked": false,
-      "linkedName": "Top Top Half of the N zone"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 4.403751783166904
       },
       "prevControl": {
-        "x": 7.725907059691254,
-        "y": 5.011620932019343
+        "x": 7.71628011254488,
+        "y": 5.0341162413352665
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Bottom Top Half Of the N zone"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
+    "velocity": 1.0,
     "rotation": -90.0
   },
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
-    "velocity": 0.5,
-    "rotation": -125.00000000000001
+    "velocity": 1.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

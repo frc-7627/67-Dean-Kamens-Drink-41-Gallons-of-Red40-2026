@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7,
+        "x": 4.5,
         "y": 7.477
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.50824096385754,
+        "x": 5.30824096385754,
         "y": 7.422590361452114
       },
       "isLocked": false,
-      "linkedName": "Top Shooting Pose"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -30,10 +30,6 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.19732441471571907,
-      "rotationDegrees": 0.0
-    },
-    {
       "waypointRelativePos": 0.7355263157894766,
       "rotationDegrees": -124.162
     }
@@ -43,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "Fold Out",
-      "waypointRelativePos": 0.299807321772642,
+      "waypointRelativePos": 0.25,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -62,14 +58,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
+    "velocity": 1.0,
     "rotation": -125.00000000000001
   },
   "reversed": false,
   "folder": "N Zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -72.49376934999043
+    "rotation": -0.5798668749111792
   },
   "useDefaultConstraints": true
 }
