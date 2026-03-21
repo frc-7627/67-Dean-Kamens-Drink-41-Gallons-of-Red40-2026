@@ -21,9 +21,7 @@ import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroup;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXGroupBuilder;
-import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXBatchControl;
-import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXGroupQuery;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
@@ -45,15 +43,17 @@ final class IntakeImpl extends SubsystemBase implements
 
     final TalonFXGroup intakeMotors = TalonFXGroupBuilder.create(
         "Intake Motors",
-        TalonFXBuilder.create("Intake Main Motor", 
-        INTAKE_MOTOR_CAN_ID)
+        TalonFXBuilder.create(
+            "Intake Main Motor", 
+            INTAKE_MOTOR_CAN_ID
+        )
     ).withFollower(
         TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID),
         MotorAlignmentValue.Opposed
     ).withAllConfig(
         new TalonFXConfiguration()
-        .withAudio(AUDIO_CONFIGS)
-         .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
+            .withAudio(AUDIO_CONFIGS)
+            .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
     ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
