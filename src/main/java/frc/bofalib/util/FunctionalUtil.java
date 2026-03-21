@@ -82,6 +82,24 @@ public final class FunctionalUtil {
         };
     }
 
+    public static BooleanSupplier hasChanged(BooleanSupplier supplier, boolean defaultValue) {
+        return new BooleanSupplier() {
+            private boolean currentValue = defaultValue;
+
+            @Override
+            public boolean getAsBoolean() {
+                final boolean value = supplier.getAsBoolean();
+
+                if (value == currentValue) {
+                    return false;
+                }
+
+                currentValue = value;
+                return true;
+            }
+        };
+    }
+
     public static Runnable flattenRunnables(List<Runnable> runnables) {
         return () -> {
             runnables.forEach(Runnable::run);
