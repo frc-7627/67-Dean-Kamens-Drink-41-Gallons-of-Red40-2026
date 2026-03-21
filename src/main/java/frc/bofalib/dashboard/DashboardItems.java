@@ -139,6 +139,10 @@ public final class DashboardItems {
                         ),
                         FunctionalUtil.hasChangedDoublePredicate()
                             .and(x -> isActiveSupplier.getAsBoolean())
+                            .or(x -> FunctionalUtil
+                                .hasChanged(isActiveSupplier, false)
+                                .getAsBoolean()
+                            )
                     );
                 }
             ).toList()
