@@ -12,6 +12,8 @@ import edu.wpi.first.networktables.DoubleEntry;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.function.BooleanConsumer;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.bofalib.gains.GainItem;
 import frc.bofalib.gains.Gains;
 import frc.bofalib.util.FunctionalUtil;
@@ -141,5 +143,9 @@ public final class DashboardItems {
                 }
             ).toList()
         );
+    }
+
+    public static void send(String key, Sendable value) {
+        SmartDashboard.putData(convertToTopicName(key), value);
     }
 }
