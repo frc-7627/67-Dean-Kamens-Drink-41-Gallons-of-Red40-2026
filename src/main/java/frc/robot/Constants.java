@@ -293,11 +293,11 @@ public final class Constants {
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
+        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.6;
     }
 
     public static class SwivelConstants {
-        public static final int AMP_LIMIT = 30;
+        public static final int AMP_LIMIT = 35;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
