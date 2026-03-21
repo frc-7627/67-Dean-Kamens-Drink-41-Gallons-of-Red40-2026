@@ -45,15 +45,13 @@ final class IntakeImpl extends SubsystemBase implements
 
     final TalonFXGroup intakeMotors = TalonFXGroupBuilder.create(
         "Intake Motors",
-        TalonFXBuilder.create("Intake Main Motor", 
-        INTAKE_MOTOR_CAN_ID)
+        TalonFXBuilder.create("Intake Main Motor", INTAKE_MOTOR_CAN_ID)
     ).withFollower(
-        TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID),
+        TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID), 
         MotorAlignmentValue.Opposed
     ).withAllConfig(
         new TalonFXConfiguration()
         .withAudio(AUDIO_CONFIGS)
-         .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
     ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(

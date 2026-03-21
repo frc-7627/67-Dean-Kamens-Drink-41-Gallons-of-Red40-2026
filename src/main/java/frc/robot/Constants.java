@@ -291,13 +291,14 @@ public final class Constants {
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.8;
+        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
+                
     }
 
     public static class SwivelConstants {
