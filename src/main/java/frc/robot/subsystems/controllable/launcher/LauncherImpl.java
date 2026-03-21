@@ -20,6 +20,8 @@ import java.util.logging.Logger;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
@@ -111,10 +113,23 @@ final class LauncherImpl extends SubsystemBase implements
 
     private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
 
-    private int currentGainsIndex = 0;
+    private static enum ShootMode {
+        NORMAL,
+        WEAK;
+    }
+
+    private final SendableChooser<ShootMode> chooser;
 
     LauncherImpl(DrivebaseKinematics kinematics) {
         this.kinematics = kinematics;
+        this.chooser = new SendableChooser<>();
+        chooser.setDefaultOption("Normal", ShootMode.NORMAL);
+        chooser.addOption("Weak", ShootMode.WEAK);
+        DashboardItems.send(
+            KEY_BUILDER.copyExtendedToString("Shoot Mode"), 
+            chooser
+        );
+
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
@@ -150,7 +165,7 @@ final class LauncherImpl extends SubsystemBase implements
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             DashboardItems.createGainsDashboard(
-                KEY_BUILDER.copyExtended("Motor Gains"), 
+                KEY_BUILDER.copyExtended("Shooting Gains"), 
                 true,
                 new TalonFXSettingGains(motors.getConfigurator()), 
                 List.of(
@@ -159,10 +174,16 @@ final class LauncherImpl extends SubsystemBase implements
                     GainItem.createDerivative(DEFAULT_SLOT0_D),
                     GainItem.createVelocity(DEFAULT_SLOT0_V),
                     GainItem.createStatic(DEFAULT_SLOT0_S)
-                ), FunctionalUtil.compose(
-                    () -> 0, 
-                    index -> index == currentGainsIndex
-                )
+                ), () -> ShootMode.NORMAL.equals(chooser.getSelected())
+            ),
+            DashboardItems.createGainsDashboard(
+                KEY_BUILDER.copyExtended("Weak Shooting Gains"), 
+                true, 
+                new TalonFXSettingGains(motors.getConfigurator()), 
+                List.of(
+                    GainItem.createVelocity(DEFAULT_SLOT0_V),
+                    GainItem.createStatic(DEFAULT_SLOT0_S)
+                ), () -> ShootMode.WEAK.equals(chooser.getSelected())
             )
         ));
     }
