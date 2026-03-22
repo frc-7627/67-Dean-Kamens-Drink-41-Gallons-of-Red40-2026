@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.gains.GainItem;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXBuilder;
 import frc.bofalib.generic.hardware.motor.talonfx.TalonFXWrapper;
 import frc.bofalib.generic.hardware.motor.talonfx.control.TalonFXControl;
+import frc.bofalib.generic.hardware.motor.talonfx.gains.TalonFXSettingGains;
 import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
@@ -61,6 +63,11 @@ final class FeederImpl extends SubsystemBase implements
         CHECK_DUTY_CYCLE
     );
 
+    final DoubleSupplier feedVelocityRotPerSecSupplier = DashboardItems.createDoublePuller(
+        KEY_BUILDER.copyExtendedToString("Feed Rot Per Sec"), 
+        DEAFULT_FEED_ROT_PER_SEC
+    );
+
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> motor.queryDouble(
         TalonFXQuery.ANGULAR_VELOCITY_ROT_PER_SEC
     );
@@ -95,6 +102,17 @@ final class FeederImpl extends SubsystemBase implements
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
+            ),
+            DashboardItems.createGainsDashboard(
+                KEY_BUILDER.copyExtended("Motor Gains"), 
+                new TalonFXSettingGains(motor.getConfigurator()), 
+                List.of(
+                    GainItem.createProportional(DEFAULT_SLOT1_P),
+                    GainItem.createIntegral(DEFAULT_SLOT1_I),
+                    GainItem.createDerivative(DEFAULT_SLOT1_D),
+                    GainItem.createVelocity(DEFAULT_SLOT1_V),
+                    GainItem.createStatic(DEFAULT_SLOT1_S)
+                )
             )
         ));
         

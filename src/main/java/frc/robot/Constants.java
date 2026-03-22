@@ -326,8 +326,8 @@ public final class Constants {
         // or 83.49530895144358 FPS
         public static final double DEFAULT_SHOOT_FPS = 41; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;//DEFAULT_SHOOT_FPS /1.3333;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;//DEFAULT_SHOOT_FPS /1.3333; 
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
@@ -388,6 +388,8 @@ public final class Constants {
 
         public static final double DEFAULT_CURRENT_LIMIT = 70;
 
+        public static final double DEAFULT_FEED_ROT_PER_SEC = 83;
+
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
@@ -399,6 +401,12 @@ public final class Constants {
                 .withPeakForwardDutyCycle(DEFAULT_FEED_SPEED)
                 .withPeakReverseDutyCycle(-DEFAULT_FEED_SPEED)
                 .withNeutralMode(NeutralModeValue.Coast);
+
+        public static final double DEFAULT_SLOT1_P = 0.0;
+        public static final double DEFAULT_SLOT1_I = 0.0;
+        public static final double DEFAULT_SLOT1_D = 0.0;
+        public static final double DEFAULT_SLOT1_V = 0.0;
+        public static final double DEFAULT_SLOT1_S = 0.21;
     }
 
     public static class ClimberConstants {
