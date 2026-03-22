@@ -291,7 +291,7 @@ public final class Constants {
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.2;
+        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.6;
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
@@ -339,7 +339,7 @@ public final class Constants {
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
-        public static final double DEFAULT_SLOT0_P = 0.5;
+        public static final double DEFAULT_SLOT0_P = 0.55;
         public static final double DEFAULT_SLOT0_I = 0.0;
         public static final double DEFAULT_SLOT0_D = 0.0;
         public static final double DEFAULT_SLOT0_V = 0.111;
