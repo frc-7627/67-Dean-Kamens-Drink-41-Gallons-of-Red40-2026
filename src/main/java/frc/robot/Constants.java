@@ -405,7 +405,7 @@ public final class Constants {
         public static final double DEFAULT_SLOT1_P = 0.0;
         public static final double DEFAULT_SLOT1_I = 0.0;
         public static final double DEFAULT_SLOT1_D = 0.0;
-        public static final double DEFAULT_SLOT1_V = 0.0;
+        public static final double DEFAULT_SLOT1_V = 0.01;
         public static final double DEFAULT_SLOT1_S = 0.21;
     }
 
