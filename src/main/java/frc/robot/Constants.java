@@ -299,6 +299,9 @@ public final class Constants {
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
+
+        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
+            .withBeepOnConfig(false).withAllowMusicDurDisable(true);
     }
 
     public static class SwivelConstants {

@@ -4,8 +4,6 @@ import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
 import static frc.robot.Constants.IntakeConstants.*;
-import static frc.robot.Constants.LauncherConstants.AUDIO_CONFIGS;
-import static frc.robot.Constants.LauncherConstants.MOTOR_OUTPUT_CONFIGS;
 import static frc.robot.Constants.CanIDs.*;
 
 import java.util.OptionalInt;
@@ -58,6 +56,7 @@ final class IntakeImpl extends SubsystemBase implements
             .withConfig(new TalonFXConfiguration()
                 .withAudio(AUDIO_CONFIGS)
                 .withMotorOutput(MOTOR_OUTPUT_CONFIGS
+                    .clone()
                     .withInverted(InvertedValue.Clockwise_Positive)
                 )
         ), MotorAlignmentValue.Opposed
