@@ -398,8 +398,6 @@ public final class Constants {
                 .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
         public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-                .withPeakForwardDutyCycle(DEFAULT_FEED_SPEED)
-                .withPeakReverseDutyCycle(-DEFAULT_FEED_SPEED)
                 .withNeutralMode(NeutralModeValue.Coast);
 
         public static final double DEFAULT_SLOT1_P = 0.0;
