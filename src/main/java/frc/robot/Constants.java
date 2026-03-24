@@ -29,6 +29,7 @@ import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.controls.SolidColor;
 import com.ctre.phoenix6.controls.StrobeAnimation;
 import com.ctre.phoenix6.controls.TwinkleAnimation;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -128,18 +129,18 @@ public final class Constants {
 
         public static final Transform3d LEFT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
-                        Units.inchesToMeters(-6.825), // x
-                        Units.inchesToMeters(4.798), // y
-                        Units.inchesToMeters(18.354)), // z
+                        Units.inchesToMeters(-8.183), // x
+                        Units.inchesToMeters(5.689), // y
+                        Units.inchesToMeters(17.060)), // z
                 new Rotation3d(
                         Units.degreesToRadians(0), //roll
                         Units.degreesToRadians(10.355), //pitch
                         Units.degreesToRadians(-5))); //yaw
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
-                        Units.inchesToMeters(-6.825), // x
-                        Units.inchesToMeters(-4.798), // y
-                        Units.inchesToMeters(18.354)), // z
+                        Units.inchesToMeters(8.183), // x
+                        Units.inchesToMeters(-5.689), // y
+                        Units.inchesToMeters(17.060)), // z
                 new Rotation3d(
                         Units.degreesToRadians(0), //roll
                         Units.degreesToRadians(10.355), //pitch
@@ -398,12 +399,13 @@ public final class Constants {
                 .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
         public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
+                .withInverted(InvertedValue.Clockwise_Positive)
                 .withNeutralMode(NeutralModeValue.Coast);
 
         public static final double DEFAULT_SLOT1_P = 0.0;
         public static final double DEFAULT_SLOT1_I = 0.0;
         public static final double DEFAULT_SLOT1_D = 0.0;
-        public static final double DEFAULT_SLOT1_V = 0.01;
+        public static final double DEFAULT_SLOT1_V = 0;
         public static final double DEFAULT_SLOT1_S = 0.21;
     }
 
