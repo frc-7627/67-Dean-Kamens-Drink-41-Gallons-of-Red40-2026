@@ -53,12 +53,14 @@ final class FeederImpl extends SubsystemBase implements
 
     final DoubleSupplier feedDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Duty Cycle"), 
+        true,
         DEFAULT_FEED_SPEED, 
         CHECK_DUTY_CYCLE
     );
 
     final DoubleSupplier feedManualDutyCycleSupplier = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Manual Duty Cycle"), 
+        true,
         DEFAULT_FEED_SPEED, 
         CHECK_DUTY_CYCLE
     );
@@ -81,6 +83,7 @@ final class FeederImpl extends SubsystemBase implements
                 motor.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
+                    true,
                     DEFAULT_CURRENT_LIMIT
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
@@ -88,7 +91,8 @@ final class FeederImpl extends SubsystemBase implements
             // MENTOR CODE RAWR!
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
+                    true
                 ), 
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
@@ -98,7 +102,8 @@ final class FeederImpl extends SubsystemBase implements
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage"),
+                    true
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()

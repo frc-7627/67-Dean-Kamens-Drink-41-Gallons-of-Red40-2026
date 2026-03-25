@@ -83,7 +83,9 @@ final class SwerveDrivebase extends SubsystemBase implements
         CommandSchedulerWrapper.getInstance().registerPeriodicAction(
                 FunctionalUtil.composeConditional(
                         DashboardItems.createDoublePusher(
-                                KEY_BUILDER.copyExtendedToString("Feet to Hub")),
+                                KEY_BUILDER.copyExtendedToString("Feet to Hub"),
+                                true
+                            ),
                         () -> Units.metersToFeet(swerveDriveWrapper.getTargetMeters(gameInfoSupplier.getAlliance())),
                         FunctionalUtil.hasChangedDoublePredicate()));
 
@@ -217,8 +219,13 @@ final class SwerveDrivebase extends SubsystemBase implements
 
             @Override
             public double getTargetRadians() {
-                return targetLocationSupplier.get().minus(
-                        swerveDriveWrapper.getPose().getTranslation()).getAngle().getRadians();
+                return targetLocationSupplier
+                    .get()
+                    .minus(
+                        swerveDriveWrapper.getPose().getTranslation()
+                    ).getAngle()
+                    .getRadians()
+                ;
             }
         };
     }
@@ -270,6 +277,15 @@ final class SwerveDrivebase extends SubsystemBase implements
                     .getFerryTargetPosition(side)
                     .getDistance(swerveDriveWrapper.getPose().getTranslation());
             }
+        };
+    }
+
+    @Override
+    public DistanceTargetter getDistanceTargetterToZone(Zone zone) {
+        return switch (zone) {
+            case CLOSE -> getDistanceTargetterToHub();
+            case FAR_LEFT -> getDistanceTargetterToAllianceZone(Side.LEFT);
+            case FAR_RIGHT -> getDistanceTargetterToAllianceZone(Side.RIGHT);
         };
     }
 
@@ -328,5 +344,20 @@ final class SwerveDrivebase extends SubsystemBase implements
         final boolean isOnLeft = swerveDriveWrapper.getPose().getY() >= FIELD_MIDLINE_Y;
 
         return isOnLeft ? Zone.FAR_LEFT : Zone.FAR_RIGHT;
+    }
+
+    @Override
+    public ChassisSpeeds getFieldRelativeSpeeds() {
+        return swerveDriveWrapper.getFieldRelativeSpeeds();
+    }
+
+    @Override
+    public ChassisSpeeds getRobotRelativeSpeeds() {
+        return swerveDriveWrapper.getRobotRelativeSpeeds();
+    }
+
+    @Override
+    public Translation2d getAccelerations() {
+        return swerveDriveWrapper.getAccelerations();
     }
 }

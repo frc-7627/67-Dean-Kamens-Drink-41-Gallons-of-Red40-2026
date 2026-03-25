@@ -42,33 +42,21 @@ final class IntakeImpl extends SubsystemBase implements
     private final ControlBox<IntakeControl> controlBox = new ControlBox<>();
 
 
-    final TalonFXGroup intakeMotors = TalonFXGroupBuilder.create(
-        "Intake Motors",
-        TalonFXBuilder.create(
-            "Intake Main Motor", 
-            INTAKE_MOTOR_CAN_ID
-        ).withConfig(new TalonFXConfiguration()
-            .withAudio(AUDIO_CONFIGS)
-            .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
-        )
-    ).withFollower(
-        TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID)
-            .withConfig(new TalonFXConfiguration()
-                .withAudio(AUDIO_CONFIGS)
-                .withMotorOutput(MOTOR_OUTPUT_CONFIGS
-                    .withInverted(InvertedValue.Clockwise_Positive)
-                )
-        ), MotorAlignmentValue.Opposed
+    final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
+        "Intake Main Motor", 
+        INTAKE_MOTOR_CAN_ID
     ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Intake Duty Cycle"), 
+        true,
         DEFAULT_INTAKE_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
 
     final DoubleSupplier intakeManualDutyCycle = DashboardItems.createCheckedDoublePuller(
         KEY_BUILDER.copyExtendedToString("Intake Manual Duty Cycle"), 
+        true,
         DEFAULT_MANUAL_DUTY_CYCLE, 
         CHECK_DUTY_CYCLE
     );
@@ -90,7 +78,8 @@ final class IntakeImpl extends SubsystemBase implements
             // MENTOR CODE RAWR!
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
+                    true
                 ), 
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
@@ -100,7 +89,8 @@ final class IntakeImpl extends SubsystemBase implements
             );
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage"),
+                    true
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()

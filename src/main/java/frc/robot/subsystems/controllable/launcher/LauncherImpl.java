@@ -1,7 +1,14 @@
 package frc.robot.subsystems.controllable.launcher;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Feet;
+import static edu.wpi.first.units.Units.FeetPerSecond;
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
+import static frc.robot.Constants.USE_SHOOT_SPEED_COMPENSATION;
 import static frc.robot.Constants.CanIDs.LAUNCHER_COMMANDER_CAN_ID;
 import static frc.robot.Constants.CanIDs.LAUNCHER_MINION_CAN_ID;
 import static frc.robot.Constants.LauncherConstants.*;
@@ -9,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.DoubleSupplier;
+import java.util.logging.Logger;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,6 +38,8 @@ import frc.bofalib.generic.hardware.motor.talonfx.query.TalonFXQuery;
 import frc.bofalib.generic.music.UniInstrument;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.util.FunctionalUtil;
+import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
+import frc.robot.subsystems.controllable.drivebase.DrivebaseKinematics;
 
 // Colloquially known as Miles after bad Chinese
 final class LauncherImpl extends SubsystemBase implements 
@@ -39,6 +50,7 @@ final class LauncherImpl extends SubsystemBase implements
 {
     private static final String LOGGABLE_NAME = "Launcher";
     private static final KeyBuilder KEY_BUILDER = KeyBuilder.of(LOGGABLE_NAME);
+    private static final Logger LOGGER = Logger.getLogger(LauncherImpl.class.getName());
 
     private final ControlBox<LauncherControl> controlBox = new ControlBox<>();
 
@@ -70,39 +82,44 @@ final class LauncherImpl extends SubsystemBase implements
     final DoubleSupplier shootSpeedFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Shoot Feet Per Sec"), 
-        DEFAULT_SHOOT_FPS 
+        true,
+        DEFAULT_SHOOT_FPS
     );
-
-    final DoubleSupplier commandedShootSpeedSupplier =
-    DashboardItems.createDoublePuller(KEY_BUILDER.copyExtendedToString("Commanded RPM"), 
-    120);
 
     final DoubleSupplier activeIdleFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Active Idle Feet Per Sec"),
+        true,
         DEFAULT_ACTIVE_IDLE_FPS
     );
 
     final DoubleSupplier inactiveIdleFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Inactive Idle Feet Per Sec"), 
+        true,
         DEFAULT_INACTIVE_IDLE_FPS
     );
 
     final DoubleSupplier manualCompensationFPSSupplier =
     DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Manual Compensation Feet Per Sec"), 
+        true,
         0
     );
 
+    final DrivebaseKinematics kinematics;
+
     private Optional<DoubleSupplier> targetRPSSupplier = Optional.empty();
 
-    LauncherImpl() {
+    LauncherImpl(DrivebaseKinematics kinematics) {
+        this.kinematics = kinematics;
+
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
             FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
+                    true,
                     DEFAULT_CURRENT_LIMIT
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
@@ -111,13 +128,15 @@ final class LauncherImpl extends SubsystemBase implements
                 motors.getConfigurator()::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
+                    true,
                     DEFAULT_RAMP_UP_PERIOD
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM")
+                    KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
+                    true
                 ), 
                 () -> RPM.convertFrom(
                     motorVelocityRotPerSecSupplier.getAsDouble(), 
@@ -127,13 +146,15 @@ final class LauncherImpl extends SubsystemBase implements
             ),
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
-                    KEY_BUILDER.copyExtendedToString("Motor Voltage")
+                    KEY_BUILDER.copyExtendedToString("Motor Voltage"),
+                    true
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
             DashboardItems.createGainsDashboard(
                 KEY_BUILDER.copyExtended("Motor Gains"), 
+                true,
                 new TalonFXSettingGains(motors.getConfigurator()), 
                 List.of(
                     GainItem.createProportional(DEFAULT_SLOT0_P),
@@ -186,5 +207,40 @@ final class LauncherImpl extends SubsystemBase implements
                 ? motorVelocityRotPerSecSupplier.getAsDouble() >= targetRPSSupplier.get().getAsDouble() * (1 - 0.02)
                 : true;
         };
+    }
+
+    @Override
+    public double getShootVelocityFPS(
+        DistanceTargetter targetter, 
+        LauncherDomain domain
+    ) {
+        final double distanceFeet = Feet.convertFrom(targetter.getTargetMeters(), Meters);
+
+        final double robotRelativeYVelocityFPS = FeetPerSecond.convertFrom(
+            kinematics.getRobotRelativeSpeeds().vyMetersPerSecond,
+            MetersPerSecond
+        );
+
+        /**
+         * Get the base shoot speed based on the distance to target using linear interpolation.
+         */
+        final double baseShootVelocityFPS = domain.distanceFeetToMotorFPSMap.get(
+            distanceFeet
+        );
+        
+        /**
+         * Compensate the shoot speed to account for robot motion in the direction of the target.
+         * 
+         * delta shoot velocity = -robot relative y velocity / cos(pitch angle)
+         */
+        final double vCompensationFPS = -robotRelativeYVelocityFPS 
+            / Math.cos(Radians.convertFrom(PITCH_ANGLE_DEGREES, Degrees));
+
+        LOGGER.finest(() -> "Shoot speed compensation: " + vCompensationFPS + " feet/sec");        
+
+        return baseShootVelocityFPS 
+            + (USE_SHOOT_SPEED_COMPENSATION ? vCompensationFPS : 0) 
+            + manualCompensationFPSSupplier.getAsDouble()
+        ;
     }
 }
