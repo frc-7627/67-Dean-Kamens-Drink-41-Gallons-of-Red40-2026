@@ -59,6 +59,8 @@ public final class DashboardItems {
 
         final DoubleEntry entry = topic.getEntry(defaultValue);
 
+        entry.set(defaultValue);
+
         return entry;
     }
 
