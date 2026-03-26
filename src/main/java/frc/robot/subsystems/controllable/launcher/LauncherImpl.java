@@ -56,7 +56,7 @@ final class LauncherImpl extends SubsystemBase implements
 
     final TalonFXGroup motors = TalonFXGroupBuilder.create(
         "Launcher Motors", 
-        TalonFXBuilder.create("Launcher - Commander", LAUNCHER_COMMANDER_CAN_ID)
+        TalonFXBuilder.create("Launcher - Commander", LAUNCHER_COMMANDER_CAN_ID).withSetVelocityUpdateFreqHz(1000)
     ).withFollower(
         TalonFXBuilder.create("Launcher - Minion", LAUNCHER_MINION_CAN_ID), 
         MotorAlignmentValue.Aligned
@@ -64,6 +64,7 @@ final class LauncherImpl extends SubsystemBase implements
         new TalonFXConfiguration()
             .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
             .withAudio(AUDIO_CONFIGS)
+            
     ).build();
 
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> motors.queryDouble(
