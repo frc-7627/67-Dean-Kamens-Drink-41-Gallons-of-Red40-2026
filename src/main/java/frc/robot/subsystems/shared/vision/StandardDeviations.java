@@ -11,11 +11,13 @@ final class StandardDeviations {
 
     StandardDeviations(KeyBuilder rootKeyBuilder) {
         this.singleTagStdDevSupplier = DashboardItems.createDoublePuller(
-            rootKeyBuilder.copyExtendedToString("Single Tag Standard Deviation"), 
+            rootKeyBuilder.copyExtendedToString("Single Tag Standard Deviation"),
+            true, 
             DEFAULT_SINGLE_TAG_STD_DEV
         );
         this.multiTagStdDevSupplier = DashboardItems.createDoublePuller(
             rootKeyBuilder.copyExtendedToString("Multi Tag Standard Deviation"), 
+            true,
             DEFAULT_MULTI_TAG_STD_DEV
         );
     }

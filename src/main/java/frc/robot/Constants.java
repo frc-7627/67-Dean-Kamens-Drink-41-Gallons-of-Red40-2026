@@ -71,6 +71,9 @@ public final class Constants {
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(16);
 
+    public static final boolean USE_TARGET_COMPENSATION = true;
+    public static final boolean USE_SHOOT_SPEED_COMPENSATION = true;
+
     //PATHPLANNER MOI IS PRETTY MUCH GUESSTIMATION
 
     public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
@@ -292,18 +295,17 @@ public final class Constants {
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.6;
-
-        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
-                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
+        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.5;
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
-                
+
+        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
+            .withBeepOnConfig(false).withAllowMusicDurDisable(true);
     }
 
     public static class SwivelConstants {
-        public static final int AMP_LIMIT = 30;
+        public static final int AMP_LIMIT = 35;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
 
@@ -317,6 +319,8 @@ public final class Constants {
     }
 
     public static class LauncherConstants {
+        public static final double PITCH_ANGLE_DEGREES = 55;
+
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
         public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(2, Inch);; // inches
@@ -327,20 +331,21 @@ public final class Constants {
         // or 83.49530895144358 FPS
         public static final double DEFAULT_SHOOT_FPS = 41; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;//DEFAULT_SHOOT_FPS /1.3333;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;//DEFAULT_SHOOT_FPS /1.3333; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333; 
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
         public static final double DEFAULT_CURRENT_LIMIT = 70;
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-                .withNeutralMode(NeutralModeValue.Coast);
+                .withNeutralMode(NeutralModeValue.Coast)
+                .withInverted(InvertedValue.CounterClockwise_Positive);
 
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
-        public static final double DEFAULT_SLOT0_P = 0.55;
+        public static final double DEFAULT_SLOT0_P = 0.45;
         public static final double DEFAULT_SLOT0_I = 0.0;
         public static final double DEFAULT_SLOT0_D = 0.0;
         public static final double DEFAULT_SLOT0_V = 0.111;
@@ -402,22 +407,23 @@ public final class Constants {
                 .withInverted(InvertedValue.Clockwise_Positive)
                 .withNeutralMode(NeutralModeValue.Coast);
 
-        public static final double DEFAULT_SLOT1_P = 0.0;
+        public static final double DEFAULT_SLOT1_P = 0.1;
         public static final double DEFAULT_SLOT1_I = 0.0;
         public static final double DEFAULT_SLOT1_D = 0.0;
-        public static final double DEFAULT_SLOT1_V = 0;
+        public static final double DEFAULT_SLOT1_V = 0.11;
         public static final double DEFAULT_SLOT1_S = 0.21;
     }
 
     public static class ClimberConstants {
-        // TODO: find values for climber
-        public static final double DEFAULT_CURRENT_LIMIT = 0;
+        public static final double DEFAULT_CURRENT_LIMIT = 80;
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
-                .withStatorCurrentLimitEnable(true)
-                .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+            .withStatorCurrentLimitEnable(true)
+            .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
         public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
+
+        public static final double DEFAULT_DUTY_CYCLE = 0.4;
     }
 
     public static class Directories {

@@ -53,12 +53,7 @@ public class Robot extends LoggedRobot {
                                                           // (or
                                                           // prompt the user)
             Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
-            Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save
-                                                                                                  // outputs
-                                                                                                  // to
-                                                                                                  // a
-                                                                                                  // new
-                                                                                                  // log
+            Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
         }
 
         Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values

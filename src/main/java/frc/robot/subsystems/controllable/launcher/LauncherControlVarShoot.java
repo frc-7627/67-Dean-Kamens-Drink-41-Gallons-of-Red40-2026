@@ -1,8 +1,8 @@
 package frc.robot.subsystems.controllable.launcher;
 
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
