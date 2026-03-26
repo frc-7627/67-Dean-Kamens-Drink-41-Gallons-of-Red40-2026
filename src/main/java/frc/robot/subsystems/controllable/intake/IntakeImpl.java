@@ -42,9 +42,24 @@ final class IntakeImpl extends SubsystemBase implements
     private final ControlBox<IntakeControl> controlBox = new ControlBox<>();
 
 
-    final TalonFXWrapper intakeMotor = TalonFXBuilder.create(
-        "Intake Main Motor", 
-        INTAKE_MOTOR_CAN_ID
+    final TalonFXGroup intakeMotors = TalonFXGroupBuilder.create(
+        "Intake Motors",
+        TalonFXBuilder.create(
+            "Intake Main Motor", 
+            INTAKE_MOTOR_CAN_ID
+        ).withConfig(new TalonFXConfiguration()
+            .withAudio(AUDIO_CONFIGS)
+            .withMotorOutput(MOTOR_OUTPUT_CONFIGS)
+        )
+    ).withFollower(
+        TalonFXBuilder.create("Intake Secondary Motor", INTAKE_FOLLOWER_CAN_ID)
+            .withConfig(new TalonFXConfiguration()
+                .withAudio(AUDIO_CONFIGS)
+                .withMotorOutput(MOTOR_OUTPUT_CONFIGS
+                    .clone()
+                    .withInverted(InvertedValue.Clockwise_Positive)
+                )
+        ), MotorAlignmentValue.Opposed
     ).build();
 
     final DoubleSupplier intakeDutyCycle = DashboardItems.createCheckedDoublePuller(
@@ -75,7 +90,7 @@ final class IntakeImpl extends SubsystemBase implements
 );
 
     IntakeImpl() {
-            // MENTOR CODE RAWR!
+            /*// MENTOR CODE RAWR!
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
@@ -94,7 +109,7 @@ final class IntakeImpl extends SubsystemBase implements
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
-            );
+            ); */
         
     }
 

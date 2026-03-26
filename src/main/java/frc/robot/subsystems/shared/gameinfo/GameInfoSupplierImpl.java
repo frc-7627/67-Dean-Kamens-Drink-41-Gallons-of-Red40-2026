@@ -31,6 +31,7 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
 
     private String gameData = DriverStation.getGameSpecificMessage();
     private final EventLoop eventLoop = new EventLoop();
+    private final BooleanEvent allianceSetEvent;
     private Phase phase = Constants.GameInfoConstants.START_PHASE;
     private Alliance alliance;
     private boolean isDistinctAlliance = false;
@@ -40,6 +41,8 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
      * Resource for getting game info.
      */
     GameInfoSupplierImpl() {
+        this.allianceSetEvent = new BooleanEvent(eventLoop, () -> isDistinctAlliance);
+
         this.alliance = DriverStation.getAlliance().orElse(
                 Constants.GameInfoConstants.DEFAULT_ALLIANCE);
 
@@ -152,10 +155,7 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
         if (newAllianceOption.isPresent()) {
             Alliance newAlliance = newAllianceOption.get();
 
-            if (newAlliance != alliance || !hasBeenSet) {
-                allianceConsumers.forEach(action -> action.accept(newAlliance));
-                hasBeenSet = true;
-            }
+            isDistinctAlliance = newAlliance != alliance;
 
             alliance = newAlliance;
         }
@@ -165,12 +165,16 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     public void periodic() {
         if (RobotState.isDisabled()) {
             updateAlliance();
+
+            eventLoop.poll();
+        } else {
+            isDistinctAlliance = false;
         }
     }
 
     @Override
     public void onAllianceSet(Consumer<Alliance> action) {
-        allianceConsumers.add(action);
+        allianceSetEvent.ifHigh(() -> action.accept(alliance));
     }
 
     @Override

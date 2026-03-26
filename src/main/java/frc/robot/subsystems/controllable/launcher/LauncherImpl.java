@@ -115,7 +115,7 @@ final class LauncherImpl extends SubsystemBase implements
         this.kinematics = kinematics;
 
         CommandSchedulerWrapper.getInstance().registerPeriodicActions(List.of(
-            FunctionalUtil.composeConditional(
+            /*FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyCurrentLimit, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Current Limit"), 
@@ -123,8 +123,8 @@ final class LauncherImpl extends SubsystemBase implements
                     DEFAULT_CURRENT_LIMIT
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
-            ),
-            FunctionalUtil.composeConditional(
+            ), */
+            /*FunctionalUtil.composeConditional(
                 motors.getConfigurator()::applyRampUpPeriod, 
                 DashboardItems.createDoublePuller(
                     KEY_BUILDER.copyExtendedToString("Ramp Up Period"), 
@@ -132,7 +132,7 @@ final class LauncherImpl extends SubsystemBase implements
                     DEFAULT_RAMP_UP_PERIOD
                 ), 
                 FunctionalUtil.hasChangedDoublePredicate()
-            ),
+            ), */
             FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Velocity RPM"),
@@ -144,14 +144,14 @@ final class LauncherImpl extends SubsystemBase implements
                 ),
                 FunctionalUtil.hasChangedDoublePredicate()
             ),
-            FunctionalUtil.composeConditional(
+            /*FunctionalUtil.composeConditional(
                 DashboardItems.createDoublePusher(
                     KEY_BUILDER.copyExtendedToString("Motor Voltage"),
                     true
                 ), 
                 () -> motorVoltageSupplier.getAsDouble(),
                 FunctionalUtil.hasChangedDoublePredicate()
-            ),
+            ), */
             DashboardItems.createGainsDashboard(
                 KEY_BUILDER.copyExtended("Motor Gains"), 
                 true,

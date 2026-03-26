@@ -295,7 +295,7 @@ public final class Constants {
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
         // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.6;
+        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.5;
 
         public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
                 .withNeutralMode(NeutralModeValue.Coast);
@@ -331,8 +331,8 @@ public final class Constants {
         // or 83.49530895144358 FPS
         public static final double DEFAULT_SHOOT_FPS = 41; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = 0;//DEFAULT_SHOOT_FPS /1.3333;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = 0;//DEFAULT_SHOOT_FPS /1.3333; 
+        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333;
+        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333; 
 
         public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
 
@@ -345,7 +345,7 @@ public final class Constants {
         public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
                 .withBeepOnConfig(false).withAllowMusicDurDisable(true);
 
-        public static final double DEFAULT_SLOT0_P = 0.55;
+        public static final double DEFAULT_SLOT0_P = 0.45;
         public static final double DEFAULT_SLOT0_I = 0.0;
         public static final double DEFAULT_SLOT0_D = 0.0;
         public static final double DEFAULT_SLOT0_V = 0.111;
@@ -407,10 +407,10 @@ public final class Constants {
                 .withInverted(InvertedValue.Clockwise_Positive)
                 .withNeutralMode(NeutralModeValue.Coast);
 
-        public static final double DEFAULT_SLOT1_P = 0.0;
+        public static final double DEFAULT_SLOT1_P = 0.1;
         public static final double DEFAULT_SLOT1_I = 0.0;
         public static final double DEFAULT_SLOT1_D = 0.0;
-        public static final double DEFAULT_SLOT1_V = 0;
+        public static final double DEFAULT_SLOT1_V = 0.11;
         public static final double DEFAULT_SLOT1_S = 0.21;
     }
 

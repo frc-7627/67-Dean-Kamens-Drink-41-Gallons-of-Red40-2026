@@ -90,7 +90,7 @@ implements
                     ); },
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new VelocityVoltage(
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
-                    ).withSlot(0).withUpdateFreqHz(1000)); }
+                    ).withSlot(0).withUpdateFreqHz(445)); }
                 );
             },
             motion -> {

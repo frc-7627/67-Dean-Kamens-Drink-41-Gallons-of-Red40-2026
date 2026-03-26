@@ -67,7 +67,7 @@ final class FeederImpl extends SubsystemBase implements
 
     final DoubleSupplier feedVelocityRotPerSecSupplier = DashboardItems.createDoublePuller(
         KEY_BUILDER.copyExtendedToString("Feed Rot Per Sec"), 
-        DEAFULT_FEED_ROT_PER_SEC
+        false, DEAFULT_FEED_ROT_PER_SEC
     );
 
     private final DoubleSupplier motorVelocityRotPerSecSupplier = () -> motor.queryDouble(
@@ -110,7 +110,7 @@ final class FeederImpl extends SubsystemBase implements
             ),
             DashboardItems.createGainsDashboard(
                 KEY_BUILDER.copyExtended("Motor Gains"), 
-                new TalonFXSettingGains(motor.getConfigurator()), 
+                false, new TalonFXSettingGains(motor.getConfigurator()), 
                 List.of(
                     GainItem.createProportional(DEFAULT_SLOT1_P),
                     GainItem.createIntegral(DEFAULT_SLOT1_I),
