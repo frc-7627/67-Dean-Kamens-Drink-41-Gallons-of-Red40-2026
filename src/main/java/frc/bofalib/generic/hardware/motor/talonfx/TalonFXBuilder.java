@@ -1,6 +1,7 @@
 package frc.bofalib.generic.hardware.motor.talonfx;
 
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
@@ -9,6 +10,7 @@ public final class TalonFXBuilder {
     private OptionalInt deviceIdOptional = OptionalInt.empty();
     private OptionalInt trackNumberOptional = OptionalInt.empty();
     private Optional<TalonFXConfiguration> configurationOptional = Optional.empty();
+    private OptionalDouble setVelocityUpdateFreqHzOptional = OptionalDouble.empty();
 
     private TalonFXBuilder(String name) {
         this.name = name;
@@ -48,13 +50,20 @@ public final class TalonFXBuilder {
         return this;
     }
 
+    public TalonFXBuilder withSetVelocityUpdateFreqHz(double setVelocityUpdateFreqHz) {
+        this.setVelocityUpdateFreqHzOptional = OptionalDouble.of(setVelocityUpdateFreqHz);
+
+        return this;
+    }
+
     public TalonFXWrapper build() {
         final TalonFXWrapper wrapper = 
             isReal() ? 
             new TalonFXWrapperImpl(
                 name, 
                 deviceIdOptional.getAsInt(), 
-                trackNumberOptional
+                trackNumberOptional,
+                setVelocityUpdateFreqHzOptional
             ) :
             new TalonFXWrapperMock(name)
         ;

@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.controls.Follower;
@@ -37,11 +38,19 @@ implements
         TalonFXControlEmpty.getInstance()
     );
 
-    TalonFXWrapperImpl(String name, int deviceId, OptionalInt trackNumberOptional) {
+    private final double setVelocityUpdateFreqHz;
+
+    TalonFXWrapperImpl(
+        String name, 
+        int deviceId, 
+        OptionalInt trackNumberOptional, 
+        OptionalDouble setVelocityUpdateFreqHzOptional
+    ) {
         super(name);
         this.talonFX = new TalonFX(deviceId);
         this.trackNumberOptional = trackNumberOptional;
         this.configurator = new TalonFXWrapperConfigurator(name, talonFX.getConfigurator());
+        this.setVelocityUpdateFreqHz = setVelocityUpdateFreqHzOptional.orElse(100);
 
         reset();
     }
@@ -90,7 +99,7 @@ implements
                     ); },
                     (magnitudeSupplier, unit) -> { talonFX.setControl(new VelocityVoltage(
                         RotationsPerSecond.convertFrom(magnitudeSupplier.getAsDouble(), unit)
-                    ).withSlot(0).withUpdateFreqHz(445)); }
+                    ).withSlot(0).withUpdateFreqHz(setVelocityUpdateFreqHz)); }
                 );
             },
             motion -> {
