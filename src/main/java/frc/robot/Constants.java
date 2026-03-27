@@ -354,9 +354,13 @@ public final class Constants {
         public static final int HORN_FREQ = 440;
 
         private static final double[][] CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
-            {6.2, 36.3}, // min //35.3
-            {11, 40}, // trench/depot //39
-            {17, 46.5} // max //45.5
+            {6.3, 35.5}, // min // 6.2 , 36.3 //36.1
+            {8.0, 36},
+            {10.1, 36.6},
+            //{11, 40}, // trench/depot //11, 40
+            {12.0, 38.6},
+            {14.0, 44.6},
+            {17, 46.2} // max //17, 46.5
         };
 
         private static final double[][] FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {

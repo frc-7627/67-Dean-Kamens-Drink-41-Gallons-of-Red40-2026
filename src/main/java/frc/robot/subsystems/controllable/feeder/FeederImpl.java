@@ -44,7 +44,8 @@ final class FeederImpl extends SubsystemBase implements
     final TalonFXWrapper motor = TalonFXBuilder.create(
         "Feeder Motor", 
         FEEDER_CAN_ID
-    ).withConfig(
+        ).withSetVelocityUpdateFreqHz(500)
+        .withConfig(
         new TalonFXConfiguration()
             .withCurrentLimits(DEFAULT_CURRENT_LIMITS_CONFIGS)
             .withMotorOutput(DEFAULT_MOTOR_OUTPUT_CONFIGS)

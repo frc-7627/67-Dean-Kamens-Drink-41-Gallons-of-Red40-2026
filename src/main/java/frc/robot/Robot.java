@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.bofalib.subsystem.CommandSchedulerWrapper;
+import frc.robot.commands.RobotSongCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -113,6 +114,12 @@ public class Robot extends LoggedRobot {
         CommandSchedulerWrapper.getInstance().run();
     }
 
+
+    // private void playRandomSong() {
+    //     CommandScheduler.getInstance().schedule(
+    //             new RobotSongCommand(musicalSubsystems, RobotSong.getRandomSong()));
+    // } //TODO: maybe this will fix?
+
     /**
      * This function is called once each time the robot enters Disabled mode.
      */
@@ -121,6 +128,8 @@ public class Robot extends LoggedRobot {
         m_robotContainer.setBrake(true);
         disabledTimer.reset();
         disabledTimer.start();
+        // playRandomSong(); //see above todo
+
     }
 
     @Override
