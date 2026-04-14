@@ -239,6 +239,11 @@ public final class Constants {
     public static class CanIDs {
 
         public static final int CANDLE_CAN_ID = 0; //TOOD: UPDATE THIS
+        public static final int CLIMBER_CAN_ID = 0;
+
+    }
+
+    public static class ClimberConstants {
 
     }
 
