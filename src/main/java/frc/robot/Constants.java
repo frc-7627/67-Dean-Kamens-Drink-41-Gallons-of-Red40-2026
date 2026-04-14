@@ -141,9 +141,9 @@ public final class Constants {
                         Units.degreesToRadians(-5))); //yaw
         public static final Transform3d RIGHT_CAMERA_TRANSFORM = new Transform3d(
                 new Translation3d(
-                        Units.inchesToMeters(8.183), // x
-                        Units.inchesToMeters(-5.689), // y
-                        Units.inchesToMeters(17.060)), // z
+                        Units.inchesToMeters(-6.825), // x // -8.183 vvv new mounts
+                        Units.inchesToMeters(-4.798), // y //-5.689
+                        Units.inchesToMeters(18.354)), // z // 17.060
                 new Rotation3d(
                         Units.degreesToRadians(0), //roll
                         Units.degreesToRadians(10.355), //pitch
@@ -290,7 +290,7 @@ public final class Constants {
     public static class IntakeConstants {
         public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
 
-        public static final int AMP_LIMIT = 80;
+        public static final int AMP_LIMIT = 60;
 
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
 
@@ -329,7 +329,7 @@ public final class Constants {
         // Math says (not accounting for energy loss) that from trench to hub is
         // 1573.85107 RPS z
         // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 41; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
+        public static final double DEFAULT_SHOOT_FPS = 37.85; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
         // 44 for midfield ferry, 55 for opposing bump ferry
         public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333;
         public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333; 
@@ -354,13 +354,14 @@ public final class Constants {
         public static final int HORN_FREQ = 440;
 
         private static final double[][] CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
-            {6.3, 35.5}, // min // 6.2 , 36.3 //36.1
-            {8.0, 36},
-            {10.1, 36.6},
+            {6.3, 35.75}, // min // 6.2 , 36.3 //36.1
+            {8.0, 36.25},
+            {10.1, 38.65},
             //{11, 40}, // trench/depot //11, 40
-            {12.0, 38.6},
-            {14.0, 44.6},
-            {17, 46.2} // max //17, 46.5
+            {12.0, 38.85},
+            {14.0, 44.85},
+            {15.0, 45.0},
+            {17, 46.45} // max //17, 46.5
         };
 
         private static final double[][] FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
