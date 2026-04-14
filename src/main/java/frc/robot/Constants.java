@@ -244,7 +244,15 @@ public final class Constants {
     }
 
     public static class ClimberConstants {
+         public static final double DEFAULT_CURRENT_LIMIT = 80;
 
+        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
+            .withStatorCurrentLimitEnable(true)
+            .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+
+        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
+
+        public static final double DEFAULT_DUTY_CYCLE = 0.4;
     }
 
     public static class Directories {
