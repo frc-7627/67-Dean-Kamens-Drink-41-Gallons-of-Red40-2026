@@ -54,18 +54,12 @@ public interface Drivebase extends
      */
     DistanceTargetter getDistanceTargetterToHub();
 
-    DistanceTargetter getDistanceTargetterToAllianceZone(Side side);
-
-    DistanceTargetter getDistanceTargetterToZone(Zone zone);
-
     /**
      * Sets the motor mode to brake
      * 
      * @param brake is the brake on or off
      */
     void setBrake(boolean brake);
-
-    Zone getZone();
 
     static Drivebase create(
             Optional<VisionMeasurementsSupplier> visionOptional,

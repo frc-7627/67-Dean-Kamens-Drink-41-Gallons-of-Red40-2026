@@ -1,10 +1,8 @@
 package frc.robot.subsystems.controllable.drivebase;
 
-import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
-import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_ZONE_X;
-import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_INITIAL_POSE;
-import static frc.robot.Constants.DrivebaseConstants.RED_ALLIANCE_ZONE_X;
+import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
+import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 
 import java.util.List;
@@ -35,9 +33,6 @@ import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
 import swervelib.SwerveDrive;
 
-import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.FIELD_MIDLINE_Y;
 
 final class SwerveDrivebase extends SubsystemBase implements
         Drivebase,
@@ -248,7 +243,7 @@ final class SwerveDrivebase extends SubsystemBase implements
             public double getTargetMeters() {
                 if (gameInfoSupplier.getAlliance() == Alliance.Red) {
                     return swerveDriveWrapper.getPose().getTranslation()
-                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
+                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION); //TODO: Change this to reef loco
                 } else {
                     return swerveDriveWrapper.getPose().getTranslation()
                             .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
@@ -258,34 +253,9 @@ final class SwerveDrivebase extends SubsystemBase implements
     }
 
     @Override
-    public DistanceTargetter getDistanceTargetterToAllianceZone(Side side) {
-        return new DistanceTargetter() {
-            @Override
-            public String getLoggableName() {
-                return "Location Distance Targetter to Alliance Zone";
-            }
-
-            @Override
-            public String getLoggableInfo() {
-                // TODO Auto-generated method stub
-                return DistanceTargetter.super.getLoggableInfo();
-            }
-
-            @Override
-            public double getTargetMeters() {
-                return gameInfoSupplier
-                    .getFerryTargetPosition(side)
-                    .getDistance(swerveDriveWrapper.getPose().getTranslation());
-            }
-        };
-    }
-
-    @Override
     public DistanceTargetter getDistanceTargetterToZone(Zone zone) {
         return switch (zone) {
             case CLOSE -> getDistanceTargetterToHub();
-            case FAR_LEFT -> getDistanceTargetterToAllianceZone(Side.LEFT);
-            case FAR_RIGHT -> getDistanceTargetterToAllianceZone(Side.RIGHT);
         };
     }
 
@@ -329,21 +299,6 @@ final class SwerveDrivebase extends SubsystemBase implements
     public void runControlInner(DriveControl control) {
         swerveDriveWrapper.driveFieldRelative(
                 control.getSpeeds());
-    }
-
-    @Override
-    public Zone getZone() {
-        final boolean isClose = gameInfoSupplier.getAlliance().equals(Alliance.Blue) ? 
-        swerveDriveWrapper.getPose().getX() < BLUE_ALLIANCE_ZONE_X :
-        swerveDriveWrapper.getPose().getX() > RED_ALLIANCE_ZONE_X;
-
-        if (isClose) {
-            return Zone.CLOSE;
-        }
-
-        final boolean isOnLeft = swerveDriveWrapper.getPose().getY() >= FIELD_MIDLINE_Y;
-
-        return isOnLeft ? Zone.FAR_LEFT : Zone.FAR_RIGHT;
     }
 
     @Override

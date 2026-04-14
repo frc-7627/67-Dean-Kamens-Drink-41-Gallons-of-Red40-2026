@@ -71,9 +71,6 @@ public final class Constants {
     public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(16);
 
-    public static final boolean USE_TARGET_COMPENSATION = true;
-    public static final boolean USE_SHOOT_SPEED_COMPENSATION = true;
-
     //PATHPLANNER MOI IS PRETTY MUCH GUESSTIMATION
 
     public static final DoublePredicate CHECK_DUTY_CYCLE = simpleMotorSpeed -> -1.0 <= simpleMotorSpeed
@@ -88,36 +85,15 @@ public final class Constants {
 
         public static final File SWERVE_CONFIG_FILE = new File(Filesystem.getDeployDirectory(), "swerve");
 
-        public static final double BLUE_ALLIANCE_ZONE_X = 4.5;
-        public static final double RED_ALLIANCE_ZONE_X = 12;
-
-        public static final double FIELD_MIDLINE_Y = 4;
-
-        public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
-                new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
-        public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)),
-                Rotation2d.fromDegrees(0));
-
-        public static final Translation2d BLUE_LEFT_FERRY_TARGET_POSITION = new Translation2d(
-                Meter.of(2), Meter.of(6)
-        );
-
-        public static final Translation2d BLUE_RIGHT_FERRY_TARGET_POSITION = new Translation2d(
-                Meter.of(2), Meter.of(2)
-        );
-
-        public static final Translation2d RED_LEFT_FERRY_TARGET_POSITION = new Translation2d(
-                Meter.of(14), Meter.of(6)
-        );
-
-        public static final Translation2d RED_RIGHT_FERRY_TARGET_POSITION = new Translation2d(
-                Meter.of(14), Meter.of(2)
-        );
-
         // These are for checking whether the robot has settled to an orientation.
         public static final Angle ANGULAR_EPSILON = Degrees.of(1.);
         public static final AngularVelocity ANGULAR_VELOCITY_EPSILON = Degrees.of(1.).per(Second);
         public static final Time CONVERGENCE_PERIOD = Milliseconds.of(20);
+
+         public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
+                new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
+        public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)),
+                Rotation2d.fromDegrees(0));
 
         // Hold time on motor brakes when disabled
         public static final double WHEEL_LOCK_TIME = 10; // seconds
@@ -155,14 +131,12 @@ public final class Constants {
         public static final double DEFAULT_MULTI_TAG_STD_DEV = 1.0;
 
         public static final AprilTagFieldLayout FIELD_LAYOUT = AprilTagFieldLayout
-                .loadField(AprilTagFields.k2026RebuiltWelded);
+                .loadField(AprilTagFields.k2025ReefscapeWelded);
 
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
         public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
 
-        public static final Translation2d BLUE_HUB_LOCATION = new Translation2d(4.6256, 4.0345);
-        public static final Translation2d RED_HUB_LOCATION = new Translation2d(11.9154, 4.0345);
     }
 
     public static class OperatorConstants {
@@ -257,178 +231,15 @@ public final class Constants {
         public static final double SIXTY_SEVEN = 67.67;
     }
 
-    public static class GameInfoConstants {
+    public static class GameInfoConstants { 
         public static final GameInfoSupplier.Phase START_PHASE = GameInfoSupplier.Phase.AUTO;
         public static final Alliance DEFAULT_ALLIANCE = Alliance.Blue;
     }
 
     public static class CanIDs {
-        public static final int SWIVEL_MOTOR_CAN_ID = 14;
-        public static final int INTAKE_MOTOR_CAN_ID = 15;
-        public static final int INTAKE_FOLLOWER_CAN_ID = 21; //yes i know how stupid this number is, cant do anything
 
-        public static final int CANDLE_CAN_ID = 16;
+        public static final int CANDLE_CAN_ID = 0; //TOOD: UPDATE THIS
 
-        public static final int LAUNCHER_COMMANDER_CAN_ID = 16;
-        public static final int LAUNCHER_MINION_CAN_ID = 17;
-
-        public static final int FEEDER_CAN_ID = 18;
-
-        public static final int AGITATOR_MOTOR_CAN_ID = 19;
-
-        public static final int CLIMBER_CAN_ID = 20;
-
-    }
-
-    public static class AgitatorConstants {
-        public static final int AMP_LIMIT = 150; // that's really high so im not gonna change it
-
-        public static final double DEFAULT_DUTY_CYCLE = -0.8;
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = -0.2;
-    }
-
-    public static class IntakeConstants {
-        public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
-
-        public static final int AMP_LIMIT = 60;
-
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.8;
-
-        // in range [-1.0, 1.0]
-        public static final double DEFAULT_INTAKE_DUTY_CYCLE = -0.5;
-
-        public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-                .withNeutralMode(NeutralModeValue.Coast);
-
-        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
-            .withBeepOnConfig(false).withAllowMusicDurDisable(true);
-    }
-
-    public static class SwivelConstants {
-        public static final int AMP_LIMIT = 35;
-
-        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.6;
-
-        public static final double DEFAULT_FOLD_DUTY_CYCLE = -0.1;
-
-        public static final double IN_POSITION_DEGREES = -30; //INTAKE ROCK UP
-
-        public static final double OUT_POSITION_DEGREES = -79 + (-79 * 0.02);
-
-        public static final double SWIVEL_TO_MOTOR_GEAR_RATIO = 40;
-    }
-
-    public static class LauncherConstants {
-        public static final double PITCH_ANGLE_DEGREES = 55;
-
-        public static final MotionMagicVoltage TARGET_DEFAULT_POSITION = new MotionMagicVoltage(0);
-
-        public static final double FLYWHEEL_RADIUS_FEET = Feet.convertFrom(2, Inch);; // inches
-
-        // FEET PER SEC
-        // Math says (not accounting for energy loss) that from trench to hub is
-        // 1573.85107 RPS z
-        // or 83.49530895144358 FPS
-        public static final double DEFAULT_SHOOT_FPS = 37.85; //39 for trench, 44.5 for outpost, 34.3 for minimum, 
-        // 44 for midfield ferry, 55 for opposing bump ferry
-        public static final double DEFAULT_ACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333;
-        public static final double DEFAULT_INACTIVE_IDLE_FPS = DEFAULT_SHOOT_FPS /1.3333; 
-
-        public static final double DEFAULT_RAMP_UP_PERIOD = 0.1;
-
-        public static final double DEFAULT_CURRENT_LIMIT = 70;
-
-        public static final MotorOutputConfigs MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-                .withNeutralMode(NeutralModeValue.Coast)
-                .withInverted(InvertedValue.CounterClockwise_Positive);
-
-        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
-                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
-
-        public static final double DEFAULT_SLOT0_P = 0.45;
-        public static final double DEFAULT_SLOT0_I = 0.0;
-        public static final double DEFAULT_SLOT0_D = 0.0;
-        public static final double DEFAULT_SLOT0_V = 0.111;
-        public static final double DEFAULT_SLOT0_S = 0.25; // .25 volts to overcome static friction (DONT CHANGE)
-
-        public static final int HORN_FREQ = 440;
-
-        private static final double[][] CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
-            {6.3, 35.75}, // min // 6.2 , 36.3 //36.1
-            {8.0, 36.25},
-            {10.1, 38.65},
-            //{11, 40}, // trench/depot //11, 40
-            {12.0, 38.85},
-            {14.0, 44.85},
-            {15.0, 45.0},
-            {17, 46.45} // max //17, 46.5
-        };
-
-        private static final double[][] FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY = {
-            {27, 44},
-            {37, 55}
-        };
-
-        public static final InterpolatingDoubleTreeMap CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
-        new InterpolatingDoubleTreeMap();
-
-        static {
-            Arrays.stream(CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY).forEach(entry -> {
-                final double key = entry[0];
-                final double value = entry[1];
-
-                CLOSE_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP.put(key, value);
-            });
-        }
-
-        public static final InterpolatingDoubleTreeMap FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP = 
-        new InterpolatingDoubleTreeMap();
-
-        static {
-            Arrays.stream(FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_ARRAY).forEach(entry -> {
-                final double key = entry[0];
-                final double value = entry[1];
-
-                FAR_ZONE_DISTANCE_FEET_TO_MOTOR_FPS_MAP.put(key, value);
-            });
-        }
-    }
-
-    public static class FeederConstants {
-        public static final double DEFAULT_FEED_SPEED = -1;
-
-        public static final double DEFAULT_CURRENT_LIMIT = 70;
-
-        public static final double DEAFULT_FEED_ROT_PER_SEC = 83;
-
-        public static final AudioConfigs AUDIO_CONFIGS = new AudioConfigs().withBeepOnBoot(false)
-                .withBeepOnConfig(false).withAllowMusicDurDisable(true);
-
-        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
-                .withStatorCurrentLimitEnable(true)
-                .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
-
-        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs()
-                .withInverted(InvertedValue.Clockwise_Positive)
-                .withNeutralMode(NeutralModeValue.Coast);
-
-        public static final double DEFAULT_SLOT1_P = 0.1;
-        public static final double DEFAULT_SLOT1_I = 0.0;
-        public static final double DEFAULT_SLOT1_D = 0.0;
-        public static final double DEFAULT_SLOT1_V = 0.11;
-        public static final double DEFAULT_SLOT1_S = 0.21;
-    }
-
-    public static class ClimberConstants {
-        public static final double DEFAULT_CURRENT_LIMIT = 80;
-
-        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
-            .withStatorCurrentLimitEnable(true)
-            .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
-
-        public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
-
-        public static final double DEFAULT_DUTY_CYCLE = 0.4;
     }
 
     public static class Directories {

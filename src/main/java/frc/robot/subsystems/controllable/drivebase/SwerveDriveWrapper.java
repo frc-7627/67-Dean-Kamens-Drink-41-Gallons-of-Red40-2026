@@ -196,7 +196,7 @@ final class SwerveDriveWrapper {
     double getTargetMeters(Alliance alliance) {
         if (alliance == Alliance.Red) {
             return getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.RED_HUB_LOCATION);
+                    .getDistance(Constants.VisionConstants.RED_HUB_LOCATION); //TODO: Change this to reef pose
         } else {
             return getPose().getTranslation()
                     .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);

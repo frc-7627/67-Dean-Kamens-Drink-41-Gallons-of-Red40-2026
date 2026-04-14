@@ -1,9 +1,5 @@
 package frc.robot.subsystems.shared.gameinfo;
 
-import static frc.robot.Constants.DrivebaseConstants.BLUE_LEFT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.BLUE_RIGHT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.RED_LEFT_FERRY_TARGET_POSITION;
-import static frc.robot.Constants.DrivebaseConstants.RED_RIGHT_FERRY_TARGET_POSITION;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -21,7 +17,6 @@ import frc.bofalib.subsystem.CommandSchedulerWrapper;
 import frc.bofalib.subsystem.SharedSubsystemBase;
 import frc.bofalib.util.FunctionalUtil;
 import frc.robot.Constants;
-import frc.robot.subsystems.controllable.drivebase.Side;
 
 final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfoSupplier {
     private static final Logger LOGGER = Logger.getLogger(GameInfoSupplier.class.getName());
@@ -118,7 +113,7 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
             return 140;
         } else if (teleopTimer.hasElapsed(85)) {
             return 110;
-        } else if (teleopTimer.hasElapsed(60)) {
+        } else if (teleopTimer.hasElapsed(60)) {  //TODO: Figure out the times for these and those above
             return 85;
         } else if (teleopTimer.hasElapsed(35)) {
             return 60;
@@ -175,43 +170,5 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     @Override
     public void onAllianceSet(Consumer<Alliance> action) {
         allianceSetEvent.ifHigh(() -> action.accept(alliance));
-    }
-
-    @Override
-    public boolean isHubActive() {
-        Phase currentPhase = getPhase();
-        return switch (currentPhase) {
-            case AUTO, TRANSITION, ENDGAME, TELEOP_ACTIVE -> true;
-            case TELEOP_INACTIVE -> false;
-        };
-    }
-
-    @Override
-    public Translation2d getHubPosition() {
-        // System.out.println("Getting the Hub pose for the respective Alliance");
-        return switch (alliance) {
-            case Red -> Constants.VisionConstants.RED_HUB_LOCATION;
-            case Blue -> Constants.VisionConstants.BLUE_HUB_LOCATION;
-        };
-    }
-
-    @Override
-    public boolean willHubActivate() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public Translation2d getFerryTargetPosition(Side side) {
-        return switch (side) {
-            case LEFT -> switch (alliance) {
-                case Red -> RED_LEFT_FERRY_TARGET_POSITION;
-                case Blue -> BLUE_LEFT_FERRY_TARGET_POSITION;
-            };
-            case RIGHT -> switch (alliance) {
-                case Red -> RED_RIGHT_FERRY_TARGET_POSITION;
-                case Blue -> BLUE_RIGHT_FERRY_TARGET_POSITION;
-            };
-        };
     }
 }

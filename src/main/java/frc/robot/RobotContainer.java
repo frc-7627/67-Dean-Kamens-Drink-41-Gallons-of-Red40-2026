@@ -27,15 +27,8 @@ import frc.robot.subsystems.misc.indication.Indicator;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
 import frc.robot.subsystems.shared.vision.Vision;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
-import frc.robot.subsystems.controllable.agitator.Agitator;
 import frc.robot.subsystems.controllable.drivebase.DriveControl;
 import frc.robot.subsystems.controllable.drivebase.Drivebase;
-import frc.robot.subsystems.controllable.feeder.Feeder;
-import frc.robot.subsystems.controllable.intake.Intake;
-import frc.robot.subsystems.controllable.launcher.Launcher;
-import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
-import frc.robot.subsystems.controllable.swivel.Swivel;
-import frc.robot.subsystems.controllable.swivel.SwivelControl;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -64,34 +57,17 @@ public class RobotContainer {
     private final Indicator indicator = Indicator.create(
             gameInfoSupplier);
 
-    private final Intake intake = Intake.create();
-
-    private final Swivel swivel = Swivel.create();
-
-    private final Feeder feeder = Feeder.create();
-
-    private final Agitator hopper = Agitator.create();
-
-    private final Launcher launcher = Launcher.create(drivebase);
-
     private final GlobalControlState globalControlState = GlobalControlState.create();
 
     private final DriveControl inputDriveControl = driverController.getInputDriveControl(
             drivebase::getInputDriveControl);
 
-    private final Collection<? extends MusicalSubsystem> musicalSubsystems = List.of(
-            launcher,
-            intake,
-            feeder);
+    private final Collection<? extends MusicalSubsystem> musicalSubsystems = List.of( //TODO: Elevator n Climber
+            );
 
-    private final CommandContext commandContext = new CommandContext(
+    private final CommandContext commandContext = new CommandContext( //TODO: Elevator, Climber, Endefector
             indicator,
             drivebase,
-            intake,
-            swivel,
-            launcher,
-            feeder,
-            hopper,
             globalControlState,
             gameInfoSupplier,
             inputDriveControl,
@@ -115,13 +91,6 @@ public class RobotContainer {
         DriverStation.silenceJoystickConnectionWarning(true);
 
         drivebase.setDefaultCommand(new ControlCommand<>(drivebase, inputDriveControl));
-
-        launcher.setDefaultCommand(new ConditionalCommand(
-                new ControlCommand<>(launcher, LauncherControlSimple.ACTIVE_IDLE),
-                new ControlCommand<>(launcher, LauncherControlSimple.INACTIVE_IDLE),
-                gameInfoSupplier::willHubActivate));
-
-        swivel.setDefaultCommand(new ControlCommand<>(swivel, SwivelControl.FOLD_OUT));
 
         globalControlState.onNewControlState(this::bindControllers);
         bindControllers(ControlState.NORMAL);

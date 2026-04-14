@@ -7,11 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.bofalib.generic.control.ControlCommand;
-import frc.robot.commands.Score;
 import frc.robot.setup.teleop.CommandContext;
-import frc.robot.subsystems.controllable.intake.IntakeControl;
-import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
-import frc.robot.subsystems.controllable.swivel.SwivelControl;
+
 
 final class AutoChooserImpl implements AutoChooser {
     private final SendableChooser<Command> chooser;
@@ -44,34 +41,6 @@ final class AutoChooserImpl implements AutoChooser {
                     )
                 )
             );
-
-        NamedCommands.registerCommand(
-            "Score", 
-            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), 
-                commandContext.drivebase(), commandContext.launcher(), commandContext.agitator(), commandContext.feeder())
-                .alongWith(new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD))
-        );
-
-        NamedCommands.registerCommand(
-            "Score with Rock", 
-            new Score(commandContext.gameInfoSupplier(), commandContext.indicator(), 
-                commandContext.drivebase(), commandContext.launcher(), commandContext.agitator(), commandContext.feeder())
-                .alongWith( new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_IN))
-                .alongWith(new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD))
-        );
-
-        NamedCommands.registerCommand(
-            "Fold Out", 
-            new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_OUT)
-        );
-
-        NamedCommands.registerCommand(
-            "Fold In", 
-            new ControlCommand<>(commandContext.swivel(), SwivelControl.FOLD_IN)
-        );
-
-        NamedCommands.registerCommand("Intake", 
-        new ControlCommand<>(commandContext.intake(), IntakeControl.LOAD));
     }
 
     private void setupChooser() {
