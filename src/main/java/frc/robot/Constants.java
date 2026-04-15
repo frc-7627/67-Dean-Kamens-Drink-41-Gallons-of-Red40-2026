@@ -214,15 +214,6 @@ public final class Constants {
 
             // #fcc603
             public static final int[] PROGRESS_BAR_COLOR_ARRAY = { 252, 198, 3 };
-
-            // #03fcf8
-            public static final int[] RAMPING_COLOR_ARRAY = { 3, 252, 248 };
-
-            // #18fc03
-            public static final int[] SHOOTING_COLOR_ARRAY = { 24, 252, 3 };
-
-            // #fc03fc
-            public static final int[] RE_RAMPING_COLOR_ARRAY = { 252, 3, 252 };
         }
 
     }
