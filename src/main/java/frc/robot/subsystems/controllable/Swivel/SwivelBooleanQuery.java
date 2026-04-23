@@ -1,4 +1,4 @@
-package frc.robot.subsystems.controllable.swivel;
+package frc.robot.subsystems.controllable.Swivel;
 
 public enum SwivelBooleanQuery {
     AT_UP_POSE,

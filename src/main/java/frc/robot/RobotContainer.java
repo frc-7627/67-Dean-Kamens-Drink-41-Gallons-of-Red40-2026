@@ -34,8 +34,8 @@ import frc.robot.subsystems.controllable.feeder.Feeder;
 import frc.robot.subsystems.controllable.intake.Intake;
 import frc.robot.subsystems.controllable.launcher.Launcher;
 import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
-import frc.robot.subsystems.controllable.swivel.Swivel;
-import frc.robot.subsystems.controllable.swivel.SwivelControl;
+import frc.robot.subsystems.controllable.Swivel.Swivel;
+import frc.robot.subsystems.controllable.Swivel.SwivelControl;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

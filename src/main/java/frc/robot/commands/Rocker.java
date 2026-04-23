@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.bofalib.generic.control.ControlCommand;
-import frc.robot.subsystems.controllable.swivel.*;
+import frc.robot.subsystems.controllable.Swivel.*;
 
 public final class Rocker extends Command {
     private static enum State {

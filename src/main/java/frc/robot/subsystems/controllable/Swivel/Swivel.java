@@ -1,4 +1,4 @@
-package frc.robot.subsystems.controllable.swivel;
+package frc.robot.subsystems.controllable.Swivel;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.bofalib.control.Controllable;
