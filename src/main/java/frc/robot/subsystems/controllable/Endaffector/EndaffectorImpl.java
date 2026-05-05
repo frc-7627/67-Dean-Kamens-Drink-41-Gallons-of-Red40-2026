@@ -2,24 +2,25 @@ package frc.robot.subsystems.controllable.Endaffector;
 import frc.robot.Constants.EndaffectorConstants;
 import static frc.robot.Constants.CanIDs.ENDAFFECTOR_CAN_ID;
 
+import java.util.function.DoubleSupplier;
+import static frc.robot.Constants.CHECK_DUTY_CYCLE;
+
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.bofalib.control.Controllable;
 import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
+import frc.bofalib.generic.control.UniControllable;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
-import frc.bofalib.generic.control.LoggingControllable;
-import frc.bofalib.generic.control.UniControllable;
-
-
-import java.util.function.DoubleSupplier;
-import com.ctre.phoenix6.sim.TalonFXSimState.MotorType;
-import com.revrobotics.PersistMode;
-import com.revrobotics.ResetMode;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 final class EndaffectorImpl extends SubsystemBase implements 
 Endaffector,
