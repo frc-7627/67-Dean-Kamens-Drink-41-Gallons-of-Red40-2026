@@ -255,6 +255,7 @@ public final class Constants {
 
     public static class EndaffectorConstants {
         public static final double DEFAULT_CURRENT_LIMIT = 80;
+        public static final double AMP_LIMIT = 20;
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
         .withStatorCurrentLimitEnable(true)
