@@ -235,8 +235,9 @@ public final class Constants {
 
     public static class CanIDs {
 
-        public static final int CANDLE_CAN_ID = 0; //TOOD: UPDATE THIS
+        public static final int CANDLE_CAN_ID = 0; //TOOD: UPDATE THESE
         public static final int CLIMBER_CAN_ID = 0;
+        public static final int ENDAFFECTOR_CAN_ID = 0;
 
     }
 
@@ -248,6 +249,18 @@ public final class Constants {
             .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
 
         public static final MotorOutputConfigs DEFAULT_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
+
+        public static final double DEFAULT_DUTY_CYCLE = 0.4;
+    }
+
+    public static class EndaffectorConstants {
+        public static final double DEFAULT_CURRENT_LIMIT = 80;
+
+        public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
+        .withStatorCurrentLimitEnable(true)
+        .withStatorCurrentLimit(DEFAULT_CURRENT_LIMIT);
+
+        public static final MotorOutputConfigs DEFAUL_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
 
         public static final double DEFAULT_DUTY_CYCLE = 0.4;
     }

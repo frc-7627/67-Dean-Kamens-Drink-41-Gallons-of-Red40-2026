@@ -1,6 +1,31 @@
 package frc.robot.subsystems.controllable.Endaffector;
 
-public enum EndaffectorControl implements UniControl<AgitatorImpl, SparkMaxControl>, Loggable {
+import java.util.function.DoubleSupplier;
+import java.util.function.Function;
+import static frc.robot.Constants.CHECK_DUTY_CYCLE;
+import static frc.robot.Constants.EndaffectorConstants.*;
+
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import frc.bofalib.control.Controllable;
+import frc.bofalib.dashboard.DashboardItems;
+import frc.bofalib.dashboard.KeyBuilder;
+import frc.bofalib.generic.control.ControlBox;
+import frc.bofalib.generic.control.LoggingControllable;
+import frc.bofalib.generic.control.UniControl;
+import frc.bofalib.generic.control.UniControllable;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
+import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxWrapper;
+import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
+import frc.bofalib.loggable.Loggable;
+import frc.bofalib.util.FunctionalUtil;
+
+public enum EndaffectorControl implements UniControl<EndaffectorImpl, SparkMaxControl>, Loggable {
 
     OUT("Eject Out", impl -> impl.dutyCycleSupplier),
     OUT_MANUAL("Eject Out Manual", impl -> impl.manualDutyCycleSupplier),
@@ -27,7 +52,7 @@ public enum EndaffectorControl implements UniControl<AgitatorImpl, SparkMaxContr
     }
 
     @Override
-    public SparkMaxControl getFirstControl(AgitatorImpl agitatorImpl) {
-        return firstControlFunction.apply(agitatorImpl);
+    public SparkMaxControl getFirstControl(EndaffectorImpl endaffectorImpl) {
+        return firstControlFunction.apply(endaffectorImpl);
     } 
 }

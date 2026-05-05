@@ -1,5 +1,9 @@
 package frc.robot.subsystems.controllable.Endaffector;
+import frc.robot.Constants.EndaffectorConstants;
+import static frc.robot.Constants.CanIDs.ENDAFFECTOR_CAN_ID;
 
+import frc.bofalib.control.Controllable;
+import frc.bofalib.dashboard.DashboardItems;
 import frc.bofalib.dashboard.KeyBuilder;
 import frc.bofalib.generic.control.ControlBox;
 import frc.bofalib.generic.hardware.motor.sparkmax.SparkMaxBuilder;
@@ -8,6 +12,13 @@ import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.generic.control.LoggingControllable;
 import frc.bofalib.generic.control.UniControllable;
 
+
+import java.util.function.DoubleSupplier;
+import com.ctre.phoenix6.sim.TalonFXSimState.MotorType;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 final class EndaffectorImpl extends SubsystemBase implements 
@@ -22,7 +33,7 @@ LoggingControllable<EndaffectorControl>
 
     final SparkMaxWrapper motor = SparkMaxBuilder.create(
         "Endaffector Motor",
-        ENDAFFECTOR_MOTOR_CAN_ID,
+        ENDAFFECTOR_CAN_ID,
         MotorType.kBrushless
     ).withConfig(
         new SparkMaxConfig()
