@@ -253,13 +253,6 @@ final class SwerveDrivebase extends SubsystemBase implements
     }
 
     @Override
-    public DistanceTargetter getDistanceTargetterToZone(Zone zone) {
-        return switch (zone) {
-            case CLOSE -> getDistanceTargetterToHub();
-        };
-    }
-
-    @Override
     public void lock() {
         swerveDriveWrapper.lock();
     }

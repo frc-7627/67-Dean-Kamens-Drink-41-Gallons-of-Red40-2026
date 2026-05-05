@@ -125,16 +125,16 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
         return getColorFromArray(PROGRESS_BAR_COLOR_ARRAY);
     }
 
-    private static RGBWColor getRampingColor() {
-        return getColorFromArray(RAMPING_COLOR_ARRAY);
+    private static RGBWColor getElevatorUpColor() {
+        return getColorFromArray(UP_COLOR_ARRAY);
     }
 
-    private static RGBWColor getShootingColor() {
-        return getColorFromArray(SHOOTING_COLOR_ARRAY);
+    private static RGBWColor getEjectingColor() {
+        return getColorFromArray(EJECT_COLOR_ARRAY);
     }
 
-    private static RGBWColor getReRampingColor() {
-        return getColorFromArray(RE_RAMPING_COLOR_ARRAY);
+    private static RGBWColor getElevatorDownColor() {
+        return getColorFromArray(DOWN_COLOR_ARRAY);
     }
 
     /**
