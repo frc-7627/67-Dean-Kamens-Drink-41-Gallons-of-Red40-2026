@@ -215,11 +215,14 @@ public final class Constants {
             // #fcc603
             public static final int[] PROGRESS_BAR_COLOR_ARRAY = { 252, 198, 3 };
 
-            // 
-            public static final int[] UP_COLOR_ARRAY = {};
+            // #00fc97
+            public static final int[] UP_COLOR_ARRAY = {0, 252, 151};
 
-            // 
-            public static final int[] EJECTING_COLOR_ARRAY = {};
+            // #fc00ca
+            public static final int[] EJECTING_COLOR_ARRAY = {252, 0, 202};
+
+            // #ff9500
+            public static final int[] DOWN_COLOR_ARRAY = {255, 149, 0};
         }
 
     }
@@ -255,7 +258,7 @@ public final class Constants {
 
     public static class EndaffectorConstants {
         public static final double DEFAULT_CURRENT_LIMIT = 80;
-        public static final double AMP_LIMIT = 20;
+        public static final int AMP_LIMIT = 20;
 
         public static final CurrentLimitsConfigs DEFAULT_CURRENT_LIMITS_CONFIGS = new CurrentLimitsConfigs()
         .withStatorCurrentLimitEnable(true)
@@ -264,6 +267,7 @@ public final class Constants {
         public static final MotorOutputConfigs DEFAUL_MOTOR_OUTPUT_CONFIGS = new MotorOutputConfigs();
 
         public static final double DEFAULT_DUTY_CYCLE = 0.4;
+        public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.2;
     }
 
     public static class Directories {

@@ -28,11 +28,11 @@ public interface Indicator extends ProgressIndicator {
      */
     void indicateInterruption();
 
-    void indicateRamping();
+    void indicateElevatorUp();
 
-    void indicateShooting();
+    void indicateEjecting();
 
-    void indicateReRamping();
+    void indicateElevatorDown();
 
     static Indicator create(GameInfoSupplier gameInfoSupplier) {
         return new IndicatorImpl(gameInfoSupplier);

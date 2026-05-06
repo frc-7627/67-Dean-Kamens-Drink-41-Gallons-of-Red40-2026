@@ -130,7 +130,7 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
     }
 
     private static RGBWColor getEjectingColor() {
-        return getColorFromArray(EJECT_COLOR_ARRAY);
+        return getColorFromArray(EJECTING_COLOR_ARRAY);
     }
 
     private static RGBWColor getElevatorDownColor() {
@@ -146,18 +146,18 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
     }
 
     @Override
-    public void indicateRamping() {
-        led.setSolidColor(getRampingColor());
+    public void indicateElevatorUp() {
+        led.setSolidColor(getElevatorUpColor());
     }
 
     @Override
-    public void indicateShooting() {
-        led.setSolidColor(getShootingColor());
+    public void indicateEjecting() {
+        led.setSolidColor(getEjectingColor());
     }
 
     @Override
-    public void indicateReRamping() {
-        led.setSolidColor(getReRampingColor());
+    public void indicateElevatorDown() {
+        led.setSolidColor(getElevatorDownColor());
     }
 }
 

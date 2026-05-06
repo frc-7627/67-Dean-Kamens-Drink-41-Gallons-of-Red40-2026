@@ -4,6 +4,10 @@ import static frc.robot.Constants.CanIDs.ENDAFFECTOR_CAN_ID;
 
 import java.util.function.DoubleSupplier;
 import static frc.robot.Constants.CHECK_DUTY_CYCLE;
+import static frc.robot.Constants.EndaffectorConstants.DEFAULT_DUTY_CYCLE;
+import static frc.robot.Constants.EndaffectorConstants.DEFAULT_MANUAL_DUTY_CYCLE;
+import static frc.robot.Constants.EndaffectorConstants.AMP_LIMIT;
+
 
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
