@@ -15,6 +15,7 @@ import static edu.wpi.first.units.Units.Second;
 import java.io.File;
 import java.util.Arrays;
 import java.util.function.DoublePredicate;
+import javax.swing.plaf.metal.MetalInternalFrameUI;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -90,10 +91,15 @@ public final class Constants {
         public static final AngularVelocity ANGULAR_VELOCITY_EPSILON = Degrees.of(1.).per(Second);
         public static final Time CONVERGENCE_PERIOD = Milliseconds.of(20);
 
-         public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
+        public static final Pose2d RED_ALLIANCE_INITIAL_POSE = new Pose2d(
                 new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
         public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)),
                 Rotation2d.fromDegrees(0));
+        
+        public static final Pose2d BLUE_REEF_LOCATION = new Pose2d(
+            new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
+        public static final Pose2d RED_REEF_LOCATION = new Pose2d(
+            new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
 
         // Hold time on motor brakes when disabled
         public static final double WHEEL_LOCK_TIME = 10; // seconds
