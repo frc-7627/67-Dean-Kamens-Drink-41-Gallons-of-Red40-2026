@@ -35,7 +35,7 @@ final class AutoChooserImpl implements AutoChooser {
                     commandContext.inputDriveControl().withRotationControl(
                     commandContext.drivebase().getAngularDriveControl(
                     commandContext.drivebase().getLocationSupplierAngleTargetter( () ->
-                    commandContext.gameInfoSupplier().getHubPosition()
+                    commandContext.gameInfoSupplier().getReefPosition()
                             )
                         )
                     )

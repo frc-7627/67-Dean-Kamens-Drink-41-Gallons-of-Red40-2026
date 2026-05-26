@@ -96,9 +96,7 @@ final class IndicatorImpl extends SubsystemBase implements Indicator {
         return getColorFromArray(
             switch (gameInfoSupplier.getPhase()) {
                 case AUTO -> defaultColors.auto();
-                case TRANSITION -> defaultColors.transition();
-                case TELEOP_INACTIVE -> defaultColors.inactive();
-                case TELEOP_ACTIVE -> defaultColors.active();
+                case TELEOP -> defaultColors.active();
                 case ENDGAME -> defaultColors.endgame();
             }
         );

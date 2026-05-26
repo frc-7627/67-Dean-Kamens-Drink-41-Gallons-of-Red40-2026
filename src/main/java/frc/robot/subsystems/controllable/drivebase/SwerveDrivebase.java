@@ -5,13 +5,10 @@ import static frc.robot.Constants.DrivebaseConstants.BLUE_ALLIANCE_INITIAL_POSE;
 import static frc.robot.Constants.DrivebaseConstants.MODE;
 import static frc.robot.Constants.VisionConstants.VISION_ENABLED;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
-import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -29,9 +26,7 @@ import frc.bofalib.util.FunctionalUtil;
 import frc.robot.Constants;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.gameinfo.GameInfoSupplier;
-import frc.robot.subsystems.shared.gameinfo.GeneralGameInfoSupplier;
 import frc.robot.subsystems.shared.vision.VisionMeasurementsSupplier;
-import swervelib.SwerveDrive;
 
 
 final class SwerveDrivebase extends SubsystemBase implements
@@ -243,10 +238,10 @@ final class SwerveDrivebase extends SubsystemBase implements
             public double getTargetMeters() {
                 if (gameInfoSupplier.getAlliance() == Alliance.Red) {
                     return swerveDriveWrapper.getPose().getTranslation()
-                            .getDistance(Constants.VisionConstants.RED_HUB_LOCATION); //TODO: Change this to reef loco
+                            .getDistance(Constants.VisionConstants.RED_REEF_LOCATION);
                 } else {
                     return swerveDriveWrapper.getPose().getTranslation()
-                            .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
+                            .getDistance(Constants.VisionConstants.BLUE_REEF_LOCATION);
                 }
             }
         };

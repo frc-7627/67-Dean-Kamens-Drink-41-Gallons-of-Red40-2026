@@ -9,7 +9,7 @@ import edu.wpi.first.math.geometry.Translation2d;
  */
 public interface SpecificGameInfoSupplier {
     public static enum Phase {
-        AUTO, TRANSITION, TELEOP_INACTIVE, TELEOP_ACTIVE, ENDGAME;
+        AUTO, TELEOP, ENDGAME;
     }
 
     /**

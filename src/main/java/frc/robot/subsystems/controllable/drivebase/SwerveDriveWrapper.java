@@ -12,10 +12,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.bofalib.util.FunctionalUtil;
 import frc.robot.Constants;
 import frc.robot.setup.teleop.JoystickInputs;
 import frc.robot.subsystems.shared.vision.VisionMeasurement;
@@ -196,10 +194,10 @@ final class SwerveDriveWrapper {
     double getTargetMeters(Alliance alliance) {
         if (alliance == Alliance.Red) {
             return getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.RED_HUB_LOCATION); //TODO: Change this to reef pose
+                    .getDistance(Constants.VisionConstants.RED_REEF_LOCATION);
         } else {
             return getPose().getTranslation()
-                    .getDistance(Constants.VisionConstants.BLUE_HUB_LOCATION);
+                    .getDistance(Constants.VisionConstants.BLUE_REEF_LOCATION);
         }
     }
 

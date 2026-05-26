@@ -59,68 +59,27 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     @Override
     public Phase getPhase() {
 
-        if (teleopTimer.hasElapsed(110)) {
+        if (teleopTimer.hasElapsed(115)) {
             phase = Phase.ENDGAME;
-        } else if (teleopTimer.hasElapsed(85)) {
-            if (gameData.charAt(0) == 'R') {
-                phase = Phase.TELEOP_ACTIVE;
-            } else {
-                phase = Phase.TELEOP_INACTIVE;
-            }
-        } else if (teleopTimer.hasElapsed(60)) {
-            if (gameData.charAt(0) == 'B') {
-                phase = Phase.TELEOP_ACTIVE;
-            } else {
-                phase = Phase.TELEOP_INACTIVE;
-            }
-        } else if (teleopTimer.hasElapsed(35)) {
-            if (gameData.charAt(0) == 'R') {
-                phase = Phase.TELEOP_ACTIVE;
-            } else {
-                phase = Phase.TELEOP_INACTIVE;
-            }
-        } else if (teleopTimer.hasElapsed(10)) {
-            if (gameData.charAt(0) == 'B') {
-                phase = Phase.TELEOP_ACTIVE;
-            } else {
-                phase = Phase.TELEOP_INACTIVE;
-            }
         } else {
-            phase = Phase.TRANSITION;
+            phase = Phase.TELEOP;
         }
-
         return phase;
     }
 
     private double getTimeOfPhaseBegin() {
-        if (teleopTimer.hasElapsed(110)) {
-            return 110;
-        } else if (teleopTimer.hasElapsed(85)) {
-            return 85;
-        } else if (teleopTimer.hasElapsed(60)) {
-            return 60;
-        } else if (teleopTimer.hasElapsed(35)) {
-            return 35;
-        } else if (teleopTimer.hasElapsed(10)) {
-            return 10;
+        if (teleopTimer.hasElapsed(115)) {
+            return 115;
         } else {
             return 0;
         }
     }
 
     private double getTimeOfPhaseEnd() {
-        if (teleopTimer.hasElapsed(110)) {
-            return 140;
-        } else if (teleopTimer.hasElapsed(85)) {
-            return 110;
-        } else if (teleopTimer.hasElapsed(60)) {  //TODO: Figure out the times for these and those above
-            return 85;
-        } else if (teleopTimer.hasElapsed(35)) {
-            return 60;
-        } else if (teleopTimer.hasElapsed(10)) {
-            return 35;
+        if (teleopTimer.hasElapsed(135)) {
+            return 0;
         } else {
-            return 10;
+            return 115;
         }
     }
 

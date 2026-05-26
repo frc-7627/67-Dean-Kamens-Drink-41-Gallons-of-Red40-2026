@@ -96,11 +96,6 @@ public final class Constants {
         public static final Pose2d BLUE_ALLIANCE_INITIAL_POSE = new Pose2d(new Translation2d(Meter.of(1), Meter.of(4)),
                 Rotation2d.fromDegrees(0));
         
-        public static final Pose2d BLUE_REEF_LOCATION = new Pose2d(
-            new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
-        public static final Pose2d RED_REEF_LOCATION = new Pose2d(
-            new Translation2d(Meter.of(16), Meter.of(4)), Rotation2d.fromDegrees(180));
-
         // Hold time on motor brakes when disabled
         public static final double WHEEL_LOCK_TIME = 10; // seconds
 
@@ -142,6 +137,10 @@ public final class Constants {
         public static final String VISION_ESTIMATION_OBJECT_NAME = "VisionEstimation";
 
         public static final String TRACKED_TARGETS_OBJECT_NAME = "tracked targets";
+
+        public static final Translation2d BLUE_REEF_LOCATION = new Translation2d(Meter.of(16), Meter.of(4));
+        public static final Translation2d RED_REEF_LOCATION = new Translation2d(Meter.of(16), Meter.of(4));
+
 
     }
 
