@@ -273,6 +273,12 @@ public final class Constants {
 
         public static final double DEFAULT_DUTY_CYCLE = 0.4;
         public static final double DEFAULT_MANUAL_DUTY_CYCLE = 0.2;
+
+        public static final double L4_POSE = 0.0;
+        public static final double L3_POSE = 0.0;
+        public static final double L2_POSE = 0.0;
+        public static final double L1_POSE = 0.0;
+        public static final double STOW_POSE = 0.0;
     }
 
     public static class Directories {

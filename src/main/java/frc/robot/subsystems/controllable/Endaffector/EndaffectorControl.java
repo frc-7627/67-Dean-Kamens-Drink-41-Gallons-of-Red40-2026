@@ -12,7 +12,7 @@ public enum EndaffectorControl implements UniControl<EndaffectorImpl, SparkMaxCo
 
     OUT("Eject Out", impl -> impl.dutyCycleSupplier),
     OUT_MANUAL("Eject Out Manual", impl -> impl.manualDutyCycleSupplier),
-    IN("Agitate Toward", impl -> FunctionalUtil.negativeSupplier(
+    IN("In", impl -> FunctionalUtil.negativeSupplier(
         impl.dutyCycleSupplier
     )),
     IN_MANUAL("In Manual", impl -> FunctionalUtil.negativeSupplier(

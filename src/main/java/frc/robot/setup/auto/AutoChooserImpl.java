@@ -29,8 +29,8 @@ final class AutoChooserImpl implements AutoChooser {
             Commands.print("Named Command Test")
         );
 
-        NamedCommands.registerCommand(
-            "Aim", //TOOD: This thing needs to turn into the old one, i dont know how to do that, make it Gian's problem
+        NamedCommands.registerCommand( //TOOD: This thing needs to turn into the old one, i dont know how to do that, make it Gian's problem
+            "Aim", 
                 new ControlCommand<>(commandContext.drivebase(),
                     commandContext.inputDriveControl().withRotationControl(
                     commandContext.drivebase().getAngularDriveControl(

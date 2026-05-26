@@ -18,4 +18,9 @@ public interface SpecificGameInfoSupplier {
     Phase getPhase();
 
     void teleopInit();
+
+    /**
+    * @return the pos of the reef  
+    */
+   Translation2d getReefPosition();
 }

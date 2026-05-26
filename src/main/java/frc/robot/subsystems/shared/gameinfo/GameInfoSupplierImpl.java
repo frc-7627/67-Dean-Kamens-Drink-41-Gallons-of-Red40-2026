@@ -116,6 +116,15 @@ final class GameInfoSupplierImpl extends SharedSubsystemBase implements GameInfo
     }
 
     @Override
+    public Translation2d getReefPosition() {
+        // System.out.println("Getting the Hub pose for the respective Alliance");
+        return switch (alliance) {
+            case Red -> Constants.VisionConstants.RED_REEF_LOCATION;
+            case Blue -> Constants.VisionConstants.BLUE_REEF_LOCATION;
+        };
+    }
+
+    @Override
     public void periodic() {
         if (RobotState.isDisabled()) {
             updateAlliance();
