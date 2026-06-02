@@ -1,4 +1,4 @@
-package frc.robot.subsystems.controllable.Swivel;
+package frc.robot.subsystems.controllable.swivel;
 
 import frc.bofalib.generic.hardware.motor.sparkmax.control.SparkMaxControl;
 import frc.bofalib.loggable.Loggable;

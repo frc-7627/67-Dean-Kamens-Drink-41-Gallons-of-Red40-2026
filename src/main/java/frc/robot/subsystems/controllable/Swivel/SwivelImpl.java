@@ -1,4 +1,4 @@
-package frc.robot.subsystems.controllable.Swivel;
+package frc.robot.subsystems.controllable.swivel;
 
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;

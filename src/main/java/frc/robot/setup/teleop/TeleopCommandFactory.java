@@ -29,7 +29,7 @@ import frc.robot.subsystems.controllable.feeder.FeederControl;
 import frc.robot.subsystems.controllable.intake.IntakeControl;
 import frc.robot.subsystems.controllable.launcher.LauncherControlSimple;
 import frc.robot.subsystems.controllable.launcher.LauncherDomain;
-import frc.robot.subsystems.controllable.Swivel.SwivelControl;
+import frc.robot.subsystems.controllable.swivel.SwivelControl;
 import frc.robot.subsystems.controllable.drivebase.DistanceTargetter;
 import frc.robot.subsystems.controllable.drivebase.Side;
 import frc.robot.subsystems.controllable.drivebase.Zone;
