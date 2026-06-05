@@ -55,7 +55,7 @@ public final class Eject extends Command {
     }
 
     private boolean atUpPose() {
-        return endaffector.queryBoolean(EndaffectorBooleanQuery.AT_UP_POSE);
+        return endaffector.queryBoolean(EndaffectorBooleanQuery.AT_L3);
     }
 
     private void endCurrentCommand() {

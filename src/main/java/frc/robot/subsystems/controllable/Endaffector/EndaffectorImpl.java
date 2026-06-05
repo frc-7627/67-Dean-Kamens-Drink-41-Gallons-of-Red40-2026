@@ -64,6 +64,18 @@ LoggingControllable<EndaffectorControl>
         CHECK_DUTY_CYCLE
     );
 
+    /*
+    @Override
+    public boolean queryBoolean(EndaffectorBooleanQuery query) {
+        return switch (query) {
+            case AT_L4 -> 
+            // smth smth check encoder ticks is within a couple ticks of L4_POSE
+            case AT_L3 ->
+                // smth smth check encoder ticks is within a couple ticks of L3_POSE
+        };
+    } 
+    */
+
     @Override
     public String getLoggableName() {
         return LOGGABLE_NAME;
